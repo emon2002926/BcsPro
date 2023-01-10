@@ -14,6 +14,7 @@
     <color name="color3">#11C59C</color>
     <color name="color4">#131a35</color>
     <color name="blue">#0095ff</color>
+    <color name="transPerent">#00FFFFFF</color>
 
 
 </resources>

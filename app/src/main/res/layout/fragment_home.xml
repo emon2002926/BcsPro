@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment"
+    >
 
 
     <RelativeLayout
@@ -141,7 +143,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_width="fill_parent">
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
 
                             android:background="@drawable/round_back_white50_10"
                             android:layout_weight="1"
@@ -150,10 +152,11 @@
                             android:src="@drawable/image_one"
                             android:layout_width="0dp"
                             android:scaleType="fitXY"
+                            app:riv_corner_radius="10dp"
 
                             />
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:background="@drawable/round_back_white50_10"
                             android:gravity="center"
                             android:layout_weight="1"
@@ -161,12 +164,11 @@
                             android:src="@drawable/image_two"
                             android:layout_width="0dp"
                             android:scaleType="fitXY"
-
-
+                            app:riv_corner_radius="10dp"
                             />
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:background="@drawable/round_back_white50_10"
-
+                            app:riv_corner_radius="10dp"
                             android:gravity="center"
                             android:layout_weight="1"
                             android:layout_height="100dip"

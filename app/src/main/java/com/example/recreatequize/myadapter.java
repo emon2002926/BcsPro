@@ -1,9 +1,11 @@
 package com.example.recreatequize;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,21 +35,24 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
         holder.t1.setText(data[position].getQuestion());
-      holder.t2.setText(data[position].getOption1());
-      holder.t3.setText(data[position].getOption2());
+        holder.t2.setText(data[position].getOption1());
+        holder.t3.setText(data[position].getOption2());
         holder.t4.setText(data[position].getOption3());
 
+        //                final String answer = data[position].getAnswer();
 
-
-
-
-
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.option1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
 
-                selectedOption(holder.relativeLayout,holder.img);
+
+                int option1 = 1;
+                selectedOption(holder.option1Layout,holder.img);
+
+                holder.t5.setText(data[position].getExplanation());
+
+                holder.layoutExplain.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -83,9 +88,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img;
-        TextView t1,t2,t3,t4;
+        TextView t1,t2,t3,t4,t5;
 
-        RelativeLayout relativeLayout;
+        RelativeLayout option1Layout;
+        LinearLayout layoutExplain;
+
+
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
@@ -94,11 +102,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             t2=itemView.findViewById(R.id.option1Tv);
             t3=itemView.findViewById(R.id.option2Tv);
             t4=itemView.findViewById(R.id.option3Tv);
+            t5 = itemView.findViewById(R.id.tvExplain);
 
             img = itemView.findViewById(R.id.option1Icon);
-            relativeLayout = itemView.findViewById(R.id.option1Layout);
+            option1Layout = itemView.findViewById(R.id.option1Layout);
+            layoutExplain = itemView.findViewById(R.id.layoutExplain);
 
         }
+
     }
 
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {

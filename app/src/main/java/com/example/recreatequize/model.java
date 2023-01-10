@@ -2,18 +2,37 @@ package com.example.recreatequize;
 
 public class model
 {
-   String id, question, option1, option2,option3,text;
+   String id, question, option1, option2,option3,text,answer,explanation;
 
     public model() {
     }
 
-    public model(String id, String question, String option1, String option2, String option3, String text) {
+    public model(String id, String question, String option1, String option2, String option3
+            , String text,String answer,String explanation) {
         this.id = id;
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.text = text;
+        this.answer = answer;
+        this.explanation = explanation;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getText() {
