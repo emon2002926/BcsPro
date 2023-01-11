@@ -119,6 +119,8 @@ public class McqTestActivity extends AppCompatActivity {
 
 
 
+
+
         option1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
