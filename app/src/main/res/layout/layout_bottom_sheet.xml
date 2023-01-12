@@ -11,100 +11,141 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Share Now"
+        android:text="All  Exam"
         android:padding="15dp"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="@color/black"
         />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/layoutDivider"
-        android:background="@color/black"
-        android:layout_marginBottom="10dp"
-        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/black"/>
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:id="@+id/layout25Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round_back_white50_10"
         >
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_favorite"
-            app:tint="@color/black"
-            />
         <TextView
+            android:id="@+id/option25Tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="25dp"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:text="Add to Favaroits"/>
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="15sp"
+            android:text="50 Question-25 Minutes"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/round_back_white50_100"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/option25Icon"
+            />
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:id="@+id/layout50Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round_back_white50_10"
         >
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_share_24"
-            app:tint="@color/black"
-            />
         <TextView
+            android:id="@+id/option50Tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="25dp"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:text="Share The App"/>
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="15sp"
+            android:text="100 Question-50 Minutes"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/round_back_white50_100"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/option50Icon"
+            />
+    </RelativeLayout>
 
 
-    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:id="@+id/layout100Min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round_back_white50_10"
+        >
+
+        <TextView
+            android:id="@+id/option100Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="15sp"
+            android:text="200 Question-100 Minutes"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/round_back_white50_100"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/option100Icon"
+            />
+    </RelativeLayout>
+
+
+
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/buttonShare"
-        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnQuizStart"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/next_button"
-        android:text="Share"
+        android:text="Start Exam"
         android:textColor="@color/white"
-        android:textSize="15dp"/>
+        android:textSize="20sp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not Now"
+        android:id="@+id/btnCancal"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        android:textSize="20sp"
+        android:textColor="#ec6666"/>
+
 
 
 

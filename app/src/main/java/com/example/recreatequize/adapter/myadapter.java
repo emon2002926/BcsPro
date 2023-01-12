@@ -1,5 +1,6 @@
 package com.example.recreatequize.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+
+
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,7 +36,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.t1.setText(data[position].getQuestion());
         holder.t2.setText(data[position].getOption1());
@@ -48,11 +51,29 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 int option1 = 1;
-                selectedOption(holder.option1Layout,holder.img);
+                String ansr = data[position].getAnswer();
+                int answer = Integer.parseInt(ansr);
+
 
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
+
+                if (option1 == answer){
+
+                    selectedOption(holder.option1Layout,holder.img);
+
+
+                    disableOption(holder.option2Layout,holder.img);
+                    disableOption(holder.option3Layout,holder.img);
+                    disableOption(holder.option4Layout,holder.img);
+
+                }else {
+                    disableOption(holder.option1Layout,holder.img);
+                }
+
+//                disableOption(holder.option2Layout,holder.img);
+
 
             }
         });
@@ -82,6 +103,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -138,6 +160,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain;
 
+        private TextView option1TV , option2TV , option3TV , option4TV ;
+        private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
 
         public myviewholder(@NonNull View itemView)
         {
@@ -169,6 +193,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }
+
+    private void disableOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+
+
+        selectedOptionIcon.setImageResource(R.drawable.cross);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
+//        selectedOptionLayout.setEnabled(false);
+
+    }
+
 
 
 

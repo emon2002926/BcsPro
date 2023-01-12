@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,13 +132,20 @@ public class HomeFragment extends Fragment {
                 View bottomSheetView = LayoutInflater.from(getContext())
                         .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
                                 view.findViewById(R.id.bottomSheetContainer));
-                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
+//                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Toast.makeText(getContext(), "Share....", Toast.LENGTH_SHORT).show();
+//                        bottomSheetDialog.dismiss();
+//                    }
+//                });
+                bottomSheetView.findViewById(R.id.layout25Min).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "Share....", Toast.LENGTH_SHORT).show();
-                        bottomSheetDialog.dismiss();
+
                     }
                 });
+
 
                 bottomSheetDialog.setContentView(bottomSheetView);
                 bottomSheetDialog.show();
@@ -194,6 +203,14 @@ public class HomeFragment extends Fragment {
         queue.add(request);
 
     }
+    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+
+
+        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+    }
+
 
 
 
