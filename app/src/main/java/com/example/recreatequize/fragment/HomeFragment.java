@@ -1,9 +1,6 @@
-package com.example.recreatequize;
-
-import static android.content.Context.MODE_PRIVATE;
+package com.example.recreatequize.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.recreatequize.AllBcsQuestionActivity;
+import com.example.recreatequize.McqTestActivity;
+import com.example.recreatequize.R;
+import com.example.recreatequize.modelClass.model;
+import com.example.recreatequize.adapter.myadapter2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -95,7 +97,7 @@ public class HomeFragment extends Fragment {
 
 //                SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-                startActivity(new Intent(getContext(),AllBcsQuestionActivity.class));
+                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
             }
         });
 
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment {
         quizLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),McqTestActivity.class));
+                startActivity(new Intent(getContext(), McqTestActivity.class));
             }
         });
 

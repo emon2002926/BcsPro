@@ -1,4 +1,4 @@
-package com.example.recreatequize;
+package com.example.recreatequize.modelClass;
 
 import java.io.Serializable;
 

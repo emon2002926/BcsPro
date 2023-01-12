@@ -1,6 +1,7 @@
 package com.example.recreatequize;
 
 
+import com.example.recreatequize.modelClass.model;
 import  com.example.recreatequize.adapter.myadapterForAllbcs;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

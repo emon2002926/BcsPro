@@ -1,5 +1,8 @@
 package com.example.recreatequize;
 
+import com.example.recreatequize.modelClass.model;
+import com.example.recreatequize.adapter.myadapter;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.recreatequize.databinding.ActivityMainBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
