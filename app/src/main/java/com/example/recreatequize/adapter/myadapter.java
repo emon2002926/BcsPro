@@ -57,6 +57,50 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             }
         });
 
+        holder.option2Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                int option1 = 1;
+                selectedOption(holder.option1Layout,holder.img);
+
+                holder.t5.setText(data[position].getExplanation());
+
+                holder.layoutExplain.setVisibility(View.VISIBLE);
+
+            }
+        });
+        holder.option3Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                int option1 = 1;
+                selectedOption(holder.option1Layout,holder.img);
+
+                holder.t5.setText(data[position].getExplanation());
+
+                holder.layoutExplain.setVisibility(View.VISIBLE);
+
+            }
+        });
+        holder.option4Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                int option1 = 1;
+                selectedOption(holder.option1Layout,holder.img);
+
+                holder.t5.setText(data[position].getExplanation());
+
+                holder.layoutExplain.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
 //      Glide.with(holder.t1.getContext()).load("http://192.168.0.103/api2/images/"+data[position].getImage()).into(holder.img);
 
 
@@ -91,7 +135,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         ImageView img;
         TextView t1,t2,t3,t4,t5;
 
-        RelativeLayout option1Layout;
+        RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain;
 
 
@@ -106,8 +150,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             t5 = itemView.findViewById(R.id.tvExplain);
 
             img = itemView.findViewById(R.id.option1Icon);
-            option1Layout = itemView.findViewById(R.id.option1Layout);
+
             layoutExplain = itemView.findViewById(R.id.layoutExplain);
+
+            option1Layout = itemView.findViewById(R.id.option1Layout);
+            option2Layout = itemView.findViewById(R.id.option2Layout);
+            option3Layout = itemView.findViewById(R.id.option3Layout);
+            option4Layout = itemView.findViewById(R.id.opton4Layout);
 
         }
 

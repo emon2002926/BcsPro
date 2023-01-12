@@ -38,15 +38,16 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
 
+        processdata();
 
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                processdata();
-            }
-        }, 200);
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                processdata();
+//            }
+//        }, 200);
 
 
 

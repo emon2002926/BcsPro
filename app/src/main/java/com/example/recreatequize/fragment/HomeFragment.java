@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,9 +21,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recreatequize.AllBcsQuestionActivity;
 import com.example.recreatequize.McqTestActivity;
+import com.example.recreatequize.QuestionListActivity;
 import com.example.recreatequize.R;
 import com.example.recreatequize.modelClass.model;
 import com.example.recreatequize.adapter.myadapter2;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,7 +48,9 @@ public class HomeFragment extends Fragment {
     private  static final String url="http://192.168.0.103/api2/others.php";
     RecyclerView recyclerView;
     LinearLayout quizLayout,letcureLayout;
+    TextView tvPractice;
 
+    TextView tvAllExam;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -86,6 +91,18 @@ public class HomeFragment extends Fragment {
 
 
 
+        tvPractice = view.findViewById(R.id.tvPractice);
+        tvPractice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                intent.putExtra("image","http://192.168.0.103/api2/json_user_fetch.php");
+                view.getContext().startActivity(intent);
+
+            }
+        });
 
 
         letcureLayout = view.findViewById(R.id.l4);
@@ -98,6 +115,31 @@ public class HomeFragment extends Fragment {
 //                SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
                 startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+            }
+        });
+
+
+        tvAllExam = view.findViewById(R.id.tvAllExam);
+        tvAllExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext()
+                        ,R.style.BottomSheetDailogTheme);
+                View bottomSheetView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
+                                view.findViewById(R.id.bottomSheetContainer));
+                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(), "Share....", Toast.LENGTH_SHORT).show();
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
             }
         });
 

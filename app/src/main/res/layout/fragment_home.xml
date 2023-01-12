@@ -221,6 +221,7 @@
                             android:background="@drawable/round_back_white50_10"
                             android:gravity="center"
                             android:text="All exams"
+                            android:id="@+id/tvAllExam"
                             android:textColor="@color/black"
                             android:textSize="20sp"
 
@@ -259,6 +260,7 @@
                             android:background="@drawable/round_back_white50_10"
                             android:gravity="center"
                             android:text="Practice"
+                            android:id="@+id/tvPractice"
                             android:textColor="@color/black"
                             android:textSize="20sp"
 

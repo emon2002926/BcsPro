@@ -41,20 +41,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(AllBcsQuestionActivity.this
-                        ,R.style.BottomSheetDailogTheme);
-                View bottomSheetView = LayoutInflater.from(getApplicationContext())
-                        .inflate(R.layout.layout_bottom_sheet,(LinearLayout)findViewById(R.id.bottomSheetContainer));
-                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(AllBcsQuestionActivity.this, "Share....", Toast.LENGTH_SHORT).show();
-                        bottomSheetDialog.dismiss();
-                    }
-                });
 
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
             }
         });
 
