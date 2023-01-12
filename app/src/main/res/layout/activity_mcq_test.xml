@@ -252,7 +252,7 @@
         android:id="@+id/nextQuction"
         android:layout_centerHorizontal="true"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="19sp"
         android:text="Next "
         android:layout_marginBottom="10dp"

@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -21,6 +23,7 @@ public class QuestionListActivity extends AppCompatActivity {
     private  static final String url="http://192.168.0.103/api2/json_user_fetch.php";
     RecyclerView recview;
 
+    private static  String imageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,18 @@ public class QuestionListActivity extends AppCompatActivity {
 
         recview=(RecyclerView)findViewById(R.id.recview);
 
-        processdata();
+
+
+
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                processdata();
+            }
+        }, 200);
 
 
 
@@ -40,7 +54,13 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        imageId = getIntent().getExtras().getString("image");
+
+
+        // Todo got the api url
+        Log.d("url2",imageId);
+
+        StringRequest request=new StringRequest(imageId, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

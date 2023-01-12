@@ -1,6 +1,9 @@
 package com.example.recreatequize;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -88,7 +91,11 @@ public class HomeFragment extends Fragment {
         letcureLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),QuestionListActivity.class));
+
+
+//                SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
+
+                startActivity(new Intent(getContext(),AllBcsQuestionActivity.class));
             }
         });
 
@@ -120,13 +127,13 @@ public class HomeFragment extends Fragment {
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                model data[]=gson.fromJson(response,model[].class);
+                model data2[]=gson.fromJson(response,model[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         ,LinearLayoutManager.HORIZONTAL,false);
 
                 recyclerView.setLayoutManager(linearLayoutManager);
-                myadapter2 adapter=new myadapter2(data);
+                myadapter2 adapter=new myadapter2(data2);
                 recyclerView.setAdapter(adapter);
 
             }

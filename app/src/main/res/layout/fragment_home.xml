@@ -83,8 +83,6 @@
                         android:id="@+id/recview2"
                         android:layout_marginTop="10dp"
 
-
-
                         >
 
                     </androidx.recyclerview.widget.RecyclerView>

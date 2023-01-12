@@ -1,5 +1,11 @@
 package com.example.recreatequize;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.content.Intent.getIntent;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +20,23 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 {
     model data[];
 
-    public myadapter2(model[] data) {
-        this.data = data;
+    public myadapter2(model[] data2) {
+        this.data = data2;
     }
+
+    private Context mContext;
+
+
+
 
 
 
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
+
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_slide,parent,false);
 
          return new myviewholder(view);
@@ -32,6 +46,8 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
         holder.t1.setText(data[position].getText());
+
+
 
 //      holder.t2.setText(data[position].getOption1());
 //      holder.t3.setText(data[position].getOption2());
@@ -69,8 +85,9 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
             t1=itemView.findViewById(R.id.exam);
             t2=itemView.findViewById(R.id.q1);
-//            t3=itemView.findViewById(R.id.option2Tv);
-//            t4=itemView.findViewById(R.id.option3Tv);
+
+
+
 
         }
     }

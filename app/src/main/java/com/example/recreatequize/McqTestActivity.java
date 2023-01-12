@@ -111,12 +111,6 @@ public class McqTestActivity extends AppCompatActivity {
 //        progressBar.setVisibility(View.VISIBLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//
-//
-
-
-
-
 
 
 
