@@ -408,12 +408,9 @@ public class McqTestActivity extends AppCompatActivity {
     private void selectQuestion(int questionListPositon){
 
         restOption();
-
-
 //        Collections.shuffle(questionslists);
-
-
 //        gating Question Ditals and set to Textview
+
         questionTv.setText(questionslists.get(questionListPositon).getQuestion());
         option1TV.setText(questionslists.get(questionListPositon).getOption1());
         option2TV.setText(questionslists.get(questionListPositon).getOption2());

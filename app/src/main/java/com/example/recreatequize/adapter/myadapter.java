@@ -59,20 +59,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
-                if (option1 == answer){
 
-                    selectedOption(holder.option1Layout,holder.img);
+                selectedOption(holder.option1Layout,holder.img1);
 
 
-                    disableOption(holder.option2Layout,holder.img);
-                    disableOption(holder.option3Layout,holder.img);
-                    disableOption(holder.option4Layout,holder.img);
-
-                }else {
-                    disableOption(holder.option1Layout,holder.img);
-                }
-
-//                disableOption(holder.option2Layout,holder.img);
+//                holder.fullLayout.setEnabled(false);
 
 
             }
@@ -84,11 +75,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 int option1 = 1;
-                selectedOption(holder.option1Layout,holder.img);
+                selectedOption(holder.option2Layout,holder.img2);
 
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
+
+
 
             }
         });
@@ -98,11 +91,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 int option1 = 1;
-                selectedOption(holder.option1Layout,holder.img);
+
 
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
+
+                selectedOption(holder.option3Layout,holder.img3);
 
 
             }
@@ -113,33 +108,20 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 int option1 = 1;
-                selectedOption(holder.option1Layout,holder.img);
+
 
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
+                selectedOption(holder.option4Layout,holder.img4);
+
+
+
+
             }
         });
 
-
-//      Glide.with(holder.t1.getContext()).load("http://192.168.0.103/api2/images/"+data[position].getImage()).into(holder.img);
-
-
-//        final String name = data[position].getName();
-
-//      holder.itemView.setOnClickListener(new View.OnClickListener() {
-//          @Override
-//          public void onClick(View view) {
-//              Toast.makeText(view.getContext(),name,Toast.LENGTH_SHORT).show();
-//              Intent intent = new Intent(view.getContext(),MainActivity2.class);
-//              intent.putExtra("name",name);
-////              intent.putExtra("image",data[position].getImage());
-//              intent.putExtra("image","http://192.168.0.103/api2/images/"+data[position].getImage());
-//
-//              view.getContext().startActivity(intent);
-//          }
-//      });
 
     }
 
@@ -154,11 +136,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img;
+        ImageView img1,img2,img3,img4;
         TextView t1,t2,t3,t4,t5;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
-        LinearLayout layoutExplain;
+        LinearLayout layoutExplain,fullLayout;
 
         private TextView option1TV , option2TV , option3TV , option4TV ;
         private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
@@ -173,8 +155,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             t4=itemView.findViewById(R.id.option3Tv);
             t5 = itemView.findViewById(R.id.tvExplain);
 
-            img = itemView.findViewById(R.id.option1Icon);
+            img1 = itemView.findViewById(R.id.option1Icon);
+            img2 = itemView.findViewById(R.id.option2Icon);
+            img3 = itemView.findViewById(R.id.option3Icon);
+            img4 = itemView.findViewById(R.id.option4Icon);
 
+            fullLayout = itemView.findViewById(R.id.fullLayout);
             layoutExplain = itemView.findViewById(R.id.layoutExplain);
 
             option1Layout = itemView.findViewById(R.id.option1Layout);
@@ -183,6 +169,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option4Layout = itemView.findViewById(R.id.opton4Layout);
 
         }
+
+
 
     }
 
@@ -199,7 +187,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         selectedOptionIcon.setImageResource(R.drawable.cross);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
-//        selectedOptionLayout.setEnabled(false);
+        selectedOptionLayout.setEnabled(false);
 
     }
 
