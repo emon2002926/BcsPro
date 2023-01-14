@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recreatequize.QuestionListActivity;
@@ -81,7 +82,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
         TextView t1,t2,t3,t4;
 
 
-        LinearLayout linearLayout;
+        CardView linearLayout;
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);

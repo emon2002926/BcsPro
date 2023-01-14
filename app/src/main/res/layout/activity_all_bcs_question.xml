@@ -9,14 +9,9 @@
     tools:context=".AllBcsQuestionActivity">
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/next_button"
-        android:text="Show"
-        android:textSize="20sp"
-        android:id="@+id/buttonShow"
-        />
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -27,4 +22,6 @@
         >
 
     </androidx.recyclerview.widget.RecyclerView>
+
+
 </LinearLayout>

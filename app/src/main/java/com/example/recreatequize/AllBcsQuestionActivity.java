@@ -35,16 +35,6 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_bcs_question);
 
-        buttonShare = findViewById(R.id.buttonShow);
-
-        buttonShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
 
         recyclerView = findViewById(R.id.recview3);
         processdata();
