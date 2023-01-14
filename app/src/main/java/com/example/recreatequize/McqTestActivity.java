@@ -67,6 +67,8 @@ public class McqTestActivity extends AppCompatActivity {
 
     static int getAnswer2;
 
+    static int totalQuestion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,10 @@ public class McqTestActivity extends AppCompatActivity {
 
 
         final AppCompatButton nextBtn = findViewById ( R.id.nextQuction ) ;
+
+         totalQuestion = getIntent().getExtras().getInt("selectedOption");
+
+        Log.d("s3electedOption",String.valueOf(totalQuestion));
 
 
         //Show Instration Dailog
@@ -170,7 +176,7 @@ public class McqTestActivity extends AppCompatActivity {
 
                     // Showing  User Answer Is Correct Or Not
                     String Scr = String.valueOf(getAnswer2);
-                    Log.d("score",Scr);
+
 
                     if (getAnswer2 == 1){
 
@@ -267,7 +273,8 @@ public class McqTestActivity extends AppCompatActivity {
 
                     // set  limit for Question
 
-                    if (currenQuestiontPosition ==10){
+
+                    if (currenQuestiontPosition ==totalQuestion){
 //                        countDownTimer.cancel();
                         finishQuiz();
                     }

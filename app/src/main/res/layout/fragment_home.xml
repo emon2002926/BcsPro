@@ -72,8 +72,7 @@
                         android:text="Live exam"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-
-                        android:textSize="25sp"
+                        android:textSize="22sp"
                         />
 
 
@@ -103,6 +102,7 @@
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:id="@+id/tvCource"
+                        android:visibility="gone"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -111,7 +111,7 @@
                             android:text="All  Course"
                             android:textColor="@color/black"
                             android:layout_marginStart="20dp"
-                            android:textSize="25sp"
+                            android:textSize="22sp"
                             android:textStyle="bold"
                             android:layout_weight="1"
 
@@ -137,6 +137,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:id="@+id/l1"
+                        android:visibility="gone"
                         android:layout_below="@id/tvCource"
                         android:layout_marginBottom="20dp"
                         android:layout_width="fill_parent">
@@ -200,7 +201,7 @@
                         android:text="Practis MCQ"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="25sp" />
+                        android:textSize="22sp" />
 
                     <LinearLayout
                         android:id="@+id/l2"
@@ -223,7 +224,7 @@
                             android:text="All exams"
                             android:id="@+id/tvAllExam"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="17sp"
 
                             />
 
@@ -235,7 +236,7 @@
                             android:gravity="center"
                             android:text="Question Bank"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="17sp"
 
                             />
 
@@ -262,7 +263,7 @@
                             android:text="Practice"
                             android:id="@+id/tvPractice"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="17sp"
 
                             />
 
@@ -274,7 +275,7 @@
                             android:gravity="center"
                             android:text="Important Question"
                             android:textColor="@color/black"
-                            android:textSize="19sp" />
+                            android:textSize="17sp" />
 
 
                     </LinearLayout>
@@ -309,7 +310,7 @@
                         android:text="lecture and Notes"
                         android:layout_weight="1"
                         android:textColor="#0095ff"
-                        android:textSize="27sp"
+                        android:textSize="22sp"
                         />
 
                     <ImageView
@@ -357,7 +358,7 @@
                                 android:gravity="fill"
                                 android:text=" Quiz Quiz"
                                 android:textColor="#0095ff"
-                                android:textSize="25sp" />
+                                android:textSize="22sp" />
 
                         </LinearLayout>
 
@@ -378,7 +379,7 @@
                                 android:gravity="start"
                                 android:text="Easy and fun way to Learn "
                                 android:textColor="@color/black"
-                                android:textSize="20sp"
+                                android:textSize="17sp"
                                 android:padding="4dp"
 
                                 />

@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,7 @@ public class HomeFragment extends Fragment {
     TextView tvPractice;
 
     TextView tvAllExam;
+    int selectedOption = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,6 +96,20 @@ public class HomeFragment extends Fragment {
 
 
 
+        //For quiz activity
+        recyclerView = view.findViewById(R.id.recview2);
+        processdata();
+        quizLayout = view.findViewById(R.id.l7);
+        quizLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), McqTestActivity.class));
+            }
+        });
+
+
+
+
         tvPractice = view.findViewById(R.id.tvPractice);
         tvPractice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +125,6 @@ public class HomeFragment extends Fragment {
 
 
         letcureLayout = view.findViewById(R.id.l4);
-
         letcureLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,11 +137,12 @@ public class HomeFragment extends Fragment {
         });
 
 
+
+
         tvAllExam = view.findViewById(R.id.tvAllExam);
         tvAllExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext()
                         ,R.style.BottomSheetDailogTheme);
@@ -139,12 +156,103 @@ public class HomeFragment extends Fragment {
 //                        bottomSheetDialog.dismiss();
 //                    }
 //                });
-                bottomSheetView.findViewById(R.id.layout25Min).setOnClickListener(new View.OnClickListener() {
+
+                RelativeLayout option1Layout ,option2Layout,option3Layout;
+
+
+                option1Layout= bottomSheetView.findViewById(R.id.layout25Min);
+                option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
+                option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
+
+
+                ImageView icon1,icon2,icon3;
+                 icon1= bottomSheetView.findViewById(R.id.option25Icon);
+                 icon2= bottomSheetView.findViewById(R.id.option50Icon);
+                 icon3 = bottomSheetView.findViewById(R.id.option100Icon);
+
+                option1Layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
+                        Toast.makeText(getContext(), "25MIn", Toast.LENGTH_SHORT).show();
+
+                        selectedOption(option1Layout,icon1);
+
+                        //gatting focus on this layout
+
+                        option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                        option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                        icon2.setImageResource(R.drawable.round_back_white50_100);
+                        icon3.setImageResource(R.drawable.round_back_white50_100);
+
+                        selectedOption =25;
+
+
                     }
                 });
+
+                option2Layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(getContext(), "50MIn", Toast.LENGTH_SHORT).show();
+
+
+                        selectedOption(option2Layout,icon2);
+
+
+                        option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                        option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                        icon1.setImageResource(R.drawable.round_back_white50_100);
+                        icon3.setImageResource(R.drawable.round_back_white50_100);
+
+                        selectedOption= 50;
+
+                    }
+                });
+
+                option3Layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(), "100MIn", Toast.LENGTH_SHORT).show();
+
+                        selectedOption(option3Layout,icon3);
+                        option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                        option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                        icon1.setImageResource(R.drawable.round_back_white50_100);
+                        icon2.setImageResource(R.drawable.round_back_white50_100);
+                        selectedOption= 100;
+                    }
+                });
+
+
+
+
+                  bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View view) {
+
+                          if (selectedOption !=0){
+
+
+                              Intent intent = new Intent(view.getContext(), McqTestActivity.class);
+                              intent.putExtra("selectedOption",selectedOption);
+                              view.getContext().startActivity(intent);
+//                              Log.d("selectedOption",String.valueOf(selectedOption));
+
+
+                          }else {
+
+                              Toast.makeText(getContext(), "Plz select a Option", Toast.LENGTH_SHORT).show();
+
+                          }
+                      }
+                  });
+
+
 
 
                 bottomSheetDialog.setContentView(bottomSheetView);
@@ -153,22 +261,25 @@ public class HomeFragment extends Fragment {
         });
 
 
-        //For quiz activity
-        recyclerView = view.findViewById(R.id.recview2);
-        processdata();
-        quizLayout = view.findViewById(R.id.l7);
-        quizLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), McqTestActivity.class));
-            }
-        });
+
+
 
 
         return view;
 
     }
 
+
+
+
+    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+
+
+
+        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+    }
 
 
     public void processdata()
@@ -203,13 +314,7 @@ public class HomeFragment extends Fragment {
         queue.add(request);
 
     }
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
-
-        selectedOptionIcon.setImageResource(R.drawable.chack);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
-
-    }
 
 
 
