@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +16,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="30dp"
             android:id="@+id/card"
             >
             <LinearLayout
@@ -213,32 +214,51 @@
                         android:layout_marginEnd="20dp"
                         android:orientation="horizontal">
 
-                        <TextView
-
+                        <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_marginEnd="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="4dp"
+                            app:cardCornerRadius="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/round_back_white50_10"
-                            android:gravity="center"
-                            android:text="All exams"
-                            android:id="@+id/tvAllExam"
-                            android:textColor="@color/black"
-                            android:textSize="17sp"
+                            >
 
-                            />
+                            <TextView
 
-                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/round_back_white50_10"
+                                android:gravity="center"
+                                android:text="All exams"
+                                android:id="@+id/tvAllExam"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+
+                                />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/round_back_white50_10"
-                            android:gravity="center"
-                            android:text="Question Bank"
-                            android:textColor="@color/black"
-                            android:textSize="17sp"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="4dp"
+                            app:cardCornerRadius="10dp"
+                            android:layout_weight="1">
 
-                            />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/round_back_white50_10"
+                                android:gravity="center"
+                                android:text="Question Bank"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+
+                                />
+
+                        </androidx.cardview.widget.CardView>
+
 
                     </LinearLayout>
 
@@ -252,30 +272,56 @@
                         android:layout_marginEnd="20dp"
                         android:orientation="horizontal">
 
-                        <TextView
 
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
                             android:layout_marginEnd="20dp"
+                            android:elevation="4dp"
+                            app:cardCornerRadius="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/round_back_white50_10"
-                            android:gravity="center"
-                            android:text="Practice"
-                            android:id="@+id/tvPractice"
-                            android:textColor="@color/black"
-                            android:textSize="17sp"
+                            >
 
-                            />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/round_back_white50_10"
+                                android:gravity="center"
+                                android:text="Practice"
+                                android:id="@+id/tvPractice"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
 
-                        <TextView
+                                />
+
+                        </androidx.cardview.widget.CardView>
+
+
+
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="4dp"
+                            app:cardCornerRadius="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/round_back_white50_10"
-                            android:gravity="center"
-                            android:text="Important Question"
-                            android:textColor="@color/black"
-                            android:textSize="17sp" />
+                        >
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/round_back_white50_10"
+                                android:gravity="center"
+                                android:text="Important Question"
+                                android:textColor="@color/black"
+                                android:textSize="17sp" />
+
+                        </androidx.cardview.widget.CardView>
+
 
 
                     </LinearLayout>
@@ -287,127 +333,148 @@
                 </RelativeLayout>
 
 
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_below="@id/r2"
-                    android:background="@drawable/round_back_white50_10"
                     android:id="@+id/l4"
-
-                    >
-
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:text="lecture and Notes"
-                        android:layout_weight="1"
-                        android:textColor="#0095ff"
-                        android:textSize="22sp"
-                        />
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="end"
-                        android:src="@drawable/ic_baseline_arrow_forward_24"
-                        />
-                </LinearLayout>
-
-
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/l4"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:id="@+id/l7"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/round_back_white50_10"
-                    android:orientation="horizontal">
+                    android:layout_marginEnd="20dp"
+                    android:elevation="4dp"
+                    app:cardCornerRadius="10dp"
 
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        >
-
-                        <LinearLayout
-                            android:id="@+id/l5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/exam"
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_marginEnd="20dp"
-                                android:layout_weight="1"
-                                android:gravity="fill"
-                                android:text=" Quiz Quiz"
-                                android:textColor="#0095ff"
-                                android:textSize="22sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/l6"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/l5"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-
-                                android:id="@+id/q1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="Easy and fun way to Learn "
-                                android:textColor="@color/black"
-                                android:textSize="17sp"
-                                android:padding="4dp"
-
-                                />
-
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="5"
-                        android:padding="2dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="@drawable/round_back_white50_10"
+
+                        android:orientation="horizontal"
+
 
                         >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="lecture and Notes"
+                            android:layout_weight="1"
+                            android:textColor="#0095ff"
+                            android:textSize="22sp"
+                            android:layout_gravity="center"
+                            />
 
                         <ImageView
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:src="@drawable/runing_clock"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:src="@drawable/ic_baseline_arrow_forward_24"
                             />
                     </LinearLayout>
 
+                </androidx.cardview.widget.CardView>
 
 
-                </LinearLayout>
+
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/l4"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="20dp"
+    android:id="@+id/l7">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_back_white50_10"
+        android:orientation="horizontal"
+        android:elevation="4dp"
+        app:cardCornerRadius="10dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            >
+
+            <LinearLayout
+                android:id="@+id/l5"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/exam"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:gravity="fill"
+                    android:text=" Quiz Quiz"
+                    android:textColor="#0095ff"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/l5"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:id="@+id/q1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Easy and fun way to Learn "
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:padding="4dp"
+
+                    />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="5"
+            android:padding="2dp"
+
+            >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/runing_clock"
+                />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
 
 
 
@@ -423,4 +490,4 @@
 
 
 
-</FrameLayout>
+</androidx.cardview.widget.CardView>

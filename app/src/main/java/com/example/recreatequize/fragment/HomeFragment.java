@@ -3,6 +3,7 @@ package com.example.recreatequize.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -51,9 +53,10 @@ public class HomeFragment extends Fragment {
 
     private  static final String url="http://192.168.0.103/api2/others.php";
     RecyclerView recyclerView;
-    LinearLayout quizLayout,letcureLayout;
+    CardView quizLayout;
     TextView tvPractice;
 
+    CardView letcureLayout;
     TextView tvAllExam;
     int selectedOption = 0;
 
@@ -103,7 +106,11 @@ public class HomeFragment extends Fragment {
         quizLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), McqTestActivity.class));
+
+
+                Intent intent = new Intent(view.getContext(), McqTestActivity.class);
+                intent.putExtra("selectedOption",10);
+                view.getContext().startActivity(intent);
             }
         });
 

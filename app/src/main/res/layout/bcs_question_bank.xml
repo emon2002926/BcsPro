@@ -19,7 +19,8 @@
         android:elevation="30dp"
         android:background="@drawable/round_back_white50_10"
         android:padding="5dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        >
 
 
 
