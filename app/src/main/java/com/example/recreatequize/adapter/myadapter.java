@@ -43,7 +43,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.t3.setText(data[position].getOption2());
         holder.t4.setText(data[position].getOption3());
 
-        //                final String answer = data[position].getAnswer();
 
         holder.option1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
