@@ -30,7 +30,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
    static int userSelectedOption = 0;
 
 
-
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,6 +46,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.option2TV.setText(data[position].getOption2());
         holder.option3TV.setText(data[position].getOption3());
         holder.option4TV.setText(data[position].getOption4());
+        holder.explainTv.setText(data[position].getExplanation());
 
         String ansr = data[position].getAnswer();
         int answer = Integer.parseInt(ansr);
@@ -57,7 +57,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                holder.t5.setText(data[position].getExplanation());
+
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
                 disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option4Layout);
@@ -80,7 +80,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
@@ -102,7 +101,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-                holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
@@ -121,11 +119,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                int option1 = 1;
+
 
                 disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
 
-                holder.t5.setText(data[position].getExplanation());
+
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
                 selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
@@ -153,13 +151,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img1,img2,img3,img4;
-        TextView t1,t2,t3,t4,t5;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain,fullLayout;
 
-        private TextView option1TV , option2TV , option3TV , option4TV,questionTv;
-        private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
+         TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv;
 
         public myviewholder(@NonNull View itemView)
         {
@@ -171,7 +167,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option3TV=itemView.findViewById(R.id.option3Tv);
             option4TV=itemView.findViewById(R.id.option4Tv);
 
-            t5 = itemView.findViewById(R.id.tvExplain);
+            explainTv = itemView.findViewById(R.id.tvExplain);
 
             img1 = itemView.findViewById(R.id.option1Icon);
             img2 = itemView.findViewById(R.id.option2Icon);
@@ -219,18 +215,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         if (answer==1){
             selectedOptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-            selectedOptionLayout.setEnabled(false);
         }
         if (answer==2){
-
             selected2OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-            selected2OptionLayout.setEnabled(false);
         }if (answer ==3){
             selected3OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-            selected3OptionLayout.setEnabled(false);
         }if (answer ==4){
             selected4OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-            selected4OptionLayout.setEnabled(false);
         }
 
 

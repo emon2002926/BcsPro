@@ -322,13 +322,7 @@
 
                         </androidx.cardview.widget.CardView>
 
-
-
                     </LinearLayout>
-
-
-
-
 
                 </RelativeLayout>
 
@@ -350,16 +344,13 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:background="@drawable/round_back_white50_10"
-
                         android:orientation="horizontal"
-
-
                         >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="lecture and Notes"
+                            android:text="Lecture and Notes"
                             android:layout_weight="1"
                             android:textColor="#0095ff"
                             android:textSize="22sp"
