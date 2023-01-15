@@ -144,6 +144,7 @@
         android:gravity="center"
         android:layout_marginBottom="30dp"
         android:textSize="20sp"
+        android:padding="10dp"
         android:textColor="#ec6666"/>
 
 

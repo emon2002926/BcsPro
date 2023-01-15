@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
 
 
                 Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                intent.putExtra("image","http://192.168.0.103/api2/json_user_fetch.php");
+                intent.putExtra("image","http://192.168.0.103/api2/allQuestion.php");
                 view.getContext().startActivity(intent);
 
             }
@@ -225,7 +225,10 @@ public class HomeFragment extends Fragment {
                     public void onClick(View view) {
                         Toast.makeText(getContext(), "100MIn", Toast.LENGTH_SHORT).show();
 
+                        //select that  option layout
                         selectedOption(option3Layout,icon3);
+
+
                         option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                         option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
 
@@ -238,7 +241,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                  bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(new View.OnClickListener() {
+                bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(new View.OnClickListener() {
                       @Override
                       public void onClick(View view) {
 
@@ -256,6 +259,14 @@ public class HomeFragment extends Fragment {
                               Toast.makeText(getContext(), "Plz select a Option", Toast.LENGTH_SHORT).show();
 
                           }
+                      }
+                  });
+
+                  bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View view) {
+
+                          bottomSheetDialog.dismiss();
                       }
                   });
 

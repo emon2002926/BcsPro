@@ -62,7 +62,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 selectedOption(holder.option1Layout,holder.img1);
 
 
-//                holder.fullLayout.setEnabled(false);
+
+                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                holder.img2.setImageResource(R.drawable.round_back_white50_100);
+                holder.img3.setImageResource(R.drawable.round_back_white50_100);
+                holder.img4.setImageResource(R.drawable.round_back_white50_100);
+
 
 
             }
@@ -80,7 +88,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
+                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
 
+                holder.img1.setImageResource(R.drawable.round_back_white50_100);
+                holder.img3.setImageResource(R.drawable.round_back_white50_100);
+                holder.img4.setImageResource(R.drawable.round_back_white50_100);
 
             }
         });
@@ -97,6 +111,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
                 selectedOption(holder.option3Layout,holder.img3);
+
+                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                holder.img2.setImageResource(R.drawable.round_back_white50_100);
+                holder.img1.setImageResource(R.drawable.round_back_white50_100);
+                holder.img4.setImageResource(R.drawable.round_back_white50_100);
 
 
             }
@@ -116,6 +138,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 selectedOption(holder.option4Layout,holder.img4);
 
 
+                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                holder.img2.setImageResource(R.drawable.round_back_white50_100);
+                holder.img3.setImageResource(R.drawable.round_back_white50_100);
+                holder.img1.setImageResource(R.drawable.round_back_white50_100);
 
 
             }
