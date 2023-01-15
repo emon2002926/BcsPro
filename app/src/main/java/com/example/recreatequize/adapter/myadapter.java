@@ -1,6 +1,7 @@
 package com.example.recreatequize.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+   static int userSelectedOption = 0;
+
 
 
     @NonNull
@@ -38,10 +42,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
-        holder.t1.setText(data[position].getQuestion());
-        holder.t2.setText(data[position].getOption1());
-        holder.t3.setText(data[position].getOption2());
-        holder.t4.setText(data[position].getOption3());
+        holder.questionTv.setText(data[position].getQuestion());
+        holder.option1TV.setText(data[position].getOption1());
+        holder.option2TV.setText(data[position].getOption2());
+        holder.option3TV.setText(data[position].getOption3());
+        holder.option4TV.setText(data[position].getOption4());
+
+        String ansr = data[position].getAnswer();
+        int answer = Integer.parseInt(ansr);
 
 
         holder.option1Layout.setOnClickListener(new View.OnClickListener() {
@@ -49,28 +57,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                int option1 = 1;
-                String ansr = data[position].getAnswer();
-                int answer = Integer.parseInt(ansr);
-
-
                 holder.t5.setText(data[position].getExplanation());
-
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
+                disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option4Layout);
 
-                selectedOption(holder.option1Layout,holder.img1);
+                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
 
 
+                if (answer!=1){
 
-                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    selectedWrongOption(holder.option1Layout,holder.img1);
 
-                holder.img2.setImageResource(R.drawable.round_back_white50_100);
-                holder.img3.setImageResource(R.drawable.round_back_white50_100);
-                holder.img4.setImageResource(R.drawable.round_back_white50_100);
-
+                }
 
 
             }
@@ -81,20 +80,18 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                int option1 = 1;
-                selectedOption(holder.option2Layout,holder.img2);
-
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
-                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
 
-                holder.img1.setImageResource(R.drawable.round_back_white50_100);
-                holder.img3.setImageResource(R.drawable.round_back_white50_100);
-                holder.img4.setImageResource(R.drawable.round_back_white50_100);
+                disableOtherOption(holder.option1Layout,holder.option3Layout,holder.option4Layout);
+                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+                if (answer!=2){
+
+                    selectedWrongOption(holder.option2Layout,holder.img2);
+
+                }
 
             }
         });
@@ -103,23 +100,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-                int option1 = 1;
 
 
                 holder.t5.setText(data[position].getExplanation());
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
-                selectedOption(holder.option3Layout,holder.img3);
+                disableOtherOption(holder.option2Layout,holder.option1Layout,holder.option4Layout);
+                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+                if (answer!=3){
 
-                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    selectedWrongOption(holder.option3Layout,holder.img3);
 
-                holder.img2.setImageResource(R.drawable.round_back_white50_100);
-                holder.img1.setImageResource(R.drawable.round_back_white50_100);
-                holder.img4.setImageResource(R.drawable.round_back_white50_100);
-
+                }
 
             }
         });
@@ -130,21 +123,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 int option1 = 1;
 
+                disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
 
                 holder.t5.setText(data[position].getExplanation());
-
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
-                selectedOption(holder.option4Layout,holder.img4);
+                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+                if (answer!=4){
+
+                    selectedWrongOption(holder.option4Layout,holder.img4);
+
+                }
 
 
-                holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
-                holder.img2.setImageResource(R.drawable.round_back_white50_100);
-                holder.img3.setImageResource(R.drawable.round_back_white50_100);
-                holder.img1.setImageResource(R.drawable.round_back_white50_100);
 
 
             }
@@ -159,9 +150,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
-
-
-
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img1,img2,img3,img4;
@@ -170,17 +158,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain,fullLayout;
 
-        private TextView option1TV , option2TV , option3TV , option4TV ;
+        private TextView option1TV , option2TV , option3TV , option4TV,questionTv;
         private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
 
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
 
-            t1=itemView.findViewById(R.id.questionTv);
-            t2=itemView.findViewById(R.id.option1Tv);
-            t3=itemView.findViewById(R.id.option2Tv);
-            t4=itemView.findViewById(R.id.option3Tv);
+            questionTv=itemView.findViewById(R.id.questionTv);
+            option1TV=itemView.findViewById(R.id.option1Tv);
+            option2TV=itemView.findViewById(R.id.option2Tv);
+            option3TV=itemView.findViewById(R.id.option3Tv);
+            option4TV=itemView.findViewById(R.id.option4Tv);
+
             t5 = itemView.findViewById(R.id.tvExplain);
 
             img1 = itemView.findViewById(R.id.option1Icon);
@@ -202,20 +192,47 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     }
 
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+    private void disableOtherOption(RelativeLayout selectedOptionLayout ,RelativeLayout selected2OptionLayout
+            ,RelativeLayout selected3OptionLayout ) {
 
 
-        selectedOptionIcon.setImageResource(R.drawable.chack);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+        selectedOptionLayout.setEnabled(false);
+        selected2OptionLayout.setEnabled(false);
+        selected3OptionLayout.setEnabled(false);
+
 
     }
 
-    private void disableOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
 
-        selectedOptionIcon.setImageResource(R.drawable.cross);
+
+    private void selectedWrongOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
-        selectedOptionLayout.setEnabled(false);
+        selectedOptionIcon.setImageResource(R.drawable.cross);
+
+    }
+
+    private void selectedRightOpti(int answer ,RelativeLayout selectedOptionLayout,RelativeLayout selected2OptionLayout
+            ,RelativeLayout selected3OptionLayout,RelativeLayout selected4OptionLayout){
+
+
+        if (answer==1){
+            selectedOptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
+            selectedOptionLayout.setEnabled(false);
+        }
+        if (answer==2){
+
+            selected2OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
+            selected2OptionLayout.setEnabled(false);
+        }if (answer ==3){
+            selected3OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
+            selected3OptionLayout.setEnabled(false);
+        }if (answer ==4){
+            selected4OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
+            selected4OptionLayout.setEnabled(false);
+        }
+
 
     }
 

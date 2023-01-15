@@ -182,7 +182,6 @@ public class McqTestActivity extends AppCompatActivity {
 
                         selectedRightOption(option1Layout,option1Icon);
 
-
                     }
                     if (getAnswer2 == 2){
 
