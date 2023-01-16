@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
 
     private  static final String url="http://192.168.0.103/api2/others.php";
     RecyclerView recyclerView;
-    CardView quizLayout;
+    CardView CvQuizLayout,CvQuestionBank;
     TextView tvPractice;
 
     CardView letcureLayout;
@@ -102,8 +102,8 @@ public class HomeFragment extends Fragment {
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
         processdata();
-        quizLayout = view.findViewById(R.id.l7);
-        quizLayout.setOnClickListener(new View.OnClickListener() {
+        CvQuizLayout = view.findViewById(R.id.l7);
+        CvQuizLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -156,16 +156,9 @@ public class HomeFragment extends Fragment {
                 View bottomSheetView = LayoutInflater.from(getContext())
                         .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
                                 view.findViewById(R.id.bottomSheetContainer));
-//                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Toast.makeText(getContext(), "Share....", Toast.LENGTH_SHORT).show();
-//                        bottomSheetDialog.dismiss();
-//                    }
-//                });
+
 
                 RelativeLayout option1Layout ,option2Layout,option3Layout;
-
 
                 option1Layout= bottomSheetView.findViewById(R.id.layout25Min);
                 option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
@@ -194,8 +187,6 @@ public class HomeFragment extends Fragment {
                         icon3.setImageResource(R.drawable.round_back_white50_100);
 
                         selectedOption =25;
-
-
                     }
                 });
 
@@ -275,6 +266,17 @@ public class HomeFragment extends Fragment {
 
                 bottomSheetDialog.setContentView(bottomSheetView);
                 bottomSheetDialog.show();
+            }
+        });
+
+
+        CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
+        CvQuestionBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+
             }
         });
 
