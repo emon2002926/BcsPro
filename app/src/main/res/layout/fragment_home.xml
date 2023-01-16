@@ -309,6 +309,7 @@
                             android:elevation="4dp"
                             app:cardCornerRadius="10dp"
                             android:layout_weight="1"
+                            android:id="@+id/CvImportantQuestion"
                         >
 
 

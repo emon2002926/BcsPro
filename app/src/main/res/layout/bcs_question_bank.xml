@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="20dp"
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:id="@+id/bcsQuestionLayout"
@@ -20,9 +20,8 @@
         android:background="@drawable/round_back_white50_10"
         android:padding="5dp"
         app:cardCornerRadius="10dp"
+
         >
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="5dp"
                 >
 
                 <TextView
@@ -73,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/blue"
+                    android:textColor="#52e5ba"
                     android:textSize="20dp"
                     android:id="@+id/numOFQuestion"
                     android:text="Total"/>

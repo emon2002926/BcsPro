@@ -22,10 +22,10 @@ import com.google.gson.GsonBuilder;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.103/api2/json_user_fetch.php";
+//    private  static final String url="http://192.168.0.103/api2/json_user_fetch.php";
     RecyclerView recview;
 
-    private static  String imageId;
+    private static  String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +57,13 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata()
     {
 
-        imageId = getIntent().getExtras().getString("image");
+        url = getIntent().getExtras().getString("allQuestion");
 
 
         // Todo got the api url
-        Log.d("url2",imageId);
+        Log.d("url2",url);
 
-        StringRequest request=new StringRequest(imageId, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

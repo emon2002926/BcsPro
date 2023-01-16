@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private  static final String url="http://192.168.0.103/api2/others.php";
     RecyclerView recyclerView;
-    CardView CvQuizLayout,CvQuestionBank;
+    CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
     TextView tvPractice;
 
     CardView letcureLayout;
@@ -125,9 +125,20 @@ public class HomeFragment extends Fragment {
 
 
                 Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                intent.putExtra("image","http://192.168.0.103/api2/allQuestion.php");
+                intent.putExtra("allQuestion","http://192.168.0.103/api2/allQuestion.php");
                 view.getContext().startActivity(intent);
 
+            }
+        });
+        CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
+        CvImportantQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                //need to add important question php api to this link
+                intent.putExtra("allQuestion","http://192.168.0.103/api2/allQuestion.php");
+                view.getContext().startActivity(intent);
             }
         });
 
