@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.recreatequize.ActivityLectureAndNote;
 import com.example.recreatequize.AllBcsQuestionActivity;
 import com.example.recreatequize.McqTestActivity;
 import com.example.recreatequize.QuestionListActivity;
@@ -139,7 +140,7 @@ public class HomeFragment extends Fragment {
 
 //                SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+                startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
             }
         });
 
