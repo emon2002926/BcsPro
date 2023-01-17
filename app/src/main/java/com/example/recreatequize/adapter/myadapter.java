@@ -119,8 +119,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             public void onClick(View view) {
 
 
-
-
                 disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
 
 
@@ -132,10 +130,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     selectedWrongOption(holder.option4Layout,holder.img4);
 
                 }
-
-
-
-
             }
         });
 

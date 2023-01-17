@@ -25,10 +25,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     private Context mContext;
 
 
-
-
-
-
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -66,11 +62,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public int getItemCount() {
         return data.length;
     }
-
-
-
-
-
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img;

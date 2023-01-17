@@ -69,7 +69,6 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         }
         );
 
-
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
 

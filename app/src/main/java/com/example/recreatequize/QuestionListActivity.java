@@ -32,24 +32,9 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
 
-
         recview=(RecyclerView)findViewById(R.id.recview);
 
-
-
-
         processdata();
-
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                processdata();
-//            }
-//        }, 200);
-
-
 
     }
 
