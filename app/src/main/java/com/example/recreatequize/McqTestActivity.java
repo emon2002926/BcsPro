@@ -104,9 +104,9 @@ public class McqTestActivity extends AppCompatActivity {
 
         final AppCompatButton nextBtn = findViewById ( R.id.nextQuction ) ;
 
-         totalQuestion = getIntent().getExtras().getInt("selectedOption");
+        totalQuestion = getIntent().getExtras().getInt("selectedOption");
 
-        Log.d("s3electedOption",String.valueOf(totalQuestion));
+        totalQuestionTV.setText(String.valueOf("/"+totalQuestion));
 
 
         //Show Instration Dailog

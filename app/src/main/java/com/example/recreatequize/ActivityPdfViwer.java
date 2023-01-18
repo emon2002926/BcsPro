@@ -34,6 +34,8 @@ public class ActivityPdfViwer extends AppCompatActivity {
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url);
+
+
     }
 
 

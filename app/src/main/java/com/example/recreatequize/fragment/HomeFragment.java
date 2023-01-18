@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
     CardView letcureLayout;
     TextView tvAllExam;
-    int selectedOption = 0;
+    int tolatExamQuestion = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -198,7 +198,7 @@ public class HomeFragment extends Fragment {
                         icon2.setImageResource(R.drawable.round_back_white50_100);
                         icon3.setImageResource(R.drawable.round_back_white50_100);
 
-                        selectedOption =25;
+                        tolatExamQuestion =25;
                     }
                 });
 
@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment {
                         icon1.setImageResource(R.drawable.round_back_white50_100);
                         icon3.setImageResource(R.drawable.round_back_white50_100);
 
-                        selectedOption= 50;
+                        tolatExamQuestion= 50;
 
                     }
                 });
@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment {
 
                         icon1.setImageResource(R.drawable.round_back_white50_100);
                         icon2.setImageResource(R.drawable.round_back_white50_100);
-                        selectedOption= 100;
+                        tolatExamQuestion= 100;
                     }
                 });
 
@@ -248,11 +248,11 @@ public class HomeFragment extends Fragment {
                       @Override
                       public void onClick(View view) {
 
-                          if (selectedOption !=0){
+                          if (tolatExamQuestion !=0){
 
 
                               Intent intent = new Intent(view.getContext(), McqTestActivity.class);
-                              intent.putExtra("selectedOption",selectedOption);
+                              intent.putExtra("selectedOption",tolatExamQuestion);
                               view.getContext().startActivity(intent);
 //                              Log.d("selectedOption",String.valueOf(selectedOption));
 
