@@ -122,186 +122,170 @@ public class McqTestActivity extends AppCompatActivity {
 
 
 
-        option1Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        option1Layout.setOnClickListener(v -> {
 
-                //asaing  as the first option
-                selectedOption = 1;
+            //asaing  as the first option
+            selectedOption = 1;
 
-                selectedOption(option1Layout,option1Icon);
-            }
-        });
-
-        option2Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //asaing  as the scaound option
-                selectedOption = 2;
-                selectedOption(option2Layout,option2Icon);
-            }
-        });
-        option3Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //asaing  as the third option
-                selectedOption = 3;
-                selectedOption(option3Layout,option3Icon);
-            }
-        });
-        option4Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //asaing  as the 4th option
-                selectedOption = 4;
-                selectedOption(option4Layout,option4Icon);
-
-            }
+            selectedOption(option1Layout,option1Icon);
         });
 
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        option2Layout.setOnClickListener(v -> {
 
-                if(selectedOption !=0){
+            //asaing  as the scaound option
+            selectedOption = 2;
+            selectedOption(option2Layout,option2Icon);
+        });
 
-                    questionslists.get(currenQuestiontPosition).setUserSelecedAnswer(selectedOption);
+        option3Layout.setOnClickListener(v -> {
 
-                    int i = selectedOption;
+            //asaing  as the third option
+            selectedOption = 3;
+            selectedOption(option3Layout,option3Icon);
+        });
+
+        option4Layout.setOnClickListener(v -> {
+
+            //asaing  as the 4th option
+            selectedOption = 4;
+            selectedOption(option4Layout,option4Icon);
+
+        });
 
 
-                    // Showing  User Answer Is Correct Or Not
-                    String Scr = String.valueOf(getAnswer2);
+
+        nextBtn.setOnClickListener(v -> {
+
+            if(selectedOption !=0){
+
+                questionslists.get(currenQuestiontPosition).setUserSelecedAnswer(selectedOption);
+
+                int i = selectedOption;
 
 
-                    if (getAnswer2 == 1){
+                // Showing  User Answer Is Correct Or Not
+                if (getAnswer2 == 1){
 
-                        selectedRightOption(option1Layout,option1Icon);
+                    selectedRightOption(option1Layout,option1Icon);
 
-                    }
-                    if (getAnswer2 == 2){
+                }
+                if (getAnswer2 == 2){
 
-                        selectedRightOption(option2Layout,option2Icon);
+                    selectedRightOption(option2Layout,option2Icon);
 
-                    }
-                    if (getAnswer2 == 3){
+                }
+                if (getAnswer2 == 3){
 
-                        selectedRightOption(option3Layout,option3Icon);
-                    }
-                    if (getAnswer2 == 4){
+                    selectedRightOption(option3Layout,option3Icon);
+                }
+                if (getAnswer2 == 4){
 
-                        selectedRightOption(option4Layout,option4Icon);
-                    }
+                    selectedRightOption(option4Layout,option4Icon);
+                }
 
 
 //              for right or worong logic for ui
-                    if (i==1  ){
+                if (i==1  ){
 
-                        if (i==getAnswer2){
+                    if (i==getAnswer2){
 
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                            mp.start();
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+                        mp.start();
 //                         selectedRightOption(option1Layout,option1Icon);
-                        }
-                        else {
-
-
-                            selectedWrongOption(option1Layout,option1Icon);
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                            mp.start();
-                        }
-
-
                     }
-                    if (i==2){
+                    else {
 
-                        if (i==getAnswer2){
 
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                            mp.start();
+                        selectedWrongOption(option1Layout,option1Icon);
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+                        mp.start();
+                    }
+
+
+                }
+                if (i==2){
+
+                    if (i==getAnswer2){
+
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+                        mp.start();
 //                            selectedRightOption(option2Layout,option2Icon);
-                        }
-                        else {
-                            selectedWrongOption(option2Layout,option2Icon);
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                            mp.start();
-                        }
                     }
+                    else {
+                        selectedWrongOption(option2Layout,option2Icon);
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+                        mp.start();
+                    }
+                }
 
-                    if (i==3){
+                if (i==3){
 
-                        if (i==getAnswer2){
+                    if (i==getAnswer2){
 
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                            mp.start();
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+                        mp.start();
 
 //                            selectedRightOption(option3Layout,option3Icon);
 
-                        }else {
+                    }else {
 
-                            selectedWrongOption(option3Layout,option3Icon);
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                            mp.start();
+                        selectedWrongOption(option3Layout,option3Icon);
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+                        mp.start();
 
-                        }
                     }
+                }
 
-                    if (i==4){
-                        if (i==getAnswer2){
+                if (i==4){
+                    if (i==getAnswer2){
 
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                            mp.start();
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+                        mp.start();
 
 //                            selectedRightOption(option4Layout,option4Icon);
 
-                        }else {
+                    }else {
 
-                            selectedWrongOption(option4Layout,option4Icon);
-                            MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                            mp.start();
+                        selectedWrongOption(option4Layout,option4Icon);
+                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+                        mp.start();
 
-                        }
                     }
+                }
 
-                    selectedOption = 0;
-                    currenQuestiontPosition++; //gating New Question
+                selectedOption = 0;
+                currenQuestiontPosition++; //gating New Question
 
-                    // set  limit for Question
+                // set  limit for Question
 
 
-                    if (currenQuestiontPosition ==totalQuestion){
+                if (currenQuestiontPosition ==totalQuestion){
 //                        countDownTimer.cancel();
+                    finishQuiz();
+                }
+
+
+
+                //Check list has more Question
+                new Handler().postDelayed(() -> {
+                    nextBtn.setEnabled(true);
+                    if (currenQuestiontPosition < questionslists.size()){
+
+                        selectQuestion(currenQuestiontPosition);
+
+                    }else {
+                        countDownTimer.cancel();
                         finishQuiz();
                     }
 
-                    //Check list has more Question
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            nextBtn.setEnabled(true);
-                            if (currenQuestiontPosition < questionslists.size()){
-
-                                selectQuestion(currenQuestiontPosition);
-
-                            }else {
-                                countDownTimer.cancel();
-                                finishQuiz();
-                            }
-
-                        }
-                    }, 10);
+                }, 10);
 
 
-                }else {
-                    Toast.makeText(McqTestActivity.this,"please Select A Option",Toast.LENGTH_SHORT).show();
-                }
-
+            }else {
+                Toast.makeText(McqTestActivity.this,"please Select A Option",Toast.LENGTH_SHORT).show();
             }
+
         });
 
 //
