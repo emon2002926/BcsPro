@@ -22,10 +22,10 @@ import com.google.gson.GsonBuilder;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-//    private  static final String url="http://192.168.0.103/api2/json_user_fetch.php";
+    private  static final String url="http://bcs.searchwizy.com/allQuestion.php";
     RecyclerView recview;
 
-    private static  String url;
+    private static  String url2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,13 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata()
     {
 
-        url = getIntent().getExtras().getString("allQuestion");
+        url2 = getIntent().getExtras().getString("allQuestion");
 
 
         // Todo got the api url
-        Log.d("url2",url);
+        Log.d("url2",url2);
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

@@ -251,10 +251,12 @@ public class HomeFragment extends Fragment {
                           if (tolatExamQuestion !=0){
 
 
+                              bottomSheetDialog.dismiss();
                               Intent intent = new Intent(view.getContext(), McqTestActivity.class);
                               intent.putExtra("selectedOption",tolatExamQuestion);
                               view.getContext().startActivity(intent);
 //                              Log.d("selectedOption",String.valueOf(selectedOption));
+
 
 
                           }else {
