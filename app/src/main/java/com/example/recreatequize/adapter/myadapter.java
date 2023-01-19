@@ -1,6 +1,9 @@
 package com.example.recreatequize.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +17,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recreatequize.McqTestActivity;
+import com.example.recreatequize.QuizResult;
 import com.example.recreatequize.R;
+import com.example.recreatequize.modelClass.QuestionList;
 import com.example.recreatequize.modelClass.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 {
@@ -26,8 +36,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
+    Context context;
 
    static int userSelectedOption = 0;
+
+    private final List<QuestionList> questionslists = new ArrayList<>();
 
 
     @NonNull
@@ -41,96 +54,122 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
-        holder.questionTv.setText(data[position].getQuestion());
-        holder.option1TV.setText(data[position].getOption1());
-        holder.option2TV.setText(data[position].getOption2());
-        holder.option3TV.setText(data[position].getOption3());
-        holder.option4TV.setText(data[position].getOption4());
-        holder.explainTv.setText(data[position].getExplanation());
+
+        String question = data[position].getQuestion();
+        String option1 = data[position].getOption1();
+        String option2 = data[position].getOption2();
+        String option3 = data[position].getOption3();
+        String  option4 = data[position].getOption4();
+        String explain = data[position].getExplanation();
 
         String ansr = data[position].getAnswer();
         int answer = Integer.parseInt(ansr);
 
-
-        holder.option1Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-                disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option4Layout);
-
-                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//        holder.questionTv.setText(question);
+//        holder.option1TV.setText(option1);
+//        holder.option2TV.setText(option2);
+//        holder.option3TV.setText(option3);
+//        holder.option4TV.setText(option4);
+        holder.explainTv.setText(explain);
 
 
-                if (answer!=1){
-
-                    selectedWrongOption(holder.option1Layout,holder.img1);
-
-                }
 
 
-            }
+        QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
+
+        questionslists.add(questionList);
+
+        holder.questionTv.setText(questionslists.get(position).getQuestion());
+        holder.option1TV.setText(questionslists.get(position).getOption1());
+        holder.option2TV.setText(questionslists.get(position).getOption2());
+        holder.option3TV.setText(questionslists.get(position).getOption4());
+
+
+
+        Intent intent = new Intent();
+        intent.putExtra("allQuestion1","http://192.168.0.103/api2/allQuestion.php");
+
+        holder.option1Layout.setOnClickListener(view -> {
+
+            holder.layoutExplain.setVisibility(View.VISIBLE);
+
+//            disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//
+//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//
+//
+//            if (answer!=1){
+//
+                selectedOption(holder.option1Layout,holder.img1);
+                holder.option2Layout.setEnabled(false);
+                holder.option3Layout.setEnabled(false);
+                holder.option4Layout.setEnabled(false);
+
+//
+//            }
+            questionslists.get(position).setUserSelecedAnswer(1);
+
+
+
+
         });
 
-        holder.option2Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.option2Layout.setOnClickListener(view -> {
 
+            holder.layoutExplain.setVisibility(View.VISIBLE);
 
+            questionslists.get(position).setUserSelecedAnswer(2);
 
-                holder.layoutExplain.setVisibility(View.VISIBLE);
+//            holder.layoutExplain.setVisibility(View.VISIBLE);
+//            disableOtherOption(holder.option1Layout,holder.option3Layout,holder.option4Layout);
+//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//            if (answer!=2){
+//
+                selectedOption(holder.option2Layout,holder.img2);
 
+            holder.option1Layout.setEnabled(false);
+            holder.option3Layout.setEnabled(false);
+            holder.option4Layout.setEnabled(false);
+//
+//            }
 
-                disableOtherOption(holder.option1Layout,holder.option3Layout,holder.option4Layout);
-                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-                if (answer!=2){
-
-                    selectedWrongOption(holder.option2Layout,holder.img2);
-
-                }
-
-            }
         });
-        holder.option3Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
+        holder.option3Layout.setOnClickListener(view -> {
 
+            holder.layoutExplain.setVisibility(View.VISIBLE);
+            questionslists.get(position).setUserSelecedAnswer(3);
 
+//            disableOtherOption(holder.option2Layout,holder.option1Layout,holder.option4Layout);
+//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//            if (answer!=3){
+//
+                selectedOption(holder.option3Layout,holder.img3);
+            holder.option2Layout.setEnabled(false);
+            holder.option1Layout.setEnabled(false);
+            holder.option4Layout.setEnabled(false);
+//
+//            }
 
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-                disableOtherOption(holder.option2Layout,holder.option1Layout,holder.option4Layout);
-                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-                if (answer!=3){
-
-                    selectedWrongOption(holder.option3Layout,holder.img3);
-
-                }
-
-            }
         });
-        holder.option4Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.option4Layout.setOnClickListener(view -> {
+
+            holder.layoutExplain.setVisibility(View.VISIBLE);
+//            disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
+            questionslists.get(position).setUserSelecedAnswer(2);
 
 
-                disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
-
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-                selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-                if (answer!=4){
-
-                    selectedWrongOption(holder.option4Layout,holder.img4);
-
-                }
-            }
+            holder.layoutExplain.setVisibility(View.VISIBLE);
+//
+//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
+//            if (answer!=4){
+//
+                selectedOption(holder.option4Layout,holder.img4);
+            holder.option2Layout.setEnabled(false);
+            holder.option3Layout.setEnabled(false);
+            holder.option1Layout.setEnabled(false);
+//
+//            }
         });
 
 
@@ -184,24 +223,17 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     private void disableOtherOption(RelativeLayout selectedOptionLayout ,RelativeLayout selected2OptionLayout
             ,RelativeLayout selected3OptionLayout ) {
-
-
-
         selectedOptionLayout.setEnabled(false);
         selected2OptionLayout.setEnabled(false);
         selected3OptionLayout.setEnabled(false);
-
-
     }
 
 
-
-
-    private void selectedWrongOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
-        selectedOptionIcon.setImageResource(R.drawable.cross);
-
-    }
+//    private void selectedWrongOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
+//        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
+//        selectedOptionIcon.setImageResource(R.drawable.cross);
+//
+//    }
 
     private void selectedRightOpti(int answer ,RelativeLayout selectedOptionLayout,RelativeLayout selected2OptionLayout
             ,RelativeLayout selected3OptionLayout,RelativeLayout selected4OptionLayout){
@@ -222,7 +254,23 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
+    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
+        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+    }
+public void intent(){
+
+    Intent intent = new Intent();
+    Bundle bundle = new Bundle();
+    bundle.putSerializable("qutions",(Serializable) questionslists);
+    intent.putExtras(bundle);
+}
+
+    public interface RecyclerViewDataPass {
+        public void pass(ArrayList questionList);
+    }
 
 
 }

@@ -8,42 +8,67 @@
     tools:context=".QuestionListActivity">
 
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/card"
-        >
-        <LinearLayout
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:id="@+id/card"
             >
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                android:text="  44th BCS Question "
-                />
+                android:background="@color/white"
+                >
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="23sp"
+                    android:id="@+id/topTv"
+                    android:textStyle="bold"
+                    android:text="  44th BCS Question "
+                    />
+
+            </LinearLayout>
 
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recview"
-        android:layout_below="@id/card"
-        android:visibility="visible"
-        android:layout_marginTop="20dp"
-        tools:ignore="MissingConstraints" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recview"
+            android:layout_below="@id/card"
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
+            tools:ignore="MissingConstraints" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_below="@id/recview"
+            />
+
+
+    </RelativeLayout>
+
+
+
+</ScrollView>
+
+
 
 </RelativeLayout>

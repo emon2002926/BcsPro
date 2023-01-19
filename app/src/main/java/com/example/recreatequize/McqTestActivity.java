@@ -323,6 +323,7 @@ public class McqTestActivity extends AppCompatActivity {
                                 questionslists.add(questionList);
 
 
+
                                 // Display the data in a TextView
 //                                textView.setText(name + " - " + email + " - " + age);
                             }
@@ -381,7 +382,6 @@ public class McqTestActivity extends AppCompatActivity {
                 quizTimer.setText(genarateTime);
 
             }
-
             @Override
             public void onFinish() {
 

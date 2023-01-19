@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -22,10 +23,11 @@ import com.google.gson.GsonBuilder;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://bcs.searchwizy.com/allQuestion.php";
+    private  static final String url="http://192.168.0.103/api2/allQuestion.php";
     RecyclerView recview;
 
     private static  String url2;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,11 @@ public class QuestionListActivity extends AppCompatActivity {
         recview=(RecyclerView)findViewById(R.id.recview);
 
         processdata();
+        url2 = getIntent().getExtras().getString("allQuestion1");
+
+        textView = findViewById(R.id.topTv);
+        textView.setText(url2);
+
 
     }
 
@@ -42,13 +49,11 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata()
     {
 
-        url2 = getIntent().getExtras().getString("allQuestion");
-
 
         // Todo got the api url
-        Log.d("url2",url2);
 
-        StringRequest request=new StringRequest(url2, new Response.Listener<String>() {
+
+        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
