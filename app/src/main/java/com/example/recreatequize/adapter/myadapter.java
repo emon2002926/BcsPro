@@ -77,11 +77,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         questionslists.add(questionList);
 
-        holder.questionTv.setText(questionslists.get(position).getQuestion());
-        holder.option1TV.setText(questionslists.get(position).getOption1());
-        holder.option2TV.setText(questionslists.get(position).getOption2());
-        holder.option3TV.setText(questionslists.get(position).getOption4());
-
+        holder.questionTv.setText(questionslists.get(position).getQuestion().trim());
+        holder.option1TV.setText(questionslists.get(position).getOption1().trim());
+        holder.option2TV.setText(questionslists.get(position).getOption2().trim());
+        holder.option3TV.setText(questionslists.get(position).getOption4().trim());
+        holder.option4TV.setText(questionslists.get(position).getOption4().trim());
 
         Intent intent = new Intent("my_list_action");
         //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));

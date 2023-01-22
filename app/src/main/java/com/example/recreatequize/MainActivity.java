@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragement(new HomeFragment());
@@ -36,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragement(new HomeFragment());
                     break;
 
-                case R.id.navigation_dashboard:
-                    replaceFragement(new DashBordFragment());
-                    break;
+//                case R.id.navigation_dashboard:
+//                    replaceFragement(new DashBordFragment());
+//                    break;
 
                 case R.id.navigation_setting:
                     replaceFragement(new SettingFragment());

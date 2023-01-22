@@ -74,6 +74,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
                 // Do something with the list here
 
+
                 btnSubmit.setOnClickListener(view -> {
 
                     Intent intent1 = new Intent(QuestionListActivity.this,QuizResult.class);

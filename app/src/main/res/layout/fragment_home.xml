@@ -73,7 +73,7 @@
                         android:text="Live exam"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         />
 
 
@@ -202,7 +202,7 @@
                         android:text="Practis MCQ"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="22sp" />
+                        android:textSize="20sp" />
 
                     <LinearLayout
                         android:id="@+id/l2"
@@ -355,7 +355,7 @@
                             android:text="Lecture and Notes"
                             android:layout_weight="1"
                             android:textColor="#0095ff"
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:layout_gravity="center"
                             />
 
