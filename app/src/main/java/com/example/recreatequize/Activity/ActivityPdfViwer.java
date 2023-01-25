@@ -1,4 +1,4 @@
-package com.example.recreatequize;
+package com.example.recreatequize.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
+
+import com.example.recreatequize.R;
 
 import java.io.InputStream;
 

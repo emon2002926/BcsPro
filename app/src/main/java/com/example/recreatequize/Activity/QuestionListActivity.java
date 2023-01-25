@@ -1,5 +1,6 @@
-package com.example.recreatequize;
+package com.example.recreatequize.Activity;
 
+import com.example.recreatequize.R;
 import com.example.recreatequize.modelClass.QuestionList;
 import com.example.recreatequize.modelClass.model;
 import com.example.recreatequize.adapter.myadapter;
@@ -14,8 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuestionListActivity extends AppCompatActivity {
 
@@ -77,7 +75,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
                 btnSubmit.setOnClickListener(view -> {
 
-                    Intent intent1 = new Intent(QuestionListActivity.this,QuizResult.class);
+                    Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
                     //Creating Bundle To pass QuestionList
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("qutions",(Serializable) questionLists);
@@ -90,8 +88,6 @@ public class QuestionListActivity extends AppCompatActivity {
 
         }
     };
-
-
 
 
     public void processdata()

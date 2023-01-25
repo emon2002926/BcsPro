@@ -1,4 +1,4 @@
-package com.example.recreatequize;
+package com.example.recreatequize.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.recreatequize.R;
 import com.example.recreatequize.modelClass.QuestionList;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".AllBcsQuestionActivity">
+    tools:context=".Activity.AllBcsQuestionActivity">
 
 
 

@@ -1,4 +1,4 @@
-package com.example.recreatequize;
+package com.example.recreatequize.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -8,8 +8,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.recreatequize.R;
 import com.example.recreatequize.modelClass.QuestionList;
 
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -38,8 +40,6 @@ public class McqTestActivity extends AppCompatActivity {
 
 
     private final List<QuestionList> questionslists = new ArrayList<>();
-
-
 
     private TextView quizTimer;
     private RelativeLayout option1Layout , option2Layout , option3Layout , option4Layout ;
@@ -50,9 +50,6 @@ public class McqTestActivity extends AppCompatActivity {
 
     private TextView totalQuestionTV ;
     private TextView currentQuestion ;
-
-
-
 
     CountDownTimer countDownTimer;
 
@@ -112,12 +109,12 @@ public class McqTestActivity extends AppCompatActivity {
         //Show Instration Dailog
 
 //
-//        progressBar =findViewById(R.id.progressBar4);
-//        progressBar.setVisibility(View.VISIBLE);
+        progressBar =findViewById(R.id.progressBar4);
+        progressBar.setVisibility(View.VISIBLE);
 //
 //        progressBar.setVisibility(View.VISIBLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
 
@@ -288,6 +285,7 @@ public class McqTestActivity extends AppCompatActivity {
 
         });
 
+
 //
         get();
     }
@@ -321,7 +319,9 @@ public class McqTestActivity extends AppCompatActivity {
                                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
 
                                 questionslists.add(questionList);
-
+                                Collections.shuffle(questionslists);
+                                progressBar.setVisibility(View.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
                                 // Display the data in a TextView
@@ -349,7 +349,7 @@ public class McqTestActivity extends AppCompatActivity {
     //////////////////////////
     private void finishQuiz(){
 
-        Intent intent = new Intent(McqTestActivity.this,QuizResult.class);
+        Intent intent = new Intent(McqTestActivity.this, QuizResult.class);
 
         //Creating Bundle To pass QuestionList
 
@@ -401,11 +401,11 @@ public class McqTestActivity extends AppCompatActivity {
 //        Collections.shuffle(questionslists);
 //        gating Question Ditals and set to Textview
 
-        questionTv.setText(questionslists.get(questionListPositon).getQuestion());
-        option1TV.setText(questionslists.get(questionListPositon).getOption1());
-        option2TV.setText(questionslists.get(questionListPositon).getOption2());
-        option3TV.setText(questionslists.get(questionListPositon).getOption3());
-        option4TV.setText(questionslists.get(questionListPositon).getOption4());
+        questionTv.setText(questionslists.get(questionListPositon).getQuestion().trim());
+        option1TV.setText(questionslists.get(questionListPositon).getOption1().trim());
+        option2TV.setText(questionslists.get(questionListPositon).getOption2().trim());
+        option3TV.setText(questionslists.get(questionListPositon).getOption3().trim());
+        option4TV.setText(questionslists.get(questionListPositon).getOption4().trim());
 
         //sating current question By Number
 

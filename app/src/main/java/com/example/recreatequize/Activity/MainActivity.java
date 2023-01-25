@@ -1,4 +1,4 @@
-package com.example.recreatequize;
+package com.example.recreatequize.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.recreatequize.R;
 import com.example.recreatequize.databinding.ActivityMainBinding;
 import com.example.recreatequize.fragment.DashBordFragment;
 import com.example.recreatequize.fragment.HomeFragment;
