@@ -20,9 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -63,10 +65,15 @@ public class ActivityLogin extends AppCompatActivity {
                 sendVerificationCode(number);
             }
 
-
         });
         btnVerify.setOnClickListener(view -> {
-            verifyCode();
+
+            if (TextUtils.isEmpty(otp.getText().toString())){
+                Toast.makeText(ActivityLogin.this,"plese otp a number",Toast.LENGTH_SHORT).show();
+            }else {
+                verifyCode(otp.getText().toString().trim());
+            }
+
         });
 
 
@@ -141,17 +148,29 @@ public class ActivityLogin extends AppCompatActivity {
     };
     private void verifyCode(String Code) {
 
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
+        singInByCredential(credential);
+    }
+
+    private void singInByCredential(PhoneAuthCredential credential) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(ActivityLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ActivityLogin.this,singintestActivity.class));
+                }
+            }
+        });
     }
 
 
-
-
-
+    // That one for google SingIN
     void signIn(){
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent,1000);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
