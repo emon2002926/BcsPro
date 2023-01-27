@@ -77,23 +77,22 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
 
-        
+///google sing in
 
-
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
-
+//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+//        gsc = GoogleSignIn.getClient(this,gso);
+//
 //        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 //        if(acct!=null){
 //            navigateToSecondActivity();
 //        }
-        googleBtn = findViewById(R.id.singInBtn);
-        googleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
+//        googleBtn = findViewById(R.id.singInBtn);
+//        googleBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signIn();
+//            }
+//        });
 
 
     }
@@ -111,8 +110,6 @@ public class ActivityLogin extends AppCompatActivity {
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
-
-
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
             mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -151,7 +148,6 @@ public class ActivityLogin extends AppCompatActivity {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
         singInByCredential(credential);
     }
-
     private void singInByCredential(PhoneAuthCredential credential) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -166,29 +162,41 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     // That one for google SingIN
-    void signIn(){
-        Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            try {
-                task.getResult(ApiException.class);
-                navigateToSecondActivity();
-            } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-    void navigateToSecondActivity(){
-        finish();
-        Intent intent = new Intent(ActivityLogin.this,singintestActivity.class);
-        startActivity(intent);
-    }
+//    void signIn(){
+//        Intent signInIntent = gsc.getSignInIntent();
+//        startActivityForResult(signInIntent,1000);
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == 1000){
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//
+//            try {
+//                task.getResult(ApiException.class);
+//                navigateToSecondActivity();
+//            } catch (ApiException e) {
+//                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//    }
+//    void navigateToSecondActivity(){
+//        finish();
+//        Intent intent = new Intent(ActivityLogin.this,singintestActivity.class);
+//        startActivity(intent);
+//    }
 }
