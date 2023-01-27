@@ -143,11 +143,15 @@ public class ActivityLogin extends AppCompatActivity {
 
         }
     };
+
+
     private void verifyCode(String Code) {
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
         singInByCredential(credential);
     }
+
+
     private void singInByCredential(PhoneAuthCredential credential) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

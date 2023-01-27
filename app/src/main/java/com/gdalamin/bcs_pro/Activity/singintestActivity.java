@@ -173,7 +173,7 @@ public class singintestActivity extends AppCompatActivity {
 
     void navigateToSecondActivity(){
         finish();
-        Intent intent = new Intent(singintestActivity.this,ActivityLogin.class);
+        Intent intent = new Intent(singintestActivity.this,MainActivity.class);
         startActivity(intent);
     }
 
