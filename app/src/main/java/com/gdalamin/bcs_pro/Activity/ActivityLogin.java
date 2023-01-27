@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -27,6 +29,7 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -36,171 +39,151 @@ import java.util.concurrent.TimeUnit;
 public class ActivityLogin extends AppCompatActivity {
 
 
+
+
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-    Button googleBtn,btnGenOtp,btnVerify;
-    EditText phone,otp;
-    FirebaseAuth auth;
-    String verificationId;
+
+    TextView signInTv,signUpTv;
+    LinearLayout layoutSignIn,layoutSignUp,layoutSignInImage;
+    View devider1,devider2;
+
+    EditText mobileSignEt;
+
+    TextView contunueBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        phone = findViewById(R.id.numberEt);
-        otp = findViewById(R.id.otpEt);
-        btnGenOtp = findViewById(R.id.submitBtn);
-        btnVerify = findViewById(R.id.chackOtp);
-
-        auth = FirebaseAuth.getInstance();
 
 
-        btnGenOtp.setOnClickListener(view -> {
 
-            if (TextUtils.isEmpty(phone.getText().toString())){
+        signInTv = findViewById(R.id.signInTv);
+        signUpTv = findViewById(R.id.signUpTv);
+
+        devider1 = findViewById(R.id.dividerI);
+        devider2 = findViewById(R.id.dividerU);
+
+
+        layoutSignIn = findViewById(R.id.layoutSignIn);
+        layoutSignUp = findViewById(R.id.layoutSignUp);
+        layoutSignUp.setVisibility(View.GONE);
+        layoutSignIn.setVisibility(View.VISIBLE);
+
+        devider1.setVisibility(View.VISIBLE);
+
+
+
+        signInTv.setOnClickListener(view -> {
+            layoutSignIn.setVisibility(View.VISIBLE);
+            layoutSignUp.setVisibility(View.GONE);
+
+            devider1.setVisibility(View.VISIBLE);
+            devider2.setVisibility(View.INVISIBLE);
+
+        });
+        signUpTv.setOnClickListener(view -> {
+            layoutSignIn.setVisibility(View.GONE);
+            layoutSignUp.setVisibility(View.VISIBLE);
+
+            devider1.setVisibility(View.INVISIBLE);
+            devider2.setVisibility(View.VISIBLE);
+        });
+
+
+        mobileSignEt = findViewById(R.id.mobileEt);
+
+        contunueBtn = findViewById(R.id.contunueEt);
+        contunueBtn.setOnClickListener(view -> {
+
+
+            if (TextUtils.isEmpty(mobileSignEt.getText().toString())){
                 Toast.makeText(ActivityLogin.this,"plese Inter a number",Toast.LENGTH_SHORT).show();
             }else {
-                String number = phone.getText().toString().trim();
-                sendVerificationCode(number);
+                String number = mobileSignEt.getText().toString().trim();
+                Intent intent = new Intent(ActivityLogin.this,ActivityOtpLogin.class);
+                intent.putExtra("mobile",number);
+                startActivity(intent);
+
+
             }
-
-        });
-        btnVerify.setOnClickListener(view -> {
-
-            if (TextUtils.isEmpty(otp.getText().toString())){
-                Toast.makeText(ActivityLogin.this,"plese otp a number",Toast.LENGTH_SHORT).show();
-            }else {
-                verifyCode(otp.getText().toString().trim());
-            }
-
         });
 
 
-///google sing in
 
-//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-//        gsc = GoogleSignIn.getClient(this,gso);
-//
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this,gso);
+
+
+//    Chacking  User is Logged in or not
+
 //        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 //        if(acct!=null){
 //            navigateToSecondActivity();
 //        }
-//        googleBtn = findViewById(R.id.singInBtn);
-//        googleBtn.setOnClickListener(new View.OnClickListener() {
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            //User is Logged in
+//            navigateToSecondActivity();
+//        }else{
+//            //No User is Logged in
+//        }
+
+        layoutSignInImage = findViewById(R.id.googleSignIN);
+        layoutSignInImage.setOnClickListener(view -> {
+
+            signIn();
+        });
+
+
+
+
+    }
+
+
+
+    void signIn(){
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent,1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+                navigateToSecondActivity();
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    void navigateToSecondActivity(){
+        finish();
+        Intent intent = new Intent(ActivityLogin.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
+    //    void signOut(){
+//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
 //            @Override
-//            public void onClick(View v) {
-//                signIn();
+//            public void onComplete(Task<Void> task) {
+//                finish();
+//                startActivity(new Intent(singintestActivity.this,ActivityLogin.class));
 //            }
 //        });
-
-
-    }
-
-
-
-    private void sendVerificationCode(String phoneNumber) {
-
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber("+880"+phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential credential)
-        {
-
-            final String code = credential.getSmsCode();
-            if (code !=null){
-                verifyCode(code);
-            }
-
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-
-
-            Toast.makeText(ActivityLogin.this,"Verification Failled",Toast.LENGTH_SHORT).show();
-
-            // Show a message and update the UI
-        }
-
-        @Override
-        public void onCodeSent(@NonNull String s,
-                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
-
-            super.onCodeSent(s,token);
-            verificationId =s;
-
-        }
-    };
-
-
-    private void verifyCode(String Code) {
-
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
-        singInByCredential(credential);
-    }
-
-
-    private void singInByCredential(PhoneAuthCredential credential) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(ActivityLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ActivityLogin.this,singintestActivity.class));
-                }
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // That one for google SingIN
-//    void signIn(){
-//        Intent signInIntent = gsc.getSignInIntent();
-//        startActivityForResult(signInIntent,1000);
 //    }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == 1000){
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//
-//            try {
-//                task.getResult(ApiException.class);
-//                navigateToSecondActivity();
-//            } catch (ApiException e) {
-//                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//
-//    }
-//    void navigateToSecondActivity(){
-//        finish();
-//        Intent intent = new Intent(ActivityLogin.this,singintestActivity.class);
-//        startActivity(intent);
-//    }
+
 }

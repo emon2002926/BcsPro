@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gdalamin.bcs_pro.R;
@@ -25,18 +28,41 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
     FirebaseAuth auth;
     String verificationId;
+
+    Button btnVerify;
+    EditText otp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_login);
 
+
+        otp = findViewById(R.id.otpEt);
+        btnVerify = findViewById(R.id.chackOtp);
+
+        auth = FirebaseAuth.getInstance();
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String number = extras.getString("mobile");
             sendVerificationCode(number);
+            Log.d("number",number);
 
             //The key argument here must match that used in the other activity
         }
+
+        btnVerify.setOnClickListener(view -> {
+
+            if (TextUtils.isEmpty(otp.getText().toString())){
+                Toast.makeText(ActivityOtpLogin.this,"plese otp a number",Toast.LENGTH_SHORT).show();
+            }else {
+                verifyCode(otp.getText().toString().trim());
+            }
+
+        });
+
 
     }
 
@@ -98,7 +124,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(ActivityOtpLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ActivityOtpLogin.this,singintestActivity.class));
+                    startActivity(new Intent(ActivityOtpLogin.this,MainActivity.class));
                 }
             }
         });

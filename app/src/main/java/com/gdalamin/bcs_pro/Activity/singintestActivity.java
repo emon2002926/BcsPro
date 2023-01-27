@@ -20,6 +20,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class singintestActivity extends AppCompatActivity {
 
@@ -134,10 +136,18 @@ public class singintestActivity extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this,gso);
 
-//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-//        if(acct!=null){
-//            navigateToSecondActivity();
-//        }
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct!=null){
+            navigateToSecondActivity();
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //User is Logged in
+            navigateToSecondActivity();
+        }else{
+            //No User is Logged in
+        }
 
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
@@ -179,13 +189,5 @@ public class singintestActivity extends AppCompatActivity {
 
 
 
-//    void signOut(){
-//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(Task<Void> task) {
-//                finish();
-//                startActivity(new Intent(singintestActivity.this,ActivityLogin.class));
-//            }
-//        });
-//    }
+
 }
