@@ -122,18 +122,20 @@
 
 
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnExamStart"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/next_button"
+        android:textSize="20dp"
         android:text="Start Exam"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:padding="10dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:gravity="center"
+        android:id="@+id/btnExamStart"
+        android:background="@drawable/round_sceondery_button_100"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"/>
+
 
 
     <TextView

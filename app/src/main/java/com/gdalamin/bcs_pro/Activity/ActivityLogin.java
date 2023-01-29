@@ -120,18 +120,18 @@ public class ActivityLogin extends AppCompatActivity {
 
 //    Chacking  User is Logged in or not
 
-//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-//        if(acct!=null){
-//            navigateToSecondActivity();
-//        }
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            //User is Logged in
-//            navigateToSecondActivity();
-//        }else{
-//            //No User is Logged in
-//        }
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct!=null){
+            navigateToSecondActivity();
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //User is Logged in
+            navigateToSecondActivity();
+        }else{
+            //No User is Logged in
+        }
 
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {

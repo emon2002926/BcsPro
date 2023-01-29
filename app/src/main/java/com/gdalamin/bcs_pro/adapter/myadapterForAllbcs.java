@@ -58,7 +58,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
 
               Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-              intent.putExtra("image","http://192.168.0.103/api2/previsQuestion/"+data[position].getBatchNum());
+              intent.putExtra("image","http://192.168.0.104/api2/previsQuestion/"+data[position].getBatchNum());
               view.getContext().startActivity(intent);
 
             }

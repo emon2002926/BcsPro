@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private  static final String url="http://192.168.0.103/api2/others.php";
+    private  static final String url="http://192.168.0.104/api2/others.php";
     RecyclerView recyclerView;
     CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
     TextView tvPractice;
@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
         tvPractice.setOnClickListener(view13 -> {
 
             Intent intent = new Intent(view13.getContext(), QuestionListActivity.class);
-            intent.putExtra("allQuestion","http://192.168.0.103/api2/allQuestion.php");
+            intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view13.getContext().startActivity(intent);
 
         });
@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment {
         CvImportantQuestion.setOnClickListener(view12 -> {
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
-            intent.putExtra("allQuestion","http://192.168.0.103/api2/allQuestion.php");
+            intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view12.getContext().startActivity(intent);
         });
 

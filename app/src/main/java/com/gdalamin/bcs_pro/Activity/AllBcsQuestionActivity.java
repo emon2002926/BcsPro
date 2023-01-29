@@ -25,7 +25,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
     Button buttonShare;
 
-    private  static final String url="http://192.168.0.103/api2/others.php";
+    private  static final String url="http://192.168.0.104/api2/others.php";
     RecyclerView recyclerView;
     LinearLayout quizLayout,letcureLayout;
     @Override

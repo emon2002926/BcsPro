@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.103/api2/allQuestion.php";
+    private  static final String url="http://192.168.0.104/api2/allQuestion.php";
     RecyclerView recview;
 
     private static  String url2;

@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 public class ActivityLectureAndNote extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private  static final String url="http://192.168.0.103/api2/lectureAndNotes.php";
+    private  static final String url="http://192.168.0.104/api2/lectureAndNotes.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

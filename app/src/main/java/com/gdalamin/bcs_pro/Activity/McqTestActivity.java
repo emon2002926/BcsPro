@@ -296,7 +296,7 @@ public class McqTestActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // URL to the PHP API
-        String url = "http://192.168.0.103/api/quizApi.php";
+        String url = "http://192.168.0.104/api/quizApi.php";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
