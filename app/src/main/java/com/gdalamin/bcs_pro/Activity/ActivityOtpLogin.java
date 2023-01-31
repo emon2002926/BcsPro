@@ -47,7 +47,8 @@ public class ActivityOtpLogin extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String number = extras.getString("mobile");
-            sendVerificationCode(number);
+            //desabling for testing
+//            sendVerificationCode(number);
             Log.d("number",number);
 
             //The key argument here must match that used in the other activity

@@ -89,13 +89,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/layoutSignIn"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="20sp"
                 android:padding="15dp"
+                android:id="@+id/EtPhoneL"
                 android:background="@drawable/bg_edit_text"
                 android:textColor="@color/black"
                 android:hint="Email or Phone"/>
@@ -105,6 +106,7 @@
                 android:layout_height="50dp"
                 android:textSize="20sp"
                 android:padding="15dp"
+                android:id="@+id/EtPassL"
                 android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
@@ -117,13 +119,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/layoutSignUp"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="20sp"
                 android:padding="15dp"
+                android:id="@+id/EtName"
                 android:background="@drawable/bg_edit_text"
                 android:textColor="@color/black"
                 android:hint="Full Name"/>
@@ -133,6 +136,7 @@
                 android:layout_height="50dp"
                 android:textSize="20sp"
                 android:padding="15dp"
+                android:id="@+id/EtpassS"
                 android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
@@ -145,7 +149,7 @@
                 android:padding="15dp"
                 android:layout_marginTop="20dp"
                 android:inputType="number"
-                android:id="@+id/mobileEt"
+                android:id="@+id/mobileEtS"
                 android:textColor="@color/black"
                 android:background="@drawable/bg_edit_text"
                 android:hint="Phone"/>
