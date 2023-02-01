@@ -162,6 +162,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                 signUp(name,phone,pass);
 
+
 //            }
         });
 
@@ -208,11 +209,15 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onResponse(String response)
             {
-                
+
+
+
+
                 fullNameEtS.setText("");
                 phoneEtS.setText("");
                 passEtS.setText("");
                 Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                navigateToOtpActivity(phone);
             }
         }, new Response.ErrorListener() {
             @Override

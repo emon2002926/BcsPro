@@ -48,7 +48,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         if (extras != null) {
             String number = extras.getString("mobile");
             //desabling for testing
-//            sendVerificationCode(number);
+            sendVerificationCode(number);
             Log.d("number",number);
 
             //The key argument here must match that used in the other activity
@@ -125,7 +125,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(ActivityOtpLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ActivityOtpLogin.this,MainActivity.class));
+                    startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
                 }
             }
         });

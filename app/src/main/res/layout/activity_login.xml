@@ -99,6 +99,7 @@
                 android:id="@+id/EtPhoneL"
                 android:background="@drawable/bg_edit_text"
                 android:textColor="@color/black"
+                android:inputType="phone"
                 android:hint="Email or Phone"/>
 
             <EditText
