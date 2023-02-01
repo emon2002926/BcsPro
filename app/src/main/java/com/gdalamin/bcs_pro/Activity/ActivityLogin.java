@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gdalamin.bcs_pro.LoginRequest;
 import com.gdalamin.bcs_pro.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +29,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +54,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private RequestQueue queue;
 
-    private static final String url="http://192.168.0.104/android_db_pool/db_insert.php";
+    private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
 
 
     @Override
@@ -131,6 +135,8 @@ public class ActivityLogin extends AppCompatActivity {
         contunueBtnL.setOnClickListener(view -> {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
+
+            login(phone,pass);
             
 
         });
@@ -154,7 +160,7 @@ public class ActivityLogin extends AppCompatActivity {
                 Toast.makeText(ActivityLogin.this,phone+name+pass,Toast.LENGTH_SHORT).show();
 
 
-                insertdata(name,phone,pass);
+                signUp(name,phone,pass);
 
 //            }
         });
@@ -166,7 +172,35 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-    private void insertdata(final String name, final String phone ,final String pwd )
+    public void login (String phone, String password){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    String status = jsonResponse.getString("status");
+                    if (status.equals("success")) {
+                        // Login successful
+                        navigateToSecondActivity();
+                        // Redirect to home screen or show a message
+                    } else {
+                        // Login failed
+                        // Show an error message
+                        Toast.makeText(ActivityLogin.this,"Login failed",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        LoginRequest loginRequest = new LoginRequest(phone, password, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ActivityLogin.this);
+        queue.add(loginRequest);
+
+    }
+
+
+    private void signUp(final String name, final String phone ,final String pwd )
     {
 
 
@@ -174,6 +208,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onResponse(String response)
             {
+                
                 fullNameEtS.setText("");
                 phoneEtS.setText("");
                 passEtS.setText("");

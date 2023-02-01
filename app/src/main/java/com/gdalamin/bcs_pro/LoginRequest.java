@@ -13,7 +13,7 @@ public class LoginRequest extends StringRequest {
     public LoginRequest(String email, String password, Response.Listener<String> listener) {
         super(Method.POST, LOGIN_URL, listener, null);
         params = new HashMap<>();
-        params.put("email", email);
+        params.put("phone", email);
         params.put("password", password);
     }
 
