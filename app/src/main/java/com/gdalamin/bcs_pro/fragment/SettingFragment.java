@@ -67,4 +67,16 @@ public class SettingFragment extends Fragment {
 
         return view;
     }
+
+
+    //    void signOut(){
+//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(Task<Void> task) {
+//                finish();
+//                startActivity(new Intent(singintestActivity.this,ActivityLogin.class));
+//            }
+//        });
+//    }
+
 }

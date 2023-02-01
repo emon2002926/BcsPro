@@ -20,11 +20,6 @@
             android:name=".Activity.ActivityOtpLogin"
             android:exported="false" />
         <activity
-            android:name=".Activity.singintestActivity"
-            android:exported="false">
-
-        </activity>
-        <activity
             android:name=".Activity.ActivityLogin"
             android:exported="true">
 
