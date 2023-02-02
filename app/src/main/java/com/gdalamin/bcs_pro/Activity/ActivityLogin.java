@@ -1,5 +1,6 @@
 package com.gdalamin.bcs_pro.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -29,35 +30,37 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ActivityLogin extends AppCompatActivity {
-
-
 
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    TextView signInTv,signUpTv;
-    LinearLayout layoutSignIn,layoutSignUp;
+    TextView signInTv, signUpTv;
+    LinearLayout layoutSignIn, layoutSignUp;
     CardView layoutSignInImage;
-    View devider1,devider2;
+    View devider1, devider2;
 
-    EditText phoneEtS,fullNameEtS,passEtS,phoneEtL,passEtL;
+    EditText phoneEtS, fullNameEtS, passEtS, phoneEtL, passEtL;
 
-    TextView contunueBtnS,contunueBtnL;
+    TextView contunueBtnS, contunueBtnL;
 
     private RequestQueue queue;
 
-    private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
+    private static final String url = "http://192.168.0.104/api2/volley/signUpLogin.php";
 
 
     @Override
@@ -111,12 +114,12 @@ public class ActivityLogin extends AppCompatActivity {
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        gsc = GoogleSignIn.getClient(this, gso);
 
 
         //    Chacking  User is Logged in or not
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
+        if (acct != null) {
 //            navigateToSecondActivity();
         }
 
@@ -124,7 +127,7 @@ public class ActivityLogin extends AppCompatActivity {
         if (user != null) {
             //User is Logged in
 //            navigateToSecondActivity();
-        }else{
+        } else {
             //No User is Logged in
         }
 
@@ -140,48 +143,45 @@ public class ActivityLogin extends AppCompatActivity {
             String pass = passEtL.getText().toString();
 
 
-            login(phone,pass);
-            
+            login(phone, pass);
+
 
         });
 
 
         contunueBtnS.setOnClickListener(view -> {
 
-                String name = fullNameEtS.getText().toString();
-                String phone = phoneEtS.getText().toString();
-                String pass = passEtS.getText().toString();
+            String name = fullNameEtS.getText().toString();
+            String phone = phoneEtS.getText().toString();
+            String pass = passEtS.getText().toString();
 
-                if (name.isEmpty()){
-                    fullNameEtS.setError("Full name is Required");
-                    fullNameEtS.requestFocus();
-                    return;
-                }
-                else if (phone.isEmpty()){
-                    phoneEtS.setError("Please enter a Phone Number");
-                    phoneEtS.requestFocus();
-                    return;
-                }else if (phone.toString().length()!=4){
-                    phoneEtS.setError("Please enter a Valid Phone Number");
-                    phoneEtS.requestFocus();
-                    return;
-                }
-                else if (pass.isEmpty())
-                {
-                    passEtS.setError("Please enter a Password");
-                    passEtS.requestFocus();
-                    return;
-                }else {
+            if (name.isEmpty()) {
+                fullNameEtS.setError("Full name is Required");
+                fullNameEtS.requestFocus();
+                return;
+            } else if (phone.isEmpty()) {
+                phoneEtS.setError("Please enter a Phone Number");
+                phoneEtS.requestFocus();
+                return;
+            } else if (phone.toString().length() != 11) {
+                phoneEtS.setError("Please enter a Valid Phone Number");
+                phoneEtS.requestFocus();
+                return;
+            } else if (pass.isEmpty()) {
+                passEtS.setError("Please enter a Password");
+                passEtS.requestFocus();
+                return;
+            } else {
 //                    signUp(name,phone,pass);
-                    checkNumber(phone,name,pass);
+                checkNumber(phone, name, pass);
 
-                }
+            }
 
         });
 
     }
 
-    public void login (String phone, String password){
+    public void login(String phone, String password) {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -195,7 +195,7 @@ public class ActivityLogin extends AppCompatActivity {
                     } else {
                         // Login failed
                         // Show an error message
-                        Toast.makeText(ActivityLogin.this,"Login failed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityLogin.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -209,8 +209,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-
-    private void checkNumber(String number,String name,String password){
+    private void checkNumber(String number, String name, String password) {
 
         String API_URL = "http://192.168.0.104/api2/volley/chackNumber.php?phone=" + number;
 
@@ -223,10 +222,31 @@ public class ActivityLogin extends AppCompatActivity {
                             int status = jsonObject.getInt("status");
                             if (status == 0) {
                                 // Phone number already exists
-                                Toast.makeText(ActivityLogin.this,"Phone number already exists",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityLogin.this, "Phone number already exists", Toast.LENGTH_SHORT).show();
                             } else if (status == 1) {
                                 // Phone number is available
-                                navigateToOtpActivity(number,name,password);
+
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                        "+880" + number.toString(), 60, TimeUnit.SECONDS
+                                        , ActivityLogin.this,
+                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                            @Override
+                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                                            }
+
+                                            @Override
+                                            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+                                            }
+
+                                            @Override
+                                            public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                                super.onCodeSent(backendOtp, forceResendingToken);
+                                                navigateToOtpActivity(number, name, password,backendOtp);
+                                            }
+                                        }
+                                );
 
 
                             }
@@ -247,19 +267,15 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-
-
-
-
-    void signIn(){
+    void signIn() {
         Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
+        startActivityForResult(signInIntent, 1000);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
+        if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
@@ -272,19 +288,19 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-    void navigateToSecondActivity(){
+    void navigateToSecondActivity() {
         finish();
-        Intent intent = new Intent(ActivityLogin.this,MainActivity.class);
+        Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
         startActivity(intent);
     }
 
 
-
-    void navigateToOtpActivity(String number,String name,String password){
-        Intent intent = new Intent(ActivityLogin.this,ActivityOtpLogin.class);
-        intent.putExtra("mobile",number);
-        intent.putExtra("name",name);
-        intent.putExtra("password",password);
+    void navigateToOtpActivity(String number, String name, String password,String otp) {
+        Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
+        intent.putExtra("mobile", number);
+        intent.putExtra("name", name);
+        intent.putExtra("password", password);
+        intent.putExtra("otp",otp);
         startActivity(intent);
     }
 

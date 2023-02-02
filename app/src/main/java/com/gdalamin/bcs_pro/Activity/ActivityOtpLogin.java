@@ -41,19 +41,18 @@ public class ActivityOtpLogin extends AppCompatActivity {
     String verificationId;
 
     Button btnVerify;
-    EditText otp,inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
+    EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
     private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
 
+     String number,name,password,firbaseOtp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_login);
 
 
-        otp = findViewById(R.id.otpEt);
         btnVerify = findViewById(R.id.chackOtp);
-
         inputNumber1 = findViewById(R.id.inputOtp1);
         inputNumber2 = findViewById(R.id.inputOtp2);
         inputNumber3 = findViewById(R.id.inputOtp3);
@@ -64,30 +63,48 @@ public class ActivityOtpLogin extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String number = extras.getString("mobile");
-            //desabling for testing
-//            sendVerificationCode(number);
-            Log.d("number",number);
 
-            //The key argument here must match that used in the other activity
-        }
+         number = extras.getString("mobile");
+         name = extras.getString("name");
+         password = extras.getString("password");
+         firbaseOtp = extras.getString("otp");
+
+        Log.d("number",number+name+password);
 
         btnVerify.setOnClickListener(view -> {
-/*
-            if (TextUtils.isEmpty(otp.getText().toString())){
-                Toast.makeText(ActivityOtpLogin.this,"plese otp a number",Toast.LENGTH_SHORT).show();
-            }else {
-                verifyCode(otp.getText().toString().trim());
+
+
+            if (!inputNumber1.getText().toString().trim().isEmpty() && !inputNumber2.getText().toString().trim().isEmpty() && !inputNumber3.getText().toString().trim().isEmpty()&& !inputNumber4.getText().toString().trim().isEmpty() && !inputNumber5.getText().toString().trim().isEmpty()&& !inputNumber6.getText().toString().trim().isEmpty())
+            {
+
+                String userInputOtp = inputNumber1.getText().toString()+
+                        inputNumber2.getText().toString()+
+                        inputNumber3.getText().toString()+
+                        inputNumber4.getText().toString()+
+                        inputNumber5.getText().toString()+
+                        inputNumber6.getText().toString();
+
+                if (firbaseOtp !=null){
+
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
+                            firbaseOtp,userInputOtp);
+                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    Toast.makeText(ActivityOtpLogin.this,"Otp verified",Toast.LENGTH_SHORT).show();
+
+
+                                }
+
+                            });
+                }
+                else {
+                    Toast.makeText(ActivityOtpLogin.this,"Check Your Internet Connection",Toast.LENGTH_SHORT).show();
+                }
             }
-*/
-
-            if (!inputNumber1.getText().toString().trim().isEmpty() && !inputNumber2.getText().toString().trim().isEmpty()
-            && !inputNumber3.getText().toString().trim().isEmpty()&& !inputNumber4.getText().toString().trim().isEmpty()
-            && !inputNumber5.getText().toString().trim().isEmpty()&& !inputNumber6.getText().toString().trim().isEmpty()
-            ){
-
-            }else {
+            else {
 
 
             }
