@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.LoginRequest;
@@ -160,7 +161,7 @@ public class ActivityLogin extends AppCompatActivity {
                     phoneEtS.setError("Please enter a Phone Number");
                     phoneEtS.requestFocus();
                     return;
-                }else if (phone.toString().length()!=11){
+                }else if (phone.toString().length()!=4){
                     phoneEtS.setError("Please enter a Valid Phone Number");
                     phoneEtS.requestFocus();
                     return;
@@ -171,7 +172,9 @@ public class ActivityLogin extends AppCompatActivity {
                     passEtS.requestFocus();
                     return;
                 }else {
-                    signUp(name,phone,pass);
+//                    signUp(name,phone,pass);
+                    checkNumber(phone,name,pass);
+
                 }
 
         });
@@ -206,52 +209,46 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    private void signUp(final String name, final String phone ,final String pwd )
-    {
+
+    private void checkNumber(String number,String name,String password){
+
+        String API_URL = "http://192.168.0.104/api2/volley/chackNumber.php?phone=" + number;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int status = jsonObject.getInt("status");
+                            if (status == 0) {
+                                // Phone number already exists
+                                Toast.makeText(ActivityLogin.this,"Phone number already exists",Toast.LENGTH_SHORT).show();
+                            } else if (status == 1) {
+                                // Phone number is available
+                                navigateToOtpActivity(number,name,password);
 
 
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response)
-            {
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+                });
 
-
-                if (response.toString().equals("exists")){
-
-                    Toast.makeText(ActivityLogin.this,"This Number Alrady Exists",Toast.LENGTH_SHORT).show();
-
-                }else {
-
-                    fullNameEtS.setText("");
-                    phoneEtS.setText("");
-                    passEtS.setText("");
-                    navigateToOtpActivity(phone);
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                Log.d("err2",error.toString());
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("name",name);
-                param.put("phone",phone);
-                param.put("password",pwd);
-                return param;
-            }
-        };
-
-
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
-
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
+
+
+
+
 
 
     void signIn(){
@@ -283,9 +280,11 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
-    void navigateToOtpActivity(String number){
+    void navigateToOtpActivity(String number,String name,String password){
         Intent intent = new Intent(ActivityLogin.this,ActivityOtpLogin.class);
         intent.putExtra("mobile",number);
+        intent.putExtra("name",name);
+        intent.putExtra("password",password);
         startActivity(intent);
     }
 

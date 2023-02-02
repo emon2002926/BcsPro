@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +30,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityOtpLogin extends AppCompatActivity {
@@ -34,6 +43,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     Button btnVerify;
     EditText otp,inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
+    private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,4 +261,53 @@ public class ActivityOtpLogin extends AppCompatActivity {
             }
         });
     }
+
+
+
+    private void signUp(final String name, final String phone ,final String pwd )
+    {
+
+
+        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+
+
+                if (response.toString().equals("exists")){
+
+                    Toast.makeText(ActivityOtpLogin.this,"This Number Already Exists",Toast.LENGTH_SHORT).show();
+
+                }else {
+
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                Log.d("err2",error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("name",name);
+                param.put("phone",phone);
+                param.put("password",pwd);
+                return param;
+            }
+        };
+
+
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+    }
+
+
+
 }
