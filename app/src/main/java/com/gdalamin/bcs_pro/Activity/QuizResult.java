@@ -38,6 +38,7 @@ public class QuizResult extends AppCompatActivity {
 
 
 
+
         final TextView scoreTv = findViewById(R.id.scoreTv);
         final TextView totalScoreTv = findViewById(R.id.totalScoreTv);
         final TextView correctTv = findViewById(R.id.correctTv);

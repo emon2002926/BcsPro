@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +32,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     String verificationId;
 
     Button btnVerify;
-    EditText otp;
+    EditText otp,inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
 
     @Override
@@ -42,26 +44,145 @@ public class ActivityOtpLogin extends AppCompatActivity {
         otp = findViewById(R.id.otpEt);
         btnVerify = findViewById(R.id.chackOtp);
 
+        inputNumber1 = findViewById(R.id.inputOtp1);
+        inputNumber2 = findViewById(R.id.inputOtp2);
+        inputNumber3 = findViewById(R.id.inputOtp3);
+        inputNumber4 = findViewById(R.id.inputOtp4);
+        inputNumber5 = findViewById(R.id.inputOtp5);
+        inputNumber6 = findViewById(R.id.inputOtp6);
+
         auth = FirebaseAuth.getInstance();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String number = extras.getString("mobile");
             //desabling for testing
-            sendVerificationCode(number);
+//            sendVerificationCode(number);
             Log.d("number",number);
 
             //The key argument here must match that used in the other activity
         }
 
         btnVerify.setOnClickListener(view -> {
-
+/*
             if (TextUtils.isEmpty(otp.getText().toString())){
                 Toast.makeText(ActivityOtpLogin.this,"plese otp a number",Toast.LENGTH_SHORT).show();
             }else {
                 verifyCode(otp.getText().toString().trim());
             }
+*/
 
+            if (!inputNumber1.getText().toString().trim().isEmpty() && !inputNumber2.getText().toString().trim().isEmpty()
+            && !inputNumber3.getText().toString().trim().isEmpty()&& !inputNumber4.getText().toString().trim().isEmpty()
+            && !inputNumber5.getText().toString().trim().isEmpty()&& !inputNumber6.getText().toString().trim().isEmpty()
+            ){
+
+            }else {
+
+
+            }
+
+
+        });
+
+        numberOtpMove();
+
+
+    }
+
+    private void numberOtpMove() {
+        inputNumber1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()){
+                    inputNumber2.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        inputNumber2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()){
+                    inputNumber3.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        inputNumber3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()){
+                    inputNumber4.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        inputNumber4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()){
+                    inputNumber5.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        inputNumber5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()){
+                    inputNumber6.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
 
 
@@ -115,11 +236,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     private void verifyCode(String Code) {
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
-
-
         singInByCredential(credential);
-
-
     }
 
     private void singInByCredential(PhoneAuthCredential credential) {
@@ -130,15 +247,8 @@ public class ActivityOtpLogin extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(ActivityOtpLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
-
-
-
                 }
             }
         });
     }
-
-
-
-
 }

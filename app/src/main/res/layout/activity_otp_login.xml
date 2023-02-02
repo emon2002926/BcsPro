@@ -19,14 +19,119 @@
         android:hint="OTP"
         android:id="@+id/otpEt"
         android:inputType="number"
+        android:visibility="visible"
         />
+
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+        <EditText
+            android:layout_width="40dp"
+            android:id="@+id/inputOtp1"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:id="@+id/inputOtp2"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:id="@+id/inputOtp3"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:layout_marginStart="4dp"
+
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:id="@+id/inputOtp4"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:layout_marginStart="4dp"
+
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:id="@+id/inputOtp5"
+            android:layout_marginStart="4dp"
+
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:id="@+id/inputOtp6"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            />
+        
+    </LinearLayout>
+
+
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="chack otp"
+        android:layout_marginTop="30dp"
         android:id="@+id/chackOtp"
+        android:visibility="visible"
         />
+
 
 
 

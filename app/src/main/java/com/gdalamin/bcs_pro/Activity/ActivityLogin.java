@@ -116,7 +116,7 @@ public class ActivityLogin extends AppCompatActivity {
         //    Chacking  User is Logged in or not
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
-            navigateToSecondActivity();
+//            navigateToSecondActivity();
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -158,6 +158,10 @@ public class ActivityLogin extends AppCompatActivity {
                 }
                 else if (phone.isEmpty()){
                     phoneEtS.setError("Please enter a Phone Number");
+                    phoneEtS.requestFocus();
+                    return;
+                }else if (phone.toString().length()!=11){
+                    phoneEtS.setError("Please enter a Valid Phone Number");
                     phoneEtS.requestFocus();
                     return;
                 }
