@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +46,8 @@ public class ActivityLogin extends AppCompatActivity {
     GoogleSignInClient gsc;
 
     TextView signInTv,signUpTv;
-    LinearLayout layoutSignIn,layoutSignUp,layoutSignInImage;
+    LinearLayout layoutSignIn,layoutSignUp;
+    CardView layoutSignInImage;
     View devider1,devider2;
 
     EditText phoneEtS,fullNameEtS,passEtS,phoneEtL,passEtL;
@@ -120,7 +122,7 @@ public class ActivityLogin extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             //User is Logged in
-            navigateToSecondActivity();
+//            navigateToSecondActivity();
         }else{
             //No User is Logged in
         }
@@ -136,40 +138,39 @@ public class ActivityLogin extends AppCompatActivity {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
 
+
             login(phone,pass);
             
 
         });
 
 
-
-
         contunueBtnS.setOnClickListener(view -> {
-
-
-//            if (TextUtils.isEmpty(mobileSignEt.getText().toString())){
-//                Toast.makeText(ActivityLogin.this,"plese Inter a number",Toast.LENGTH_SHORT).show();
-//            }else {
-
-            // that one for firebase Otp
 
                 String name = fullNameEtS.getText().toString();
                 String phone = phoneEtS.getText().toString();
                 String pass = passEtS.getText().toString();
 
-                Toast.makeText(ActivityLogin.this,phone+name+pass,Toast.LENGTH_SHORT).show();
+                if (name.isEmpty()){
+                    fullNameEtS.setError("Full name is Required");
+                    fullNameEtS.requestFocus();
+                    return;
+                }
+                else if (phone.isEmpty()){
+                    phoneEtS.setError("Please enter a Phone Number");
+                    phoneEtS.requestFocus();
+                    return;
+                }
+                else if (pass.isEmpty())
+                {
+                    passEtS.setError("Please enter a Password");
+                    passEtS.requestFocus();
+                    return;
+                }else {
+                    signUp(name,phone,pass);
+                }
 
-
-                signUp(name,phone,pass);
-
-
-//            }
         });
-
-
-
-
-
 
     }
 
@@ -211,13 +212,18 @@ public class ActivityLogin extends AppCompatActivity {
             {
 
 
+                if (response.toString().equals("exists")){
 
+                    Toast.makeText(ActivityLogin.this,"This Number Alrady Exists",Toast.LENGTH_SHORT).show();
 
-                fullNameEtS.setText("");
-                phoneEtS.setText("");
-                passEtS.setText("");
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                navigateToOtpActivity(phone);
+                }else {
+
+                    fullNameEtS.setText("");
+                    phoneEtS.setText("");
+                    passEtS.setText("");
+                    navigateToOtpActivity(phone);
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override

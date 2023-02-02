@@ -115,7 +115,11 @@ public class ActivityOtpLogin extends AppCompatActivity {
     private void verifyCode(String Code) {
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
+
+
         singInByCredential(credential);
+
+
     }
 
     private void singInByCredential(PhoneAuthCredential credential) {
@@ -126,6 +130,9 @@ public class ActivityOtpLogin extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(ActivityOtpLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
+
+
+
                 }
             }
         });
