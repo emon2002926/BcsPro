@@ -3,7 +3,9 @@ package com.gdalamin.bcs_pro.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -255,6 +257,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
                     startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
                     finish();
+
                 }
 
             }
@@ -281,6 +284,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         queue.add(request);
 
     }
+
 
 
 

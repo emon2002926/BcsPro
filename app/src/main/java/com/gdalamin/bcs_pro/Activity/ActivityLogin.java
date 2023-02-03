@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -119,19 +121,17 @@ public class ActivityLogin extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
 
-        //    Chacking  User is Logged in or not
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            navigateToSecondActivity();
-        }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            //User is Logged in
-            navigateToSecondActivity();
-        } else {
-            //No User is Logged in
-        }
+
+
+
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            //User is Logged in
+////            navigateToSecondActivity();
+//        } else {
+//            //No User is Logged in
+//        }
 
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
@@ -144,9 +144,7 @@ public class ActivityLogin extends AppCompatActivity {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
 
-
             login(phone, pass);
-
 
         });
 
@@ -181,6 +179,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         });
 
+
     }
 
     public void login(String phone, String password) {
@@ -192,11 +191,14 @@ public class ActivityLogin extends AppCompatActivity {
                     String status = jsonResponse.getString("status");
                     if (status.equals("success")) {
                         // Login successful
+                        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("key_phone", phone);
+                        editor.commit();
                         navigateToSecondActivity();
-                        // Redirect to home screen or show a message
+
                     } else {
                         // Login failed
-                        // Show an error message
                         Toast.makeText(ActivityLogin.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -210,7 +212,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-
+    //checking the number is registered or not in the database ,Before passing the data into Otp Activity
     private void checkNumber(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
@@ -293,13 +295,13 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     void navigateToSecondActivity() {
-        finish();
         Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
-    void navigateToOtpActivity(String number, String name, String password ,String otp) {
+    public void navigateToOtpActivity(String number, String name, String password ,String otp) {
         Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
         intent.putExtra("mobile", number);
         intent.putExtra("name", name);
