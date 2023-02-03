@@ -29,7 +29,6 @@ public class SplashScreen extends AppCompatActivity {
 
                 GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-
                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
                 String valueString = sharedPreferences.getString("key_phone", "");
                 if (!valueString.isEmpty()){
