@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,7 +41,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     FirebaseAuth auth;
     String verificationId;
 
-    Button btnVerify;
+    TextView btnVerify;
     EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
     private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
@@ -70,6 +71,9 @@ public class ActivityOtpLogin extends AppCompatActivity {
          firbaseOtp = extras.getString("otp");
 
         Log.d("number",number+name+password);
+
+        signUp(name,number,password);
+
 
         btnVerify.setOnClickListener(view -> {
 
@@ -216,69 +220,6 @@ public class ActivityOtpLogin extends AppCompatActivity {
     }
 
 
-    private void sendVerificationCode(String phoneNumber) {
-
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber("+880"+phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential credential)
-        {
-
-            final String code = credential.getSmsCode();
-            if (code !=null){
-                verifyCode(code);
-            }
-
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-
-
-            Toast.makeText(ActivityOtpLogin.this,"Verification Failled",Toast.LENGTH_SHORT).show();
-
-            // Show a message and update the UI
-        }
-
-        @Override
-        public void onCodeSent(@NonNull String s,
-                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
-
-            super.onCodeSent(s,token);
-            verificationId =s;
-
-        }
-    };
-    private void verifyCode(String Code) {
-
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,Code);
-        singInByCredential(credential);
-    }
-
-    private void singInByCredential(PhoneAuthCredential credential) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(ActivityOtpLogin.this,"Login Passed",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
-                }
-            }
-        });
-    }
-
 
 
     private void signUp(final String name, final String phone ,final String pwd )
@@ -297,6 +238,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
                 }else {
 
+                    Toast.makeText(ActivityOtpLogin.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
 
                 }
 

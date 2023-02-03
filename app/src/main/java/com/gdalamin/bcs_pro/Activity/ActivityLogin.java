@@ -173,7 +173,8 @@ public class ActivityLogin extends AppCompatActivity {
                 return;
             } else {
 //                    signUp(name,phone,pass);
-                checkNumber(phone, name, pass);
+//                checkNumber(phone, name, pass);
+                navigateToOtpActivity(phone,name,pass);
 
             }
 
@@ -243,7 +244,7 @@ public class ActivityLogin extends AppCompatActivity {
                                             @Override
                                             public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                                 super.onCodeSent(backendOtp, forceResendingToken);
-                                                navigateToOtpActivity(number, name, password,backendOtp);
+//                                                navigateToOtpActivity(number, name, password,backendOtp);
                                             }
                                         }
                                 );
@@ -295,12 +296,12 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    void navigateToOtpActivity(String number, String name, String password,String otp) {
+    void navigateToOtpActivity(String number, String name, String password) {
         Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
         intent.putExtra("mobile", number);
         intent.putExtra("name", name);
         intent.putExtra("password", password);
-        intent.putExtra("otp",otp);
+//        intent.putExtra("otp",otp);
         startActivity(intent);
     }
 

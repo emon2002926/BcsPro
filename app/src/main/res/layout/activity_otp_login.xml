@@ -1,38 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fffbfa"
+    android:gravity="start"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".Activity.ActivityOtpLogin">
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="30dp"
+    >
 
 
-    <EditText
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter OTP"
+            android:id="@+id/signInTv"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/textcolor2"
+            />
+
+        <View
+            android:id="@+id/dividerI"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
+
+            />
+
+    </LinearLayout>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="OTP"
-        android:id="@+id/otpEt"
-        android:inputType="number"
-        android:visibility="visible"
+        android:layout_marginTop="80dp"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"
+        android:textAlignment="center"
+        android:text="We have sent a verification code. Please enter this code to proceed."
+
         />
 
-
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:gravity="center">
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:id="@+id/l1"
+        android:orientation="horizontal">
+
         <EditText
-            android:layout_width="40dp"
             android:id="@+id/inputOtp1"
+            android:layout_width="40dp"
             android:layout_height="46dp"
             android:background="@drawable/bg_edit_text"
             android:imeOptions="actionNext"
@@ -41,73 +80,70 @@
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:gravity="center"
+            android:hint="1"
+            android:textColorHint="@color/textcolor"
             tools:ignore="LabelFor"
 
             />
+
         <EditText
-            android:layout_width="40dp"
-            android:layout_height="46dp"
             android:id="@+id/inputOtp2"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_edit_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
-            android:layout_marginStart="4dp"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="24sp"
-            tools:ignore="LabelFor"
-            />
+            android:hint="2"
+            android:textColorHint="@color/textcolor"
+            tools:ignore="LabelFor" />
+
         <EditText
-            android:layout_width="40dp"
-            android:layout_height="46dp"
-            android:background="@drawable/bg_edit_text"
-            android:imeOptions="actionNext"
             android:id="@+id/inputOtp3"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
-            android:layout_marginStart="4dp"
-
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="24sp"
-            tools:ignore="LabelFor"
-            />
+            android:hint="3"
+            android:textColorHint="@color/textcolor"
+            tools:ignore="LabelFor" />
+
         <EditText
-            android:layout_width="40dp"
-            android:layout_height="46dp"
             android:id="@+id/inputOtp4"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_edit_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
+            android:gravity="center"
             android:maxLength="1"
-            android:layout_marginStart="4dp"
-
             android:textColor="@color/black"
             android:textSize="24sp"
             tools:ignore="LabelFor"
-            />
+            android:hint="4"
+            android:textColorHint="@color/textcolor"/>
+
         <EditText
-            android:layout_width="40dp"
-            android:layout_height="46dp"
             android:id="@+id/inputOtp5"
-            android:layout_marginStart="4dp"
-
-            android:background="@drawable/bg_edit_text"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            tools:ignore="LabelFor"
-            />
-        <EditText
             android:layout_width="40dp"
             android:layout_height="46dp"
-            android:id="@+id/inputOtp6"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
             android:background="@drawable/bg_edit_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -116,23 +152,47 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             tools:ignore="LabelFor"
-            />
-        
+            android:hint="5"
+            android:textColorHint="@color/textcolor"/>
+
+        <EditText
+            android:id="@+id/inputOtp6"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_edit_text"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="LabelFor"
+            android:hint="6"
+            android:textColorHint="@color/textcolor"/>
+
     </LinearLayout>
 
 
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="chack otp"
-        android:layout_marginTop="30dp"
+    <TextView
         android:id="@+id/chackOtp"
-        android:visibility="visible"
-        />
-
-
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Continue"
+        android:textSize="20dp"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/round_sceondery_button_100"
+        android:visibility="visible" />
 
 </LinearLayout>
+
+
+
+
+</RelativeLayout>

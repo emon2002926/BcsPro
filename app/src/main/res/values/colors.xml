@@ -15,6 +15,9 @@
     <color name="color4">#131a35</color>
     <color name="blue">#0095ff</color>
     <color name="transPerent">#00FFFFFF</color>
+    <color name="textcolor">#999999</color>
+    <color name="textcolor2">#071833</color>
+
 
 
 </resources>
