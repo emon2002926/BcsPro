@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +63,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private static final String url = "http://192.168.0.104/api2/volley/signUpLogin.php";
 
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         devider1 = findViewById(R.id.dividerI);
         devider2 = findViewById(R.id.dividerU);
+        progressBar = findViewById(R.id.progressBar4);
 
 
         layoutSignIn = findViewById(R.id.layoutSignIn);
@@ -120,13 +122,13 @@ public class ActivityLogin extends AppCompatActivity {
         //    Chacking  User is Logged in or not
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-//            navigateToSecondActivity();
+            navigateToSecondActivity();
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             //User is Logged in
-//            navigateToSecondActivity();
+            navigateToSecondActivity();
         } else {
             //No User is Logged in
         }
@@ -172,10 +174,9 @@ public class ActivityLogin extends AppCompatActivity {
                 passEtS.requestFocus();
                 return;
             } else {
-//                    signUp(name,phone,pass);
-//                checkNumber(phone, name, pass);
-                navigateToOtpActivity(phone,name,pass);
 
+
+                checkNumber(phone, name, pass);
             }
 
         });
@@ -211,6 +212,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private void checkNumber(String number, String name, String password) {
+        progressBar.setVisibility(View.VISIBLE);
 
         String API_URL = "http://192.168.0.104/api2/volley/chackNumber.php?phone=" + number;
 
@@ -244,7 +246,8 @@ public class ActivityLogin extends AppCompatActivity {
                                             @Override
                                             public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                                 super.onCodeSent(backendOtp, forceResendingToken);
-//                                                navigateToOtpActivity(number, name, password,backendOtp);
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                navigateToOtpActivity(number, name, password,backendOtp);
                                             }
                                         }
                                 );
@@ -296,12 +299,12 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    void navigateToOtpActivity(String number, String name, String password) {
+    void navigateToOtpActivity(String number, String name, String password ,String otp) {
         Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
         intent.putExtra("mobile", number);
         intent.putExtra("name", name);
         intent.putExtra("password", password);
-//        intent.putExtra("otp",otp);
+        intent.putExtra("otp",otp);
         startActivity(intent);
     }
 

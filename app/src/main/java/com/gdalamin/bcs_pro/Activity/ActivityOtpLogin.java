@@ -9,8 +9,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
 
      String number,name,password,firbaseOtp;
+     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         inputNumber4 = findViewById(R.id.inputOtp4);
         inputNumber5 = findViewById(R.id.inputOtp5);
         inputNumber6 = findViewById(R.id.inputOtp6);
+        progressBar = findViewById(R.id.progressBar4);
 
         auth = FirebaseAuth.getInstance();
 
@@ -72,7 +76,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
         Log.d("number",number+name+password);
 
-        signUp(name,number,password);
+
 
 
         btnVerify.setOnClickListener(view -> {
@@ -87,6 +91,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
                         inputNumber4.getText().toString()+
                         inputNumber5.getText().toString()+
                         inputNumber6.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
 
                 if (firbaseOtp !=null){
 
@@ -97,14 +102,24 @@ public class ActivityOtpLogin extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                    Toast.makeText(ActivityOtpLogin.this,"Otp verified",Toast.LENGTH_SHORT).show();
+                                    if (task.isSuccessful()){
 
+                                        Toast.makeText(getApplicationContext(),"Otp verified",Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        signUp(name,number,password);
+
+                                    }else {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(getApplicationContext()," Enter correct Otp",Toast.LENGTH_SHORT).show();
+
+                                    }
 
                                 }
 
                             });
                 }
                 else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(ActivityOtpLogin.this,"Check Your Internet Connection",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -220,8 +235,6 @@ public class ActivityOtpLogin extends AppCompatActivity {
     }
 
 
-
-
     private void signUp(final String name, final String phone ,final String pwd )
     {
 
@@ -240,6 +253,8 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
                     Toast.makeText(ActivityOtpLogin.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
 
+                    startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
+                    finish();
                 }
 
             }
