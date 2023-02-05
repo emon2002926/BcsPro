@@ -2,13 +2,13 @@ package com.gdalamin.bcs_pro.modelClass;
 
 public class model
 {
-   String id, question, option1, option2,option3,option4,text,answer,explanation,batchNum;
+   String id, question, option1, option2,option3,option4,text,answer,explanation,batchNum,image;
 
     public model() {
     }
 
     public model(String id, String question, String option1, String option2, String option3,String option4
-            , String text,String answer,String explanation,String batchNum) {
+            , String text,String answer,String explanation,String batchNum,String image) {
         this.id = id;
         this.question = question;
         this.option1 = option1;
@@ -19,6 +19,15 @@ public class model
         this.answer = answer;
         this.explanation = explanation;
         this.batchNum = batchNum;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getOption4() {

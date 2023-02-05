@@ -16,12 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
@@ -72,11 +75,30 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         questionslists.add(questionList);
 
-        holder.questionTv.setText(questionslists.get(position).getQuestion().trim());
+
+        String questiont = questionslists.get(position).getQuestion().trim();
+
+
+//checking  question is aviable ,or have to show the Image
+        if (!questiont.isEmpty()){
+            holder.questionTv.setText(question);
+            holder.questionImg.setVisibility(View.GONE);
+        }else {
+            holder.questionTv.setVisibility(View.GONE);
+            Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
+            holder.questionImg.setVisibility(View.VISIBLE);
+        }
+
+//        holder.questionTv.setText(questionslists.get(position).getQuestion().trim());
         holder.option1TV.setText(questionslists.get(position).getOption1().trim());
         holder.option2TV.setText(questionslists.get(position).getOption2().trim());
         holder.option3TV.setText(questionslists.get(position).getOption4().trim());
         holder.option4TV.setText(questionslists.get(position).getOption4().trim());
+
+
+
+
+
 
         Intent intent = new Intent("my_list_action");
         //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
