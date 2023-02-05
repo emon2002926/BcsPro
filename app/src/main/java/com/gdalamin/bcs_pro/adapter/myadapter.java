@@ -54,88 +54,67 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
+        if (position >=3){
 
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
+        else {
+
+        //set question to string
         String question = data[position].getQuestion();
         String option1 = data[position].getOption1();
         String option2 = data[position].getOption2();
         String option3 = data[position].getOption3();
         String  option4 = data[position].getOption4();
         String explain = data[position].getExplanation();
-
         String ansr = data[position].getAnswer();
         int answer = Integer.parseInt(ansr);
 
 
-        holder.explainTv.setText(explain);
-
-
-
-
         QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
-
         questionslists.add(questionList);
 
+            String questiont = questionslists.get(position).getQuestion().trim();
+        //checking  question is aviable ,or have to show the Image
+            if (!questiont.isEmpty()){
+                holder.questionTv.setText(question);
+                holder.questionImg.setVisibility(View.GONE);
+            }else {
+                holder.questionTv.setVisibility(View.GONE);
+                Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
+                holder.questionImg.setVisibility(View.VISIBLE);}
 
-        String questiont = questionslists.get(position).getQuestion().trim();
-
-
-//checking  question is aviable ,or have to show the Image
-        if (!questiont.isEmpty()){
-            holder.questionTv.setText(question);
-            holder.questionImg.setVisibility(View.GONE);
-        }else {
-            holder.questionTv.setVisibility(View.GONE);
-            Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
-            holder.questionImg.setVisibility(View.VISIBLE);
-        }
-
-//        holder.questionTv.setText(questionslists.get(position).getQuestion().trim());
-        holder.option1TV.setText(questionslists.get(position).getOption1().trim());
-        holder.option2TV.setText(questionslists.get(position).getOption2().trim());
-        holder.option3TV.setText(questionslists.get(position).getOption4().trim());
-        holder.option4TV.setText(questionslists.get(position).getOption4().trim());
+            holder.option1TV.setText(questionslists.get(position).getOption1().trim());
+            holder.option2TV.setText(questionslists.get(position).getOption2().trim());
+            holder.option3TV.setText(questionslists.get(position).getOption4().trim());
+            holder.option4TV.setText(questionslists.get(position).getOption4().trim());
 
 
+            holder.explainTv.setText(explain);
+
+
+            Intent intent = new Intent("my_list_action");
+
+            intent.putExtra("my_list_key", (Serializable) questionslists);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
 
 
-        Intent intent = new Intent("my_list_action");
-        //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-//        intent.putExtra("quantity",question);
-//        intent.putExtra("item",option1);
 
-        intent.putExtra("my_list_key", (Serializable) questionslists);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-//        intent.putExtras(bundle);
-//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
         holder.option1Layout.setOnClickListener(view -> {
 
             holder.layoutExplain.setVisibility(View.VISIBLE);
 
-//            disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//
-//
-//            if (answer!=1){
-//
                 selectedOption(holder.option1Layout,holder.img1);
                 holder.option2Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
 
-
-
-//
-//            }
             questionslists.get(position).setUserSelecedAnswer(1);
-
-
-
 
         });
 
@@ -198,6 +177,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         });
 
 
+    }
     }
 
     @Override
