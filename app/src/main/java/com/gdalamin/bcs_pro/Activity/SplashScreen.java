@@ -35,18 +35,19 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                     finish();
-                    Log.d("key_name",valueString);
+
                     return;
 
                 }else if (acct != null){
 
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
+                    finish();
                 }
                 else {
                     Intent i = new Intent(SplashScreen.this, ActivityLogin.class);
                     startActivity(i);
-                    Log.d("key_name",valueString);
+                    finish();
                 }
 
 

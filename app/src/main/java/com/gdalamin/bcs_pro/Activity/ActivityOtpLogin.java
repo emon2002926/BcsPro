@@ -284,8 +284,4 @@ public class ActivityOtpLogin extends AppCompatActivity {
         queue.add(request);
 
     }
-
-
-
-
 }

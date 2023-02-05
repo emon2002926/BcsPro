@@ -188,8 +188,6 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onClick(View view14) {
 
-                    Toast.makeText(getContext(), "25MIn", Toast.LENGTH_SHORT).show();
-
                     selectedOption(option1Layout,icon1);
 
                     //gatting focus on this layout
@@ -208,7 +206,6 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onClick(View view14) {
 
-                    Toast.makeText(getContext(), "50MIn", Toast.LENGTH_SHORT).show();
 
 
                     selectedOption(option2Layout,icon2);
@@ -228,7 +225,6 @@ public class HomeFragment extends Fragment {
             option3Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view14) {
-                    Toast.makeText(getContext(), "100MIn", Toast.LENGTH_SHORT).show();
 
                     //select that  option layout
                     selectedOption(option3Layout,icon3);
@@ -239,12 +235,10 @@ public class HomeFragment extends Fragment {
 
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
+
                     tolatExamQuestion= 100;
                 }
             });
-
-
-
 
             bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -257,8 +251,6 @@ public class HomeFragment extends Fragment {
                           Intent intent = new Intent(view14.getContext(), McqTestActivity.class);
                           intent.putExtra("selectedOption",tolatExamQuestion);
                           view14.getContext().startActivity(intent);
-//                              Log.d("selectedOption",String.valueOf(selectedOption));
-
 
 
                       }else {

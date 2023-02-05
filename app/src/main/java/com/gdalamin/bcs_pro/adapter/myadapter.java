@@ -186,7 +186,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img1,img2,img3,img4;
+        ImageView img1,img2,img3,img4,questionImg;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain,fullLayout;
@@ -209,6 +209,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             img2 = itemView.findViewById(R.id.option2Icon);
             img3 = itemView.findViewById(R.id.option3Icon);
             img4 = itemView.findViewById(R.id.option4Icon);
+            questionImg = itemView.findViewById(R.id.questionIv);
 
             fullLayout = itemView.findViewById(R.id.fullLayout);
             layoutExplain = itemView.findViewById(R.id.layoutExplain);
