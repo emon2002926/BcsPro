@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class QuestionListActivity extends AppCompatActivity {
         recview=(RecyclerView)findViewById(R.id.recview);
 
         processdata();
-        url2 = getIntent().getExtras().getString("allQuestion1");
+        url2 = getIntent().getExtras().getString("UserSelectedOption");
 
         textView = findViewById(R.id.topTv);
         textView.setText(url2);
@@ -58,6 +59,9 @@ public class QuestionListActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
+
+
+
 
 
     }

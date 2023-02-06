@@ -61,6 +61,8 @@ public class HomeFragment extends Fragment {
     TextView tvAllExam;
     int tolatExamQuestion = 0;
 
+    String topTitleText;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -98,6 +100,9 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         ///Swipe to refress layout
 
@@ -149,6 +154,10 @@ public class HomeFragment extends Fragment {
         CvImportantQuestion.setOnClickListener(view12 -> {
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
+
+
+            editor.putString("examQuestionNum","" );
+            editor.commit();
             intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view12.getContext().startActivity(intent);
         });
@@ -186,8 +195,8 @@ public class HomeFragment extends Fragment {
              icon2= bottomSheetView.findViewById(R.id.option50Icon);
              icon3 = bottomSheetView.findViewById(R.id.option100Icon);
 
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
 
 
             option1Layout.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +213,9 @@ public class HomeFragment extends Fragment {
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
 
-                    tolatExamQuestion =25;
+                    topTitleText = "25 Question Exam";
+
+                    tolatExamQuestion =1;
                 }
             });
 
@@ -222,8 +233,9 @@ public class HomeFragment extends Fragment {
 
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
+                    topTitleText = "50 Question Exam";
 
-                    tolatExamQuestion= 50;
+                    tolatExamQuestion= 2;
 
                 }
             });
@@ -242,7 +254,8 @@ public class HomeFragment extends Fragment {
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
 
-                    tolatExamQuestion= 100;
+                    topTitleText = "100 Question Exam";
+                    tolatExamQuestion= 3 ;
                 }
             });
 
@@ -250,13 +263,18 @@ public class HomeFragment extends Fragment {
                   @Override
                   public void onClick(View view14) {
 
-                      if (tolatExamQuestion !=0){
+                      if (tolatExamQuestion !=0 && !topTitleText.isEmpty()){
 
 
                           bottomSheetDialog.dismiss();
-                          Intent intent = new Intent(view14.getContext(), McqTestActivity.class);
-                          intent.putExtra("selectedOption",tolatExamQuestion);
+                          Intent intent = new Intent(view14.getContext(), QuestionListActivity.class);
+                          intent.putExtra("UserSelectedOption",topTitleText);
                           view14.getContext().startActivity(intent);
+
+                          String tolatExamQuestionString = String.valueOf(tolatExamQuestion);
+
+                          editor.putString("examQuestionNum",tolatExamQuestionString );
+                          editor.commit();
 
 
                       }else {
