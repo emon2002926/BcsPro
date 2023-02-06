@@ -69,6 +69,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             Log.d("examQuestionNum",valueString);
 
             if (position >=MAX_QUESTION){
+
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             }
@@ -157,22 +158,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.layoutExplain.setVisibility(View.VISIBLE);
                     questionslists.get(position).setUserSelecedAnswer(3);
 
-//            disableOtherOption(holder.option2Layout,holder.option1Layout,holder.option4Layout);
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=3){
-//
+
+
                     selectedOption(holder.option3Layout,holder.img3);
                     holder.option2Layout.setEnabled(false);
                     holder.option1Layout.setEnabled(false);
                     holder.option4Layout.setEnabled(false);
-//
-//            }
+
 
                 });
                 holder.option4Layout.setOnClickListener(view -> {
 
                     holder.layoutExplain.setVisibility(View.VISIBLE);
-//            disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
+
                     questionslists.get(position).setUserSelecedAnswer(2);
 
 

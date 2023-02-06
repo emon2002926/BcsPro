@@ -48,12 +48,19 @@ public class QuestionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_list);
 
         recview=(RecyclerView)findViewById(R.id.recview);
+        textView = findViewById(R.id.topTv);
 
         processdata();
         url2 = getIntent().getExtras().getString("UserSelectedOption");
 
-        textView = findViewById(R.id.topTv);
-        textView.setText(url2);
+
+//        textView.setText(url2);
+        textView.setText("Important Question");
+
+
+
+
+
 
         btnSubmit = findViewById(R.id.btnSubmit);
 
@@ -81,6 +88,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 btnSubmit.setOnClickListener(view -> {
 
                     Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
+
                     //Creating Bundle To pass QuestionList
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("qutions",(Serializable) questionLists);
@@ -116,6 +124,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 recview.setLayoutManager(linearLayoutManager);
                 myadapter adapter=new myadapter(data);
                 recview.setAdapter(adapter);
+
 
             }
         }, new Response.ErrorListener() {
