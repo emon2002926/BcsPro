@@ -103,8 +103,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-
-
         holder.option1Layout.setOnClickListener(view -> {
 
             holder.layoutExplain.setVisibility(View.VISIBLE);

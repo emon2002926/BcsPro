@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -183,6 +185,10 @@ public class HomeFragment extends Fragment {
              icon1= bottomSheetView.findViewById(R.id.option25Icon);
              icon2= bottomSheetView.findViewById(R.id.option50Icon);
              icon3 = bottomSheetView.findViewById(R.id.option100Icon);
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
             option1Layout.setOnClickListener(new View.OnClickListener() {
                 @Override

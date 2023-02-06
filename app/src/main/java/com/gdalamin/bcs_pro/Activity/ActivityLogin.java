@@ -125,14 +125,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            //User is Logged in
-////            navigateToSecondActivity();
-//        } else {
-//            //No User is Logged in
-//        }
-
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
 
@@ -191,7 +183,7 @@ public class ActivityLogin extends AppCompatActivity {
                     String status = jsonResponse.getString("status");
                     if (status.equals("success")) {
                         // Login successful
-                        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("key_phone", phone);
                         editor.commit();
