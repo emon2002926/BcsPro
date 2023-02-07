@@ -60,6 +60,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         String valueString = sharedPreferences.getString("examQuestionNum", "");
 
 
+        //set question to string
+        String question = data[position].getQuestion();
+        String option1 = data[position].getOption1();
+        String option2 = data[position].getOption2();
+        String option3 = data[position].getOption3();
+        String  option4 = data[position].getOption4();
+        String explain = data[position].getExplanation();
+        String ansr = data[position].getAnswer();
+        int answer = Integer.parseInt(ansr);
+
 
 
 
@@ -75,17 +85,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             }
             else
             {
-
-                //set question to string
-                String question = data[position].getQuestion();
-                String option1 = data[position].getOption1();
-                String option2 = data[position].getOption2();
-                String option3 = data[position].getOption3();
-                String  option4 = data[position].getOption4();
-                String explain = data[position].getExplanation();
-                String ansr = data[position].getAnswer();
-                int answer = Integer.parseInt(ansr);
-
 
                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
                 questionslists.add(questionList);
@@ -109,9 +108,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option4TV.setText(questionslists.get(position).getOption4().trim());
 
 
-                holder.explainTv.setText(explain);
-
-
                 Intent intent = new Intent("my_list_action");
 
                 intent.putExtra("my_list_key", (Serializable) questionslists);
@@ -121,7 +117,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.option1Layout.setOnClickListener(view -> {
 
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
 
                     selectedOption(holder.option1Layout,holder.img1);
                     holder.option2Layout.setEnabled(false);
@@ -134,15 +129,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.option2Layout.setOnClickListener(view -> {
 
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
 
                     questionslists.get(position).setUserSelecedAnswer(2);
 
-//            holder.layoutExplain.setVisibility(View.VISIBLE);
-//            disableOtherOption(holder.option1Layout,holder.option3Layout,holder.option4Layout);
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=2){
-//
                     selectedOption(holder.option2Layout,holder.img2);
 
                     holder.option1Layout.setEnabled(false);
@@ -155,10 +144,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.option3Layout.setOnClickListener(view -> {
 
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
+
                     questionslists.get(position).setUserSelecedAnswer(3);
-
-
 
                     selectedOption(holder.option3Layout,holder.img3);
                     holder.option2Layout.setEnabled(false);
@@ -169,22 +156,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 });
                 holder.option4Layout.setOnClickListener(view -> {
 
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
 
                     questionslists.get(position).setUserSelecedAnswer(2);
 
-
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
-//
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=4){
-//
                     selectedOption(holder.option4Layout,holder.img4);
                     holder.option2Layout.setEnabled(false);
                     holder.option3Layout.setEnabled(false);
                     holder.option1Layout.setEnabled(false);
-//
-//            }
+
+
                 });
 
 
@@ -192,20 +172,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
         }
-        //for important Question
+
+        //for important Question or Other Activitys
         else {
+
             //set question to string
-            String question = data[position].getQuestion();
-            String option1 = data[position].getOption1();
-            String option2 = data[position].getOption2();
-            String option3 = data[position].getOption3();
-            String  option4 = data[position].getOption4();
-            String explain = data[position].getExplanation();
-            String ansr = data[position].getAnswer();
-            int answer = Integer.parseInt(ansr);
-
-
-
 
             QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
             questionslists.add(questionList);
@@ -216,7 +187,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             {
                 holder.questionTv.setText(question);
                 holder.questionImg.setVisibility(View.GONE);
-            }else {
+            }
+            else {
 
                 holder.questionTv.setVisibility(View.GONE);
                 Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
@@ -232,15 +204,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.explainTv.setText(explain);
 
 
-            Intent intent = new Intent("my_list_action");
-
-            intent.putExtra("my_list_key", (Serializable) questionslists);
-
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-
-
-
             holder.option1Layout.setOnClickListener(view -> {
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
@@ -252,17 +215,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-                questionslists.get(position).setUserSelecedAnswer(1);
-
             });
 
             holder.option2Layout.setOnClickListener(view -> {
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
-
-                questionslists.get(position).setUserSelecedAnswer(2);
-
-
 
 
                 selectedOption(holder.option2Layout,holder.img2);
@@ -277,9 +234,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.option3Layout.setOnClickListener(view -> {
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
-                questionslists.get(position).setUserSelecedAnswer(3);
-
-
 
 
                 selectedOption(holder.option3Layout,holder.img3);
@@ -292,8 +246,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.option4Layout.setOnClickListener(view -> {
 
 
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-                questionslists.get(position).setUserSelecedAnswer(2);
+
+
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
 

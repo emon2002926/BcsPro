@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
 import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
@@ -266,8 +267,8 @@ public class HomeFragment extends Fragment {
                       if (tolatExamQuestion !=0 && !topTitleText.isEmpty()){
 
 
-                          bottomSheetDialog.dismiss();
-                          Intent intent = new Intent(view14.getContext(), QuestionListActivity.class);
+
+                          Intent intent = new Intent(view14.getContext(), ActivityExam.class);
                           intent.putExtra("UserSelectedOption",topTitleText);
                           view14.getContext().startActivity(intent);
 
@@ -275,6 +276,7 @@ public class HomeFragment extends Fragment {
 
                           editor.putString("examQuestionNum",tolatExamQuestionString );
                           editor.commit();
+                          bottomSheetDialog.dismiss();
 
 
                       }else {
