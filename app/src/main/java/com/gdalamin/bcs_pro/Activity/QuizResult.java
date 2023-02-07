@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -58,7 +59,9 @@ public class QuizResult extends AppCompatActivity {
 
 //        scoreTv.setText(getCorrectAnswer()+"");
 
-        scoreTv.setText(String.valueOf(answeredQuestion()));
+        String answerd = getIntent().getStringExtra("answerd");
+
+        scoreTv.setText(String.valueOf(answerd));
 
 
 
@@ -155,7 +158,7 @@ public class QuizResult extends AppCompatActivity {
     }
 
 
-
+/*
 private  int answeredQuestion (){
 
     for (int i = 0; i < questionLists.size(); i++) {
@@ -167,6 +170,8 @@ private  int answeredQuestion (){
     return answeredQuestions;
 
 }
+
+ */
 
 
 

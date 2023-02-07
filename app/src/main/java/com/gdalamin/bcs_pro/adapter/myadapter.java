@@ -61,7 +61,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-         int answerdQuestion = 0;
+
 
         if (!valueString.isEmpty()){
             ///for All exam

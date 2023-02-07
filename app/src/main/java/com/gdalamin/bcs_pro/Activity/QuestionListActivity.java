@@ -96,42 +96,71 @@ public class QuestionListActivity extends AppCompatActivity {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
                 // Do something with the list here
 
-                String answerd = intent.getStringExtra("questionAnswered");
+//
 
 
 
                 floatingActionButton.setOnClickListener(view -> {
 
-/*
-                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                            QuestionListActivity.this,R.style.BottomSheetDailogTheme);
-                    View bottomSheetView = LayoutInflater.from(QuestionListActivity.this)
-                            .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
-                                    view.findViewById(R.id.bottomSheetContainer));
-
-
-                    bottomSheetDialog.setContentView(bottomSheetView);
-                    bottomSheetDialog.show();
- */
 
                     int answeredQuestions = 0;
                     for (int i = 0; i < questionLists.size(); i++) {
                         if (questionLists.get(i).getUserSelecedAnswer() != 0) {
                             answeredQuestions++;
-
-                            Log.d("answeredQuestions",String.valueOf(answeredQuestions));
-
                         }
                     }
-//                  Disable for testing
-                    Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
-                    //Creating Bundle To pass QuestionList
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("qutions",(Serializable) questionLists);
-                    intent1.putExtra("answerd",answerd);
-                    intent1.putExtras(bundle);
-                    startActivity(intent1);
 
+                    String answerd = String.valueOf(answeredQuestions);
+
+
+
+                    TextView textView1,textView2;
+
+                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                            QuestionListActivity.this,R.style.BottomSheetDailogTheme);
+                    View bottomSheetView = LayoutInflater.from(QuestionListActivity.this)
+                            .inflate(R.layout.submit_answer,(LinearLayout)
+                                    view.findViewById(R.id.bottomSheetContainer));
+
+
+
+                    textView1 = bottomSheetView.findViewById(R.id.tvDis);
+                    textView2 = findViewById(R.id.tvDis2);
+
+                    textView1.setText("You have answered "+answerd+" Question out of 50");
+
+
+                    bottomSheetDialog.setContentView(bottomSheetView);
+                    bottomSheetDialog.show();
+
+
+
+
+                    bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
+
+
+
+
+//                  Disable for testing
+                        Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
+                        //Creating Bundle To pass QuestionList
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("qutions",(Serializable) questionLists);
+                        intent1.putExtra("answerd",answerd);
+                        intent1.putExtras(bundle);
+                        startActivity(intent1);
+
+
+                    });
+
+
+/*
+
+
+
+
+
+ */
 
                 });
 
