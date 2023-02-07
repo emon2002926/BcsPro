@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.service.controls.actions.FloatAction;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -41,6 +43,8 @@ public class QuestionListActivity extends AppCompatActivity {
     TextView textView;
 
     private Button btnSubmit;
+
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,9 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
 
-        btnSubmit = findViewById(R.id.btnSubmit);
+//        btnSubmit = findViewById(R.id.btnSubmit);
+
+        floatingActionButton = findViewById(R.id.btnSubmit);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
@@ -85,7 +91,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 // Do something with the list here
 
 
-                btnSubmit.setOnClickListener(view -> {
+                floatingActionButton.setOnClickListener(view -> {
 
                     Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
 
