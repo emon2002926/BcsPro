@@ -25,9 +25,8 @@ import com.gdalamin.bcs_pro.modelClass.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 {
@@ -62,6 +61,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+         int answerdQuestion = 0;
 
         if (!valueString.isEmpty()){
             ///for All exam
@@ -205,6 +205,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             int answer = Integer.parseInt(ansr);
 
 
+
+
             QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
             questionslists.add(questionList);
 
@@ -233,7 +235,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             Intent intent = new Intent("my_list_action");
 
             intent.putExtra("my_list_key", (Serializable) questionslists);
+
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
 
 
 
@@ -246,6 +250,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option3Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
 
+
+
                 questionslists.get(position).setUserSelecedAnswer(1);
 
             });
@@ -256,18 +262,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 questionslists.get(position).setUserSelecedAnswer(2);
 
-//            holder.layoutExplain.setVisibility(View.VISIBLE);
-//            disableOtherOption(holder.option1Layout,holder.option3Layout,holder.option4Layout);
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=2){
-//
+
+
+
                 selectedOption(holder.option2Layout,holder.img2);
 
                 holder.option1Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
-//
-//            }
+
 
             });
 
@@ -276,30 +279,24 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.layoutExplain.setVisibility(View.VISIBLE);
                 questionslists.get(position).setUserSelecedAnswer(3);
 
-//            disableOtherOption(holder.option2Layout,holder.option1Layout,holder.option4Layout);
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=3){
-//
+
+
+
                 selectedOption(holder.option3Layout,holder.img3);
                 holder.option2Layout.setEnabled(false);
                 holder.option1Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
-//
-//            }
+
 
             });
             holder.option4Layout.setOnClickListener(view -> {
 
+
                 holder.layoutExplain.setVisibility(View.VISIBLE);
-//            disableOtherOption(holder.option2Layout,holder.option3Layout,holder.option1Layout);
                 questionslists.get(position).setUserSelecedAnswer(2);
-
-
                 holder.layoutExplain.setVisibility(View.VISIBLE);
-//
-//            selectedRightOpti(answer,holder.option1Layout,holder.option2Layout,holder.option3Layout,holder.option4Layout);
-//            if (answer!=4){
-//
+
+
                 selectedOption(holder.option4Layout,holder.img4);
                 holder.option2Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);

@@ -18,7 +18,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -86,21 +91,48 @@ public class QuestionListActivity extends AppCompatActivity {
 
 //            String qty = intent.getStringExtra("quantity");
 
+
             if (intent.getAction().equals("my_list_action")) {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
                 // Do something with the list here
 
+                String answerd = intent.getStringExtra("questionAnswered");
+
+
 
                 floatingActionButton.setOnClickListener(view -> {
 
-                    Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
+/*
+                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                            QuestionListActivity.this,R.style.BottomSheetDailogTheme);
+                    View bottomSheetView = LayoutInflater.from(QuestionListActivity.this)
+                            .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
+                                    view.findViewById(R.id.bottomSheetContainer));
 
+
+                    bottomSheetDialog.setContentView(bottomSheetView);
+                    bottomSheetDialog.show();
+ */
+
+                    int answeredQuestions = 0;
+                    for (int i = 0; i < questionLists.size(); i++) {
+                        if (questionLists.get(i).getUserSelecedAnswer() != 0) {
+                            answeredQuestions++;
+
+                            Log.d("answeredQuestions",String.valueOf(answeredQuestions));
+
+                        }
+                    }
+//                  Disable for testing
+                    Intent intent1 = new Intent(QuestionListActivity.this, QuizResult.class);
                     //Creating Bundle To pass QuestionList
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("qutions",(Serializable) questionLists);
-
+                    intent1.putExtra("answerd",answerd);
                     intent1.putExtras(bundle);
                     startActivity(intent1);
+
+
                 });
 
             }

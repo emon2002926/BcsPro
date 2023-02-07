@@ -31,6 +31,7 @@ public class QuizResult extends AppCompatActivity {
     private static final String url="http://192.168.0.104/api/db_insert.php";
 
     static String score;
+    int answeredQuestions = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,15 @@ public class QuizResult extends AppCompatActivity {
         totalScoreTv.setText("/"+"10");
 
 
-        scoreTv.setText(getCorrectAnswer()+"");
+//        String s = getIntent().getStringExtra("answerd");
+
+//        scoreTv.setText(getCorrectAnswer()+"");
+
+        scoreTv.setText(String.valueOf(answeredQuestion()));
+
+
+
+
         correctTv.setText(getCorrectAnswer()+"");
 
 //        incorrect.setText(String.valueOf(questionLists.size() - getCorrectAnswer()));
@@ -63,14 +72,7 @@ public class QuizResult extends AppCompatActivity {
 
           score =String.valueOf(getCorrectAnswer());
 
-//
-//        int myNum ;
-//        myNum = Integer.parseInt(score);
-//
-//        if (myNum>1){
-//
-//            Log.d("score",String.valueOf(myNum));
-//        }else {}
+
 
 
         insertdata();
@@ -137,18 +139,35 @@ public class QuizResult extends AppCompatActivity {
     private int getCorrectAnswer(){
         int correctAnswer = 0;
 
+
+
         for(int i =0; i < questionLists.size(); i++){
 
             int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
             int getQuestionAnswer = questionLists.get(i).getAnswer();
 
-            // Check UserSelected Answer is correct Answer
+//             Check UserSelected Answer is correct Answer
             if (getQuestionAnswer == getUserSelectedOption){
                 correctAnswer++;
             }
         }
         return correctAnswer;
     }
+
+
+
+private  int answeredQuestion (){
+
+    for (int i = 0; i < questionLists.size(); i++) {
+        if (questionLists.get(i).getUserSelecedAnswer() != 0) {
+            answeredQuestions++;
+
+        }
+    }
+    return answeredQuestions;
+
+}
+
 
 
 
