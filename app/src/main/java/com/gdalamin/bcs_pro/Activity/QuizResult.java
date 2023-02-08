@@ -29,7 +29,7 @@ public class QuizResult extends AppCompatActivity {
 
     private List<QuestionList> questionLists = new ArrayList<>();
 
-    private static final String url="http://192.168.0.104/api/db_insert.php";
+
 
     static String score;
     int answeredQuestions = 0;
@@ -54,16 +54,8 @@ public class QuizResult extends AppCompatActivity {
         questionLists = (List<QuestionList>) getIntent().getSerializableExtra("qutions");
         totalScoreTv.setText("/"+"10");
 
-
-//        String s = getIntent().getStringExtra("answerd");
-
-//        scoreTv.setText(getCorrectAnswer()+"");
-
         String answerd = getIntent().getStringExtra("answerd");
-
         scoreTv.setText(String.valueOf(answerd));
-
-
 
 
         correctTv.setText(getCorrectAnswer()+"");
@@ -77,66 +69,7 @@ public class QuizResult extends AppCompatActivity {
 
 
 
-
-        insertdata();
-
     }
-
-
-    private void insertdata()
-    {
-
-
-        String uname ="";
-        String pwd = "";
-
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response)
-            {
-
-
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-            }
-        }
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                Log.d("err",error.getStackTrace().toString());
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                Map<String,String> param=new HashMap<String,String>();
-
-                int num = Integer.parseInt(score);
-                if (num>4){
-
-                    param.put("t1",score);
-
-                }
-                else {
-
-                    param.put("t2",score);
-                }
-
-
-                param.put("t3",pwd);
-
-                Log.d("score",score);
-                return param;
-            }
-        };
-
-
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
-
-    }
-
 
 
     private int getCorrectAnswer(){

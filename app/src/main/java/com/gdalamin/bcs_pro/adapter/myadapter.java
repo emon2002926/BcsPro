@@ -76,7 +76,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         if (!valueString.isEmpty()){
             ///for All exam
             int MAX_QUESTION = Integer.parseInt(valueString);
-            Log.d("examQuestionNum",valueString);
+
 
             if (position >=MAX_QUESTION){
 
@@ -108,9 +108,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option4TV.setText(questionslists.get(position).getOption4().trim());
 
 
+
+
                 Intent intent = new Intent("my_list_action");
 
                 intent.putExtra("my_list_key", (Serializable) questionslists);
+                intent.putExtra("totalQuestion",valueString);
+
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
@@ -189,6 +193,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.questionImg.setVisibility(View.GONE);
             }
             else {
+
 
                 holder.questionTv.setVisibility(View.GONE);
                 Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);

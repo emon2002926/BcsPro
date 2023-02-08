@@ -55,6 +55,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
+
 //        textView.setText(url2);
         textView.setText("Important Question");
 
@@ -74,6 +75,8 @@ public class ActivityExam extends AppCompatActivity {
 
             if (intent.getAction().equals("my_list_action")) {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
+
+                String totalQuestion = intent.getStringExtra("totalQuestion");
                 // Do something with the list here
 
                 floatingActionButton.setOnClickListener(view -> {
@@ -104,6 +107,8 @@ public class ActivityExam extends AppCompatActivity {
                     textView1.setText("You have answered "+answerd+" Question out of 50");
 
 
+
+
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
 
@@ -112,16 +117,22 @@ public class ActivityExam extends AppCompatActivity {
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
 
+
+
 //                  Passing the data to QuizResult Activity
-                        Intent intent1 = new Intent(ActivityExam.this, QuizResult.class);
+                        Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                         //Creating Bundle To pass QuestionList
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("qutions",(Serializable) questionLists);
                         intent1.putExtra("answerd",answerd);
+                        intent1.putExtra("totalQuestion",totalQuestion);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
 
 
+                    });
+                    bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> {
+                        bottomSheetDialog.dismiss();
                     });
 
                 });

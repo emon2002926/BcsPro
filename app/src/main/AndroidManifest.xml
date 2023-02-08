@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ActivityTestResult"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ActivityExam"
             android:exported="false" />
         <activity
@@ -37,7 +40,7 @@
         </activity>
         <activity
             android:name=".Activity.ActivityLogin"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.ActivityPdfViwer"
             android:exported="false">
