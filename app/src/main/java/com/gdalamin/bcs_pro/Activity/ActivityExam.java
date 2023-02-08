@@ -9,13 +9,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,10 +36,14 @@ import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityExam extends AppCompatActivity {
 
     private  static final String url="http://192.168.0.104/api2/allQuestion.php";
+
+    private  static final  String saveResultUrl = "http://192.168.0.104/api2/saveResult.php";
     RecyclerView recview;
 
     TextView textView;
@@ -117,9 +125,34 @@ public class ActivityExam extends AppCompatActivity {
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
 
+                        /*
+
+                        bottomSheetDialog.dismiss();
+
+                        BottomSheetDialog bottomSheetDialog1 = new BottomSheetDialog(ActivityExam.this,
+                                R.style.BottomSheetDailogTheme);
+                        View bottomSheetView1 = LayoutInflater.from(ActivityExam.this).inflate(R.layout.result,(LinearLayout)
+                                view.findViewById(R.id.bottomSheetContainer));
 
 
+
+                        TextView totalTv = bottomSheetView1.findViewById(R.id.totalTv);
+                        totalTv.setText(totalQuestion);
+
+                        bottomSheetDialog1.show();
+
+
+                         */
+
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+                        String valueString = sharedPreferences.getString("key_phone", "");
+
+//                        disable for now
 //                  Passing the data to QuizResult Activity
+                        String s= "80";
+                        saveResult(answerd,totalQuestion,s);
+
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                         //Creating Bundle To pass QuestionList
                         Bundle bundle = new Bundle();
@@ -128,6 +161,9 @@ public class ActivityExam extends AppCompatActivity {
                         intent1.putExtra("totalQuestion",totalQuestion);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
+
+
+
 
 
                     });
@@ -172,6 +208,43 @@ public class ActivityExam extends AppCompatActivity {
             }
         }
         );
+
+
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+    }
+
+    private void saveResult(final String total, final String correct ,final String wrong )
+    {
+
+        StringRequest request=new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                    Toast.makeText(ActivityExam.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                Log.d("err2",error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("total",total);
+                param.put("correct",correct);
+                param.put("wrong",correct);
+                param.put("mark",wrong);
+                param.put("userId",total);
+
+                return param;
+            }
+        };
 
 
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
