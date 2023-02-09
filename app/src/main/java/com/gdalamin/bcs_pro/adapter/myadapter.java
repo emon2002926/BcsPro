@@ -59,16 +59,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
         String valueString = sharedPreferences.getString("examQuestionNum", "");
 
+        Log.d("examQuestionNum",valueString);
 
-        //set question to string
-        String question = data[position].getQuestion();
-        String option1 = data[position].getOption1();
-        String option2 = data[position].getOption2();
-        String option3 = data[position].getOption3();
-        String  option4 = data[position].getOption4();
-        String explain = data[position].getExplanation();
-        String ansr = data[position].getAnswer();
-        int answer = Integer.parseInt(ansr);
+
+
 
 
 
@@ -85,6 +79,18 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             }
             else
             {
+
+
+                //set question to string
+                String question = data[position].getQuestion();
+                String option1 = data[position].getOption1();
+                String option2 = data[position].getOption2();
+                String option3 = data[position].getOption3();
+                String  option4 = data[position].getOption4();
+                String explain = data[position].getExplanation();
+                String ansr = data[position].getAnswer();
+                int answer = Integer.parseInt(ansr);
+
 
                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
                 questionslists.add(questionList);
@@ -113,7 +119,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 Intent intent = new Intent("my_list_action");
 
                 intent.putExtra("my_list_key", (Serializable) questionslists);
-                intent.putExtra("totalQuestion",valueString);
+                intent.putExtra("totalQuestion",MAX_QUESTION);
 
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
@@ -180,7 +186,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         //for important Question or Other Activitys
         else {
 
+
             //set question to string
+            String question = data[position].getQuestion();
+            String option1 = data[position].getOption1();
+            String option2 = data[position].getOption2();
+            String option3 = data[position].getOption3();
+            String  option4 = data[position].getOption4();
+            String explain = data[position].getExplanation();
+            String ansr = data[position].getAnswer();
+            int answer = Integer.parseInt(ansr);
 
             QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
             questionslists.add(questionList);

@@ -84,12 +84,19 @@ public class ActivityExam extends AppCompatActivity {
             if (intent.getAction().equals("my_list_action")) {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
-                String totalQuestion = intent.getStringExtra("totalQuestion");
+                int totalQuestion = intent.getIntExtra("totalQuestion",0);
+
                 // Do something with the list here
 
                 floatingActionButton.setOnClickListener(view -> {
 
 
+
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+
+
+                    // gating user num question
                     int answeredQuestions = 0;
                     for (int i = 0; i < questionLists.size(); i++) {
                         if (questionLists.get(i).getUserSelecedAnswer() != 0) {
@@ -97,9 +104,50 @@ public class ActivityExam extends AppCompatActivity {
                         }
                     }
 
-                    String answerd = String.valueOf(answeredQuestions);
+                    //gating correct answer
+                    int correct = 0;
 
-                    TextView textView1,textView2;
+                    for(int i =0; i < questionLists.size(); i++){
+
+                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
+                        int getQuestionAnswer = questionLists.get(i).getAnswer();
+
+//             Check UserSelected Answer is correct Answer
+                        if (getQuestionAnswer == getUserSelectedOption){
+                            correct++;
+                        }
+                    }
+
+
+
+
+                    int wrong = totalQuestion-correct;
+
+                    double cutMarks =(double) wrong/2;
+                    double mark=(double) correct-cutMarks;
+
+
+                    String answered = String.valueOf(answeredQuestions);
+                    String  correctAnswer = String.valueOf(correct);
+                    String userId = sharedPreferences.getString("key_phone", "");
+                    String wrongAnswer = String.valueOf(wrong);
+                    String totalMark = String.valueOf(mark);
+
+
+                    saveResult(totalMark,correctAnswer,wrongAnswer,totalMark,userId);
+
+
+
+
+
+
+                    Log.d("totalQuestion","answered "+answered+" question of "+totalQuestion+" and the correctAnswer is "+correctAnswer
+                            +" and user id is"+userId+" and wrong answer is"+wrong +"your mark is "+mark);
+
+
+
+
+                    TextView textView1;
 
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                             ActivityExam.this,R.style.BottomSheetDailogTheme);
@@ -110,9 +158,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
                     textView1 = bottomSheetView.findViewById(R.id.tvDis);
-                    textView2 = findViewById(R.id.tvDis2);
-
-                    textView1.setText("You have answered "+answerd+" Question out of 50");
+                    textView1.setText("You have answered "+answered+" Question out of 50");
 
 
 
@@ -124,40 +170,15 @@ public class ActivityExam extends AppCompatActivity {
 
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
-
-                        /*
-
-                        bottomSheetDialog.dismiss();
-
-                        BottomSheetDialog bottomSheetDialog1 = new BottomSheetDialog(ActivityExam.this,
-                                R.style.BottomSheetDailogTheme);
-                        View bottomSheetView1 = LayoutInflater.from(ActivityExam.this).inflate(R.layout.result,(LinearLayout)
-                                view.findViewById(R.id.bottomSheetContainer));
-
-
-
-                        TextView totalTv = bottomSheetView1.findViewById(R.id.totalTv);
-                        totalTv.setText(totalQuestion);
-
-                        bottomSheetDialog1.show();
-
-
-                         */
-
-
-                        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                        String valueString = sharedPreferences.getString("key_phone", "");
-
 //                        disable for now
 //                  Passing the data to QuizResult Activity
-                        String s= "80";
-                        saveResult(answerd,totalQuestion,s);
+
 
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                         //Creating Bundle To pass QuestionList
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("qutions",(Serializable) questionLists);
-                        intent1.putExtra("answerd",answerd);
+                        intent1.putExtra("answerd",answered);
                         intent1.putExtra("totalQuestion",totalQuestion);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
@@ -167,6 +188,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
                     });
+
                     bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> {
                         bottomSheetDialog.dismiss();
                     });
@@ -215,7 +237,7 @@ public class ActivityExam extends AppCompatActivity {
 
     }
 
-    private void saveResult(final String total, final String correct ,final String wrong )
+    private void saveResult(final String total, final String correct ,final String wrong ,final String mark,final String userId)
     {
 
         StringRequest request=new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
@@ -238,9 +260,9 @@ public class ActivityExam extends AppCompatActivity {
                 Map<String,String> param=new HashMap<String,String>();
                 param.put("total",total);
                 param.put("correct",correct);
-                param.put("wrong",correct);
-                param.put("mark",wrong);
-                param.put("userId",total);
+                param.put("wrong",wrong);
+                param.put("mark",mark);
+                param.put("userId",userId);
 
                 return param;
             }

@@ -31,6 +31,7 @@ public class ActivityTestResult extends AppCompatActivity {
 
         String totalQuestion = getIntent().getStringExtra("totalQuestion");
 
+
         Log.d("totalQuestion","answered "+answerd+"question of "+totalQuestion+"and correctAnswer is "+correctAnswer);
 
 
@@ -42,8 +43,6 @@ public class ActivityTestResult extends AppCompatActivity {
 
     private int getCorrectAnswer(){
         int correctAnswer = 0;
-
-
 
         for(int i =0; i < questionLists.size(); i++){
 
