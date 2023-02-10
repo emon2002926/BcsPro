@@ -55,25 +55,18 @@ public class QuestionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_list);
 
         recview=(RecyclerView)findViewById(R.id.recview);
-        textView = findViewById(R.id.topTv);
+
 
         processdata();
 
 
+        textView = findViewById(R.id.topTv);
 
 //        textView.setText(url2);
         textView.setText("Important Question");
 
 
-
-
-
-
 //        btnSubmit = findViewById(R.id.btnSubmit);
-
-
-
-
 
 
 

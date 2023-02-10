@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.model;
+import com.gdalamin.bcs_pro.modelClass.resultModel;
 
 public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewholder>
 {
-    model data[];
+    resultModel data[];
 
-    public resultAdapter(model[] data2) {
+    public resultAdapter(resultModel[] data2) {
         this.data = data2;
     }
 
@@ -40,6 +41,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
 
+        holder.total.setText(data[position].getTotal());
+        holder.correct.setText(data[position].getCorrect());
+        holder.wrong.setText(data[position].getWrong());
+        holder.marks.setText(data[position].getMark());
+
+
 
     }
 
@@ -49,10 +56,9 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     }
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img;
         TextView total,correct,wrong,marks;
 
-        RelativeLayout relativeLayout;
+
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);

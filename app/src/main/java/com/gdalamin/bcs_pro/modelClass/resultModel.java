@@ -2,111 +2,49 @@ package com.gdalamin.bcs_pro.modelClass;
 
 public class resultModel
 {
-   String id, question, option1, option2,option3,option4,text,answer,explanation,batchNum,image;
+   String total,correct,wrong,mark;
 
     public resultModel() {
     }
 
-    public resultModel(String id, String question, String option1, String option2, String option3, String option4
-            , String text, String answer, String explanation, String batchNum, String image) {
-        this.id = id;
-        this.question = question;
-        this.option1 = option1;
-        this.option2 = option2;
-        this.option3 = option3;
-        this.option4 = option4;
-        this.text = text;
-        this.answer = answer;
-        this.explanation = explanation;
-        this.batchNum = batchNum;
-        this.image = image;
+    public resultModel(String total,String correct,String wrong,String mark) {
+
+        this.total = total;
+        this.correct = correct;
+        this.wrong = wrong;
+        this.mark = mark;
+
     }
 
-    public String getImage() {
-        return image;
+    public String getTotal() {
+        return total;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setTotal(String total) {
+        this.total = total;
     }
 
-    public String getOption4() {
-        return option4;
+    public String getCorrect() {
+        return correct;
     }
 
-    public void setOption4(String option4) {
-        this.option4 = option4;
+    public void setCorrect(String correct) {
+        this.correct = correct;
     }
 
-    public String getBatchNum() {
-        return batchNum;
+    public String getWrong() {
+        return wrong;
     }
 
-    public void setBatchNum(String batchNum) {
-        this.batchNum = batchNum;
+    public void setWrong(String wrong) {
+        this.wrong = wrong;
     }
 
-    public String getExplanation() {
-        return explanation;
+    public String getMark() {
+        return mark;
     }
 
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getOption1() {
-        return option1;
-    }
-
-    public void setOption1(String option1) {
-        this.option1 = option1;
-    }
-
-    public String getOption2() {
-        return option2;
-    }
-
-    public void setOption2(String option2) {
-        this.option2 = option2;
-    }
-
-    public String getOption3() {
-        return option3;
-    }
-
-    public void setOption3(String option3) {
-        this.option3 = option3;
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 }
