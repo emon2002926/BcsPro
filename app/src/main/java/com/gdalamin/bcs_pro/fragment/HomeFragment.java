@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment {
 
                     topTitleText = "25 Question Exam";
 
-                    tolatExamQuestion =6;
+                    tolatExamQuestion =25;
                 }
             });
 
@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment {
                     icon3.setImageResource(R.drawable.round_back_white50_100);
                     topTitleText = "50 Question Exam";
 
-                    tolatExamQuestion= 8;
+                    tolatExamQuestion= 50;
 
                 }
             });
@@ -257,7 +257,7 @@ public class HomeFragment extends Fragment {
                     icon2.setImageResource(R.drawable.round_back_white50_100);
 
                     topTitleText = "100 Question Exam";
-                    tolatExamQuestion= 10 ;
+                    tolatExamQuestion= 100 ;
                 }
             });
 

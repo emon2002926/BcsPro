@@ -50,6 +50,7 @@ public class ActivityExam extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
 
     int correct = 0;
+    int wrong = 0;
     int getUserSelectedOption = 0;
 
     @Override
@@ -76,6 +77,8 @@ public class ActivityExam extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
 
+
+
     }
 
 
@@ -87,7 +90,8 @@ public class ActivityExam extends AppCompatActivity {
             if (intent.getAction().equals("my_list_action")) {
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
-                int totalQuestion = intent.getIntExtra("totalQuestion",0);
+                int totalQc = intent.getIntExtra("totalQuestion",0);
+                String totalQuestion = String.valueOf(totalQc);
 
                 // Do something with the list here
 
@@ -109,19 +113,29 @@ public class ActivityExam extends AppCompatActivity {
 
                     for(int i =0; i < questionLists.size(); i++){
 
-                         getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
+                         getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();
+                         //Get User Selected Option
                         int getQuestionAnswer = questionLists.get(i).getAnswer();
 
-//             Check UserSelected Answer is correct Answer
+            //             Check UserSelected Answer is correct Answer
                         if (getQuestionAnswer == getUserSelectedOption){
                             correct++;
+                        }
+                    }
+                    for(int i =0; i < questionLists.size(); i++){
+
+                        getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();
+                        //Get User Selected Option
+                        int getQuestionAnswer = questionLists.get(i).getAnswer();
+
+                        //             Check UserSelected Answer is correct Answer
+                        if (getQuestionAnswer != getUserSelectedOption){
+                            wrong++;
                         }
                     }
 
 
 
-
-                    int wrong = totalQuestion-correct;
 
                     double cutMarks =(double) wrong/2;
                     double mark=(double) correct-cutMarks;
@@ -134,7 +148,7 @@ public class ActivityExam extends AppCompatActivity {
                     String totalMark = String.valueOf(mark);
 
 
-                    saveResult(totalMark,correctAnswer,wrongAnswer,totalMark,userId);
+
 
 
 
@@ -143,15 +157,15 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-                    TextView textView1;
 
+
+             // for opeaning  submition menu
+                    TextView textView1;
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                             ActivityExam.this,R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                             .inflate(R.layout.submit_answer,(LinearLayout)
                                     view.findViewById(R.id.bottomSheetContainer));
-
-
 
                     textView1 = bottomSheetView.findViewById(R.id.tvDis);
                     textView1.setText("You have answered "+answered+" Question out of 50");
@@ -162,13 +176,12 @@ public class ActivityExam extends AppCompatActivity {
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
 
-
-
-
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
 //                        disable for now
 //                  Passing the data to QuizResult Activity
 
+
+                        saveResult(totalQuestion,correctAnswer,wrongAnswer,totalMark,userId);
 
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                         //Creating Bundle To pass QuestionList
@@ -178,10 +191,6 @@ public class ActivityExam extends AppCompatActivity {
                         intent1.putExtra("totalQuestion",totalQuestion);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
-
-
-
-
 
                     });
 

@@ -61,12 +61,22 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         Log.d("examQuestionNum",valueString);
 
+        holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+        holder.img1.setImageResource(0);
+        holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+        holder.img2.setImageResource(0);
+        holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+        holder.img3.setImageResource(0);
+        holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+        holder.img4.setImageResource(0);
+        holder.option1Layout.setEnabled(true);
+        holder.option2Layout.setEnabled(true);
+        holder.option3Layout.setEnabled(true);
+        holder.option4Layout.setEnabled(true);
+        holder.layoutExplain.setVisibility(View.GONE);
 
 
-
-
-
-
+        //for Exam Activity
         if (!valueString.isEmpty()){
             ///for All exam
             int MAX_QUESTION = Integer.parseInt(valueString);
@@ -87,7 +97,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String option2 = data[position].getOption2();
                 String option3 = data[position].getOption3();
                 String  option4 = data[position].getOption4();
-                String explain = data[position].getExplanation();
                 String ansr = data[position].getAnswer();
                 int answer = Integer.parseInt(ansr);
 
@@ -114,10 +123,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option4TV.setText(questionslists.get(position).getOption4().trim());
 
 
-
+                //sending list to anther activity
 
                 Intent intent = new Intent("my_list_action");
-
                 intent.putExtra("my_list_key", (Serializable) questionslists);
                 intent.putExtra("totalQuestion",MAX_QUESTION);
 
@@ -126,7 +134,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 holder.option1Layout.setOnClickListener(view -> {
-
 
                     selectedOption(holder.option1Layout,holder.img1);
                     holder.option2Layout.setEnabled(false);
@@ -170,6 +177,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     questionslists.get(position).setUserSelecedAnswer(2);
 
                     selectedOption(holder.option4Layout,holder.img4);
+
                     holder.option2Layout.setEnabled(false);
                     holder.option3Layout.setEnabled(false);
                     holder.option1Layout.setEnabled(false);
@@ -194,17 +202,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             String option3 = data[position].getOption3();
             String  option4 = data[position].getOption4();
             String explain = data[position].getExplanation();
-            String ansr = data[position].getAnswer();
-            int answer = Integer.parseInt(ansr);
 
-            QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
-            questionslists.add(questionList);
 
-            String questiont = questionslists.get(position).getQuestion().trim();
+
+
+
             //checking  question is aviable ,or have to show the Image
-            if (!questiont.isEmpty())
+            if (!question.isEmpty())
             {
-                holder.questionTv.setText(question);
+                holder.questionTv.setText(question.trim());
                 holder.questionImg.setVisibility(View.GONE);
             }
             else {
@@ -215,10 +221,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.questionImg.setVisibility(View.VISIBLE);
             }
 
-            holder.option1TV.setText(questionslists.get(position).getOption1().trim());
-            holder.option2TV.setText(questionslists.get(position).getOption2().trim());
-            holder.option3TV.setText(questionslists.get(position).getOption4().trim());
-            holder.option4TV.setText(questionslists.get(position).getOption4().trim());
+            holder.option1TV.setText(option1.trim());
+            holder.option2TV.setText(option2.trim());
+            holder.option3TV.setText(option3.trim());
+            holder.option4TV.setText(option4.trim());
 
 
             holder.explainTv.setText(explain);
@@ -228,7 +234,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
-                selectedOption(holder.option1Layout,holder.img1);
+
+
+                holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                holder.img1.setImageResource(R.drawable.chack);
+
                 holder.option2Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
@@ -242,7 +252,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
 
-                selectedOption(holder.option2Layout,holder.img2);
+                holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                holder.img2.setImageResource(R.drawable.chack);
 
                 holder.option1Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
@@ -256,7 +267,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
 
-                selectedOption(holder.option3Layout,holder.img3);
+                holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                holder.img3.setImageResource(R.drawable.chack);
+
                 holder.option2Layout.setEnabled(false);
                 holder.option1Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
@@ -265,13 +278,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             });
             holder.option4Layout.setOnClickListener(view -> {
 
-
-
-
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
 
-                selectedOption(holder.option4Layout,holder.img4);
+                holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                holder.img4.setImageResource(R.drawable.chack);
+
                 holder.option2Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
                 holder.option1Layout.setEnabled(false);
