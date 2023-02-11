@@ -49,6 +49,9 @@ public class ActivityExam extends AppCompatActivity {
     TextView textView;
     FloatingActionButton floatingActionButton;
 
+    int correct = 0;
+    int getUserSelectedOption = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,9 +93,6 @@ public class ActivityExam extends AppCompatActivity {
 
                 floatingActionButton.setOnClickListener(view -> {
 
-
-
-
                     SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
 
 
@@ -105,11 +105,11 @@ public class ActivityExam extends AppCompatActivity {
                     }
 
                     //gating correct answer
-                    int correct = 0;
+
 
                     for(int i =0; i < questionLists.size(); i++){
 
-                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
+                         getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
                         int getQuestionAnswer = questionLists.get(i).getAnswer();
 
 //             Check UserSelected Answer is correct Answer
@@ -138,12 +138,8 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-
-
-
                     Log.d("totalQuestion","answered "+answered+" question of "+totalQuestion+" and the correctAnswer is "+correctAnswer
                             +" and user id is"+userId+" and wrong answer is"+wrong +"your mark is "+mark);
-
 
 
 

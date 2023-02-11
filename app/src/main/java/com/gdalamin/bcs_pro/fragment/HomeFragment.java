@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
+import com.gdalamin.bcs_pro.Activity.ActivityTestResult;
 import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
@@ -302,7 +303,8 @@ public class HomeFragment extends Fragment {
 
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
         CvQuestionBank.setOnClickListener(view15 ->
-                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
+//                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
+                startActivity(new Intent(getContext(), ActivityTestResult.class)));
 
         return view;
 

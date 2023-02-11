@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="30dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="#C1BEBE"
+    app:cardCornerRadius="10dp"
     android:layout_height="wrap_content">
 
 
@@ -11,17 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         android:background="@drawable/botton_sheet_baground"
 
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:weightSum="5"
-
             android:orientation="horizontal">
 
             <TextView
@@ -29,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="#"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:gravity="center_vertical"
@@ -88,6 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Result"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:gravity="center_vertical"
@@ -109,7 +114,7 @@
                 android:text=""
                 android:id="@+id/correctTv"
                 android:textSize="18sp"
-                android:textColor="@color/liteGreen"
+                android:textColor="@color/black"
                 android:gravity="center"
                 />
             <TextView
@@ -120,7 +125,7 @@
                 android:textSize="18sp"
                 android:id="@+id/wrongTv"
                 android:gravity="center"
-                android:textColor="@color/liteRed"
+                android:textColor="@color/black"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -130,7 +135,7 @@
                 android:id="@+id/marksTv"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:textColor="@color/liteBlue"
+                android:textColor="@color/black"
                 />
 
 
