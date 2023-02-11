@@ -3,12 +3,24 @@ package com.gdalamin.bcs_pro.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.adapter.resultAdapter;
+import com.gdalamin.bcs_pro.modelClass.resultModel;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +37,10 @@ public class DashBordFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    private  static final String url="http://192.168.0.104/api2/getResult.php?userId=01881492164";
+    RecyclerView recview;
 
     public DashBordFragment() {
         // Required empty public constructor
@@ -61,6 +77,56 @@ public class DashBordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dash_bord, container, false);
+        View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
+
+
+
+        recview=view.findViewById(R.id.recview);
+
+
+
+
+        processdata();
+
+
+        return view;
+
+    }
+
+    public void processdata()
+    {
+
+
+        // Todo got the api url
+
+        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                GsonBuilder builder=new GsonBuilder();
+                Gson gson=builder.create();
+                resultModel data[]=gson.fromJson(response,resultModel[].class);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()
+                        ,LinearLayoutManager.VERTICAL,false);
+
+                recview.setLayoutManager(linearLayoutManager);
+                resultAdapter adapter=new resultAdapter(data);
+                recview.setAdapter(adapter);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        }
+        );
+
+
+        RequestQueue queue= Volley.newRequestQueue(getContext());
+        queue.add(request);
+
     }
 }

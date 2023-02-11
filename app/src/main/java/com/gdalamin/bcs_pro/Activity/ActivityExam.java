@@ -49,9 +49,6 @@ public class ActivityExam extends AppCompatActivity {
     TextView textView;
     FloatingActionButton floatingActionButton;
 
-    int correct = 0;
-    int wrong = 0;
-    int getUserSelectedOption = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +85,7 @@ public class ActivityExam extends AppCompatActivity {
             // Get extra data included in the Intent
 
             if (intent.getAction().equals("my_list_action")) {
+
                 // Get the list of QuestionList objects from the intent
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
@@ -95,31 +93,43 @@ public class ActivityExam extends AppCompatActivity {
                 int totalQc = intent.getIntExtra("totalQuestion", 0);
                 String totalQuestion = String.valueOf(totalQc);
 
+
                 // Get the shared preferences for "LoginInfo"
                 SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                 String userId = sharedPreferences.getString("key_phone", "");
 
+
                 // Set a click listener for the floating action button
                 floatingActionButton.setOnClickListener(view -> {
+                    // Initialize counters for answered questions, correct answers, and wrong answers
                     int answeredQuestions = 0;
                     int correct = 0;
                     int wrong = 0;
 
+                    // Loop through the list of QuestionList objects
                     for (QuestionList question : questionLists) {
+
+                        // Get the correct answer for the current question
                         int getQuestionAnswer = question.getAnswer();
+                        // Get the answer selected by the user for the current question
                         int getUserSelectedOption = question.getUserSelecedAnswer();
 
+                        // If the user has selected an answer, increment the answeredQuestions counter
                         if (getUserSelectedOption != 0) {
                             answeredQuestions++;
                         }
 
+                        // If the user's selected answer is the same as the correct answer, increment the correct counter
                         if (getQuestionAnswer == getUserSelectedOption) {
                             correct++;
-                        } else {
+                        }
+                        // Otherwise, increment the wrong counter
+                        else {
                             wrong++;
                         }
                     }
 
+                    // Calculateing  the marks
                     double cutMarks = (double) wrong / 2;
                     double mark = (double) correct - cutMarks;
 
@@ -131,6 +141,7 @@ public class ActivityExam extends AppCompatActivity {
                     Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
                             + " and user id is" + userId + " and wrong answer is" + wrong + "your mark is " + mark);
 
+                    // Show a bottom sheet dialog to allow the user to submit the answers
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                             .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));

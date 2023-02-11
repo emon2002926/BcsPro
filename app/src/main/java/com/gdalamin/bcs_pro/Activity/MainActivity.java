@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.databinding.ActivityMainBinding;
+import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.fragment.SettingFragment;
 
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragement(new HomeFragment());
                     break;
 
-//                case R.id.navigation_dashboard:
-//                    replaceFragement(new DashBordFragment());
-//                    break;
+                case R.id.navigation_dashboard:
+                    replaceFragement(new DashBordFragment());
+                    break;
 
                 case R.id.navigation_setting:
                     replaceFragement(new SettingFragment());
