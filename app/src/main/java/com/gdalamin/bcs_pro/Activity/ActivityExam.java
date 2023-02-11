@@ -88,118 +88,75 @@ public class ActivityExam extends AppCompatActivity {
             // Get extra data included in the Intent
 
             if (intent.getAction().equals("my_list_action")) {
+                // Get the list of QuestionList objects from the intent
                 ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
-                int totalQc = intent.getIntExtra("totalQuestion",0);
+                // Get the total number of questions from the intent
+                int totalQc = intent.getIntExtra("totalQuestion", 0);
                 String totalQuestion = String.valueOf(totalQc);
 
-                // Do something with the list here
+                // Get the shared preferences for "LoginInfo"
+                SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("key_phone", "");
 
+                // Set a click listener for the floating action button
                 floatingActionButton.setOnClickListener(view -> {
-
-                    SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-
-
-                    // gating user num question
                     int answeredQuestions = 0;
-                    for (int i = 0; i < questionLists.size(); i++) {
-                        if (questionLists.get(i).getUserSelecedAnswer() != 0) {
+                    int correct = 0;
+                    int wrong = 0;
+
+                    for (QuestionList question : questionLists) {
+                        int getQuestionAnswer = question.getAnswer();
+                        int getUserSelectedOption = question.getUserSelecedAnswer();
+
+                        if (getUserSelectedOption != 0) {
                             answeredQuestions++;
                         }
-                    }
 
-                    //gating correct answer
-
-
-                    for(int i =0; i < questionLists.size(); i++){
-
-                         getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();
-                         //Get User Selected Option
-                        int getQuestionAnswer = questionLists.get(i).getAnswer();
-
-            //             Check UserSelected Answer is correct Answer
-                        if (getQuestionAnswer == getUserSelectedOption){
+                        if (getQuestionAnswer == getUserSelectedOption) {
                             correct++;
-                        }
-                    }
-                    for(int i =0; i < questionLists.size(); i++){
-
-                        getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();
-                        //Get User Selected Option
-                        int getQuestionAnswer = questionLists.get(i).getAnswer();
-
-                        //             Check UserSelected Answer is correct Answer
-                        if (getQuestionAnswer != getUserSelectedOption){
+                        } else {
                             wrong++;
                         }
                     }
 
-
-
-
-                    double cutMarks =(double) wrong/2;
-                    double mark=(double) correct-cutMarks;
-
+                    double cutMarks = (double) wrong / 2;
+                    double mark = (double) correct - cutMarks;
 
                     String answered = String.valueOf(answeredQuestions);
-                    String  correctAnswer = String.valueOf(correct);
-                    String userId = sharedPreferences.getString("key_phone", "");
+                    String correctAnswer = String.valueOf(correct);
                     String wrongAnswer = String.valueOf(wrong);
                     String totalMark = String.valueOf(mark);
 
+                    Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
+                            + " and user id is" + userId + " and wrong answer is" + wrong + "your mark is " + mark);
 
-
-
-
-
-                    Log.d("totalQuestion","answered "+answered+" question of "+totalQuestion+" and the correctAnswer is "+correctAnswer
-                            +" and user id is"+userId+" and wrong answer is"+wrong +"your mark is "+mark);
-
-
-
-
-
-             // for opeaning  submition menu
-                    TextView textView1;
-                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                            ActivityExam.this,R.style.BottomSheetDailogTheme);
+                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-                            .inflate(R.layout.submit_answer,(LinearLayout)
-                                    view.findViewById(R.id.bottomSheetContainer));
+                            .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));
 
-                    textView1 = bottomSheetView.findViewById(R.id.tvDis);
-                    textView1.setText("You have answered "+answered+" Question out of 50");
-
-
-
+                    TextView textView = bottomSheetView.findViewById(R.id.tvDis);
+                    textView.setText("You have answered " + answered + " Question out of 50");
 
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
 
-                    bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(view1 -> {
-//                        disable for now
-//                  Passing the data to QuizResult Activity
-
-
-                        saveResult(totalQuestion,correctAnswer,wrongAnswer,totalMark,userId);
+                    bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+                        saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
 
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
-                        //Creating Bundle To pass QuestionList
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("qutions",(Serializable) questionLists);
-                        intent1.putExtra("answerd",answered);
-                        intent1.putExtra("totalQuestion",totalQuestion);
+                        bundle.putSerializable("qutions", (Serializable) questionLists);
+                        intent1.putExtra("answerd", answered);
+                        intent1.putExtra("totalQuestion", totalQuestion);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
-
                     });
 
-                    bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> {
+                    bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
                         bottomSheetDialog.dismiss();
                     });
-
                 });
-
             }
 
         }

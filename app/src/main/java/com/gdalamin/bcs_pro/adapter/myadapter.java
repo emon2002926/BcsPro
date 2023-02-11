@@ -56,6 +56,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
 
+
+
         SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
         String valueString = sharedPreferences.getString("examQuestionNum", "");
 
@@ -90,112 +92,81 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             else
             {
 
+                // Get the question and options data from the data array at the given position
 
-                //set question to string
                 String question = data[position].getQuestion();
                 String option1 = data[position].getOption1();
                 String option2 = data[position].getOption2();
                 String option3 = data[position].getOption3();
-                String  option4 = data[position].getOption4();
-                String ansr = data[position].getAnswer();
-                int answer = Integer.parseInt(ansr);
+                String option4 = data[position].getOption4();
+                int answer = Integer.parseInt(data[position].getAnswer());
 
-
-                QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
+                // Create a new QuestionList object with the obtained data
+                QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                 questionslists.add(questionList);
 
-                String questiont = questionslists.get(position).getQuestion().trim();
-                //checking  question is aviable ,or have to show the Image
-                if (!questiont.isEmpty())
-                {
-                    holder.questionTv.setText(question);
-                    holder.questionImg.setVisibility(View.GONE);
-                }else {
+                holder.questionTv.setText(question);
+                holder.questionImg.setVisibility(View.GONE);
 
+                // If the question text is empty, hide the text view and display the question image
+                if (question.trim().isEmpty()) {
                     holder.questionTv.setVisibility(View.GONE);
-                    Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
+                    Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
                 }
 
-                holder.option1TV.setText(questionslists.get(position).getOption1().trim());
-                holder.option2TV.setText(questionslists.get(position).getOption2().trim());
-                holder.option3TV.setText(questionslists.get(position).getOption4().trim());
-                holder.option4TV.setText(questionslists.get(position).getOption4().trim());
+                // Set the text of the options to their respective text views
+                holder.option1TV.setText(option1.trim());
+                holder.option2TV.setText(option2.trim());
+                holder.option3TV.setText(option3.trim());
+                holder.option4TV.setText(option4.trim());
 
-
-                //sending list to anther activity
-
+                // Use LocalBroadcastManager to send the broadcast
                 Intent intent = new Intent("my_list_action");
                 intent.putExtra("my_list_key", (Serializable) questionslists);
-                intent.putExtra("totalQuestion",MAX_QUESTION);
-
+                intent.putExtra("totalQuestion", MAX_QUESTION);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-
-
-                holder.option1Layout.setOnClickListener(view -> {
-
-                    selectedOption(holder.option1Layout,holder.img1);
+                View.OnClickListener optionClickListener = view -> {
+                    int selectedOption = 0;
+                    ImageView img = null;
+                    // Determine which option was clicked based on the view that was clicked
+                    if (view == holder.option1Layout) {
+                        selectedOption = 1;
+                        img = holder.img1;
+                    } else if (view == holder.option2Layout) {
+                        selectedOption = 2;
+                        img = holder.img2;
+                    } else if (view == holder.option3Layout) {
+                        selectedOption = 3;
+                        img = holder.img3;
+                    } else if (view == holder.option4Layout) {
+                        selectedOption = 4;
+                        img = holder.img4;
+                    }
+                    questionslists.get(position).setUserSelecedAnswer(selectedOption);
+                    selectedOption(view, img);
+                    holder.option1Layout.setEnabled(false);
                     holder.option2Layout.setEnabled(false);
                     holder.option3Layout.setEnabled(false);
                     holder.option4Layout.setEnabled(false);
+                };
 
-                    questionslists.get(position).setUserSelecedAnswer(1);
-
-                });
-
-                holder.option2Layout.setOnClickListener(view -> {
-
-
-                    questionslists.get(position).setUserSelecedAnswer(2);
-
-                    selectedOption(holder.option2Layout,holder.img2);
-
-                    holder.option1Layout.setEnabled(false);
-                    holder.option3Layout.setEnabled(false);
-                    holder.option4Layout.setEnabled(false);
-//
-//            }
-
-                });
-
-                holder.option3Layout.setOnClickListener(view -> {
-
-
-                    questionslists.get(position).setUserSelecedAnswer(3);
-
-                    selectedOption(holder.option3Layout,holder.img3);
-                    holder.option2Layout.setEnabled(false);
-                    holder.option1Layout.setEnabled(false);
-                    holder.option4Layout.setEnabled(false);
-
-
-                });
-                holder.option4Layout.setOnClickListener(view -> {
-
-
-                    questionslists.get(position).setUserSelecedAnswer(2);
-
-                    selectedOption(holder.option4Layout,holder.img4);
-
-                    holder.option2Layout.setEnabled(false);
-                    holder.option3Layout.setEnabled(false);
-                    holder.option1Layout.setEnabled(false);
-
-
-                });
-
-
+                holder.option1Layout.setOnClickListener(optionClickListener);
+                holder.option2Layout.setOnClickListener(optionClickListener);
+                holder.option3Layout.setOnClickListener(optionClickListener);
+                holder.option4Layout.setOnClickListener(optionClickListener);
             }
 
 
         }
 
         //for important Question or Other Activitys
-        else {
+        else
+        {
 
 
-            //set question to string
+            // Get the question and options data from the data array at the given position
             String question = data[position].getQuestion();
             String option1 = data[position].getOption1();
             String option2 = data[position].getOption2();
@@ -205,97 +176,58 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-
-
-            //checking  question is aviable ,or have to show the Image
-            if (!question.isEmpty())
-            {
-                holder.questionTv.setText(question.trim());
-                holder.questionImg.setVisibility(View.GONE);
-            }
-            else {
-
-
-                holder.questionTv.setVisibility(View.GONE);
-                Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/"+data[position].getImage()).into(holder.questionImg);
-                holder.questionImg.setVisibility(View.VISIBLE);
-            }
-
+            holder.questionTv.setText(question.trim());
             holder.option1TV.setText(option1.trim());
             holder.option2TV.setText(option2.trim());
             holder.option3TV.setText(option3.trim());
             holder.option4TV.setText(option4.trim());
-
-
             holder.explainTv.setText(explain);
 
+    // Check if question is empty, if not, display text. If yes, display image
+            if (!question.isEmpty()) {
+                holder.questionImg.setVisibility(View.GONE);
+                holder.questionTv.setVisibility(View.VISIBLE);
+            } else {
+                holder.questionTv.setVisibility(View.GONE);
+                Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
+                holder.questionImg.setVisibility(View.VISIBLE);
+            }
 
-            holder.option1Layout.setOnClickListener(view -> {
-
+        // OnClickListeners for each option
+            View.OnClickListener optionClickListener = view -> {
                 holder.layoutExplain.setVisibility(View.VISIBLE);
 
+                switch (view.getId()) {
+                    case R.id.option1Layout:
+                        holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                        holder.img1.setImageResource(R.drawable.chack);
+                        break;
+                    case R.id.option2Layout:
+                        holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                        holder.img2.setImageResource(R.drawable.chack);
+                        break;
+                    case R.id.option3Layout:
+                        holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                        holder.img3.setImageResource(R.drawable.chack);
+                        break;
+                    case R.id.opton4Layout:
+                        holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                        holder.img4.setImageResource(R.drawable.chack);
+                        break;
+                }
 
-
-                holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                holder.img1.setImageResource(R.drawable.chack);
-
+                holder.option1Layout.setEnabled(false);
                 holder.option2Layout.setEnabled(false);
                 holder.option3Layout.setEnabled(false);
                 holder.option4Layout.setEnabled(false);
+            };
 
+            holder.option1Layout.setOnClickListener(optionClickListener);
+            holder.option2Layout.setOnClickListener(optionClickListener);
+            holder.option3Layout.setOnClickListener(optionClickListener);
+            holder.option4Layout.setOnClickListener(optionClickListener);
 
-
-            });
-
-            holder.option2Layout.setOnClickListener(view -> {
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-
-                holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                holder.img2.setImageResource(R.drawable.chack);
-
-                holder.option1Layout.setEnabled(false);
-                holder.option3Layout.setEnabled(false);
-                holder.option4Layout.setEnabled(false);
-
-
-            });
-
-            holder.option3Layout.setOnClickListener(view -> {
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-
-                holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                holder.img3.setImageResource(R.drawable.chack);
-
-                holder.option2Layout.setEnabled(false);
-                holder.option1Layout.setEnabled(false);
-                holder.option4Layout.setEnabled(false);
-
-
-            });
-            holder.option4Layout.setOnClickListener(view -> {
-
-                holder.layoutExplain.setVisibility(View.VISIBLE);
-
-
-                holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                holder.img4.setImageResource(R.drawable.chack);
-
-                holder.option2Layout.setEnabled(false);
-                holder.option3Layout.setEnabled(false);
-                holder.option1Layout.setEnabled(false);
-//
-//            }
-            });
-
-        }
-
-
-
-    }
+        }}
 
 
 
@@ -379,7 +311,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+    private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
         selectedOptionIcon.setImageResource(R.drawable.chack);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
