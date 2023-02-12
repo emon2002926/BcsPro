@@ -237,7 +237,7 @@
                                     android:layout_height="fill_parent"
                                     android:background="@drawable/round_back_white50_10"
                                     android:gravity="center"
-                                    android:text="Overall exams"
+                                    android:text="@string/overall_exams"
                                     android:id="@+id/tvAllExam"
                                     android:textColor="@color/black"
                                     android:textSize="17sp"

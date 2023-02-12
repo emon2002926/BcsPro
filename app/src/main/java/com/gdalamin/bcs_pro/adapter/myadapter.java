@@ -63,14 +63,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         Log.d("examQuestionNum",valueString);
 
-        holder.option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-        holder.img1.setImageResource(0);
-        holder.option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-        holder.img2.setImageResource(0);
-        holder.option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-        holder.img3.setImageResource(0);
-        holder.option4Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-        holder.img4.setImageResource(0);
+        holder.option1Layout.setBackgroundResource(0);
+        holder.img1.setImageResource(R.drawable.round_back_white50_100);
+        holder.option2Layout.setBackgroundResource(0);
+        holder.img2.setImageResource(R.drawable.round_back_white50_100);
+        holder.option3Layout.setBackgroundResource(0);
+        holder.img3.setImageResource(R.drawable.round_back_white50_100);
+        holder.option4Layout.setBackgroundResource(0);
+        holder.img4.setImageResource(R.drawable.round_back_white50_100);
         holder.option1Layout.setEnabled(true);
         holder.option2Layout.setEnabled(true);
         holder.option3Layout.setEnabled(true);

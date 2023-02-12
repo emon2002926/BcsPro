@@ -3,6 +3,7 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/fullLayout"
     android:background="@color/white"
@@ -14,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:elevation="30dp"
+        app:cardCornerRadius="10dp"
 
         >
 
@@ -25,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
             android:id="@+id/linear"
-            android:background="@drawable/round_back_white50_10"
             android:orientation="vertical">
 
 
@@ -48,6 +50,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/questionIv"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:visibility="gone"
                 android:src="@drawable/demo_bcs"/>
 
@@ -59,30 +63,31 @@
                 android:id="@+id/option1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/round_back_white50_10"
+                android:layout_marginTop="20dp"
                 >
 
-                <TextView
-                    android:id="@+id/option1Tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
-                    android:layout_marginTop="15sp"
-                    android:layout_marginEnd="15sp"
-                    android:layout_marginBottom="15sp"
-                    android:text="Option 1"
-                    android:textSize="18sp"
-                    android:textColor="@color/black" />
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:id="@+id/option1Icon"
                     />
+                <TextView
+                    android:id="@+id/option1Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="10sp"
+                    android:text="Option 1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    />
+
             </RelativeLayout>
             <!--        option 2 layout-->
 
@@ -92,32 +97,32 @@
                 android:id="@+id/option2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/round_back_white50_10">
+                android:layout_marginTop="10dp"
+                >
 
-                <TextView
-                    android:id="@+id/option2Tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
-                    android:layout_marginTop="15sp"
-                    android:layout_marginEnd="15sp"
-                    android:textSize="18sp"
-
-                    android:layout_marginBottom="15sp"
-                    android:layout_toStartOf="@+id/option2Icon"
-                    android:text="Option 1"
-                    android:textColor="@color/black" />
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
 
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+
                     android:id="@+id/option2Icon"
                     />
+                <TextView
+                    android:id="@+id/option2Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="15sp"
+                    android:textSize="18sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="10sp"
+                    android:text="Option 2"
+                    android:textColor="@color/black" />
+
             </RelativeLayout>
 
             <!--        option 3 layout-->
@@ -127,31 +132,31 @@
                 android:id="@+id/option3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/round_back_white50_10">
+                android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/round_back_white50_100"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/option3Icon"
+                    />
 
                 <TextView
                     android:id="@+id/option3Tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
+                    android:layout_marginStart="60sp"
                     android:layout_marginTop="15sp"
-
-                    android:layout_marginEnd="15sp"
-                    android:layout_marginBottom="15sp"
-                    android:layout_toStartOf="@+id/option3Icon"
-                    android:text="Option 1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:text="Option 3"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/round_back_white50_100"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:id="@+id/option3Icon"
-                    />
+
             </RelativeLayout>
             <!--        option 4 layout-->
             <RelativeLayout
@@ -160,29 +165,33 @@
                 android:id="@+id/opton4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/round_back_white50_10">
-                <TextView
-                    android:id="@+id/option4Tv"
-                    android:layout_toStartOf="@+id/option4Icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15sp"
-                    android:textSize="18sp"
-                    android:text="Option 1"
-                    android:textColor="@color/black"
-                    />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                >
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
 
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:id="@+id/option4Icon"
                     />
+                <TextView
+                    android:id="@+id/option4Tv"
+                    android:layout_toStartOf="@+id/option4Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60sp"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="Option 4"
+                    android:textColor="@color/black"
+                    />
+
             </RelativeLayout>
 
 

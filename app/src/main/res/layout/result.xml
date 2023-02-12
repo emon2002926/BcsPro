@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="30dp"
+    app:cardCornerRadius="10dp"
+
     android:layout_marginTop="15dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:background="#C1BEBE"
-    app:cardCornerRadius="10dp"
     android:layout_height="wrap_content">
 
 
@@ -20,6 +21,16 @@
         android:background="@drawable/botton_sheet_baground"
 
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overall_exams"
+            android:textColor="@color/black"
+            android:layout_marginBottom="5dp"
+            android:paddingStart="10dp"
+            android:textSize="20sp"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
