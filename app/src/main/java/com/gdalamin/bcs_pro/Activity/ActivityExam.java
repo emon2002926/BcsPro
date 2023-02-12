@@ -66,7 +66,9 @@ public class ActivityExam extends AppCompatActivity {
 
 
 //        textView.setText(url2);
-        textView.setText("Important Question");
+        String title = getIntent().getStringExtra("UserSelectedOption");
+
+        textView.setText(title);
 
         floatingActionButton = findViewById(R.id.btnSubmit);
 

@@ -86,47 +86,35 @@ public class DashBordFragment extends Fragment {
 
 
 
-        processdata();
+        processData();
 
 
         return view;
 
     }
 
-    public void processdata()
-    {
+    public void processData() {
+        // Create a new StringRequest to retrieve data from the API
+        StringRequest request = new StringRequest(url,
+                // On successful response, parse the JSON data into resultModel objects using Gson
+                response -> {
+                    Gson gson = new Gson();
+                    resultModel[] data = gson.fromJson(response, resultModel[].class);
 
+                    // Set the layout manager for the RecyclerView
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    recview.setLayoutManager(linearLayoutManager);
 
-        // Todo got the api url
+                    // Set the adapter for the RecyclerView using the parsed data
+                    resultAdapter adapter = new resultAdapter(data);
+                    recview.setAdapter(adapter);
+                },
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                // On error, display an error message using a Toast
+                error -> Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show());
 
-                GsonBuilder builder=new GsonBuilder();
-                Gson gson=builder.create();
-                resultModel data[]=gson.fromJson(response,resultModel[].class);
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()
-                        ,LinearLayoutManager.VERTICAL,false);
-
-                recview.setLayoutManager(linearLayoutManager);
-                resultAdapter adapter=new resultAdapter(data);
-                recview.setAdapter(adapter);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }
-        );
-
-
-        RequestQueue queue= Volley.newRequestQueue(getContext());
+        // Add the request to a RequestQueue for execution
+        RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
-
     }
 }

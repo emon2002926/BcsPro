@@ -165,7 +165,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         else
         {
 
-
             // Get the question and options data from the data array at the given position
             String question = data[position].getQuestion();
             String option1 = data[position].getOption1();
@@ -292,23 +291,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 //
 //    }
 
-    private void selectedRightOpti(int answer ,RelativeLayout selectedOptionLayout,RelativeLayout selected2OptionLayout
-            ,RelativeLayout selected3OptionLayout,RelativeLayout selected4OptionLayout){
-
-
-        if (answer==1){
-            selectedOptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-        }
-        if (answer==2){
-            selected2OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-        }if (answer ==3){
-            selected3OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-        }if (answer ==4){
-            selected4OptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-        }
-
-
-    }
 
 
     private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
@@ -325,9 +307,6 @@ public void intent(){
     intent.putExtras(bundle);
 }
 
-    public interface RecyclerViewDataPass {
-        public void pass(ArrayList questionList);
-    }
 
 
 }

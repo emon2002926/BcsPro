@@ -207,7 +207,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:text="Practis MCQ"
+                            android:text="Practices MCQ"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textSize="20sp" />
@@ -237,7 +237,7 @@
                                     android:layout_height="fill_parent"
                                     android:background="@drawable/round_back_white50_10"
                                     android:gravity="center"
-                                    android:text="All exams"
+                                    android:text="Overall exams"
                                     android:id="@+id/tvAllExam"
                                     android:textColor="@color/black"
                                     android:textSize="17sp"

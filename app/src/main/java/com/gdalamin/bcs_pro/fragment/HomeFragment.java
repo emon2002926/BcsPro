@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
     TextView tvAllExam;
     int tolatExamQuestion = 0;
 
-    String topTitleText;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -198,9 +198,6 @@ public class HomeFragment extends Fragment {
              icon3 = bottomSheetView.findViewById(R.id.option100Icon);
 
 
-
-
-
             option1Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view14) {
@@ -215,7 +212,7 @@ public class HomeFragment extends Fragment {
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
 
-                    topTitleText = "25 Question Exam";
+
 
                     tolatExamQuestion =25;
                 }
@@ -225,8 +222,6 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onClick(View view14) {
 
-
-
                     selectedOption(option2Layout,icon2);
 
 
@@ -235,7 +230,8 @@ public class HomeFragment extends Fragment {
 
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
-                    topTitleText = "50 Question Exam";
+
+
 
                     tolatExamQuestion= 50;
 
@@ -256,7 +252,7 @@ public class HomeFragment extends Fragment {
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
 
-                    topTitleText = "100 Question Exam";
+
                     tolatExamQuestion= 100 ;
                 }
             });
@@ -265,12 +261,10 @@ public class HomeFragment extends Fragment {
                   @Override
                   public void onClick(View view14) {
 
-                      if (tolatExamQuestion !=0 && !topTitleText.isEmpty()){
-
-
+                      if (tolatExamQuestion !=0 ){
 
                           Intent intent = new Intent(view14.getContext(), ActivityExam.class);
-                          intent.putExtra("UserSelectedOption",topTitleText);
+                          intent.putExtra("UserSelectedOption","Overall exam");
                           view14.getContext().startActivity(intent);
 
                           String tolatExamQuestionString = String.valueOf(tolatExamQuestion);
