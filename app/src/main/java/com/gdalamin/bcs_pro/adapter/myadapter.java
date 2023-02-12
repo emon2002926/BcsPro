@@ -1,5 +1,7 @@
 package com.gdalamin.bcs_pro.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +46,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     private final List<QuestionList> questionslists = new ArrayList<>();
 
 
+
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,7 +61,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-        SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
         String valueString = sharedPreferences.getString("examQuestionNum", "");
 
         Log.d("examQuestionNum",valueString);
@@ -127,6 +130,26 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 intent.putExtra("totalQuestion", MAX_QUESTION);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
+
+                if (questionslists.get(position).getUserSelecedAnswer() > 0) {
+                    // If the question has a selected option, highlight the corresponding option
+                    switch (questionslists.get(position).getUserSelecedAnswer()) {
+                        case 1:
+                            selectedOption(holder.option1Layout, holder.img1);
+                            break;
+                        case 2:
+                            selectedOption(holder.option2Layout, holder.img2);
+                            break;
+                        case 3:
+                            selectedOption(holder.option3Layout, holder.img3);
+                            break;
+                        case 4:
+                            selectedOption(holder.option4Layout, holder.img4);
+                            break;
+                    }
+                }
+
+
                 View.OnClickListener optionClickListener = view -> {
                     int selectedOption = 0;
                     ImageView img = null;
@@ -156,6 +179,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option2Layout.setOnClickListener(optionClickListener);
                 holder.option3Layout.setOnClickListener(optionClickListener);
                 holder.option4Layout.setOnClickListener(optionClickListener);
+
+
+
             }
 
 
@@ -277,23 +303,20 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     }
 
-    private void disableOtherOption(RelativeLayout selectedOptionLayout ,RelativeLayout selected2OptionLayout
-            ,RelativeLayout selected3OptionLayout ) {
-        selectedOptionLayout.setEnabled(false);
-        selected2OptionLayout.setEnabled(false);
-        selected3OptionLayout.setEnabled(false);
-    }
 
 
-//    private void selectedWrongOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
-//        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
-//        selectedOptionIcon.setImageResource(R.drawable.cross);
-//
-//    }
+
+
+
 
 
 
     private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
+
+
+
+
+
 
         selectedOptionIcon.setImageResource(R.drawable.chack);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);

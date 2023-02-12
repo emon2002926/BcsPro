@@ -9,6 +9,12 @@ public class QuestionList implements Serializable {
 
     private int userSelecedAnswer;
 
+    private int userSelectedAnswer;
+    private boolean option1Selected;
+    private boolean option2Selected;
+    private boolean option3Selected;
+    private boolean option4Selected;
+
 
     public QuestionList(String question, String option1, String option2, String option3, String option4, int answer) {
         this.question = question;
@@ -51,4 +57,6 @@ public class QuestionList implements Serializable {
     public void setUserSelecedAnswer(int userSelecedAnswer) {
         this.userSelecedAnswer = userSelecedAnswer;
     }
+
+
 }
