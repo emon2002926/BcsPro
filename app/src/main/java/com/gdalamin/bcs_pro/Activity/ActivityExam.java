@@ -50,6 +50,8 @@ public class ActivityExam extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +115,10 @@ public class ActivityExam extends AppCompatActivity {
 
                         // Get the correct answer for the current question
                         int getQuestionAnswer = question.getAnswer();
+
                         // Get the answer selected by the user for the current question
                         int getUserSelectedOption = question.getUserSelecedAnswer();
-
+                        Log.d("correct answer",String.valueOf(getUserSelectedOption));
                         // If the user has selected an answer, increment the answeredQuestions counter
                         if (getUserSelectedOption != 0) {
                             answeredQuestions++;
@@ -125,11 +128,17 @@ public class ActivityExam extends AppCompatActivity {
                         if (getQuestionAnswer == getUserSelectedOption) {
                             correct++;
                         }
-                        // Otherwise, increment the wrong counter
-                        else {
+
+                        if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
+                        {
+
                             wrong++;
                         }
+
                     }
+
+
+
 
                     // Calculateing  the marks
                     double cutMarks = (double) wrong / 2;
@@ -141,9 +150,9 @@ public class ActivityExam extends AppCompatActivity {
                     String totalMark = String.valueOf(mark);
 
                     Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
-                            + " and user id is" + userId + " and wrong answer is" + wrong + "your mark is " + mark);
+                            + " and user id is" + userId + " and wrong answer is " + wrong + " your mark is " + mark);
 
-                    // Show a bottom sheet dialog to allow the user to submit the answers
+                    //  Show a bottom sheet dialog to allow the user to submit the answers
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                             .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));
@@ -158,12 +167,12 @@ public class ActivityExam extends AppCompatActivity {
                         saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
 
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("qutions", (Serializable) questionLists);
-                        intent1.putExtra("answerd", answered);
-                        intent1.putExtra("totalQuestion", totalQuestion);
-                        intent1.putExtras(bundle);
+
+
+
                         startActivity(intent1);
+
+
                     });
 
                     bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {

@@ -125,10 +125,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option4TV.setText(option4.trim());
 
                 // Use LocalBroadcastManager to send the broadcast
-                Intent intent = new Intent("my_list_action");
-                intent.putExtra("my_list_key", (Serializable) questionslists);
-                intent.putExtra("totalQuestion", MAX_QUESTION);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
                 if (questionslists.get(position).getUserSelecedAnswer() > 0) {
@@ -173,6 +169,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.option2Layout.setEnabled(false);
                     holder.option3Layout.setEnabled(false);
                     holder.option4Layout.setEnabled(false);
+
+
+                    Intent intent = new Intent("my_list_action");
+                    intent.putExtra("my_list_key", (Serializable) questionslists);
+                    intent.putExtra("totalQuestion", MAX_QUESTION);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
                 };
 
                 holder.option1Layout.setOnClickListener(optionClickListener);
