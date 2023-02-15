@@ -163,6 +163,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         selectedOption = 4;
                         img = holder.img4;
                     }
+
+
                     questionslists.get(position).setUserSelecedAnswer(selectedOption);
                     selectedOption(view, img);
                     holder.option1Layout.setEnabled(false);
