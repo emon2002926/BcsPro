@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,10 @@ import com.google.gson.GsonBuilder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
@@ -46,10 +50,15 @@ public class ActivityExam extends AppCompatActivity {
     private  static final  String saveResultUrl = "http://192.168.0.104/api2/saveResult.php";
     RecyclerView recview;
 
-    TextView textView;
+    TextView textView,textViewTimer;
     FloatingActionButton floatingActionButton;
 
+    CountDownTimer countDownTimer;
 
+
+     ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
+
+    String totalQuestion = "";
 
 
     @Override
@@ -61,6 +70,7 @@ public class ActivityExam extends AppCompatActivity {
 
         recview=(RecyclerView)findViewById(R.id.recview);
         textView = findViewById(R.id.topTv);
+        textViewTimer = findViewById(R.id.tvTimer);
 
         processdata();
 
@@ -80,6 +90,12 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
+        startTimer(40);
+
+
+
+
+
     }
 
 
@@ -91,11 +107,11 @@ public class ActivityExam extends AppCompatActivity {
             if (intent.getAction().equals("my_list_action")) {
 
                 // Get the list of QuestionList objects from the intent
-                ArrayList<QuestionList> questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
+                 questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
                 // Get the total number of questions from the intent
                 int totalQc = intent.getIntExtra("totalQuestion", 0);
-                String totalQuestion = String.valueOf(totalQc);
+                 totalQuestion = String.valueOf(totalQc);
 
 
                 // Get the shared preferences for "LoginInfo"
@@ -137,9 +153,6 @@ public class ActivityExam extends AppCompatActivity {
 
                     }
 
-
-
-
                     // Calculateing  the marks
                     double cutMarks = (double) wrong / 2;
                     double mark = (double) correct - cutMarks;
@@ -164,6 +177,9 @@ public class ActivityExam extends AppCompatActivity {
                     bottomSheetDialog.show();
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+
+
+
                         saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
 
                         Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
@@ -257,4 +273,99 @@ public class ActivityExam extends AppCompatActivity {
         queue.add(request);
 
     }
-}
+
+    private void startTimer(int maxTimerSceounds){
+        countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+
+                long getHour = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
+                long getMinutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                long getSceond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+
+                String genarateTime = String.format(Locale.getDefault(),"%02d:%02d:%02d",getHour,
+                        getMinutes - TimeUnit.HOURS.toMinutes(getHour),
+                        getSceond - TimeUnit.MINUTES.toSeconds(getMinutes));
+
+                textViewTimer.setText(genarateTime);
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                //Finish  quiz when time is Over
+//                finishQuiz();
+
+                finishExam();
+            }
+
+
+        };
+        countDownTimer.start();
+    }
+    public void  finishExam(){
+        if (questionLists !=null){
+
+            // Initialize counters for answered questions, correct answers, and wrong answers
+            int answeredQuestions = 0;
+            int correct = 0;
+            int wrong = 0;
+
+            // Loop through the list of QuestionList objects
+            for (QuestionList question : questionLists) {
+
+                // Get the correct answer for the current question
+                int getQuestionAnswer = question.getAnswer();
+
+                // Get the answer selected by the user for the current question
+                int getUserSelectedOption = question.getUserSelecedAnswer();
+                Log.d("correct answer",String.valueOf(getUserSelectedOption));
+                // If the user has selected an answer, increment the answeredQuestions counter
+                if (getUserSelectedOption != 0) {
+                    answeredQuestions++;
+                }
+
+                // If the user's selected answer is the same as the correct answer, increment the correct counter
+                if (getQuestionAnswer == getUserSelectedOption) {
+                    correct++;
+                }
+
+                if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
+                {
+
+                    wrong++;
+                }
+
+            }
+
+
+
+
+            // Calculateing  the marks
+            double cutMarks = (double) wrong / 2;
+            double mark = (double) correct - cutMarks;
+
+            String answered = String.valueOf(answeredQuestions);
+            String correctAnswer = String.valueOf(correct);
+            String wrongAnswer = String.valueOf(wrong);
+            String totalMark = String.valueOf(mark);
+
+            Log.d("totalQuestion", "answered " + answered + " question of and the correctAnswer is " + correctAnswer
+                    + " and user id is and wrong answer is " + wrong + " your mark is " + mark);
+
+
+            }
+
+
+
+
+
+
+
+
+
+        }
+    }
+

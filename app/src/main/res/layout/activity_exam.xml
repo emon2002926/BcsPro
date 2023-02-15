@@ -14,7 +14,7 @@
         android:elevation="30dp"
         android:id="@+id/card"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -23,7 +23,7 @@
 
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -36,7 +36,17 @@
                 android:text="  44th BCS Question "
                 />
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:id="@+id/tvTimer"
+                android:textColor="@color/liteGreen"
+                android:text="00:00:00"/>
+
+        </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
