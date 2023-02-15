@@ -55,17 +55,15 @@ public class ActivityExam extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
 
-
      ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
 
     String totalQuestion = "";
-
+    static String answered ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
-
 
 
         recview=(RecyclerView)findViewById(R.id.recview);
@@ -75,9 +73,6 @@ public class ActivityExam extends AppCompatActivity {
         processdata();
 
 
-
-
-//        textView.setText(url2);
         String title = getIntent().getStringExtra("UserSelectedOption");
 
         textView.setText(title);
@@ -87,13 +82,6 @@ public class ActivityExam extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
-
-
-
-        startTimer(40);
-
-
-
 
 
     }
@@ -113,57 +101,24 @@ public class ActivityExam extends AppCompatActivity {
                 int totalQc = intent.getIntExtra("totalQuestion", 0);
                  totalQuestion = String.valueOf(totalQc);
 
-
-                // Get the shared preferences for "LoginInfo"
-                SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                String userId = sharedPreferences.getString("key_phone", "");
+                startTimer(totalQc*30);
 
 
                 // Set a click listener for the floating action button
                 floatingActionButton.setOnClickListener(view -> {
                     // Initialize counters for answered questions, correct answers, and wrong answers
+
+
                     int answeredQuestions = 0;
-                    int correct = 0;
-                    int wrong = 0;
 
-                    // Loop through the list of QuestionList objects
+
                     for (QuestionList question : questionLists) {
-
-                        // Get the correct answer for the current question
-                        int getQuestionAnswer = question.getAnswer();
-
-                        // Get the answer selected by the user for the current question
                         int getUserSelectedOption = question.getUserSelecedAnswer();
-                        Log.d("correct answer",String.valueOf(getUserSelectedOption));
-                        // If the user has selected an answer, increment the answeredQuestions counter
                         if (getUserSelectedOption != 0) {
                             answeredQuestions++;
                         }
-
-                        // If the user's selected answer is the same as the correct answer, increment the correct counter
-                        if (getQuestionAnswer == getUserSelectedOption) {
-                            correct++;
-                        }
-
-                        if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
-                        {
-
-                            wrong++;
-                        }
-
                     }
-
-                    // Calculateing  the marks
-                    double cutMarks = (double) wrong / 2;
-                    double mark = (double) correct - cutMarks;
-
-                    String answered = String.valueOf(answeredQuestions);
-                    String correctAnswer = String.valueOf(correct);
-                    String wrongAnswer = String.valueOf(wrong);
-                    String totalMark = String.valueOf(mark);
-
-                    Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
-                            + " and user id is" + userId + " and wrong answer is " + wrong + " your mark is " + mark);
+                    answered = String.valueOf(answeredQuestions);
 
                     //  Show a bottom sheet dialog to allow the user to submit the answers
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
@@ -171,23 +126,14 @@ public class ActivityExam extends AppCompatActivity {
                             .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));
 
                     TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-                    textView.setText("You have answered " + answered + " Question out of 50");
+                    textView.setText("You have answered " + answered + " Question out of "+totalQuestion);
 
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
-
-
-                        saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
-
-                        Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
-
-
-
-                        startActivity(intent1);
-
+                        finishExam();
 
                     });
 
@@ -237,14 +183,77 @@ public class ActivityExam extends AppCompatActivity {
 
     }
 
+    public void  finishExam(){
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("key_phone", "");
+        if (questionLists !=null){
+
+            int answeredQuestions = 0;
+            int correct = 0;
+            int wrong = 0;
+
+
+            for (QuestionList question : questionLists) {
+
+                // Get the correct answer for the current question
+                int getQuestionAnswer = question.getAnswer();
+
+                // Get the answer selected by the user for the current question
+                int getUserSelectedOption = question.getUserSelecedAnswer();
+                // If the user has selected an answer, increment the answeredQuestions counter
+                if (getUserSelectedOption != 0) {
+                    answeredQuestions++;
+                }
+
+                // If the user's selected answer is the same as the correct answer, increment the correct counter
+                if (getQuestionAnswer == getUserSelectedOption) {
+                    correct++;
+                }
+
+                if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
+                {
+
+                    wrong++;
+                }
+
+            }
+
+            /////
+            // Calculateing  the marks
+            double cutMarks = (double) wrong / 2;
+            double mark = (double) correct - cutMarks;
+
+            answered = String.valueOf(answeredQuestions);
+            String correctAnswer = String.valueOf(correct);
+            String wrongAnswer = String.valueOf(wrong);
+            String totalMark = String.valueOf(mark);
+
+            Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
+                    + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
+
+
+            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
+
+
+        }
+
+
+
+    }
+
+
     private void saveResult(final String total, final String correct ,final String wrong ,final String mark,final String userId)
     {
-
         StringRequest request=new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
             {
-                    Toast.makeText(ActivityExam.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(ActivityExam.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
+
+                Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
+                startActivity(intent1);
 
             }
         }, new Response.ErrorListener() {
@@ -267,12 +276,12 @@ public class ActivityExam extends AppCompatActivity {
                 return param;
             }
         };
-
-
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
     }
+
+
 
     private void startTimer(int maxTimerSceounds){
         countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
@@ -295,8 +304,6 @@ public class ActivityExam extends AppCompatActivity {
             @Override
             public void onFinish() {
 
-                //Finish  quiz when time is Over
-//                finishQuiz();
 
                 finishExam();
             }
@@ -305,67 +312,5 @@ public class ActivityExam extends AppCompatActivity {
         };
         countDownTimer.start();
     }
-    public void  finishExam(){
-        if (questionLists !=null){
-
-            // Initialize counters for answered questions, correct answers, and wrong answers
-            int answeredQuestions = 0;
-            int correct = 0;
-            int wrong = 0;
-
-            // Loop through the list of QuestionList objects
-            for (QuestionList question : questionLists) {
-
-                // Get the correct answer for the current question
-                int getQuestionAnswer = question.getAnswer();
-
-                // Get the answer selected by the user for the current question
-                int getUserSelectedOption = question.getUserSelecedAnswer();
-                Log.d("correct answer",String.valueOf(getUserSelectedOption));
-                // If the user has selected an answer, increment the answeredQuestions counter
-                if (getUserSelectedOption != 0) {
-                    answeredQuestions++;
-                }
-
-                // If the user's selected answer is the same as the correct answer, increment the correct counter
-                if (getQuestionAnswer == getUserSelectedOption) {
-                    correct++;
-                }
-
-                if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
-                {
-
-                    wrong++;
-                }
-
-            }
-
-
-
-
-            // Calculateing  the marks
-            double cutMarks = (double) wrong / 2;
-            double mark = (double) correct - cutMarks;
-
-            String answered = String.valueOf(answeredQuestions);
-            String correctAnswer = String.valueOf(correct);
-            String wrongAnswer = String.valueOf(wrong);
-            String totalMark = String.valueOf(mark);
-
-            Log.d("totalQuestion", "answered " + answered + " question of and the correctAnswer is " + correctAnswer
-                    + " and user id is and wrong answer is " + wrong + " your mark is " + mark);
-
-
-            }
-
-
-
-
-
-
-
-
-
-        }
     }
 
