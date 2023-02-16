@@ -42,7 +42,7 @@
                 android:layout_marginEnd="15dp"
                 android:text=""
                 android:visibility="visible"
-                android:textAlignment="textStart"
+                android:textAlignment="inherit"
                 android:id="@+id/questionTv"
                 />
             <ImageView

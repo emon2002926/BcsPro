@@ -45,7 +45,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         holder.correct.setText(data[position].getCorrect());
         holder.wrong.setText(data[position].getWrong());
         holder.marks.setText(data[position].getMark());
-
+        holder.date.setText(data[position].getDate());
 
 
     }
@@ -56,7 +56,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     }
     class myviewholder extends RecyclerView.ViewHolder
     {
-        TextView total,correct,wrong,marks;
+        TextView total,correct,wrong,marks,date;
 
 
         public myviewholder(@NonNull View itemView)
@@ -68,6 +68,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
             correct = itemView.findViewById(R.id.correctTv);
             wrong =itemView.findViewById(R.id.wrongTv);
             marks = itemView.findViewById(R.id.marksTv);
+            date = itemView.findViewById(R.id.tvDate);
 
 
         }

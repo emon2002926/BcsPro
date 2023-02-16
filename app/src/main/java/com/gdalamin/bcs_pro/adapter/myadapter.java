@@ -62,9 +62,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
         SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        String valueString = sharedPreferences.getString("examQuestionNum", "");
+        int NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
 
-        Log.d("examQuestionNum",valueString);
+        Log.d("examQuestionNum",String.valueOf(NUM_OF_QUESTION));
 
         holder.option1Layout.setBackgroundResource(0);
         holder.img1.setImageResource(R.drawable.round_back_white50_100);
@@ -82,12 +82,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
         //for Exam Activity
-        if (!valueString.isEmpty()){
+        if (NUM_OF_QUESTION !=0){
+
             ///for All exam
-            int MAX_QUESTION = Integer.parseInt(valueString);
+//            int MAX_QUESTION = Integer.parseInt(NUM_OF_QUESTION);
 
 
-            if (position >=MAX_QUESTION){
+            if (position >=NUM_OF_QUESTION){
 
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
@@ -175,7 +176,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     Intent intent = new Intent("my_list_action");
                     intent.putExtra("my_list_key", (Serializable) questionslists);
-                    intent.putExtra("totalQuestion", MAX_QUESTION);
+                    intent.putExtra("totalQuestion", NUM_OF_QUESTION);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 };

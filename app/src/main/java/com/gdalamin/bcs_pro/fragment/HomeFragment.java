@@ -269,7 +269,7 @@ public class HomeFragment extends Fragment {
 
                           String tolatExamQuestionString = String.valueOf(tolatExamQuestion);
 
-                          editor.putString("examQuestionNum",tolatExamQuestionString );
+                          editor.putInt("examQuestionNum",tolatExamQuestion );
                           editor.commit();
                           bottomSheetDialog.dismiss();
 

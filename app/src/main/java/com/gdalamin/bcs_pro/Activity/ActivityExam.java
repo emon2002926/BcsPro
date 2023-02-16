@@ -37,6 +37,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -58,7 +59,11 @@ public class ActivityExam extends AppCompatActivity {
      ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
 
     String totalQuestion = "";
-    static String answered ="";
+
+    SharedPreferences sharedPreferences;
+
+    int NUM_OF_QUESTION =0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,20 @@ public class ActivityExam extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
 
+         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+
+
+         NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+
+
+        startTimer(NUM_OF_QUESTION*30);
+
+
+
+
+
+
+
 
     }
 
@@ -98,10 +117,9 @@ public class ActivityExam extends AppCompatActivity {
                  questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
 
                 // Get the total number of questions from the intent
-                int totalQc = intent.getIntExtra("totalQuestion", 0);
-                 totalQuestion = String.valueOf(totalQc);
 
-                startTimer(totalQc*30);
+
+                 Log.d("timerw",String.valueOf(NUM_OF_QUESTION));
 
 
                 // Set a click listener for the floating action button
@@ -118,7 +136,7 @@ public class ActivityExam extends AppCompatActivity {
                             answeredQuestions++;
                         }
                     }
-                    answered = String.valueOf(answeredQuestions);
+                    String answered = String.valueOf(answeredQuestions);
 
                     //  Show a bottom sheet dialog to allow the user to submit the answers
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
@@ -126,7 +144,7 @@ public class ActivityExam extends AppCompatActivity {
                             .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));
 
                     TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-                    textView.setText("You have answered " + answered + " Question out of "+totalQuestion);
+                    textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
 
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
@@ -148,8 +166,6 @@ public class ActivityExam extends AppCompatActivity {
 
     public void processdata()
     {
-
-
         // Todo got the api url
 
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
@@ -166,6 +182,7 @@ public class ActivityExam extends AppCompatActivity {
                 recview.setLayoutManager(linearLayoutManager);
                 myadapter adapter=new myadapter(data);
                 recview.setAdapter(adapter);
+
 
 
             }
@@ -185,7 +202,21 @@ public class ActivityExam extends AppCompatActivity {
 
     public void  finishExam(){
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String date = String.valueOf("Date: "+day+"-"+month+"-"+year);
+
+    // Print the date
+        Log.d("timeAndDate",date);
+
+
+
+        //gatting User Id
+         sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("key_phone", "");
         if (questionLists !=null){
 
@@ -224,7 +255,7 @@ public class ActivityExam extends AppCompatActivity {
             double cutMarks = (double) wrong / 2;
             double mark = (double) correct - cutMarks;
 
-            answered = String.valueOf(answeredQuestions);
+            String answered = String.valueOf(answeredQuestions);
             String correctAnswer = String.valueOf(correct);
             String wrongAnswer = String.valueOf(wrong);
             String totalMark = String.valueOf(mark);
@@ -233,7 +264,7 @@ public class ActivityExam extends AppCompatActivity {
                     + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
 
 
-            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId);
+            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,date);
 
 
         }
@@ -243,14 +274,15 @@ public class ActivityExam extends AppCompatActivity {
     }
 
 
-    private void saveResult(final String total, final String correct ,final String wrong ,final String mark,final String userId)
+    private void saveResult(final String total, final String correct ,final String wrong
+            ,final String mark,final String userId,String date)
     {
         StringRequest request=new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
             {
 
-                Toast.makeText(ActivityExam.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityExam.this,"Result saved",Toast.LENGTH_SHORT).show();
 
                 Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                 startActivity(intent1);
@@ -272,6 +304,7 @@ public class ActivityExam extends AppCompatActivity {
                 param.put("wrong",wrong);
                 param.put("mark",mark);
                 param.put("userId",userId);
+                param.put("date",date);
 
                 return param;
             }
@@ -312,5 +345,6 @@ public class ActivityExam extends AppCompatActivity {
         };
         countDownTimer.start();
     }
-    }
+
+}
 
