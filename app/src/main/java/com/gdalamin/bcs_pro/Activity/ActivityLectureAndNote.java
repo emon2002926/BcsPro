@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +24,7 @@ public class ActivityLectureAndNote extends AppCompatActivity {
     RecyclerView recyclerView;
     private  static final String url="http://192.168.0.104/api2/lectureAndNotes.php";
 
+    ImageView imageBackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,12 @@ public class ActivityLectureAndNote extends AppCompatActivity {
         recyclerView = findViewById(R.id.recviewLecture);
 
         processdata();
+
+        imageBackButton = findViewById(R.id.backButton);
+
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
     }
 

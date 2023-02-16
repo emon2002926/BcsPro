@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class ActivityTestResult extends AppCompatActivity {
     RecyclerView recview;
 
     TextView textView;
+    ImageView imageBackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,10 @@ public class ActivityTestResult extends AppCompatActivity {
 
         recview=findViewById(R.id.recview);
 
+        imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
 
 

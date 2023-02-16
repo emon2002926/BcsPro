@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gdalamin.bcs_pro.R;
@@ -13,6 +14,7 @@ public class ActivityPdfViwer extends AppCompatActivity {
     WebView webView;
     TextView textView;
 
+    ImageView imageBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,10 @@ public class ActivityPdfViwer extends AppCompatActivity {
 
         textView = findViewById(R.id.tvTopBar);
         textView.setText(topBarText);
+        imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
 
 //        String url = "https://drive.google.com/file/d/1DieRNQNzW5w0TmF3WN6NexSz4B7A7ZQK/view";

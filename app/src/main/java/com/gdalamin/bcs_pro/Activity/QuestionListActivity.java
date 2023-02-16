@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
     FloatingActionButton floatingActionButton;
+    ImageView imageBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +66,18 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
         textView = findViewById(R.id.topTv);
-
-//        textView.setText(url2);
         textView.setText("Important Question");
 
+        imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
-//        btnSubmit = findViewById(R.id.btnSubmit);
 
 
 
-        Calendar currentTime = Calendar.getInstance();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
-        String formattedTime = timeFormat.format(currentTime.getTime());
-        Log.d("formattedTime",formattedTime);
+
+
 
 
     }

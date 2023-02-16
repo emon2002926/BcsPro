@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     private  static final String url="http://192.168.0.104/api2/others.php";
     RecyclerView recyclerView;
     LinearLayout quizLayout,letcureLayout;
+    ImageView imageBackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,10 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recview3);
+        imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
         processdata();
 
 
