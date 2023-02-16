@@ -37,7 +37,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class QuestionListActivity extends AppCompatActivity {
 
@@ -69,6 +72,11 @@ public class QuestionListActivity extends AppCompatActivity {
 //        btnSubmit = findViewById(R.id.btnSubmit);
 
 
+
+        Calendar currentTime = Calendar.getInstance();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        String formattedTime = timeFormat.format(currentTime.getTime());
+        Log.d("formattedTime",formattedTime);
 
 
     }

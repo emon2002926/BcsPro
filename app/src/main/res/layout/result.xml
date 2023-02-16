@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        android:background="@drawable/botton_sheet_baground"
 
         >
 

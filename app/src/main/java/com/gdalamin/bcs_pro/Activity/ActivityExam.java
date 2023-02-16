@@ -5,6 +5,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -64,6 +68,7 @@ public class ActivityExam extends AppCompatActivity {
 
     int NUM_OF_QUESTION =0;
 
+    ImageView imageBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,8 @@ public class ActivityExam extends AppCompatActivity {
         recview=(RecyclerView)findViewById(R.id.recview);
         textView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
+        imageBackButton = findViewById(R.id.backButton);
+
 
         processdata();
 
@@ -100,10 +107,20 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
+        imageBackButton.setOnClickListener(view -> {
+
+
+            onBackPressed();
+
+                });
+
+
+
 
 
 
     }
+
 
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -141,7 +158,7 @@ public class ActivityExam extends AppCompatActivity {
                     //  Show a bottom sheet dialog to allow the user to submit the answers
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-                            .inflate(R.layout.submit_answer, (LinearLayout) view.findViewById(R.id.bottomSheetContainer));
+                            .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
                     TextView textView = bottomSheetView.findViewById(R.id.tvDis);
                     textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
@@ -150,6 +167,7 @@ public class ActivityExam extends AppCompatActivity {
                     bottomSheetDialog.show();
 
                     bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+
 
                         finishExam();
 
@@ -164,6 +182,47 @@ public class ActivityExam extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed(){
+
+
+
+        int answeredQuestions = 0;
+
+
+
+        for (QuestionList question : questionLists) {
+            int getUserSelectedOption = question.getUserSelecedAnswer();
+            if (getUserSelectedOption != 0) {
+                answeredQuestions++;
+            }
+        }
+        String answered = String.valueOf(answeredQuestions);
+
+        //  Show a bottom sheet dialog to allow the user to submit the answers
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
+
+        View bottomSheetView = LayoutInflater.from(ActivityExam.this)
+                .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
+        TextView textView = bottomSheetView.findViewById(R.id.tvDis);
+        textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
+
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+
+        bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+
+
+            finishExam();
+
+        });
+
+        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+            bottomSheetDialog.dismiss();
+        });
+
+    }
     public void processdata()
     {
         // Todo got the api url
@@ -202,18 +261,29 @@ public class ActivityExam extends AppCompatActivity {
 
     public void  finishExam(){
 
-
+        //gating date
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        String date = String.valueOf("Date: "+day+"-"+month+"-"+year);
-
-    // Print the date
-        Log.d("timeAndDate",date);
+        String monthName = new DateFormatSymbols().getMonths()[month];
 
 
+
+
+
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        String time = timeFormat.format(calendar.getTime());
+        Log.d("formattedTime",time);
+
+
+
+        String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
+
+        // Print the date and time
+
+        Log.d("timeAndDate",examDateTime);
 
         //gatting User Id
          sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
@@ -264,7 +334,7 @@ public class ActivityExam extends AppCompatActivity {
                     + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
 
 
-            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,date);
+            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,examDateTime);
 
 
         }
@@ -286,6 +356,7 @@ public class ActivityExam extends AppCompatActivity {
 
                 Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
                 startActivity(intent1);
+                finish();
 
             }
         }, new Response.ErrorListener() {
