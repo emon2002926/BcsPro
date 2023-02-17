@@ -34,8 +34,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="    Practis MCQ"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Daily model test"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -71,9 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/l2"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -83,9 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="fill"
-                android:text="You will have to answer 50 Question withing 20 minute."
+                android:text="50 Question -20 minute"
                 android:textColor="#E4000000"
-                android:textSize="19sp"
+                android:textSize="15sp"
 
                 />
 

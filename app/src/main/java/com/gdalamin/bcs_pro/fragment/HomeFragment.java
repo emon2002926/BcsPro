@@ -33,7 +33,9 @@ import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.model;
+import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
+import com.gdalamin.bcs_pro.modelClass.modelForLecture;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,7 +56,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private  static final String url="http://192.168.0.104/api2/others.php";
+    private  static final String url="http://192.168.0.104/api2/getExam.php";
     RecyclerView recyclerView;
     CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
     TextView tvPractice;
@@ -121,9 +123,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-
-
 
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
@@ -321,7 +320,7 @@ public class HomeFragment extends Fragment {
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                model data2[]=gson.fromJson(response,model[].class);
+                modelForExam data2[]=gson.fromJson(response,modelForExam[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         ,LinearLayoutManager.HORIZONTAL,false);

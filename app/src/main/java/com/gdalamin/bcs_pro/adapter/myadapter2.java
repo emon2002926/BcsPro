@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.model;
+import com.gdalamin.bcs_pro.modelClass.modelForLecture;
+import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
 public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 {
-    model data[];
+    modelForExam data[];
 
-    public myadapter2(model[] data2) {
+    public myadapter2(modelForExam[] data2) {
         this.data = data2;
     }
 
@@ -39,8 +41,13 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
-        holder.t1.setText(data[position].getText());
 
+        String examDitals = data[position].getDailyExam();
+
+        if (examDitals !=null){
+            holder.t1.setText(examDitals);
+
+        }
 
 
     }
