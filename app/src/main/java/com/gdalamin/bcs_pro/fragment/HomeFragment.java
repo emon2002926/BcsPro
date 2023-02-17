@@ -157,9 +157,6 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
 
-
-            editor.putString("examQuestionNum","" );
-            editor.commit();
             intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view12.getContext().startActivity(intent);
         });
@@ -297,8 +294,8 @@ public class HomeFragment extends Fragment {
 
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
         CvQuestionBank.setOnClickListener(view15 ->
-//                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
-                startActivity(new Intent(getContext(), ActivityTestResult.class)));
+                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
+//                startActivity(new Intent(getContext(), ActivityTestResult.class)));
 
         return view;
 

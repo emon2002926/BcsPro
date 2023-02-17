@@ -82,7 +82,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
         //for Exam Activity
-        if (NUM_OF_QUESTION !=0){
+        if (NUM_OF_QUESTION >=1){
 
             ///for All exam
 //            int MAX_QUESTION = Integer.parseInt(NUM_OF_QUESTION);

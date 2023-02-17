@@ -59,9 +59,9 @@
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:gravity="fill"
-                android:text="Daily  Exam 2023"
+                android:text="Daily Exam -6 january 2023"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 

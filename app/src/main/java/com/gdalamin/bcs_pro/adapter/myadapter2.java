@@ -43,19 +43,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
 
-//      holder.t2.setText(data[position].getOption1());
-//      holder.t3.setText(data[position].getOption2());
-//        holder.t4.setText(data[position].getOption3());
-
-//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
-//
-//                selectedOption(holder.relativeLayout,holder.img);
-//            }
-//        });
-
     }
 
     @Override

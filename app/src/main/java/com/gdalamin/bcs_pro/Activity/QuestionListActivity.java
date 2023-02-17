@@ -73,16 +73,7 @@ public class QuestionListActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-
-
-
-
-
-
-
     }
-
-
 
     public void processdata()
     {
