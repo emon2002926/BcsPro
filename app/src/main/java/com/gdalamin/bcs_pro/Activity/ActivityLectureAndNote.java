@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -25,12 +26,14 @@ public class ActivityLectureAndNote extends AppCompatActivity {
     private  static final String url="http://192.168.0.104/api2/lectureAndNotes.php";
 
     ImageView imageBackButton;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_and_note);
 
         recyclerView = findViewById(R.id.recviewLecture);
+        progressBar = findViewById(R.id.progressBar4);
 
         processdata();
 

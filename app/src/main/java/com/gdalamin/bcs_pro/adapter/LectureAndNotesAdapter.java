@@ -1,11 +1,13 @@
 package com.gdalamin.bcs_pro.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,11 +23,14 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
     modelForLecture data[];
 
+
+    private Context mContext;
+
+
+
     public LectureAndNotesAdapter(modelForLecture[] data) {
         this.data = data;
     }
-
-    private Context mContext;
 
 
 
@@ -38,6 +43,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_for_lecture_notes,parent,false);
 
+
          return new myviewholder(view);
     }
 
@@ -49,9 +55,6 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
         holder.t2.setText("Last Update   "+data[position].getPdfDate());
 
 
-//      holder.t2.setText(data[position].getOption1());
-//      holder.t3.setText(data[position].getOption2());
-//        holder.t4.setText(data[position].getOption3());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +67,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
             }
         });
+
 
     }
 

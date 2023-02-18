@@ -115,10 +115,6 @@ public class ActivityExam extends AppCompatActivity {
                 });
 
 
-
-
-
-
     }
 
 
