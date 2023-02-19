@@ -28,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
@@ -70,6 +71,8 @@ public class ActivityExam extends AppCompatActivity {
 
     ImageView imageBackButton;
 
+    ShimmerFrameLayout shimmerFrameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,10 @@ public class ActivityExam extends AppCompatActivity {
         textView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
+        shimmerFrameLayout = findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
+
+
 
 
         processdata();
@@ -227,6 +234,12 @@ public class ActivityExam extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recview.setVisibility(View.VISIBLE);
+
+                floatingActionButton.setVisibility(View.VISIBLE);
+
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
                 model data[]=gson.fromJson(response,model[].class);
@@ -237,6 +250,7 @@ public class ActivityExam extends AppCompatActivity {
                 recview.setLayoutManager(linearLayoutManager);
                 myadapter adapter=new myadapter(data);
                 recview.setAdapter(adapter);
+
 
 
 

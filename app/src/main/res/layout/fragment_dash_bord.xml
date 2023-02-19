@@ -7,7 +7,7 @@
     tools:context=".fragment.DashBordFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -44,13 +44,52 @@
 
 
 
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shimer"
+            android:layout_below="@id/card">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+
+                <include
+                    layout="@layout/shimer_baground_result"/>
+                <include
+                    layout="@layout/shimer_baground_result"/>
+                <include
+                    layout="@layout/shimer_baground_result"/>
+                <include
+                    layout="@layout/shimer_baground_result"/>
+                <include
+                    layout="@layout/shimer_baground_result"/>
+
+                <include
+                    layout="@layout/shimer_baground_result"/>
+                <include
+                    layout="@layout/shimer_baground_result"/>
+
+
+            </LinearLayout>
+
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recview"
-            android:visibility="visible"
+            android:layout_below="@id/card"
+            android:visibility="gone"
             tools:ignore="MissingConstraints" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

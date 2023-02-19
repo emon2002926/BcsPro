@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
                 android:textSize="16sp"
                 android:id="@+id/tvTimer"
                 android:textColor="@color/liteGreen"
@@ -58,25 +59,42 @@
 
     </androidx.cardview.widget.CardView>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/card"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:stateListAnimator="@null"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card"
+        android:visibility="visible"
+        android:id="@+id/shimer"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+        >
+            <include
+                layout="@layout/shimer_mcq_baground"/>
+            <include
+                layout="@layout/shimer_mcq_baground"/>
+            <include
+                layout="@layout/shimer_mcq_baground"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recview"
-            android:visibility="visible"
+            android:layout_below="@+id/card"
+            android:visibility="gone"
             android:layout_marginTop="5dp"
             tools:ignore="MissingConstraints" />
 
 
-    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSubmit"
@@ -87,6 +105,7 @@
         app:backgroundTint="@color/blue"
         android:layout_marginBottom="50dp"
         app:fabSize="normal"
+        android:visibility="gone"
         android:src="@drawable/baseline_check_24"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/fullLayout"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="30dp"
+        app:cardCornerRadius="10dp"
+
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:id="@+id/linear"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text=""
+                android:visibility="visible"
+                android:textAlignment="inherit"
+
+                android:background="@color/shmirBagroung"
+                android:id="@+id/questionTv"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/questionIv"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:visibility="gone"
+                android:src="@drawable/demo_bcs"/>
+
+
+            <!--        option 1 layOut-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option1Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/shmirBagroung"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/option1Icon"
+                    />
+                <TextView
+                    android:id="@+id/option1Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/shmirBagroung"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    />
+
+            </RelativeLayout>
+            <!--        option 2 layout-->
+
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option2Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/shmirBagroung"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+
+                    android:id="@+id/option2Icon"
+                    />
+                <TextView
+                    android:id="@+id/option2Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="15sp"
+                    android:textSize="18sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/shmirBagroung"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+
+            <!--        option 3 layout-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option3Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/option3Icon"
+                    android:background="@color/shmirBagroung"
+
+                    />
+
+                <TextView
+                    android:id="@+id/option3Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/shmirBagroung"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+            <!--        option 4 layout-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/opton4Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/shmirBagroung"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/option4Icon"
+                    />
+                <TextView
+                    android:id="@+id/option4Tv"
+                    android:layout_toStartOf="@+id/option4Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60sp"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black"
+                    android:background="@color/shmirBagroung"
+
+                    />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/layoutExplain"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/pink_baground"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:visibility="visible"
+                    android:background="#fffbfa"
+                    android:id="@+id/tvExplain"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

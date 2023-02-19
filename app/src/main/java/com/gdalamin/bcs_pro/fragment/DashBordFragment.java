@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.modelClass.resultModel;
@@ -41,6 +42,8 @@ public class DashBordFragment extends Fragment {
 
     private  static final String url="http://192.168.0.104/api2/getResult.php?userId=01881492164";
     RecyclerView recview;
+
+    ShimmerFrameLayout shimmerFrameLayout;
 
     public DashBordFragment() {
         // Required empty public constructor
@@ -82,6 +85,8 @@ public class DashBordFragment extends Fragment {
 
 
         recview=view.findViewById(R.id.recview);
+        shimmerFrameLayout = view.findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
 
 
 
@@ -98,6 +103,7 @@ public class DashBordFragment extends Fragment {
         StringRequest request = new StringRequest(url,
                 // On successful response, parse the JSON data into resultModel objects using Gson
                 response -> {
+
                     Gson gson = new Gson();
                     resultModel[] data = gson.fromJson(response, resultModel[].class);
 
@@ -105,9 +111,16 @@ public class DashBordFragment extends Fragment {
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     recview.setLayoutManager(linearLayoutManager);
 
+
                     // Set the adapter for the RecyclerView using the parsed data
                     resultAdapter adapter = new resultAdapter(data);
                     recview.setAdapter(adapter);
+
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+
+                    recview.setVisibility(View.VISIBLE);
+
                 },
 
                 // On error, display an error message using a Toast
