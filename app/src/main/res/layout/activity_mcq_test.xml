@@ -11,263 +11,279 @@
     tools:context=".Activity.McqTestActivity">
 
 
+<com.facebook.shimmer.ShimmerFrameLayout
+    android:layout_width="match_parent"
+    android:id="@+id/shimer"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/shimer_quize"/>
+</com.facebook.shimmer.ShimmerFrameLayout>
 
 
     <RelativeLayout
-        android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
+        android:layout_height="match_parent"
+        android:id="@+id/layout"
+        android:visibility="gone">
 
 
+        <RelativeLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/currentQuestionTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Question 1 "
+                    android:textSize="25sp"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/totalQuestionTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:text="/10"
+                    android:textColor="@color/black"/>
+
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_toStartOf="@+id/quizeTimer"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/timer"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="3dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="16sp"
+                android:id="@+id/quizeTimer"
+                android:textColor="@color/color3"
+                android:layout_marginStart="5dp"
+                />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_below="@id/topBar"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+
+            />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_below="@+id/divider"
+            android:layout_marginTop="40dp"
+            android:id="@+id/linear"
+
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/currentQuestionTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Question 1 "
-                android:textSize="25sp"
                 android:textColor="@color/blue"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/totalQuestionTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textSize="25sp"
-                android:text="/10"
-                android:textColor="@color/black"/>
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text=""
+                android:textAlignment="textStart"
+                android:id="@+id/questionTv"
+                />
+
+            <!--        option 1 layOut-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option1Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/round_back_white50_10"
+
+                >
+
+                <TextView
+                    android:id="@+id/option1Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:text="Option 1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/round_back_white50_100"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/option1Icon"
+                    />
+            </RelativeLayout>
+            <!--        option 2 layout-->
+
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option2Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/round_back_white50_10">
+
+                <TextView
+                    android:id="@+id/option2Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:textSize="18sp"
+
+                    android:layout_marginBottom="15sp"
+                    android:layout_toStartOf="@+id/option2Icon"
+                    android:text="Option 1"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/round_back_white50_100"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/option2Icon"
+                    />
+            </RelativeLayout>
+
+            <!--        option 3 layout-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/option3Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/round_back_white50_10">
+
+                <TextView
+                    android:id="@+id/option3Tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:layout_toStartOf="@+id/option3Icon"
+                    android:text="Option 1"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/round_back_white50_100"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/option3Icon"
+                    />
+            </RelativeLayout>
+            <!--        option 4 layout-->
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/opton4Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/round_back_white50_10">
+                <TextView
+                    android:id="@+id/option4Tv"
+                    android:layout_toStartOf="@+id/option4Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15sp"
+                    android:textSize="18sp"
+                    android:text="Option 1"
+                    android:textColor="@color/black"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/round_back_white50_100"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/option4Icon"
+                    />
+            </RelativeLayout>
 
 
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_toStartOf="@+id/quizeTimer"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/timer"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/linear"
+            android:id="@+id/nextQuction"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:text="Next "
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/next_button"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ProgressBar android:id="@+id/progressBar4"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="16sp"
-            android:id="@+id/quizeTimer"
-            android:textColor="@color/color3"
-            android:layout_marginStart="5dp"
-            />
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|center_horizontal" />
+
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:layout_below="@id/topBar"
-        android:layout_marginTop="10dp"
-        android:background="@color/black"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/divider"
-        android:layout_marginTop="40dp"
-        android:id="@+id/linear"
-
-        android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:text=""
-            android:textAlignment="textStart"
-            android:id="@+id/questionTv"
-            />
-
-        <!--        option 1 layOut-->
-        <RelativeLayout
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:id="@+id/option1Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/round_back_white50_10"
-
-            >
-
-            <TextView
-                android:id="@+id/option1Tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15sp"
-                android:layout_marginTop="15sp"
-                android:layout_marginEnd="15sp"
-                android:layout_marginBottom="15sp"
-                android:text="Option 1"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/round_back_white50_100"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/option1Icon"
-                />
-        </RelativeLayout>
-        <!--        option 2 layout-->
-
-        <RelativeLayout
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:id="@+id/option2Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/round_back_white50_10">
-
-            <TextView
-                android:id="@+id/option2Tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15sp"
-                android:layout_marginTop="15sp"
-                android:layout_marginEnd="15sp"
-                android:textSize="18sp"
-
-                android:layout_marginBottom="15sp"
-                android:layout_toStartOf="@+id/option2Icon"
-                android:text="Option 1"
-                android:textColor="@color/black" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/round_back_white50_100"
-
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/option2Icon"
-                />
-        </RelativeLayout>
-
-        <!--        option 3 layout-->
-        <RelativeLayout
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:id="@+id/option3Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/round_back_white50_10">
-
-            <TextView
-                android:id="@+id/option3Tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15sp"
-                android:layout_marginTop="15sp"
-
-                android:layout_marginEnd="15sp"
-                android:layout_marginBottom="15sp"
-                android:layout_toStartOf="@+id/option3Icon"
-                android:text="Option 1"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/round_back_white50_100"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/option3Icon"
-                />
-        </RelativeLayout>
-        <!--        option 4 layout-->
-        <RelativeLayout
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:id="@+id/opton4Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/round_back_white50_10">
-            <TextView
-                android:id="@+id/option4Tv"
-                android:layout_toStartOf="@+id/option4Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15sp"
-                android:textSize="18sp"
-                android:text="Option 1"
-                android:textColor="@color/black"
-                />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/round_back_white50_100"
-
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/option4Icon"
-                />
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/linear"
-        android:id="@+id/nextQuction"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="19sp"
-        android:text="Next "
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/next_button"
-        />
-
-
-
-    <ProgressBar android:id="@+id/progressBar4"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:visibility="invisible"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>

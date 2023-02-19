@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 
@@ -42,7 +43,7 @@ public class McqTestActivity extends AppCompatActivity {
     private final List<QuestionList> questionslists = new ArrayList<>();
 
     private TextView quizTimer;
-    private RelativeLayout option1Layout , option2Layout , option3Layout , option4Layout ;
+    private RelativeLayout option1Layout , option2Layout , option3Layout , option4Layout ,layout;
     private TextView option1TV , option2TV , option3TV , option4TV ;
     private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
 
@@ -66,6 +67,7 @@ public class McqTestActivity extends AppCompatActivity {
 
     static int totalQuestion;
 
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,10 @@ public class McqTestActivity extends AppCompatActivity {
 
 
         quizTimer = findViewById (R.id.quizeTimer) ;
+
+        shimmerFrameLayout = findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
+        layout = findViewById(R.id.layout);
 
 
         option1Layout = findViewById (R.id.option1Layout ) ;
@@ -110,7 +116,7 @@ public class McqTestActivity extends AppCompatActivity {
 
 //
         progressBar =findViewById(R.id.progressBar4);
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 //
 //        progressBar.setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -320,7 +326,9 @@ public class McqTestActivity extends AppCompatActivity {
 
                                 questionslists.add(questionList);
                                 Collections.shuffle(questionslists);
-                                progressBar.setVisibility(View.GONE);
+                                shimmerFrameLayout.stopShimmer();
+                                shimmerFrameLayout.setVisibility(View.GONE);
+                                layout.setVisibility(View.VISIBLE);
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 

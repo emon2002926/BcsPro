@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.Activity;
 
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
@@ -49,17 +50,17 @@ public class QuestionListActivity extends AppCompatActivity {
     RecyclerView recview;
 
     TextView textView;
-
-
-    FloatingActionButton floatingActionButton;
     ImageView imageBackButton;
 
+    ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
 
         recview=(RecyclerView)findViewById(R.id.recview);
+        shimmerFrameLayout = findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
 
 
         processdata();
@@ -84,6 +85,11 @@ public class QuestionListActivity extends AppCompatActivity {
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+                recview.setVisibility(View.VISIBLE);
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();

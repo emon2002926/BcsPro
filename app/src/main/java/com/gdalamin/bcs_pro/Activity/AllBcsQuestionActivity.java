@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.Activity;
 
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.model;
 import  com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +32,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayout quizLayout,letcureLayout;
     ImageView imageBackButton;
+    ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,9 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recview3);
+        shimmerFrameLayout = findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
+
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> {
             onBackPressed();
@@ -53,6 +59,9 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
                 model data[]=gson.fromJson(response,model[].class);
