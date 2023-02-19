@@ -1,4 +1,5 @@
 package com.gdalamin.bcs_pro.Activity;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.modelForLecture;
 
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,14 +28,18 @@ public class ActivityLectureAndNote extends AppCompatActivity {
     private  static final String url="http://192.168.0.104/api2/lectureAndNotes.php";
 
     ImageView imageBackButton;
-    ProgressBar progressBar;
+    ShimmerFrameLayout shimmerFrameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_and_note);
 
         recyclerView = findViewById(R.id.recviewLecture);
-        progressBar = findViewById(R.id.progressBar4);
+        shimmerFrameLayout = findViewById(R.id.shimer);
+
+        shimmerFrameLayout.startShimmer();
+
 
         processdata();
 
@@ -43,6 +49,7 @@ public class ActivityLectureAndNote extends AppCompatActivity {
             onBackPressed();
         });
 
+
     }
 
     public void processdata()
@@ -51,6 +58,10 @@ public class ActivityLectureAndNote extends AppCompatActivity {
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
@@ -63,10 +74,13 @@ public class ActivityLectureAndNote extends AppCompatActivity {
                 LectureAndNotesAdapter adapter=new LectureAndNotesAdapter(data);
                 recyclerView.setAdapter(adapter);
 
+
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(recyclerView.getContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
         }
