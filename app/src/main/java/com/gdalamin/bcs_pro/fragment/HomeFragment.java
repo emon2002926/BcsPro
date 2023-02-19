@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
 import com.gdalamin.bcs_pro.Activity.ActivityTestResult;
@@ -66,6 +68,9 @@ public class HomeFragment extends Fragment {
     TextView tvAllExam;
     int tolatExamQuestion = 0;
 
+    ShimmerFrameLayout shimmerFrameLayout;
+    ScrollView scrollView;
+
 
 
     public HomeFragment() {
@@ -104,6 +109,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+        shimmerFrameLayout = view.findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
+        scrollView = view.findViewById(R.id.homeLayout);
 
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
@@ -229,7 +238,6 @@ public class HomeFragment extends Fragment {
                     icon3.setImageResource(R.drawable.round_back_white50_100);
 
 
-
                     tolatExamQuestion= 50;
 
                 }
@@ -319,6 +327,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(String response) {
 
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+                scrollView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
                 modelForExam data2[]=gson.fromJson(response,modelForExam[].class);

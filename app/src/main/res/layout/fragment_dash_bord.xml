@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eceff1"
+    android:background="@color/white"
     tools:context=".fragment.DashBordFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -54,15 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:background="@color/white"
                 >
 
-
-                <include
-                    layout="@layout/shimer_baground_result"/>
-                <include
-                    layout="@layout/shimer_baground_result"/>
-                <include
-                    layout="@layout/shimer_baground_result"/>
                 <include
                     layout="@layout/shimer_baground_result"/>
                 <include

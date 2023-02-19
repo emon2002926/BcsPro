@@ -51,11 +51,25 @@
             </androidx.cardview.widget.CardView>
 
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_below="@id/card"
+                android:id="@+id/shimer"
+                android:visibility="visible"
+                android:layout_height="match_parent">
+                <include
+                    layout="@layout/shimer_for_home"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_below="@id/card"
+                android:id="@+id/homeLayout"
+                android:visibility="gone"
                 android:layout_height="wrap_content">
+
+
 
 
                 <RelativeLayout
@@ -63,7 +77,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/white"
-
                     >
 
                     <LinearLayout
@@ -104,6 +117,8 @@
                         android:id="@+id/r1"
                         android:layout_marginTop="15dp"
                         android:layout_below="@id/l40"
+
+
                         >
 
 
@@ -111,7 +126,7 @@
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:id="@+id/tvCource"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_height="wrap_content">
 
                             <TextView
@@ -120,7 +135,7 @@
                                 android:text="All  Course"
                                 android:textColor="@color/black"
                                 android:layout_marginStart="20dp"
-                                android:textSize="22sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
 
@@ -146,7 +161,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
                             android:id="@+id/l1"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_below="@id/tvCource"
                             android:layout_marginBottom="20dp"
                             android:layout_width="fill_parent">
@@ -184,8 +199,6 @@
                                 android:layout_width="0dp"
                                 android:src="@drawable/imagr_three"
                                 android:scaleType="fitXY"
-
-
                                 />
 
                         </LinearLayout>
@@ -200,6 +213,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="4dp"
                         android:id="@+id/r2"
+
                         android:layout_marginBottom="4dp">
 
                         <TextView
