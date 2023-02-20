@@ -109,10 +109,6 @@ public class ActivityExam extends AppCompatActivity {
          NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
 
 
-        startTimer(NUM_OF_QUESTION*30);
-
-
-
 
 
         imageBackButton.setOnClickListener(view -> {
@@ -241,6 +237,8 @@ public class ActivityExam extends AppCompatActivity {
                 shimmerFrameLayout.setVisibility(View.GONE);
                 recview.setVisibility(View.VISIBLE);
 
+                startTimer(NUM_OF_QUESTION*30);
+
                 floatingActionButton.setVisibility(View.VISIBLE);
 
                 GsonBuilder builder=new GsonBuilder();
@@ -253,9 +251,6 @@ public class ActivityExam extends AppCompatActivity {
                 recview.setLayoutManager(linearLayoutManager);
                 myadapter adapter=new myadapter(data);
                 recview.setAdapter(adapter);
-
-
-
 
             }
         }, new Response.ErrorListener() {
@@ -280,10 +275,6 @@ public class ActivityExam extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthName = new DateFormatSymbols().getMonths()[month];
-
-
-
-
 
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());

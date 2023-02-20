@@ -84,11 +84,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.layoutExplain.setVisibility(View.GONE);
 
 
-
-
-
-
-
             if (NUM_OF_QUESTION >=1){
 
                 ///for All exam
@@ -105,6 +100,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     // Get the question and options data from the data array at the given position
 
+
+
+
                     String question = data[position].getQuestion();
                     String option1 = data[position].getOption1();
                     String option2 = data[position].getOption2();
@@ -112,21 +110,30 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     String option4 = data[position].getOption4();
                     int answer = Integer.parseInt(data[position].getAnswer());
 
+
+
                     // Create a new QuestionList object with the obtained data
                     QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                     questionslists.add(questionList);
 
-                    holder.questionTv.setText(question);
+                    String questionPosition = String.valueOf(position+1);
+
+
+                    holder.questionTv.setText(questionPosition+") "+question);
                     holder.questionImg.setVisibility(View.GONE);
 
                     // If the question text is empty, hide the text view and display the question image
                     if (question.trim().isEmpty()) {
+
+
                         holder.questionTv.setVisibility(View.GONE);
+                        holder.questionImageLayout.setVisibility(View.VISIBLE);
                         Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
                         holder.questionImg.setVisibility(View.VISIBLE);
                     }
 
                     // Set the text of the options to their respective text views
+
                     holder.option1TV.setText(option1.trim());
                     holder.option2TV.setText(option2.trim());
                     holder.option3TV.setText(option3.trim());
@@ -215,7 +222,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String explain = data[position].getExplanation();
 
 
-
                 holder.questionTv.setText(question.trim());
                 holder.option1TV.setText(option1.trim());
                 holder.option2TV.setText(option2.trim());
@@ -229,6 +235,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.questionTv.setVisibility(View.VISIBLE);
                 } else {
                     holder.questionTv.setVisibility(View.GONE);
+                    holder.questionImageLayout.setVisibility(View.VISIBLE);
                     Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
                 }
@@ -287,13 +294,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         ImageView img1,img2,img3,img4,questionImg;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
-        LinearLayout layoutExplain,fullLayout;
+        LinearLayout layoutExplain,fullLayout,questionImageLayout;
 
-         TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv;
+         TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition;
 
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
+
+            textViewPosition = itemView.findViewById(R.id.textViewPosition);
+            questionImageLayout = itemView.findViewById(R.id.questionIvLayout);
 
             questionTv=itemView.findViewById(R.id.questionTv);
             option1TV=itemView.findViewById(R.id.option1Tv);

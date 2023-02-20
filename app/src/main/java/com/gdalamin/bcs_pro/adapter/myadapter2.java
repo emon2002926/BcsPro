@@ -56,6 +56,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
 
+
         holder.examDate.setText(examDitals);
         holder.t2.setText(data[position].getDetails());
 

@@ -43,15 +43,39 @@
                 android:textAlignment="inherit"
                 android:id="@+id/questionTv"
                 />
-            <ImageView
+
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content"
-                android:id="@+id/questionIv"
                 android:layout_marginTop="10dp"
+                android:id="@+id/questionIvLayout"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:visibility="gone"
-                android:src="@drawable/demo_bcs"/>
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:text="1)"
+                    android:textStyle="bold"
+                    android:id="@+id/textViewPosition"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:id="@+id/questionIv"
+                    android:src="@drawable/demo_bcs"/>
+
+            </LinearLayout>
+
+
 
 
             <!--        option 1 layOut-->

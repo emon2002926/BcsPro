@@ -1,6 +1,6 @@
 package com.gdalamin.bcs_pro.adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -31,7 +31,6 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
     public LectureAndNotesAdapter(modelForLecture[] data) {
         this.data = data;
     }
-
 
 
 
@@ -75,8 +74,6 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
     public int getItemCount() {
         return data.length;
     }
-
-
 
 
 
