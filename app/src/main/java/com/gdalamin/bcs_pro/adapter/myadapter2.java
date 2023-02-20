@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gdalamin.bcs_pro.Activity.ActivityExam;
+import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
+import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.gdalamin.bcs_pro.modelClass.modelForLecture;
@@ -24,7 +30,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
         this.data = data2;
     }
 
-    private Context mContext;
+
 
 
     @NonNull
@@ -42,12 +48,27 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
 
+
+        SharedPreferences sharedPreferences = holder.cardView.getContext().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         String examDitals = data[position].getDailyExam();
 
-        if (examDitals !=null){
-            holder.t1.setText(examDitals);
 
-        }
+
+        holder.examDate.setText(examDitals);
+        holder.t2.setText(data[position].getDetails());
+
+
+        holder.cardView.setOnClickListener(view -> {
+
+            editor.putInt("examQuestionNum",data[position].getTotalQc());
+            editor.commit();
+            Intent intent = new Intent(view.getContext(), ActivityExam.class);
+            view.getContext().startActivity(intent);
+
+        });
+
 
 
     }
@@ -59,30 +80,20 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img;
-        TextView t1,t2,t3,t4;
+        TextView examDate,t2;
+        CardView cardView;
 
-        RelativeLayout relativeLayout;
+
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
 
-            t1=itemView.findViewById(R.id.exam);
+            examDate=itemView.findViewById(R.id.exam);
             t2=itemView.findViewById(R.id.q1);
-
-
-
+            cardView = itemView.findViewById(R.id.card);
 
         }
     }
-
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
-
-
-        selectedOptionIcon.setImageResource(R.drawable.chack);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
-
-    }
-
 
 
 

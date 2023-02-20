@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -193,7 +194,6 @@ public class ActivityExam extends AppCompatActivity {
         int answeredQuestions = 0;
 
 
-
         for (QuestionList question : questionLists) {
             int getUserSelectedOption = question.getUserSelecedAnswer();
             if (getUserSelectedOption != 0) {
@@ -222,6 +222,9 @@ public class ActivityExam extends AppCompatActivity {
         });
 
         bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+            //added for testing
+            startActivity(new Intent(ActivityExam.this, HomeFragment.class));
+
             bottomSheetDialog.dismiss();
         });
 

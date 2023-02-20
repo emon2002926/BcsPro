@@ -272,7 +272,6 @@ public class HomeFragment extends Fragment {
                           intent.putExtra("UserSelectedOption","Overall exam");
                           view14.getContext().startActivity(intent);
 
-                          String tolatExamQuestionString = String.valueOf(tolatExamQuestion);
 
                           editor.putInt("examQuestionNum",tolatExamQuestion );
                           editor.commit();
