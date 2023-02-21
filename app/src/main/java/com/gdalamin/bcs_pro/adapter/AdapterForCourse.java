@@ -13,11 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.Activity.ActivityPdfViwer;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
-public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotesAdapter.myviewholder>
+public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myviewholder>
 {
 
     ModelForLectureAndAllQuestion data[];
@@ -27,7 +28,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
 
 
-    public LectureAndNotesAdapter(ModelForLectureAndAllQuestion[] data) {
+    public AdapterForCourse(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
 
@@ -39,7 +40,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
 
 
-         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_for_lecture_notes,parent,false);
+         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_all_course,parent,false);
 
 
          return new myviewholder(view);
@@ -48,19 +49,16 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
-        holder.t1.setText(data[position].getLectureDetails());
-        holder.t2.setText("Last Update   "+data[position].getPdfDate());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-              Intent intent = new Intent(view.getContext(), ActivityPdfViwer.class);
-              intent.putExtra("pdfLink",data[position].getPdfLink());
-              intent.putExtra("topBarText",data[position].getLectureDetails());
-              view.getContext().startActivity(intent);
 
-            }
-        });
+        String courseImageName = data[position].getCourse();
+
+        Glide.with(holder.imgCourse1.getContext())
+                .load("http://192.168.0.104/api/images/" + courseImageName)
+                .into(holder.imgCourse1);
+
+
+
 
 
     }
@@ -74,20 +72,12 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img;
-        TextView t1,t2;
+        ImageView imgCourse1,imgCourse2;
 
-
-        CardView cardView;
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
-
-            t1=itemView.findViewById(R.id.tvLectureDitals);
-            t2=itemView.findViewById(R.id.tvDate);
-
-            cardView = itemView.findViewById(R.id.layoutLecture);
-
+            imgCourse1 = itemView.findViewById(R.id.imgCourse1);
 
 
         }

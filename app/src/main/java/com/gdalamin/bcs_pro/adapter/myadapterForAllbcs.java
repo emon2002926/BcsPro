@@ -47,11 +47,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
         holder.t1.setText(data[position].getText());
 
 
-
-//      holder.t2.setText(data[position].getOption1());
-//      holder.t3.setText(data[position].getOption2());
-//        holder.t4.setText(data[position].getOption3());
-
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

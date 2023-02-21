@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,11 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
-import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
-import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.modelClass.model;
-import com.gdalamin.bcs_pro.modelClass.modelForLecture;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
 public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>

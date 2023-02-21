@@ -214,6 +214,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                 // Get the question and options data from the data array at the given position
+
                 String question = data[position].getQuestion();
                 String option1 = data[position].getOption1();
                 String option2 = data[position].getOption2();
@@ -221,8 +222,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String  option4 = data[position].getOption4();
                 String explain = data[position].getExplanation();
 
-
-                holder.questionTv.setText(question.trim());
+                String questionPosition = String.valueOf(position+1);
+                holder.questionTv.setText(questionPosition+") "+question);
                 holder.option1TV.setText(option1.trim());
                 holder.option2TV.setText(option2.trim());
                 holder.option3TV.setText(option3.trim());

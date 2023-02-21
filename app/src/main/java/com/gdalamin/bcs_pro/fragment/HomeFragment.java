@@ -28,17 +28,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.Activity.ActivityAllCourse;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
-import com.gdalamin.bcs_pro.Activity.ActivityTestResult;
 import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.modelClass.model;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
-import com.gdalamin.bcs_pro.modelClass.modelForLecture;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -62,7 +60,7 @@ public class HomeFragment extends Fragment {
     private  static final String url="http://192.168.0.104/api2/getExam.php";
     RecyclerView recyclerView;
     CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
-    TextView tvPractice;
+    TextView tvPractice,showAllCourse;
 
     CardView letcureLayout;
     TextView tvAllExam;
@@ -110,16 +108,24 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         scrollView = view.findViewById(R.id.homeLayout);
 
+        showAllCourse = view.findViewById(R.id.showAllCourse);
+        showAllCourse.setOnClickListener(view1 -> {
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+            startActivity(new Intent(view.getContext(), ActivityAllCourse.class));
+        });
+
+
 
         ///Swipe to refress layout
-
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -1,17 +1,26 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class modelForLecture {
+public class ModelForLectureAndAllQuestion {
 
-    String lectureDetails,pdfLink,pdfDate;
+    String lectureDetails,pdfLink,pdfDate,course;
 
-    public modelForLecture(){
+    public ModelForLectureAndAllQuestion(){
 
     }
-    public modelForLecture(String lectureDetails,String pdfLink,String pdfDate){
+    public ModelForLectureAndAllQuestion(String lectureDetails, String pdfLink, String pdfDate,String course){
 
         this.lectureDetails = lectureDetails;
         this.pdfLink = pdfLink;
         this.pdfDate = pdfDate;
+        this.course = course;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getLectureDetails() {
