@@ -1,13 +1,20 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.gdalamin.bcs_pro.Activity.MainActivity;
 import com.gdalamin.bcs_pro.R;
 
 /**
@@ -25,6 +32,8 @@ public class SettingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    LinearLayout messengerChatBtn,facebookGroup;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -64,6 +73,18 @@ public class SettingFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_setting, container, false);
 
 
+        facebookGroup = view.findViewById(R.id.facebookGroup);
+        facebookGroup.setOnClickListener(view1 -> {
+            String groupId = "887679785774255"; // Replace with the ID of the Messenger group you want to open
+            String groupName = "BCS Pro"; // Replace with the name of the Messenger group you want to open
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://group/" + groupId));
+            intent.putExtra("title", groupName);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException ex) {
+                Toast.makeText(view1.getContext(), "Please install Facebook Messenger", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

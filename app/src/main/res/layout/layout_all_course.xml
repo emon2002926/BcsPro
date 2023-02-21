@@ -16,7 +16,6 @@
 
 
         <com.makeramen.roundedimageview.RoundedImageView
-
             android:background="@drawable/round_back_white50_10"
             android:layout_weight="1"
             android:layout_height="150dip"
@@ -25,12 +24,6 @@
             android:scaleType="fitXY"
             android:id="@+id/imgCourse1"
             app:riv_corner_radius="10dp"
-
             />
-
-
-
-
-
 
     </LinearLayout>
