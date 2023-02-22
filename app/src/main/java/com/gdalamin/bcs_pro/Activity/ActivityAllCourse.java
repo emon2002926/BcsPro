@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import com.google.gson.GsonBuilder;
 public class ActivityAllCourse extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    CardView backBtn;
 
 
     private  static final String url="http://192.168.0.104/api2/getCourse.php";
@@ -33,6 +35,10 @@ public class ActivityAllCourse extends AppCompatActivity {
         setContentView(R.layout.activity_all_course);
 
         recyclerView = findViewById(R.id.recviewLecture);
+        backBtn = findViewById(R.id.card);
+        backBtn.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
 
         processdata();

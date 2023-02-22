@@ -25,6 +25,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.gdalamin.bcs_pro.LoginRequest;
 import com.gdalamin.bcs_pro.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,9 +47,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -52,7 +59,7 @@ public class ActivityLogin extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    TextView signInTv, signUpTv;
+    TextView signInTv, signUpTv,fbLogin;
     LinearLayout layoutSignIn, layoutSignUp;
     CardView layoutSignInImage;
     View devider1, devider2;
@@ -66,10 +73,53 @@ public class ActivityLogin extends AppCompatActivity {
     private static final String url = "http://192.168.0.104/api2/volley/signUpLogin.php";
 
     ProgressBar progressBar;
+    CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+
+        callbackManager = CallbackManager.Factory.create();
+
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+
+                        navigateToSecondActivity();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
+
+
+        fbLogin = findViewById(R.id.tempFbLogin);
+        fbLogin.setOnClickListener(view -> {
+
+
+
+            LoginManager.getInstance().logInWithReadPermissions(ActivityLogin.this, Arrays.asList("public_profile"));
+        });
+
+
+
+
+
+
+
 
 
         signInTv = findViewById(R.id.signInTv);
@@ -173,6 +223,14 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
 
     public void login(String phone, String password) {
         Response.Listener<String> responseListener = new Response.Listener<String>() {

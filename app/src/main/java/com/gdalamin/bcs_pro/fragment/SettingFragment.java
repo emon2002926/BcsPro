@@ -75,8 +75,8 @@ public class SettingFragment extends Fragment {
 
         facebookGroup = view.findViewById(R.id.facebookGroup);
         facebookGroup.setOnClickListener(view1 -> {
-            String groupId = "887679785774255"; // Replace with the ID of the Messenger group you want to open
-            String groupName = "BCS Pro"; // Replace with the name of the Messenger group you want to open
+            String groupId = "887679785774255"; //   Messenger group ID
+            String groupName = "BCS Pro"; //  name of the Messenger group
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://group/" + groupId));
             intent.putExtra("title", groupName);
             try {
