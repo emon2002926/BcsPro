@@ -54,11 +54,7 @@ public class ActivityTestResult extends AppCompatActivity {
         });
 
 
-
-
         processdata();
-
-
 
     }
 

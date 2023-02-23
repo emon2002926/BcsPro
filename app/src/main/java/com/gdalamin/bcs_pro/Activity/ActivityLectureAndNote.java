@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 public class ActivityLectureAndNote extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private  static final String url="http://192.168.0.104/api2/lectureAndNotes.php";
+    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=3";
 
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
@@ -72,8 +72,6 @@ public class ActivityLectureAndNote extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
                 LectureAndNotesAdapter adapter=new LectureAndNotesAdapter(data);
                 recyclerView.setAdapter(adapter);
-
-
 
             }
         }, new Response.ErrorListener() {

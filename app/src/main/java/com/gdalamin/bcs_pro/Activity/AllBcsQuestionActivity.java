@@ -28,7 +28,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
     Button buttonShare;
 
-    private  static final String url="http://192.168.0.104/api2/others.php";
+    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=5";
     RecyclerView recyclerView;
     LinearLayout quizLayout,letcureLayout;
     ImageView imageBackButton;
