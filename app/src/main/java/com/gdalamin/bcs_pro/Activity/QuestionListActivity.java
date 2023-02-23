@@ -46,7 +46,7 @@ import java.util.Locale;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.104/api2/allQuestion.php";
+    private  static final String url="http://192.168.0.104/api2/previsQuestion/44th_bcs.php?userId=1&apiKey=def456";
     RecyclerView recview;
 
     TextView textView;
