@@ -37,6 +37,10 @@ import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,6 +72,13 @@ public class HomeFragment extends Fragment {
 
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
+
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
 
 
 
@@ -108,8 +119,26 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        sharedPreferences= getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+
+
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(view.getContext(), gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
+        if (account !=null){
+            String name = account.getDisplayName();
+            String email = account.getEmail();
+            SharedPreferences sharedPreferences1= getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences1.edit();
+            editor.putString("key_phone", email);
+            editor.commit();
+
+            Log.d("emailad",email);
+        }
 
 
 

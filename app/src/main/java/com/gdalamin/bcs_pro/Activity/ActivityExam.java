@@ -287,11 +287,10 @@ public class ActivityExam extends AppCompatActivity {
 
         // Print the date and time
 
-        Log.d("timeAndDate",examDateTime);
-
         //gatting User Id
-         sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("key_phone", "");
+
         if (questionLists !=null){
 
             int answeredQuestions = 0;

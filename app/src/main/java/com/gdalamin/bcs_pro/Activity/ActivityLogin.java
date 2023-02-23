@@ -81,47 +81,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
-
-        callbackManager = CallbackManager.Factory.create();
-
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-
-                        navigateToSecondActivity();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // App code
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                    }
-                });
-
-
-        fbLogin = findViewById(R.id.tempFbLogin);
-        fbLogin.setOnClickListener(view -> {
-
-
-
-            LoginManager.getInstance().logInWithReadPermissions(ActivityLogin.this, Arrays.asList("public_profile"));
-        });
-
-
-
-
-
-
-
-
-
         signInTv = findViewById(R.id.signInTv);
         signUpTv = findViewById(R.id.signUpTv);
 
@@ -223,13 +182,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
 
 
     public void login(String phone, String password) {

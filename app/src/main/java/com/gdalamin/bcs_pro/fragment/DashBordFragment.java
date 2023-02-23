@@ -1,5 +1,7 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,10 +42,12 @@ public class DashBordFragment extends Fragment {
     private String mParam2;
 
 
-    private  static final String url="http://192.168.0.104/api2/getResult.php?userId=01881492164";
+    private  static final String url="http://192.168.0.104/api2/getResult.php?userId=";
     RecyclerView recview;
 
     ShimmerFrameLayout shimmerFrameLayout;
+
+    SharedPreferences sharedPreferences;
 
     public DashBordFragment() {
         // Required empty public constructor
@@ -100,7 +104,9 @@ public class DashBordFragment extends Fragment {
 
     public void processData() {
         // Create a new StringRequest to retrieve data from the API
-        StringRequest request = new StringRequest(url,
+        sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("key_phone", "");
+        StringRequest request = new StringRequest(url+userId,
                 // On successful response, parse the JSON data into resultModel objects using Gson
                 response -> {
 

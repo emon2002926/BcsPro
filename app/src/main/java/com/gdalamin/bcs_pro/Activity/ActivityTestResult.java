@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -30,11 +32,12 @@ import java.util.List;
 public class ActivityTestResult extends AppCompatActivity {
 
 
-    private  static final String url="http://192.168.0.104/api2/getResult.php?userId=01881492164";
+    private  static final String url="http://192.168.0.104/api2/getResult.php?userId=";
     RecyclerView recview;
 
     TextView textView;
     ImageView imageBackButton;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,7 @@ public class ActivityTestResult extends AppCompatActivity {
 
 
 
+
         processdata();
 
 
@@ -65,7 +69,11 @@ public class ActivityTestResult extends AppCompatActivity {
 
         // Todo got the api url
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("key_phone", "");
+
+
+        StringRequest request =new StringRequest(url+userId, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
