@@ -3,6 +3,8 @@ package com.gdalamin.bcs_pro.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,7 +174,7 @@ public class HomeFragment extends Fragment {
 
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
-        processdata();
+
         CvQuizLayout = view.findViewById(R.id.l7);
         CvQuizLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,95 +242,75 @@ public class HomeFragment extends Fragment {
              icon3 = bottomSheetView.findViewById(R.id.option100Icon);
 
 
-            option1Layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view14) {
+            option1Layout.setOnClickListener(view1413 -> {
 
-                    selectedOption(option1Layout,icon1);
+                selectedOption(option1Layout,icon1);
 
-                    //gatting focus on this layout
+                //gatting focus on this layout
 
-                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
 
-                    icon2.setImageResource(R.drawable.round_back_white50_100);
-                    icon3.setImageResource(R.drawable.round_back_white50_100);
+                icon2.setImageResource(R.drawable.round_back_white50_100);
+                icon3.setImageResource(R.drawable.round_back_white50_100);
 
 
 
-                    tolatExamQuestion =25;
+                tolatExamQuestion =25;
+            });
+
+            option2Layout.setOnClickListener(view1412 -> {
+
+                selectedOption(option2Layout,icon2);
+
+
+                option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                icon1.setImageResource(R.drawable.round_back_white50_100);
+                icon3.setImageResource(R.drawable.round_back_white50_100);
+
+
+                tolatExamQuestion= 50;
+
+            });
+
+            option3Layout.setOnClickListener(view141 -> {
+
+                //select that  option layout
+                selectedOption(option3Layout,icon3);
+                option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
+                icon1.setImageResource(R.drawable.round_back_white50_100);
+                icon2.setImageResource(R.drawable.round_back_white50_100);
+
+
+                tolatExamQuestion= 100 ;
+            });
+
+            bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1414 -> {
+
+                if (tolatExamQuestion !=0 ){
+
+                    Intent intent = new Intent(view1414.getContext(), ActivityExam.class);
+                    intent.putExtra("UserSelectedOption","Overall exam");
+                    view1414.getContext().startActivity(intent);
+
+
+                    editor.putInt("examQuestionNum",tolatExamQuestion );
+                    editor.commit();
+                    bottomSheetDialog.dismiss();
+
+
+                }else {
+
+                    Toast.makeText(getContext(), "Plz select a Option", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
-            option2Layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view14) {
-
-                    selectedOption(option2Layout,icon2);
-
-
-                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
-                    icon1.setImageResource(R.drawable.round_back_white50_100);
-                    icon3.setImageResource(R.drawable.round_back_white50_100);
-
-
-                    tolatExamQuestion= 50;
-
-                }
-            });
-
-            option3Layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view14) {
-
-                    //select that  option layout
-                    selectedOption(option3Layout,icon3);
-
-
-                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
-                    icon1.setImageResource(R.drawable.round_back_white50_100);
-                    icon2.setImageResource(R.drawable.round_back_white50_100);
-
-
-                    tolatExamQuestion= 100 ;
-                }
-            });
-
-            bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view14) {
-
-                      if (tolatExamQuestion !=0 ){
-
-                          Intent intent = new Intent(view14.getContext(), ActivityExam.class);
-                          intent.putExtra("UserSelectedOption","Overall exam");
-                          view14.getContext().startActivity(intent);
-
-
-                          editor.putInt("examQuestionNum",tolatExamQuestion );
-                          editor.commit();
-                          bottomSheetDialog.dismiss();
-
-
-                      }else {
-
-                          Toast.makeText(getContext(), "Plz select a Option", Toast.LENGTH_SHORT).show();
-
-                      }
-                  }
-              });
-
-              bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view14) {
-
-                      bottomSheetDialog.dismiss();
-                  }
-              });
+              bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1415 -> bottomSheetDialog.dismiss());
 
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
@@ -338,6 +321,25 @@ public class HomeFragment extends Fragment {
         CvQuestionBank.setOnClickListener(view15 ->
                 startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
 //                startActivity(new Intent(getContext(), ActivityTestResult.class)));
+
+        if (isInternetAvailable()) {
+            // Internet is available
+            Log.d("intentt","yes");
+            processdata();
+        } else {
+            // Internet is not available
+            Log.d("intentt","no");
+            Runnable updateTextViewRunnable = new Runnable() {
+                @Override
+                public void run() {
+
+                    Toast.makeText(getContext(),"Please check your Internet connection",Toast.LENGTH_SHORT).show();
+                }
+            };
+
+            Handler handler = new Handler();
+            handler.postDelayed(updateTextViewRunnable, 5000);
+        }
 
         return view;
 
@@ -351,6 +353,11 @@ public class HomeFragment extends Fragment {
         selectedOptionIcon.setImageResource(R.drawable.chack);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
+    }
+    public boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 
