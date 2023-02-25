@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +37,7 @@ import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
+
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -325,21 +325,18 @@ public class HomeFragment extends Fragment {
         if (isInternetAvailable()) {
             // Internet is available
             Log.d("intentt","yes");
-            processdata();
         } else {
             // Internet is not available
             Log.d("intentt","no");
-            Runnable updateTextViewRunnable = new Runnable() {
-                @Override
-                public void run() {
 
-                    Toast.makeText(getContext(),"Please check your Internet connection",Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            Handler handler = new Handler();
-            handler.postDelayed(updateTextViewRunnable, 5000);
         }
+
+
+
+
+
+
+        processdata();
 
         return view;
 
@@ -348,17 +345,6 @@ public class HomeFragment extends Fragment {
 
 
 
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
-
-        selectedOptionIcon.setImageResource(R.drawable.chack);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
-
-    }
-    public boolean isInternetAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
 
 
     public void processdata()
@@ -397,6 +383,19 @@ public class HomeFragment extends Fragment {
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
 
+    }
+
+
+    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+
+        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+    }
+    public boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 

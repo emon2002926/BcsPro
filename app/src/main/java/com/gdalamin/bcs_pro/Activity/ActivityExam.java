@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
@@ -90,7 +91,8 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-        processdata();
+//        processdata();
+
 
 
         String title = getIntent().getStringExtra("UserSelectedOption");
@@ -117,6 +119,23 @@ public class ActivityExam extends AppCompatActivity {
             onBackPressed();
 
                 });
+
+
+        ShowMcq.TimerCallback timerCallback = new ShowMcq.TimerCallback() {
+            @Override
+            public void onTimerFinish() {
+                // Handle timer finish event here
+                Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
+                finishExam();
+            }
+        };
+
+        ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton,
+                textViewTimer, NUM_OF_QUESTION, timerCallback);
+        showMcq.processdata(url);
+
+
+//        processdata();
 
 
     }
@@ -288,8 +307,9 @@ public class ActivityExam extends AppCompatActivity {
         // Print the date and time
 
         //gatting User Id
-        sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("key_phone", "");
+        SharedPreferences sharedPreferences1;
+        sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences1.getString("key_phone", "");
 
         if (questionLists !=null){
 
