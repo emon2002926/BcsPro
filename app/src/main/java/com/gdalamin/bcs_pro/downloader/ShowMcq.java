@@ -24,7 +24,9 @@ import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
+import java.io.StringReader;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -65,9 +67,14 @@ public class ShowMcq {
 
                         floatingActionButton.setVisibility(View.VISIBLE);
 
-                        GsonBuilder builder = new GsonBuilder();
+                        GsonBuilder builder = new GsonBuilder().setLenient();
                         Gson gson = builder.create();
-                        model data[] = gson.fromJson(response, model[].class);
+
+                        JsonReader reader = new JsonReader(new StringReader(response));
+                        reader.setLenient(true);
+
+
+                        model data[] = gson.fromJson(reader, model[].class);
 
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,
                                 LinearLayoutManager.VERTICAL, false);
