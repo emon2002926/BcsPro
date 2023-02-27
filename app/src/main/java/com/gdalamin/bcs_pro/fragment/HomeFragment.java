@@ -83,8 +83,6 @@ public class HomeFragment extends Fragment {
     SharedPreferences.Editor editor;
 
 
-
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -187,19 +185,15 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-
         tvPractice = view.findViewById(R.id.tvPractice);
         tvPractice.setOnClickListener(view13 -> {
-
             Intent intent = new Intent(view13.getContext(), QuestionListActivity.class);
             intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view13.getContext().startActivity(intent);
 
         });
-        CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
 
+        CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
@@ -216,105 +210,69 @@ public class HomeFragment extends Fragment {
             startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
         });
 
-
-
-
+      /* his code sets up a BottomSheetDialog to display options for an exam, with three time options: 25 minutes, 50 minutes, and 100 minutes.
+         When an option is selected, the selectedOption method is called to update the UI, and the number of questions for the exam is set accordingly.
+         When the user clicks the "Start Exam" button, an Intent is created to start the ActivityExam activity, with the number of questions passed as an extra.
+         The selected number of questions is also saved in SharedPreferences, and the BottomSheetDialog is dismissed.
+         If the user clicks the "Cancel" button, the BottomSheetDialog is dismissed without starting the exam. */
         tvAllExam = view.findViewById(R.id.tvAllExam);
         tvAllExam.setOnClickListener(view14 -> {
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
+            View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
 
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext()
-                    ,R.style.BottomSheetDailogTheme);
-            View bottomSheetView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.layout_bottom_sheet,(LinearLayout)
-                            view14.findViewById(R.id.bottomSheetContainer));
+            final RelativeLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
+            final RelativeLayout option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
+            final RelativeLayout option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
+            final ImageView icon1 = bottomSheetView.findViewById(R.id.option25Icon);
+            final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
+            final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
 
-
-            RelativeLayout option1Layout ,option2Layout,option3Layout;
-
-            option1Layout= bottomSheetView.findViewById(R.id.layout25Min);
-            option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
-            option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
-
-
-            ImageView icon1,icon2,icon3;
-             icon1= bottomSheetView.findViewById(R.id.option25Icon);
-             icon2= bottomSheetView.findViewById(R.id.option50Icon);
-             icon3 = bottomSheetView.findViewById(R.id.option100Icon);
-
-
-            option1Layout.setOnClickListener(view1413 -> {
-
-                selectedOption(option1Layout,icon1);
-
-                //gatting focus on this layout
-
+            option1Layout.setOnClickListener(view15 -> {
+                selectedOption(option1Layout, icon1);
                 option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                 option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
                 icon2.setImageResource(R.drawable.round_back_white50_100);
                 icon3.setImageResource(R.drawable.round_back_white50_100);
-
-
-
-                tolatExamQuestion =25;
+                tolatExamQuestion = 50;
             });
 
-            option2Layout.setOnClickListener(view1412 -> {
-
-                selectedOption(option2Layout,icon2);
-
-
+            option2Layout.setOnClickListener(view1 -> {
+                selectedOption(option2Layout, icon2);
                 option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                 option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
                 icon1.setImageResource(R.drawable.round_back_white50_100);
                 icon3.setImageResource(R.drawable.round_back_white50_100);
-
-
-                tolatExamQuestion= 50;
-
+                tolatExamQuestion = 100;
             });
 
-            option3Layout.setOnClickListener(view141 -> {
-
-                //select that  option layout
-                selectedOption(option3Layout,icon3);
+            option3Layout.setOnClickListener(view1 -> {
+                selectedOption(option3Layout, icon3);
                 option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                 option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-
                 icon1.setImageResource(R.drawable.round_back_white50_100);
                 icon2.setImageResource(R.drawable.round_back_white50_100);
-
-
-                tolatExamQuestion= 100 ;
+                tolatExamQuestion = 200;
             });
 
-            bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1414 -> {
-
-                if (tolatExamQuestion !=0 ){
-
-                    Intent intent = new Intent(view1414.getContext(), ActivityExam.class);
-                    intent.putExtra("UserSelectedOption","Overall exam");
-                    view1414.getContext().startActivity(intent);
-
-
-                    editor.putInt("examQuestionNum",tolatExamQuestion );
+            bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1 -> {
+                if (tolatExamQuestion != 0) {
+                    Intent intent = new Intent(view1.getContext(), ActivityExam.class);
+                    intent.putExtra("UserSelectedOption", "Overall exam");
+                    view1.getContext().startActivity(intent);
+                    editor.putInt("examQuestionNum", tolatExamQuestion);
                     editor.commit();
                     bottomSheetDialog.dismiss();
-
-
-                }else {
-
-                    Toast.makeText(getContext(), "Plz select a Option", Toast.LENGTH_SHORT).show();
-
+                } else {
+                    Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
                 }
             });
 
-              bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1415 -> bottomSheetDialog.dismiss());
+            bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> bottomSheetDialog.dismiss());
 
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
         });
+
 
 
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);

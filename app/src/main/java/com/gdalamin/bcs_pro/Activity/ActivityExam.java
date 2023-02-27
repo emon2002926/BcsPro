@@ -122,7 +122,23 @@ public class ActivityExam extends AppCompatActivity {
                 Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
                 finishExam();
             }
+
         };
+/*
+            Subject and Question Distrubtion
+        Geography (Bangladesh and the World), Environment and Disaster Management = 	GEDM =10Qu
+        International Affairs = IA =20Qu
+        Bangladesh Affairs = BA =30Qu
+        Bengali language and literature = BLL =35Qu
+        Morals, values ​​and good governance = MVG =10Qu
+        English Language and Literature = ELL =35Qu
+        Mathematical logic = ML =15Qu
+        Mental ability = MA = 15
+        General science = GS = 15
+        Computer and Information Technology = ICT = 15
+
+
+ */
 
         if (NUM_OF_QUESTION != 0) {
             String questionType;
