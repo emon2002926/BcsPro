@@ -33,8 +33,9 @@ public class SplashScreen extends AppCompatActivity {
                 String valueString = sharedPreferences.getString("key_phone", "");
 
                 if (!valueString.isEmpty()){
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                    Log.d("key_phone",valueString);
+                    Intent i = new Intent(SplashScreen.this, ActivityLogin.class);
+
+//                    Log.d("key_phone",valueString);
                     startActivity(i);
                     finish();
 

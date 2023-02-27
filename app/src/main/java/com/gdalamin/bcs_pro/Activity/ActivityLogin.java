@@ -48,6 +48,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.facebook.FacebookSdk;
@@ -132,8 +134,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
-
-
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
 
@@ -145,7 +145,7 @@ public class ActivityLogin extends AppCompatActivity {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
 
-            login(phone, pass);
+            loginUser(phone,pass);
 
         });
 
@@ -164,7 +164,7 @@ public class ActivityLogin extends AppCompatActivity {
                 phoneEtS.setError("Please enter a Phone Number");
                 phoneEtS.requestFocus();
                 return;
-            } else if (phone.toString().length() != 11) {
+            } else if (phone.toString().length() != 4) {
                 phoneEtS.setError("Please enter a Valid Phone Number");
                 phoneEtS.requestFocus();
                 return;
@@ -184,6 +184,48 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
+    public void loginUser(final String phone, final String password) {
+        String url = "http://192.168.0.104/api2/login2Api.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int status = jsonObject.getInt("status");
+                            String message = jsonObject.getString("message");
+                            if (status == 1) {
+                                // Login successful, handle success case
+
+                                navigateToSecondActivity();
+
+                            } else {
+                                // Login failed, handle error case
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle network error
+                    }
+                }) {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("phone", phone);
+                params.put("password", password);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+/*
     public void login(String phone, String password) {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -214,6 +256,8 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
+ */
+
     //checking the number is registered or not in the database ,Before passing the data into Otp Activity
     private void checkNumber(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
@@ -232,8 +276,12 @@ public class ActivityLogin extends AppCompatActivity {
                                 Toast.makeText(ActivityLogin.this, "Phone number already exists", Toast.LENGTH_SHORT).show();
                             } else if (status == 1) {
                                 // Phone number is available
+                                progressBar.setVisibility(View.INVISIBLE);
+                                navigateToOtpActivity(number, name, password,"backendOtp");
 
-                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+
+                                //Todo PhoneAuthProvider disable for SingUp testing
+                           /*     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                                         "+880" + number.toString(), 60, TimeUnit.SECONDS
                                         , ActivityLogin.this,
                                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -255,6 +303,8 @@ public class ActivityLogin extends AppCompatActivity {
                                             }
                                         }
                                 );
+
+                            */
 
 
                             }
