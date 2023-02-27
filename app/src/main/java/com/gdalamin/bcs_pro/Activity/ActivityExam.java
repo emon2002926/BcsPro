@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.104/api2/getExamMcq.php?apiKey=abc123&apiNum=1&numIA=1&numBA=1&numBLL=1&numMVG=1&numGEDM=1&numML=1&numELL=1&numMA=1&numGS=1&numICT=1";
+    private  static final String url="http://192.168.0.104/api2/getExamMcq.php?";
 
     private  static final  String saveResultUrl = "http://192.168.0.104/api2/saveResult.php";
     RecyclerView recview;
@@ -74,6 +74,7 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
 
     ShimmerFrameLayout shimmerFrameLayout;
+    String APIKEY ="apiKey=abc123&apiNum=1&";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +82,12 @@ public class ActivityExam extends AppCompatActivity {
         setContentView(R.layout.activity_exam);
 
 
-        recview=(RecyclerView)findViewById(R.id.recview);
+        recview=findViewById(R.id.recview);
         textView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
-
-
-
-
-//        processdata();
 
 
 
@@ -108,14 +104,11 @@ public class ActivityExam extends AppCompatActivity {
          sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
 
-//         NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
-
-         NUM_OF_QUESTION = 1;
-
+         NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+         Log.d("examQuestionNum20",String.valueOf(NUM_OF_QUESTION));
 
 
         imageBackButton.setOnClickListener(view -> {
-
 
             onBackPressed();
 
@@ -131,12 +124,23 @@ public class ActivityExam extends AppCompatActivity {
             }
         };
 
-        ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton,
-                textViewTimer, NUM_OF_QUESTION, timerCallback);
-        showMcq.processdata(url);
+        if (NUM_OF_QUESTION != 0) {
+            String questionType;
+            if (NUM_OF_QUESTION == 200) {
+                questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
+            } else if (NUM_OF_QUESTION == 100) {
+                questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
+            } else if (NUM_OF_QUESTION == 50) {
+                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
+            } else {
 
+                return;
+            }
 
-//        processdata();
+            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, NUM_OF_QUESTION, timerCallback);
+            showMcq.processdata(url + questionType);
+        }
+
 
 
     }
@@ -179,6 +183,7 @@ public class ActivityExam extends AppCompatActivity {
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
                     View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                             .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
 
                     TextView textView = bottomSheetView.findViewById(R.id.tvDis);
                     textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
@@ -440,6 +445,8 @@ public class ActivityExam extends AppCompatActivity {
         };
         countDownTimer.start();
     }
+
+
 
 }
 

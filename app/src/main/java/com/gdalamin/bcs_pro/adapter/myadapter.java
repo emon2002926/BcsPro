@@ -67,7 +67,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
         int NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
 
-        Log.d("examQuestionNum",String.valueOf(NUM_OF_QUESTION));
 
         holder.option1Layout.setBackgroundResource(0);
         holder.img1.setImageResource(R.drawable.round_back_white50_100);
@@ -100,9 +99,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     // Get the question and options data from the data array at the given position
 
-
-
-
                     String question = data[position].getQuestion();
                     String option1 = data[position].getOption1();
                     String option2 = data[position].getOption2();
@@ -124,7 +120,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     // If the question text is empty, hide the text view and display the question image
                     if (question.trim().isEmpty()) {
-
 
                         holder.questionTv.setVisibility(View.GONE);
                         holder.questionImageLayout.setVisibility(View.VISIBLE);
@@ -200,19 +195,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.option3Layout.setOnClickListener(optionClickListener);
                     holder.option4Layout.setOnClickListener(optionClickListener);
 
-
-
                 }
-
-
             }
 
             //for important Question or Other Activitys
             else
             {
-
-
-
                 // Get the question and options data from the data array at the given position
 
                 String question = data[position].getQuestion();
