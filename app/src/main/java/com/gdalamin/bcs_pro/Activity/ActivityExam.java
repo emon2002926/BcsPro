@@ -125,8 +125,8 @@ public class ActivityExam extends AppCompatActivity {
 
         };
 /*
-            Subject and Question Distrubtion
-        Geography (Bangladesh and the World), Environment and Disaster Management = 	GEDM =10Qu
+            Subject and Question Distribution
+        Geography (Bangladesh and the World), Environment and Disaster Management = GEDM =10Qu
         International Affairs = IA =20Qu
         Bangladesh Affairs = BA =30Qu
         Bengali language and literature = BLL =35Qu

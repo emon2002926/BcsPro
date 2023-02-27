@@ -45,7 +45,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     FirebaseAuth auth;
     String verificationId;
 
-    TextView btnVerify;
+    TextView btnVerifyOTP;
     EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
     private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
@@ -58,7 +58,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         setContentView(R.layout.activity_otp_login);
 
 
-        btnVerify = findViewById(R.id.chackOtp);
+        btnVerifyOTP = findViewById(R.id.chackOtp);
         inputNumber1 = findViewById(R.id.inputOtp1);
         inputNumber2 = findViewById(R.id.inputOtp2);
         inputNumber3 = findViewById(R.id.inputOtp3);
@@ -81,12 +81,9 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
 
 
-        btnVerify.setOnClickListener(view -> {
-
-
+        btnVerifyOTP.setOnClickListener(view -> {
             if (!inputNumber1.getText().toString().trim().isEmpty() && !inputNumber2.getText().toString().trim().isEmpty() && !inputNumber3.getText().toString().trim().isEmpty()&& !inputNumber4.getText().toString().trim().isEmpty() && !inputNumber5.getText().toString().trim().isEmpty()&& !inputNumber6.getText().toString().trim().isEmpty())
             {
-
                 String userInputOtp = inputNumber1.getText().toString()+
                         inputNumber2.getText().toString()+
                         inputNumber3.getText().toString()+
@@ -138,109 +135,41 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
     }
 
+
     private void numberOtpMove() {
-        inputNumber1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        // Store all EditTexts in an array for easy looping
+        final EditText[] editTexts = {inputNumber1, inputNumber2, inputNumber3, inputNumber4, inputNumber5, inputNumber6};
 
+        // Loop through all EditTexts except the last one
+        for (int i = 0; i < editTexts.length; i++) {
+            final int currentIndex = i;
+            final int nextIndex = i + 1;
+
+            // If there is a next EditText, set a TextWatcher on the current EditText
+            if (nextIndex < editTexts.length) {
+                editTexts[currentIndex].addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // If the input is not empty, move the focus to the next EditText
+                        if (s.toString().trim().length() == 1) {
+                            editTexts[nextIndex].requestFocus();
+                        }
+                    }
+                    // Unused methods from TextWatcher
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                    @Override
+                    public void afterTextChanged(Editable s) { }
+                });
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().trim().isEmpty()){
-                    inputNumber2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        inputNumber2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().trim().isEmpty()){
-                    inputNumber3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        inputNumber3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().trim().isEmpty()){
-                    inputNumber4.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        inputNumber4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().trim().isEmpty()){
-                    inputNumber5.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        inputNumber5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().trim().isEmpty()){
-                    inputNumber6.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-
+        }
     }
+
 
 
     private void signUp(final String name, final String phone ,final String pwd )
     {
-
-
         StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
