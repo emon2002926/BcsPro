@@ -60,10 +60,7 @@ public class ActivityExam extends AppCompatActivity {
 
     TextView textView,textViewTimer;
     FloatingActionButton floatingActionButton;
-
-    CountDownTimer countDownTimer;
-
-     ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
+    ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
 
     String totalQuestion = "";
 
@@ -139,7 +136,6 @@ public class ActivityExam extends AppCompatActivity {
 
 
  */
-
         if (NUM_OF_QUESTION != 0) {
             String questionType;
             if (NUM_OF_QUESTION == 200) {
@@ -167,7 +163,6 @@ public class ActivityExam extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-
             if (intent.getAction().equals("my_list_action")) {
 
                 // Get the list of QuestionList objects from the intent
@@ -266,47 +261,7 @@ public class ActivityExam extends AppCompatActivity {
         });
 
     }
-    public void processdata()
-    {
-        // Todo got the api url
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                recview.setVisibility(View.VISIBLE);
-
-                startTimer(NUM_OF_QUESTION*30);
-
-                floatingActionButton.setVisibility(View.VISIBLE);
-
-                GsonBuilder builder=new GsonBuilder();
-                Gson gson=builder.create();
-                model data[]=gson.fromJson(response,model[].class);
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
-                        ,LinearLayoutManager.VERTICAL,false);
-
-                recview.setLayoutManager(linearLayoutManager);
-                myadapter adapter=new myadapter(data);
-                recview.setAdapter(adapter);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }
-        );
-
-
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
-
-    }
 
     public void  finishExam(){
 
@@ -332,6 +287,7 @@ public class ActivityExam extends AppCompatActivity {
         SharedPreferences sharedPreferences1;
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
+        Log.d("userIdd",userId);
 
         if (questionLists !=null){
 
@@ -428,38 +384,6 @@ public class ActivityExam extends AppCompatActivity {
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
-    }
-
-
-
-    private void startTimer(int maxTimerSceounds){
-        countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-
-                long getHour = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
-                long getMinutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
-                long getSceond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
-
-                String genarateTime = String.format(Locale.getDefault(),"%02d:%02d:%02d",getHour,
-                        getMinutes - TimeUnit.HOURS.toMinutes(getHour),
-                        getSceond - TimeUnit.MINUTES.toSeconds(getMinutes));
-
-                textViewTimer.setText(genarateTime);
-
-            }
-
-            @Override
-            public void onFinish() {
-
-
-                finishExam();
-            }
-
-
-        };
-        countDownTimer.start();
     }
 
 

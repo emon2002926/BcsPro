@@ -164,7 +164,7 @@ public class ActivityLogin extends AppCompatActivity {
                 phoneEtS.setError("Please enter a Phone Number");
                 phoneEtS.requestFocus();
                 return;
-            } else if (phone.toString().length() != 4) {
+            } else if (phone.toString().length() != 11) {
                 phoneEtS.setError("Please enter a Valid Phone Number");
                 phoneEtS.requestFocus();
                 return;
@@ -196,12 +196,15 @@ public class ActivityLogin extends AppCompatActivity {
                             String message = jsonObject.getString("message");
                             if (status == 1) {
                                 // Login successful, handle success case
-
+                                SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("key_phone", phone);
+                                editor.commit();
                                 navigateToSecondActivity();
 
-                            } else {
-                                // Login failed, handle error case
 
+                            } else {
+                                // Todo Login failed, handle error case
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -225,39 +228,6 @@ public class ActivityLogin extends AppCompatActivity {
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-/*
-    public void login(String phone, String password) {
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    String status = jsonResponse.getString("status");
-                    if (status.equals("success")) {
-                        // Login successful
-                        SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("key_phone", phone);
-                        editor.commit();
-                        navigateToSecondActivity();
-
-                    } else {
-                        // Login failed
-                        Toast.makeText(ActivityLogin.this, "Login failed", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        LoginRequest loginRequest = new LoginRequest(phone, password, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(ActivityLogin.this);
-        queue.add(loginRequest);
-
-    }
-
- */
-
     //checking the number is registered or not in the database ,Before passing the data into Otp Activity
     private void checkNumber(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
@@ -273,15 +243,14 @@ public class ActivityLogin extends AppCompatActivity {
                             int status = jsonObject.getInt("status");
                             if (status == 0) {
                                 // Phone number already exists
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(ActivityLogin.this, "Phone number already exists", Toast.LENGTH_SHORT).show();
                             } else if (status == 1) {
                                 // Phone number is available
                                 progressBar.setVisibility(View.INVISIBLE);
-                                navigateToOtpActivity(number, name, password,"backendOtp");
 
 
-                                //Todo PhoneAuthProvider disable for SingUp testing
-                           /*     PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
                                         "+880" + number.toString(), 60, TimeUnit.SECONDS
                                         , ActivityLogin.this,
                                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -289,12 +258,10 @@ public class ActivityLogin extends AppCompatActivity {
                                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
                                             }
-
                                             @Override
                                             public void onVerificationFailed(@NonNull FirebaseException e) {
 
                                             }
-
                                             @Override
                                             public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                                 super.onCodeSent(backendOtp, forceResendingToken);
@@ -303,10 +270,6 @@ public class ActivityLogin extends AppCompatActivity {
                                             }
                                         }
                                 );
-
-                            */
-
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

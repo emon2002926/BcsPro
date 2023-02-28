@@ -43,14 +43,12 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
 
     FirebaseAuth auth;
-    String verificationId;
-
     TextView btnVerifyOTP;
     EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
     private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
 
-     String number,name,password,firbaseOtp;
+     String number,name,password,firebaseOtp;
      ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
          number = extras.getString("mobile");
          name = extras.getString("name");
          password = extras.getString("password");
-         firbaseOtp = extras.getString("otp");
+         firebaseOtp = extras.getString("otp");
 
         Log.d("number",number+name+password);
 
@@ -92,10 +90,10 @@ public class ActivityOtpLogin extends AppCompatActivity {
                         inputNumber6.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (firbaseOtp !=null){
+                if (firebaseOtp !=null){
 
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
-                            firbaseOtp,userInputOtp);
+                            firebaseOtp,userInputOtp);
                     FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -123,13 +121,11 @@ public class ActivityOtpLogin extends AppCompatActivity {
                 }
             }
             else {
-
-
             }
 
 
         });
-        signUp(name,number,password);
+
 
         numberOtpMove();
 
@@ -201,51 +197,4 @@ public class ActivityOtpLogin extends AppCompatActivity {
     }
 
 
-
-
-//    private void signUp(final String name, final String phone ,final String pwd )
-//    {
-//        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response)
-//            {
-//
-//
-//                if (response.toString().equals("exists")){
-//
-//                    Toast.makeText(ActivityOtpLogin.this,"This Number Already Exists",Toast.LENGTH_SHORT).show();
-//
-//                }else {
-//
-//                    Toast.makeText(ActivityOtpLogin.this,"Sign Up Complete",Toast.LENGTH_SHORT).show();
-//
-//                    startActivity(new Intent(ActivityOtpLogin.this,ActivityLogin.class));
-//                    finish();
-//
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-//                Log.d("err2",error.toString());
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError
-//            {
-//                Map<String,String> param=new HashMap<String,String>();
-//                param.put("name",name);
-//                param.put("phone",phone);
-//                param.put("password",pwd);
-//                return param;
-//            }
-//        };
-//
-//
-//        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-//        queue.add(request);
-//
-//    }
 }
