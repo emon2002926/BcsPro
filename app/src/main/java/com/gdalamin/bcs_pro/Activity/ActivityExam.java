@@ -281,7 +281,6 @@ public class ActivityExam extends AppCompatActivity {
 
         String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
 
-        // Print the date and time
 
         //gatting User Id
         SharedPreferences sharedPreferences1;
@@ -334,7 +333,6 @@ public class ActivityExam extends AppCompatActivity {
             Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
                     + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
 
-
             saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,examDateTime);
 
 
@@ -364,7 +362,6 @@ public class ActivityExam extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                Log.d("err2",error.toString());
             }
         }){
             @Override

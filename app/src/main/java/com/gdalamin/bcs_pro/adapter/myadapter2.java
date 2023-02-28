@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
+
+import java.io.UnsupportedEncodingException;
 
 public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 {
@@ -48,12 +51,18 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         String examDitals = data[position].getDailyExam();
+        String getDetails = data[position].getDetails();
+        Log.d("examDital",getDetails);
 
 
 
 
         holder.examDate.setText(examDitals);
-        holder.t2.setText(data[position].getDetails());
+        try {
+            holder.t2.setText(new String(getDetails.getBytes("ISO-8859-1"), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
 
 
         holder.cardView.setOnClickListener(view -> {

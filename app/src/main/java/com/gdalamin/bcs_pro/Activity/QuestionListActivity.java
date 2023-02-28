@@ -46,7 +46,7 @@ import java.util.Locale;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=1";
+    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=1";
     RecyclerView recview;
 
     TextView textView;
@@ -108,6 +108,7 @@ public class QuestionListActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+
             }
         }
         );
