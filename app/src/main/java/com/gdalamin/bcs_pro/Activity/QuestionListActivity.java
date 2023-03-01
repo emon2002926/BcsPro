@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.Activity;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.gdalamin.bcs_pro.adapter.myadapter;
@@ -46,7 +47,6 @@ import java.util.Locale;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=1";
     RecyclerView recview;
 
     TextView textView;
@@ -81,8 +81,9 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
         // Todo got the api url
+        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

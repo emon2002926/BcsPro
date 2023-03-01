@@ -38,6 +38,7 @@ import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -64,7 +65,6 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=2";
     RecyclerView recyclerView;
     CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
     TextView tvPractice,showAllCourse;
@@ -156,19 +156,8 @@ public class HomeFragment extends Fragment {
 
 
         ///Swipe to refress layout
-        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Perform your refresh logic here
-
-                processdata();
-
-                swipeRefreshLayout.setRefreshing(false);
 
 
-            }
-        });
 
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
@@ -289,11 +278,6 @@ public class HomeFragment extends Fragment {
 
         }
 
-
-
-
-
-
         processdata();
 
         return view;
@@ -308,7 +292,9 @@ public class HomeFragment extends Fragment {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        String API_URL =  ApiKeys.API_URL_GENERAL+"apiNum=2";
+
+        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.resultModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,17 +33,12 @@ import com.google.gson.GsonBuilder;
  */
 public class DashBordFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
 
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=6&userId=";
     RecyclerView recview;
 
     ShimmerFrameLayout shimmerFrameLayout;
@@ -53,15 +49,7 @@ public class DashBordFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashBordFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static DashBordFragment newInstance(String param1, String param2) {
         DashBordFragment fragment = new DashBordFragment();
         Bundle args = new Bundle();
@@ -106,7 +94,10 @@ public class DashBordFragment extends Fragment {
         // Create a new StringRequest to retrieve data from the API
         sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("key_phone", "");
-        StringRequest request = new StringRequest(url+userId,
+
+        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=6&userId=";
+
+        StringRequest request = new StringRequest(API_URL+userId,
                 // On successful response, parse the JSON data into resultModel objects using Gson
                 response -> {
 

@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.Activity;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.model;
 import  com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +27,8 @@ import com.google.gson.GsonBuilder;
 
 public class AllBcsQuestionActivity extends AppCompatActivity {
 
-    Button buttonShare;
 
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=5";
     RecyclerView recyclerView;
-    LinearLayout quizLayout,letcureLayout;
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
     @Override
@@ -55,7 +53,9 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=5";
+
+        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
