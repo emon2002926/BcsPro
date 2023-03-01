@@ -54,7 +54,7 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
         String courseImageName = data[position].getCourse();
 
         Glide.with(holder.imgCourse1.getContext())
-                .load("http://192.168.0.104/api/images/" + courseImageName)
+                .load("https://emon.searchwizy.com/api2/image/" + courseImageName)
                 .into(holder.imgCourse1);
 
 

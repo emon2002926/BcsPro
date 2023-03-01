@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 public class ActivityLectureAndNote extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=3";
+    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=3";
 
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;

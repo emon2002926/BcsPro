@@ -27,6 +27,7 @@ import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -115,7 +116,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     String questionPosition = String.valueOf(position+1);
 
 
-                    holder.questionTv.setText(questionPosition+") "+question);
+                    holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
                     holder.questionImg.setVisibility(View.GONE);
 
                     // If the question text is empty, hide the text view and display the question image
@@ -129,10 +130,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     // Set the text of the options to their respective text views
 
-                    holder.option1TV.setText(option1.trim());
-                    holder.option2TV.setText(option2.trim());
-                    holder.option3TV.setText(option3.trim());
-                    holder.option4TV.setText(option4.trim());
+                    holder.option1TV.setText(convertToUTF8(option1.trim()));
+                    holder.option2TV.setText(convertToUTF8(option2.trim()));
+                    holder.option3TV.setText(convertToUTF8(option3.trim()));
+                    holder.option4TV.setText(convertToUTF8(option4.trim()));
 
                     // Use LocalBroadcastManager to send the broadcast
 
@@ -211,11 +212,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String explain = data[position].getExplanation();
 
                 String questionPosition = String.valueOf(position+1);
-                holder.questionTv.setText(questionPosition+") "+question);
-                holder.option1TV.setText(option1.trim());
-                holder.option2TV.setText(option2.trim());
-                holder.option3TV.setText(option3.trim());
-                holder.option4TV.setText(option4.trim());
+
+                holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
+
+                holder.option1TV.setText(convertToUTF8(option1.trim()));
+                holder.option2TV.setText(convertToUTF8(option2.trim()));
+                holder.option3TV.setText(convertToUTF8(option3.trim()));
+                holder.option4TV.setText(convertToUTF8(option4.trim()));
                 holder.explainTv.setText(explain);
 
                 // Check if question is empty, if not, display text. If yes, display image
@@ -323,6 +326,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     }
+
+
+    private String convertToUTF8(String inputString) {
+        try {
+            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

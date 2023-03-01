@@ -28,7 +28,7 @@ public class ActivityAllCourse extends AppCompatActivity {
     CardView backBtn;
 
 
-    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=4";
+    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

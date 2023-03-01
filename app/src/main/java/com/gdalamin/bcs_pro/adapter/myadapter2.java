@@ -58,11 +58,10 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
         holder.examDate.setText(examDitals);
-        try {
-            holder.t2.setText(new String(getDetails.getBytes("ISO-8859-1"), "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+
+
+        holder.t2.setText(convertToUTF8(getDetails));
+
 
 
         holder.cardView.setOnClickListener(view -> {
@@ -99,6 +98,14 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
         }
     }
+    private String convertToUTF8(String inputString) {
+        try {
+            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

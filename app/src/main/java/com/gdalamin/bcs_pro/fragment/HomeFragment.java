@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private  static final String url="http://emon.searchwizy.com/api2/test.php";
+    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=2";
     RecyclerView recyclerView;
     CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
     TextView tvPractice,showAllCourse;

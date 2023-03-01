@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
-    private  static final String url="http://192.168.0.104/api2/getExamMcq.php?";
+    private  static final String url="http://emon.searchwizy.com/api2/getExamMcq.php?";
 
     private  static final  String saveResultUrl = "http://192.168.0.104/api2/saveResult.php";
     RecyclerView recview;

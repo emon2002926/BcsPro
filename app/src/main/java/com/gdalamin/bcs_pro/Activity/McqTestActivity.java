@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -302,7 +303,7 @@ public class McqTestActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
     // URL to the PHP API
-        String url = "http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=1";
+        String url = "http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=1";
 
     // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -409,11 +410,11 @@ public class McqTestActivity extends AppCompatActivity {
 //        Collections.shuffle(questionslists);
 //        gating Question Ditals and set to Textview
 
-        questionTv.setText(questionslists.get(questionListPositon).getQuestion().trim());
-        option1TV.setText(questionslists.get(questionListPositon).getOption1().trim());
-        option2TV.setText(questionslists.get(questionListPositon).getOption2().trim());
-        option3TV.setText(questionslists.get(questionListPositon).getOption3().trim());
-        option4TV.setText(questionslists.get(questionListPositon).getOption4().trim());
+        questionTv.setText(convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()));
+        option1TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption1().trim()));
+        option2TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption2().trim()));
+        option3TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption3().trim()));
+        option4TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption4().trim()));
 
         //sating current question By Number
 
@@ -467,4 +468,13 @@ public class McqTestActivity extends AppCompatActivity {
         selectedOptionIcon.setImageResource(R.drawable.chack);
 
     }
+
+    private String convertToUTF8(String inputString) {
+        try {
+            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
