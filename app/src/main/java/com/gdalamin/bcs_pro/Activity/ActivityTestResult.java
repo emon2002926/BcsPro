@@ -32,7 +32,7 @@ import java.util.List;
 public class ActivityTestResult extends AppCompatActivity {
 
 
-    private  static final String url="http://192.168.0.104/api2/getData.php?apiKey=abc123&apiNum=6&userId=";
+    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=6&userId=";
     RecyclerView recview;
 
     TextView textView;

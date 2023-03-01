@@ -185,7 +185,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     public void loginUser(final String phone, final String password) {
-        String url = "http://192.168.0.104/api2/login2Api.php";
+        String url = "http://emon.searchwizy.com/api2/login2Api.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -232,7 +232,7 @@ public class ActivityLogin extends AppCompatActivity {
     private void checkNumber(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
-        String API_URL = "http://192.168.0.104/api2/volley/chackNumber.php?phone=" + number;
+        String API_URL = "http://emon.searchwizy.com/api2/volley/chackNumber.php?phone=" + number;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL,
                 new Response.Listener<String>() {

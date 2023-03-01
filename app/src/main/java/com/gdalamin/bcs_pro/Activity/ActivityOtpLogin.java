@@ -46,7 +46,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     TextView btnVerifyOTP;
     EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
-    private static final String url="http://192.168.0.104/api2/volley/signUpLogin.php";
+    private static final String url="http://emon.searchwizy.com/api2/volley/signUpLogin.php";
 
      String number,name,password,firebaseOtp;
      ProgressBar progressBar;

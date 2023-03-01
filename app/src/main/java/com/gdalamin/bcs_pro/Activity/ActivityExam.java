@@ -54,8 +54,10 @@ import java.util.concurrent.TimeUnit;
 public class ActivityExam extends AppCompatActivity {
 
     private  static final String url="http://emon.searchwizy.com/api2/getExamMcq.php?";
+    String APIKEY ="apiKey=abc123&apiNum=1&";
 
-    private  static final  String saveResultUrl = "http://192.168.0.104/api2/saveResult.php";
+
+    private  static final  String saveResultUrl = "http://emon.searchwizy.com/api2/saveResult.php";
     RecyclerView recview;
 
     TextView textView,textViewTimer;
@@ -71,7 +73,6 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
 
     ShimmerFrameLayout shimmerFrameLayout;
-    String APIKEY ="apiKey=abc123&apiNum=1&";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,7 +256,7 @@ public class ActivityExam extends AppCompatActivity {
 
         bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
             //added for testing
-            startActivity(new Intent(ActivityExam.this, HomeFragment.class));
+
 
             bottomSheetDialog.dismiss();
         });
@@ -353,7 +354,7 @@ public class ActivityExam extends AppCompatActivity {
 
                 Toast.makeText(ActivityExam.this,"Result saved",Toast.LENGTH_SHORT).show();
 
-                Intent intent1 = new Intent(ActivityExam.this, ActivityTestResult.class);
+                Intent intent1 = new Intent(ActivityExam.this, MainActivity.class);
                 startActivity(intent1);
                 finish();
 
