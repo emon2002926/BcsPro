@@ -185,7 +185,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     public void loginUser(final String phone, final String password) {
-        String url = "http://emon.searchwizy.com/api2/login2Api.php";
+        String url = "http://emon.searchwizy.com/api2/login.php?apiKey=ghi789";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -214,6 +214,8 @@ public class ActivityLogin extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        Log.d("loginError",error.toString());
                         // Handle network error
                     }
                 }) {
