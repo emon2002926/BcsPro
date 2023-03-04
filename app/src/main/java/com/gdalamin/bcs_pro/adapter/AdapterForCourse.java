@@ -54,7 +54,7 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
         String courseImageName = data[position].getCourse();
 
         Glide.with(holder.imgCourse1.getContext())
-                .load("https://emon.searchwizy.com/api2/image/" + courseImageName)
+                .load("http://emon.searchwizy.com/api2/image/" + courseImageName)
                 .into(holder.imgCourse1);
 
 
@@ -78,7 +78,6 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
         {
             super(itemView);
             imgCourse1 = itemView.findViewById(R.id.imgCourse1);
-
 
         }
     }

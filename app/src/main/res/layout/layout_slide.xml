@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text1"
             android:background="@color/blue"
+            android:padding="5dp"
 
             >
 
@@ -40,7 +41,7 @@
                 android:paddingBottom="5dp"
                 android:text="Daily model test"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
 

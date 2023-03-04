@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,11 +59,10 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
         holder.examDate.setText(examDitals);
+        holder.relativeLayout.setVisibility(View.VISIBLE);
 
 
         holder.t2.setText(convertToUTF8(getDetails));
-
-
 
         holder.cardView.setOnClickListener(view -> {
 
@@ -86,6 +86,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
         ImageView img;
         TextView examDate,t2;
         CardView cardView;
+        RelativeLayout relativeLayout;
 
 
         public myviewholder(@NonNull View itemView)
@@ -95,6 +96,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
             examDate=itemView.findViewById(R.id.exam);
             t2=itemView.findViewById(R.id.q1);
             cardView = itemView.findViewById(R.id.card);
+            relativeLayout = itemView.findViewById(R.id.slideHome);
 
         }
     }
