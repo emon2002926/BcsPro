@@ -199,7 +199,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
-                        android:id="@+id/r33"
+                        android:id="@+id/subject_based_exam"
                         android:layout_below="@id/r1"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
@@ -271,7 +271,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/r33"
+                        android:layout_below="@id/subject_based_exam"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="4dp"

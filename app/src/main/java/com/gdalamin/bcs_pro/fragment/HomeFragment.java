@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
-    CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion;
+    CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion,subjectBasedExam;
     TextView tvPractice,showAllCourse;
 
     CardView letcureLayout;
@@ -264,10 +264,31 @@ public class HomeFragment extends Fragment {
 
 
 
+        subjectBasedExam =view.findViewById(R.id.subject_based_exam);
+        subjectBasedExam.setOnClickListener(view1 -> {
+
+            int LOGIC = 2;
+
+            editor.putInt("logic", LOGIC);
+            editor.commit();
+            startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+
+        });
+
+
+
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
-        CvQuestionBank.setOnClickListener(view15 ->
-                startActivity(new Intent(getContext(), AllBcsQuestionActivity.class)));
-//                startActivity(new Intent(getContext(), ActivityTestResult.class)));
+        CvQuestionBank.setOnClickListener(view15 -> {
+
+            int LOGIC = 1;
+
+            editor.putInt("logic", LOGIC);
+            editor.commit();
+            startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+
+
+        });
+
 
         if (isInternetAvailable()) {
             // Internet is available

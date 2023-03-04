@@ -4,6 +4,7 @@ package com.gdalamin.bcs_pro.Activity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.model;
 import  com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +65,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
                 recyclerView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                model data[]=gson.fromJson(response,model[].class);
+                ModelForLectureAndAllQuestion data[]=gson.fromJson(response,ModelForLectureAndAllQuestion[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         ,LinearLayoutManager.VERTICAL,false);
