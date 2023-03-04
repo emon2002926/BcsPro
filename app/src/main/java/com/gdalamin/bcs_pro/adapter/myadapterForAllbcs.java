@@ -44,10 +44,12 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
+
+
         holder.t1.setText(data[position].getText());
-
-
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.cardView2.setVisibility(View.GONE);
+        holder.cardView1.setVisibility(View.VISIBLE);
+        holder.cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
@@ -72,11 +74,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img;
-        TextView t1,t2,t3,t4;
+
+        TextView t1,t2;
 
 
-        CardView linearLayout;
+        CardView cardView1,cardView2;
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
@@ -84,7 +86,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             t1=itemView.findViewById(R.id.questionBatch);
             t2=itemView.findViewById(R.id.numOFQuestion);
 
-            linearLayout = itemView.findViewById(R.id.bcsQuestionLayout);
+            cardView1 = itemView.findViewById(R.id.layout1);
+            cardView2= itemView.findViewById(R.id.layout2);
 
 
 

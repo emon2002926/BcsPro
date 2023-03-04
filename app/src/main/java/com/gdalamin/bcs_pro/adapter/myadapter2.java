@@ -59,7 +59,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
         holder.examDate.setText(examDitals);
-        holder.relativeLayout.setVisibility(View.VISIBLE);
+
 
 
         holder.t2.setText(convertToUTF8(getDetails));
@@ -96,7 +96,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
             examDate=itemView.findViewById(R.id.exam);
             t2=itemView.findViewById(R.id.q1);
             cardView = itemView.findViewById(R.id.card);
-            relativeLayout = itemView.findViewById(R.id.slideHome);
 
         }
     }
