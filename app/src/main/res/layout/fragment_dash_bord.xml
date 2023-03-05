@@ -58,14 +58,15 @@
                 >
 
                 <include
-                    layout="@layout/shimer_baground_result"/>
+                    layout="@layout/shimer_nots"/>
                 <include
-                    layout="@layout/shimer_baground_result"/>
+                    layout="@layout/shimer_nots"/>
 
                 <include
-                    layout="@layout/shimer_baground_result"/>
+                    layout="@layout/shimer_nots"/>
                 <include
-                    layout="@layout/shimer_baground_result"/>
+                    layout="@layout/shimer_nots"
+                    />
 
 
             </LinearLayout>
