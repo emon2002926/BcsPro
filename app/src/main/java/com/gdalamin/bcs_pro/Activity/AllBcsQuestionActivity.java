@@ -54,18 +54,24 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        int NUM_OF_QUESTION = sharedPreferences.getInt("logic", 0);
-        Log.d("logic",String.valueOf(NUM_OF_QUESTION));
+        int OPENING_LOGIC = sharedPreferences.getInt("logic", 0);
+        Log.d("logic",String.valueOf(OPENING_LOGIC));
 
 
 
-        if (NUM_OF_QUESTION ==1){
-           String url =  "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1";
-            processdata(url);
-        } else if (NUM_OF_QUESTION ==2) {
+        if (OPENING_LOGIC ==1){
 
-           String url = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=2";
-            processdata(url);
+            //thats will open  older Question
+           String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=7";
+            processdata(API_URL);
+        } else if (OPENING_LOGIC ==2) {
+
+
+            //thats will open  subject based Exam
+
+            String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=8";
+
+            processdata(API_URL);
         }
 
 
@@ -75,7 +81,6 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     {
 
 
-//        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=5";
 
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override

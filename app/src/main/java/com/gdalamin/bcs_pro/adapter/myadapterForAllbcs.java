@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
@@ -71,8 +72,10 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 holder.cardView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                        Toast.makeText(view.getContext(),String.valueOf(position+1),Toast.LENGTH_SHORT).show();
+                        String SUBJECT_CODE = String.valueOf(position+1);
+                        Intent intent = new Intent(view.getContext(), ActivityExam.class);
+                        intent.putExtra("subjectCode",SUBJECT_CODE);
                         view.getContext().startActivity(intent);
                     }
                 });

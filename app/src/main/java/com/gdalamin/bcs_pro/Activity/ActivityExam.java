@@ -147,6 +147,7 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             } else {
 
+                //todo have to show subject based exam Question
                 return;
             }
 
@@ -335,6 +336,8 @@ public class ActivityExam extends AppCompatActivity {
                     + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
 
             saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,examDateTime);
+
+            sharedPreferences.edit().clear().apply();
 
 
         }
