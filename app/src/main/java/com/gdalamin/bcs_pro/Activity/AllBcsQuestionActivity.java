@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +34,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +49,35 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         imageBackButton.setOnClickListener(view -> {
             onBackPressed();
         });
-        processdata();
+
+
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+        int NUM_OF_QUESTION = sharedPreferences.getInt("logic", 0);
+        Log.d("logic",String.valueOf(NUM_OF_QUESTION));
+
+
+
+        if (NUM_OF_QUESTION ==1){
+           String url =  "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1";
+            processdata(url);
+        } else if (NUM_OF_QUESTION ==2) {
+
+           String url = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=2";
+            processdata(url);
+        }
 
 
     }
 
-    public void processdata()
+    public void processdata(String url)
     {
 
-        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=5";
 
-        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
+//        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=5";
+
+        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
