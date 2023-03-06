@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Geography (Bangladesh and the World), Environment and Disaster Management"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textSize="20sp"
-        android:id="@+id/tvDis"
+        android:id="@+id/tvSubjectName"
         android:gravity="center"
         android:textColor="@color/blue"
 
@@ -49,6 +49,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="10dp"
+                android:inputType="number"
+                android:id="@+id/edTime"
+                android:maxLength="2"
                 />
 
         </LinearLayout>
@@ -78,6 +81,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="10dp"
+                android:inputType="number"
+                android:id="@+id/edNumOfQuestion"
+                android:maxLength="2"
+
                 />
         </LinearLayout>
 

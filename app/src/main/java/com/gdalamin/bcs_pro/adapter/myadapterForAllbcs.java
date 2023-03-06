@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +24,13 @@ import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
+import com.gdalamin.bcs_pro.modelClass.QuestionList;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.myviewholder> {
     ModelForLectureAndAllQuestion data[];
 
+    int tolatExamQuestion =0;
     public myadapterForAllbcs(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
@@ -51,18 +58,62 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             
             if (NUM_OF_QUESTION == 2){
 
+                String subjectName = data[position].getSubjects();
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
-                holder.tvSubject.setText(data[position].getSubjects());
+                holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.cardView2.setVisibility(View.VISIBLE);
                 holder.cardView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
+            /*            Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
                         String SUBJECT_CODE = String.valueOf(position+1);
                         Intent intent = new Intent(view.getContext(), ActivityExam.class);
                         intent.putExtra("subjectCode",SUBJECT_CODE);
                         view.getContext().startActivity(intent);
+             */
+
+
+                        //  Show a bottom sheet dialog to allow the user to submit the answers
+                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
+                        View bottomSheetView = LayoutInflater.from(view.getContext())
+                                .inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
+
+
+
+                        bottomSheetDialog.setContentView(bottomSheetView);
+                        bottomSheetDialog.show();
+
+                        TextView tvShowSubject = bottomSheetView.findViewById(R.id.tvSubjectName);
+                        tvShowSubject.setText(subjectName);
+                        EditText edTime = bottomSheetView.findViewById(R.id.edTime);
+                        EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
+
+
+
+                        bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+
+
+                            String time = edTime.getText().toString().trim();
+                            String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
+
+
+                            String SUBJECT_CODE = String.valueOf(position+1);
+                            Intent intent = new Intent(view.getContext(), ActivityExam.class);
+                            intent.putExtra("subjectCode",SUBJECT_CODE);
+                            intent.putExtra("numOfQuestion",NumOfQuestion);
+                            view.getContext().startActivity(intent);
+
+                        });
+
+
+
+                        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+                            bottomSheetDialog.dismiss();
+                        });
+
+
                     }
                 });
                 

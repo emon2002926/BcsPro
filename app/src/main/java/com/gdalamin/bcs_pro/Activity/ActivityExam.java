@@ -103,7 +103,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
          NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
-         Log.d("examQuestionNum20",String.valueOf(NUM_OF_QUESTION));
+
 
 
         imageBackButton.setOnClickListener(view -> {
@@ -138,8 +138,7 @@ public class ActivityExam extends AppCompatActivity {
 
  */
 
-        Intent intent = getIntent();
-        String SUBJECT_CODE = intent.getStringExtra("subjectCode");
+
 
         if (NUM_OF_QUESTION != 0) {
 
@@ -161,8 +160,14 @@ public class ActivityExam extends AppCompatActivity {
             showMcq.processdata(url + questionType);
         }else {
 
+
+            Intent intent = getIntent();
+            String NUM_OF_QUESTION  = intent.getStringExtra("numOfQuestion");
+
+            // todo have to create url for Subject based exam
+
             ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
-            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=1");
+            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA="+NUM_OF_QUESTION);
 
 
         }
