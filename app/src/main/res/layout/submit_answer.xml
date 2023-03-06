@@ -29,9 +29,6 @@
         android:textColor="@color/black"
         />
 
-
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,8 +43,6 @@
         android:layout_marginTop="30dp"
         android:textColor="@color/white"/>
 
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +53,5 @@
         android:textSize="20sp"
         android:padding="10dp"
         android:textColor="#ec6666"/>
-
-
 
 </LinearLayout>

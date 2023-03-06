@@ -137,7 +137,12 @@ public class ActivityExam extends AppCompatActivity {
 
 
  */
+
+        Intent intent = getIntent();
+        String SUBJECT_CODE = intent.getStringExtra("subjectCode");
+
         if (NUM_OF_QUESTION != 0) {
+
             String questionType;
             if (NUM_OF_QUESTION == 200) {
                 questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
@@ -145,14 +150,21 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
             } else if (NUM_OF_QUESTION == 50) {
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
-            } else {
+            }
+            else {
 
-                //todo have to show subject based exam Question
+
                 return;
             }
 
-            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, NUM_OF_QUESTION, timerCallback);
+            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
             showMcq.processdata(url + questionType);
+        }else {
+
+            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
+            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=1");
+
+
         }
 
 
