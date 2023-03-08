@@ -2,13 +2,13 @@ package com.gdalamin.bcs_pro.modelClass;
 
 public class ModelForLectureAndAllQuestion {
 
-    String lectureDetails,pdfLink,pdfDate,course,text,subjects;
+    String lectureDetails,pdfLink,pdfDate,course,text,subjects,subjectCode;
 
     public ModelForLectureAndAllQuestion(){
 
     }
     public ModelForLectureAndAllQuestion(String lectureDetails, String pdfLink, String pdfDate
-            ,String course,String text,String subjects){
+            ,String course,String text,String subjects,String subjectCode){
 
         this.lectureDetails = lectureDetails;
         this.pdfLink = pdfLink;
@@ -16,10 +16,15 @@ public class ModelForLectureAndAllQuestion {
         this.course = course;
         this.text = text;
         this.subjects= subjects;
+        this.subjectCode = subjectCode;
     }
 
     public String getSubjects() {
         return subjects;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
     public void setSubjects(String subjects) {

@@ -66,13 +66,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 holder.cardView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-            /*            Toast.makeText(view.getContext(),"1",Toast.LENGTH_SHORT).show();
-                        String SUBJECT_CODE = String.valueOf(position+1);
-                        Intent intent = new Intent(view.getContext(), ActivityExam.class);
-                        intent.putExtra("subjectCode",SUBJECT_CODE);
-                        view.getContext().startActivity(intent);
-             */
-
 
                         //  Show a bottom sheet dialog to allow the user to submit the answers
                         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
@@ -95,14 +88,16 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
+
                             String time = edTime.getText().toString().trim();
                             String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
 
 
-                            String SUBJECT_CODE = String.valueOf(position+1);
+                            String SUBJECT_CODE =data[position].getSubjectCode().trim();
                             Intent intent = new Intent(view.getContext(), ActivityExam.class);
 
                             intent.putExtra("subjectCode",SUBJECT_CODE);
+
                             intent.putExtra("numOfQuestion",NumOfQuestion);
 
                             editor.putInt("LogicForExam",2);

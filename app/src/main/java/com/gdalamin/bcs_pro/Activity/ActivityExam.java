@@ -99,13 +99,15 @@ public class ActivityExam extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("my_list_action"));
 
-         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
 
-         NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+        NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
 
         int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam", 0);
-        Log.d("Logic33",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+
+        Log.d("LogicForExam",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+
 
 
 
@@ -126,7 +128,8 @@ public class ActivityExam extends AppCompatActivity {
             }
 
         };
-/*
+
+        /*
             Subject and Question Distribution
         Geography (Bangladesh and the World), Environment and Disaster Management = GEDM =10Qu
         International Affairs = IA =20Qu
@@ -147,15 +150,29 @@ public class ActivityExam extends AppCompatActivity {
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
             String questionType;
+            int time ;
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
+                time = 200;
                 questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
+                time = 100;
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
+                time = 50;
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
-            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
+            }
+            else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=10";
+                time = 50;
+
+                Intent intent = getIntent();
+                // gating number of question  from user
+                String numberOfQuestion = intent.getStringExtra("numOfQuestion");
+                String subjectCode =intent.getStringExtra("subjectCode") ;
+
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&"+subjectCode+"="+numberOfQuestion;
+
+
 
             } else {
 
@@ -163,7 +180,7 @@ public class ActivityExam extends AppCompatActivity {
                 return;
             }
 
-            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, LOGIC_FOR_ALL_SUBJECT_EXAM, timerCallback);
+            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
             showMcq.processdata( url+questionType);
         }else {
 
@@ -282,6 +299,7 @@ public class ActivityExam extends AppCompatActivity {
         bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
             //added for testing
 
+            startActivity(new Intent(ActivityExam.this,MainActivity.class));
 
             bottomSheetDialog.dismiss();
         });
