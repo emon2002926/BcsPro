@@ -66,7 +66,10 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
         holder.cardView.setOnClickListener(view -> {
 
+            int LOGIC_FOR_ALL_SUBJECT_EXAM = data[position].getTotalQc();
+
             editor.putInt("examQuestionNum",data[position].getTotalQc());
+            editor.putInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
             editor.commit();
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
             view.getContext().startActivity(intent);

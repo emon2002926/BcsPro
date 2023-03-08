@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
     CardView letcureLayout;
     TextView tvAllExam;
     int tolatExamQuestion = 0;
+    int LOGIC_FOR_ALL_SUBJECT_EXAM = 0;
 
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
@@ -95,7 +96,6 @@ public class HomeFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -223,6 +223,7 @@ public class HomeFragment extends Fragment {
                 icon2.setImageResource(R.drawable.round_back_white50_100);
                 icon3.setImageResource(R.drawable.round_back_white50_100);
                 tolatExamQuestion = 50;
+                LOGIC_FOR_ALL_SUBJECT_EXAM =50;
             });
 
             option2Layout.setOnClickListener(view1 -> {
@@ -232,6 +233,7 @@ public class HomeFragment extends Fragment {
                 icon1.setImageResource(R.drawable.round_back_white50_100);
                 icon3.setImageResource(R.drawable.round_back_white50_100);
                 tolatExamQuestion = 100;
+                LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
             });
 
             option3Layout.setOnClickListener(view1 -> {
@@ -241,14 +243,19 @@ public class HomeFragment extends Fragment {
                 icon1.setImageResource(R.drawable.round_back_white50_100);
                 icon2.setImageResource(R.drawable.round_back_white50_100);
                 tolatExamQuestion = 200;
+                LOGIC_FOR_ALL_SUBJECT_EXAM = 200;
             });
 
             bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1 -> {
                 if (tolatExamQuestion != 0) {
+
+
                     Intent intent = new Intent(view1.getContext(), ActivityExam.class);
                     intent.putExtra("UserSelectedOption", "Overall exam");
                     view1.getContext().startActivity(intent);
                     editor.putInt("examQuestionNum", tolatExamQuestion);
+                    editor.putInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+
                     editor.commit();
                     bottomSheetDialog.dismiss();
                 } else {

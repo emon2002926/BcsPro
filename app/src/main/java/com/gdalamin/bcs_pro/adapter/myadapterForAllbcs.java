@@ -50,13 +50,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
-            int NUM_OF_QUESTION = sharedPreferences.getInt("logic", 0);
+            int LOGIC = sharedPreferences.getInt("logic", 0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
 
-            //todo have to separate the layout
-            
-            if (NUM_OF_QUESTION == 2){
+
+            if (LOGIC == 2){
 
                 String subjectName = data[position].getSubjects();
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
@@ -101,8 +101,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                             String SUBJECT_CODE = String.valueOf(position+1);
                             Intent intent = new Intent(view.getContext(), ActivityExam.class);
+
                             intent.putExtra("subjectCode",SUBJECT_CODE);
                             intent.putExtra("numOfQuestion",NumOfQuestion);
+
+                            editor.putInt("LogicForExam",2);
+                            editor.commit();
+
                             view.getContext().startActivity(intent);
 
                         });
@@ -117,7 +122,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                     }
                 });
                 
-            } else if (NUM_OF_QUESTION ==1) {
+            } else if (LOGIC ==1) {
 
                 holder.t1.setText(data[position].getText());
                 holder.cardView1.setVisibility(View.VISIBLE);

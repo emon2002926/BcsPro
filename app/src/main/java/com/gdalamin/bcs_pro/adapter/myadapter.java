@@ -54,9 +54,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.mcq_layout,parent,false);
 
          return new myviewholder(view);
+
     }
 
     @Override
@@ -65,8 +67,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-        SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        int NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+
 
 
         holder.option1Layout.setBackgroundResource(0);
@@ -84,7 +85,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.layoutExplain.setVisibility(View.GONE);
 
 
-            if (NUM_OF_QUESTION >=1){
+        SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
+        int NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam",0);
+
+
+
+        if (LOGIC_FOR_ALL_SUBJECT_EXAM >=1){
 
                 if (position >=NUM_OF_QUESTION){
 

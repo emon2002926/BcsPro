@@ -104,6 +104,10 @@ public class ActivityExam extends AppCompatActivity {
 
          NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
 
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam", 0);
+        Log.d("Logic33",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+
+
 
 
         imageBackButton.setOnClickListener(view -> {
@@ -140,35 +144,38 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-        if (NUM_OF_QUESTION != 0) {
+        if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
             String questionType;
-            if (NUM_OF_QUESTION == 200) {
+            if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
                 questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
-            } else if (NUM_OF_QUESTION == 100) {
+            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
-            } else if (NUM_OF_QUESTION == 50) {
+            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
-            }
-            else {
+            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
+
+                questionType = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=10";
+
+            } else {
 
 
                 return;
             }
 
-            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
+            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, LOGIC_FOR_ALL_SUBJECT_EXAM, timerCallback);
             showMcq.processdata(url + questionType);
         }else {
 
-
-            Intent intent = getIntent();
-            String NUM_OF_QUESTION  = intent.getStringExtra("numOfQuestion");
-
-            // todo have to create url for Subject based exam
-
-            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
-            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA="+NUM_OF_QUESTION);
-
+//
+//            Intent intent = getIntent();
+//            String NUM_OF_QUESTION  = intent.getStringExtra("numOfQuestion");
+//
+//            // todo have to create url for Subject based exam
+//
+//            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
+//            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA="+NUM_OF_QUESTION);
+//
 
         }
 
@@ -294,7 +301,7 @@ public class ActivityExam extends AppCompatActivity {
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
-        Log.d("formattedTime",time);
+
 
 
 
