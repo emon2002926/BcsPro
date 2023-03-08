@@ -165,6 +165,7 @@
                                 android:layout_weight="1"
                                 android:layout_height="100dip"
                                 android:layout_marginEnd="20dp"
+                                android:id="@+id/imageView1"
                                 android:src="@drawable/image_one"
                                 android:layout_width="0dp"
                                 android:scaleType="fitXY"
@@ -179,6 +180,7 @@
                                 android:layout_height="100dip"
                                 android:src="@drawable/image_two"
                                 android:layout_width="0dp"
+                                android:id="@+id/imageView2"
                                 android:scaleType="fitXY"
                                 app:riv_corner_radius="10dp"
                                 />
@@ -190,6 +192,7 @@
                                 android:layout_height="100dip"
                                 android:layout_marginStart="20dp"
                                 android:layout_width="0dp"
+                                android:id="@+id/imageView3"
                                 android:src="@drawable/imagr_three"
                                 android:scaleType="fitXY"
                                 />
@@ -201,15 +204,17 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/subject_based_exam"
                         android:layout_below="@id/r1"
-                        android:layout_marginStart="10dp"
-                        android:background="@color/white"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        app:cardCornerRadius="8dp"
                         android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="3"
+                            android:background="@drawable/round_back_white50_10"
+
 
 
                             >
@@ -236,9 +241,10 @@
                                         android:paddingBottom="10dp"
                                         android:textColor="@color/blue"/>
                                     <ImageView
-                                        android:layout_width="40dp"
-                                        android:layout_height="40dp"
-                                        android:layout_marginTop="5dp"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginStart="5dp"
                                         android:src="@drawable/ic_baseline_arrow_forward_24"
                                         />
 
@@ -259,6 +265,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="100dp"
                                 android:layout_weight="0.8"
+                                android:layout_margin="5dp"
 
                                 android:src="@drawable/subject_exam"
                                 android:scaleType="fitXY"/>
@@ -448,8 +455,8 @@
                                 />
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
                                 android:layout_gravity="end"
                                 android:src="@drawable/ic_baseline_arrow_forward_24"
                                 />
@@ -467,6 +474,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="20dp"
+                        app:cardCornerRadius="8dp"
                         android:id="@+id/l7">
 
 

@@ -27,6 +27,8 @@ import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.UnsupportedEncodingException;
+
 public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.myviewholder> {
     ModelForLectureAndAllQuestion data[];
 
@@ -54,13 +56,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-
-
             if (LOGIC == 2){
 
                 String subjectName = data[position].getSubjects();
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
-                holder.tvSubject.setText(subjectName);
+                holder.tvSubject.setText(convertToUTF8(subjectName));
                 holder.cardView1.setVisibility(View.GONE);
                 holder.cardView2.setVisibility(View.VISIBLE);
                 holder.cardView2.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +135,14 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
     }
+    private String convertToUTF8(String inputString) {
+        try {
+            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public int getItemCount() {

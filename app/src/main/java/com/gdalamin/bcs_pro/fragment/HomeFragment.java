@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
     GoogleSignInClient gsc;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    ImageView imageView1,imageView2,imageView3;
 
 
     public HomeFragment() {
@@ -138,7 +139,7 @@ public class HomeFragment extends Fragment {
             editor.putString("key_phone", email);
             editor.commit();
 
-            Log.d("emailad",email);
+
         }
 
 
@@ -146,6 +147,22 @@ public class HomeFragment extends Fragment {
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         scrollView = view.findViewById(R.id.homeLayout);
+        imageView1 = view.findViewById(R.id.imageView1);
+        imageView2 = view.findViewById(R.id.imageView2);
+        imageView3 = view.findViewById(R.id.imageView3);
+
+
+
+        imageView1.setOnClickListener(view1 -> {
+            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+        });
+        imageView2.setOnClickListener(view1 -> {
+            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+        });
+        imageView3.setOnClickListener(view1 -> {
+            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+        });
+
 
         showAllCourse = view.findViewById(R.id.showAllCourse);
         showAllCourse.setOnClickListener(view1 -> {

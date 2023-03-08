@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Activity.ActivityAllCourse">
     <androidx.cardview.widget.CardView
@@ -46,8 +47,17 @@
         android:layout_height="match_parent"
         android:id="@+id/recviewLecture"
 
-        android:layout_below="@+id/card"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Course will be available soon !! "
+        android:textSize="28sp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+
+</LinearLayout>

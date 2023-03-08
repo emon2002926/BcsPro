@@ -162,6 +162,7 @@
                             android:id="@+id/EtName"
                             android:background="@drawable/bg_edit_text"
                             android:textColor="@color/black"
+                            android:inputType="text|textNoSuggestions"
                             android:hint="Full Name"/>
 
                         <EditText
