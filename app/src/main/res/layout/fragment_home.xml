@@ -202,6 +202,7 @@
                         android:id="@+id/subject_based_exam"
                         android:layout_below="@id/r1"
                         android:layout_marginStart="10dp"
+                        android:background="@color/white"
                         android:layout_marginEnd="10dp"
                         android:layout_height="wrap_content">
                         <LinearLayout
@@ -218,7 +219,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="2.2"
                                 android:orientation="vertical"
-                                android:padding="10dp"
+                                android:paddingStart="10dp"
                                 >
 
                                 <LinearLayout
@@ -231,7 +232,8 @@
                                         android:layout_height="wrap_content"
                                         android:text="Subject-based exam"
                                         android:textSize="20sp"
-                                        android:padding="10dp"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="10dp"
                                         android:textColor="@color/blue"/>
                                     <ImageView
                                         android:layout_width="40dp"
@@ -247,6 +249,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:paddingStart="10dp"
+                                    android:paddingBottom="5dp"
                                     android:text="Give an unlimited subject-based exam. Set your own time and number!"
                                     android:textSize="15sp"/>
 

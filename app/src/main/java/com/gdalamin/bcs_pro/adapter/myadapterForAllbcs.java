@@ -93,12 +93,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
 
 
-                            String SUBJECT_CODE =data[position].getSubjectCode().trim();
+                            String SUBJECT_CODE = String.valueOf(position+1);
                             Intent intent = new Intent(view.getContext(), ActivityExam.class);
 
                             intent.putExtra("subjectCode",SUBJECT_CODE);
 
                             intent.putExtra("numOfQuestion",NumOfQuestion);
+                            intent.putExtra("time",time);
 
                             editor.putInt("LogicForExam",2);
                             editor.commit();

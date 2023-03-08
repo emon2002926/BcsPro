@@ -163,14 +163,18 @@ public class ActivityExam extends AppCompatActivity {
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-                time = 50;
+
 
                 Intent intent = getIntent();
-                // gating number of question  from user
-                String numberOfQuestion = intent.getStringExtra("numOfQuestion");
-                String subjectCode =intent.getStringExtra("subjectCode") ;
+                // gating number of question  and  from user *2 for userInputed custom time
+                time = (Integer.parseInt(intent.getStringExtra("time")))*2;
 
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&"+subjectCode+"="+numberOfQuestion;
+                String numberOfQuestion = intent.getStringExtra("numOfQuestion");
+                String SUBJECT_CODE =intent.getStringExtra("subjectCode");
+
+
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
+
 
 
 
@@ -178,7 +182,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
                 return;
-            }
+           }
 
             ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
             showMcq.processdata( url+questionType);
