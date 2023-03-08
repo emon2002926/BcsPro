@@ -234,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:visibility="visible"
-                    android:background="#fffbfa"
+                    android:background="@color/white"
                     android:id="@+id/tvExplain"/>
 
             </LinearLayout>

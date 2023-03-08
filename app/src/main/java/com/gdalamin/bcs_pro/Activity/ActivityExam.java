@@ -53,8 +53,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
-    private  static final String url="http://emon.searchwizy.com/api2/getExamMcq.php?";
-    String APIKEY ="apiKey=abc123&apiNum=1&";
+    private  static final String url="http://emon.searchwizy.com/";
+    String APIKEY ="api2/getExamMcq.php?apiKey=abc123&apiNum=1&";
 
 
     private  static final  String saveResultUrl = "http://emon.searchwizy.com/api2/saveResult.php";
@@ -155,7 +155,7 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-                questionType = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=10";
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA=10";
 
             } else {
 
@@ -164,7 +164,7 @@ public class ActivityExam extends AppCompatActivity {
             }
 
             ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, LOGIC_FOR_ALL_SUBJECT_EXAM, timerCallback);
-            showMcq.processdata(url + questionType);
+            showMcq.processdata( url+questionType);
         }else {
 
 //

@@ -222,7 +222,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option2TV.setText(convertToUTF8(option2.trim()));
                 holder.option3TV.setText(convertToUTF8(option3.trim()));
                 holder.option4TV.setText(convertToUTF8(option4.trim()));
-                holder.explainTv.setText(explain);
+                holder.explainTv.setText(convertToUTF8(explain).trim());
 
                 // Check if question is empty, if not, display text. If yes, display image
                 if (!question.isEmpty()) {
