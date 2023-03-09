@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.UnsupportedEncodingException;
@@ -69,8 +71,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                         //  Show a bottom sheet dialog to allow the user to submit the answers
                         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
-                        View bottomSheetView = LayoutInflater.from(view.getContext())
-                                .inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+                        View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
 
 
 
@@ -82,6 +84,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                         tvShowSubject.setText(subjectName);
                         EditText edTime = bottomSheetView.findViewById(R.id.edTime);
                         EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
+
 
 
 

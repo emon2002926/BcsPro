@@ -204,7 +204,6 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
 
-            intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
             view12.getContext().startActivity(intent);
         });
 

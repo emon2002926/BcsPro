@@ -14,18 +14,34 @@
         <!-- Status bar color. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/white</item>
+
+
+
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="BottomSheetDailogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+<!--    <style name="BottomSheetDailogTheme"-->
+<!--        parent="Theme.Design.Light.BottomSheetDialog">-->
+<!--        <item name="bottomSheetStyle"> @style/BottomSheetStyle</item>-->
+<!--    </style>-->
 
-        <item name="bottomSheetStyle"> @style/BottomSheetStyle</item>
+<!--    <style name="BottomSheetStyle"-->
+<!--        parent="Widget.Design.BottomSheet.Modal">-->
+<!--        <item name="android:background"> @color/transPerent</item>-->
+<!--        <item name="android:windowIsFloating">false</item>-->
+<!--        <item name="android:windowSoftInputMode">adjustResize</item>-->
+
+<!--    </style>-->
+
+
+    <style name="BottomSheetDailogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MyBottomSheetStyle</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="BottomSheetStyle"
-        parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background"> @color/transPerent</item>
+    <style name="MyBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">#00000000</item>
     </style>
 
 </resources>
