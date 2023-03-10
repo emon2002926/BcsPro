@@ -34,6 +34,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
         int OPENING_LOGIC = sharedPreferences.getInt("logic", 0);
         Log.d("logic",String.valueOf(OPENING_LOGIC));
 
@@ -99,6 +100,11 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
                 myadapterForAllbcs adapter=new myadapterForAllbcs(data);
                 recyclerView.setAdapter(adapter);
+
+
+
+
+
 
             }
         }, new Response.ErrorListener() {

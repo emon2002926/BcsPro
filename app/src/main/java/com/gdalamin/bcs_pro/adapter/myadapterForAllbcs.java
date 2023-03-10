@@ -56,6 +56,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
             int LOGIC = sharedPreferences.getInt("logic", 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            int subCode = sharedPreferences.getInt("subCode",0);
+
 
 
             if (LOGIC == 2){
@@ -65,63 +67,76 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 holder.tvSubject.setText(convertToUTF8(subjectName));
                 holder.cardView1.setVisibility(View.GONE);
                 holder.cardView2.setVisibility(View.VISIBLE);
-                holder.cardView2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        //  Show a bottom sheet dialog to allow the user to submit the answers
-                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
-                        View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
 
+                if (subCode ==3){
+                    holder.cardView2.setOnClickListener(view -> {
+
+                        view.getContext().startActivity(new Intent(view.getContext(),QuestionListActivity.class));
+                    });
 
 
+                }else if (subCode == 2){
 
-                        bottomSheetDialog.setContentView(bottomSheetView);
-                        bottomSheetDialog.show();
+                    holder.cardView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                        TextView tvShowSubject = bottomSheetView.findViewById(R.id.tvSubjectName);
-                        tvShowSubject.setText(subjectName);
-                        EditText edTime = bottomSheetView.findViewById(R.id.edTime);
-                        EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
-
-
-
-
-                        bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
+                            //  Show a bottom sheet dialog to allow the user to submit the answers
+                            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
+                            View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
 
+                            bottomSheetDialog.setContentView(bottomSheetView);
+                            bottomSheetDialog.show();
 
-                            String time = edTime.getText().toString().trim();
-                            String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
+                            TextView tvShowSubject = bottomSheetView.findViewById(R.id.tvSubjectName);
+                            tvShowSubject.setText(subjectName);
 
-
-                            String SUBJECT_CODE = String.valueOf(position+1);
-                            Intent intent = new Intent(view.getContext(), ActivityExam.class);
-
-                            intent.putExtra("subjectCode",SUBJECT_CODE);
-
-                            intent.putExtra("numOfQuestion",NumOfQuestion);
-                            intent.putExtra("time",time);
-
-                            editor.putInt("LogicForExam",2);
-                            editor.commit();
-
-                            view.getContext().startActivity(intent);
-
-                        });
+                            EditText edTime = bottomSheetView.findViewById(R.id.edTime);
+                            EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
 
 
-                        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-                            bottomSheetDialog.dismiss();
-                        });
+
+                            bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
-                    }
-                });
+
+                                String time = edTime.getText().toString().trim();
+                                String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
+
+
+                                String SUBJECT_CODE = String.valueOf(position+1);
+                                Intent intent = new Intent(view.getContext(), ActivityExam.class);
+
+                                intent.putExtra("subjectCode",SUBJECT_CODE);
+
+                                intent.putExtra("numOfQuestion",NumOfQuestion);
+                                intent.putExtra("time",time);
+
+                                editor.putInt("LogicForExam",2);
+                                editor.commit();
+
+                                view.getContext().startActivity(intent);
+
+                            });
+
+                            bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+                                bottomSheetDialog.dismiss();
+                            });
+
+
+                        }
+                    });
+
+                }
+
+
+
                 
             } else if (LOGIC ==1) {
+
 
                 holder.t1.setText(data[position].getText());
                 holder.cardView1.setVisibility(View.VISIBLE);

@@ -191,13 +191,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        tvPractice = view.findViewById(R.id.tvPractice);
-        tvPractice.setOnClickListener(view13 -> {
-            Intent intent = new Intent(view13.getContext(), QuestionListActivity.class);
-            intent.putExtra("allQuestion","http://192.168.0.104/api2/allQuestion.php");
-            view13.getContext().startActivity(intent);
 
-        });
 
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
@@ -287,14 +281,30 @@ public class HomeFragment extends Fragment {
 
 
 
+
         subjectBasedExam =view.findViewById(R.id.subject_based_exam);
         subjectBasedExam.setOnClickListener(view1 -> {
 
             int LOGIC = 2;
+            int subCode = 2;
 
             editor.putInt("logic", LOGIC);
+            editor.putInt("subCode", subCode);
             editor.commit();
             startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+
+        });
+        tvPractice = view.findViewById(R.id.tvPractice);
+        tvPractice.setOnClickListener(view13 -> {
+
+            int subCode = 3;
+            int LOGIC = 2;
+            editor.putInt("subCode", subCode);
+            editor.putInt("logic", LOGIC);
+
+            editor.commit();
+            Intent intent = new Intent(view13.getContext(), AllBcsQuestionActivity.class);
+            view13.getContext().startActivity(intent);
 
         });
 
