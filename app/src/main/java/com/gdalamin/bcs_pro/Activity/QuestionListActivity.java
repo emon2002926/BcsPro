@@ -51,6 +51,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
     TextView textView;
     ImageView imageBackButton;
+      String  API_URL ="";
 
     ShimmerFrameLayout shimmerFrameLayout;
     @Override
@@ -63,7 +64,7 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.startShimmer();
 
 
-        processdata();
+
 
 
         textView = findViewById(R.id.topTv);
@@ -74,14 +75,34 @@ public class QuestionListActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+
+        SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+        int subCode = sharedPreferences.getInt("subCode",0);
+        Log.d("subCode100",String.valueOf(subCode));
+        sharedPreferences.edit().clear().apply();
+
+
+
+        if (subCode == 3){
+
+            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
+            String url = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&IA=2";
+            processdata(url);
+        }else  {
+
+            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
+            processdata(API_URL);
+        }
+
+
     }
 
-    public void processdata()
+    public void processdata(String API_URL)
     {
 
 
         // Todo got the api url
-        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
+
 
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override

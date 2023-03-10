@@ -115,8 +115,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 intent.putExtra("numOfQuestion",NumOfQuestion);
                                 intent.putExtra("time",time);
 
+                                editor.putInt("examQuestionNum", 10);
                                 editor.putInt("LogicForExam",2);
                                 editor.commit();
+
+
 
                                 view.getContext().startActivity(intent);
 

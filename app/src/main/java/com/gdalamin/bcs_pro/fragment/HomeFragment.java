@@ -127,6 +127,7 @@ public class HomeFragment extends Fragment {
 
 
 
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(view.getContext(), gso);
 
@@ -195,6 +196,10 @@ public class HomeFragment extends Fragment {
 
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
+
+            int subCode = 4;
+            editor.putInt("subCode", subCode);
+            editor.commit();
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
             //need to add important question php api to this link
 

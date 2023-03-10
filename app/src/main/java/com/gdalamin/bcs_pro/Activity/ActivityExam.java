@@ -106,12 +106,8 @@ public class ActivityExam extends AppCompatActivity {
 
         int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam", 0);
 
-        Log.d("LogicForExam",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
 
-
-
-
-
+        Log.d("LOGIC_FOR_ALL_SUBJECT",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
         imageBackButton.setOnClickListener(view -> {
 
             onBackPressed();
@@ -145,8 +141,6 @@ public class ActivityExam extends AppCompatActivity {
 
  */
 
-
-
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
             String questionType;
@@ -163,17 +157,22 @@ public class ActivityExam extends AppCompatActivity {
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-
-
-                Intent intent = getIntent();
+             /*   Intent intent = getIntent();
                 // gating number of question  and  from user *2 for userInputed custom time
                 time = (Integer.parseInt(intent.getStringExtra("time")))*2;
+
 
                 String numberOfQuestion = intent.getStringExtra("numOfQuestion");
                 String SUBJECT_CODE =intent.getStringExtra("subjectCode");
 
 
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
+//                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&IA=2";
+              */
+                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
+                time = 50;
+
+
 
 
 
@@ -186,17 +185,9 @@ public class ActivityExam extends AppCompatActivity {
 
             ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
             showMcq.processdata( url+questionType);
-        }else {
+            Log.d("questionUrl",url+questionType);
 
-//
-//            Intent intent = getIntent();
-//            String NUM_OF_QUESTION  = intent.getStringExtra("numOfQuestion");
-//
-//            // todo have to create url for Subject based exam
-//
-//            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, 10, timerCallback);
-//            showMcq.processdata("http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&numIA="+NUM_OF_QUESTION);
-//
+        }else {
 
         }
 
