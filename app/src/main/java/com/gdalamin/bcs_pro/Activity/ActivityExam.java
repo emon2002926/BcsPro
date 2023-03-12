@@ -108,6 +108,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
         Log.d("LOGIC_FOR_ALL_SUBJECT",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+
         imageBackButton.setOnClickListener(view -> {
 
             onBackPressed();
@@ -165,10 +166,15 @@ public class ActivityExam extends AppCompatActivity {
 
 
                 questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&IA=2";
               */
-                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
-                time = 50;
+//                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
+                time = (sharedPreferences.getInt("time",0)*2);
+                NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+                String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
+
+
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
+
 
 
 

@@ -78,6 +78,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                 }else if (subCode == 2){
 
+
                     holder.cardView2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -96,6 +97,10 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             EditText edTime = bottomSheetView.findViewById(R.id.edTime);
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
+                            String SUBJECT_CODE = String.valueOf(position+1);
+                            editor.putString("subjectPosition","1");
+
+                            Log.d("pppppp",SUBJECT_CODE);
 
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
@@ -107,18 +112,15 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 int NUM_OF_QUESTION = Integer.valueOf(NumOfQuestion);
 
 
-                                String SUBJECT_CODE = String.valueOf(position+1);
+
                                 Intent intent = new Intent(view.getContext(), ActivityExam.class);
 
-                                intent.putExtra("subjectCode",SUBJECT_CODE);
-
-                                intent.putExtra("numOfQuestion",NUM_OF_QUESTION);
-                                intent.putExtra("time",time);
-
                                 editor.putInt("examQuestionNum", NUM_OF_QUESTION);
+                                editor.putInt("time",Integer.valueOf(time));
                                 editor.putInt("LogicForExam",2);
                                 editor.commit();
 
+                                intent.putExtra("subjectPosition",SUBJECT_CODE);
 
 
                                 view.getContext().startActivity(intent);
