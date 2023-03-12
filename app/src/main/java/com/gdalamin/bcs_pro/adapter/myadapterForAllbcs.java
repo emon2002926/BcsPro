@@ -97,8 +97,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
 
-
-
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
@@ -106,16 +104,18 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 String time = edTime.getText().toString().trim();
                                 String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
 
+                                int NUM_OF_QUESTION = Integer.valueOf(NumOfQuestion);
+
 
                                 String SUBJECT_CODE = String.valueOf(position+1);
                                 Intent intent = new Intent(view.getContext(), ActivityExam.class);
 
                                 intent.putExtra("subjectCode",SUBJECT_CODE);
 
-                                intent.putExtra("numOfQuestion",NumOfQuestion);
+                                intent.putExtra("numOfQuestion",NUM_OF_QUESTION);
                                 intent.putExtra("time",time);
 
-                                editor.putInt("examQuestionNum", 10);
+                                editor.putInt("examQuestionNum", NUM_OF_QUESTION);
                                 editor.putInt("LogicForExam",2);
                                 editor.commit();
 

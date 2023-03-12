@@ -137,8 +137,6 @@ public class ActivityExam extends AppCompatActivity {
         Mental ability = MA = 15
         General science = GS = 15
         Computer and Information Technology = ICT = 15
-
-
  */
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
@@ -166,14 +164,11 @@ public class ActivityExam extends AppCompatActivity {
                 String SUBJECT_CODE =intent.getStringExtra("subjectCode");
 
 
-//                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
+                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
                 questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&IA=2";
               */
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
                 time = 50;
-
-
-
 
 
 
