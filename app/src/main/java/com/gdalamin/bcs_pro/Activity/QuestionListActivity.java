@@ -79,15 +79,18 @@ public class QuestionListActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
         int subCode = sharedPreferences.getInt("subCode",0);
         Log.d("subCode100",String.valueOf(subCode));
-        sharedPreferences.edit().clear().apply();
+//        sharedPreferences.edit().clear().apply();
 
 
 
         if (subCode == 3){
 
-            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
-            String url = "http://emon.searchwizy.com/Test%20Api%27s/holder.php?apiKey=abc123&apiNum=1&IA=2";
+
+            String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
+
+            String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
             processdata(url);
+
         }else  {
 
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";

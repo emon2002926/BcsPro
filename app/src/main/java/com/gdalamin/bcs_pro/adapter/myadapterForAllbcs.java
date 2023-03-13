@@ -59,6 +59,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             int subCode = sharedPreferences.getInt("subCode",0);
 
 
+            String SUBJECT_CODE = String.valueOf(position+1);
 
             if (LOGIC == 2){
 
@@ -72,6 +73,9 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 if (subCode ==3){
                     holder.cardView2.setOnClickListener(view -> {
 
+
+                        editor.putString("subjectPosition",SUBJECT_CODE);
+                        editor.commit();
                         view.getContext().startActivity(new Intent(view.getContext(),QuestionListActivity.class));
                     });
 
@@ -97,10 +101,10 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             EditText edTime = bottomSheetView.findViewById(R.id.edTime);
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
-                            String SUBJECT_CODE = String.valueOf(position+1);
-                            editor.putString("subjectPosition","1");
 
-                            Log.d("pppppp",SUBJECT_CODE);
+                            editor.putString("subjectPosition",SUBJECT_CODE);
+
+
 
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
@@ -119,8 +123,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 editor.putInt("time",Integer.valueOf(time));
                                 editor.putInt("LogicForExam",2);
                                 editor.commit();
-
-                                intent.putExtra("subjectPosition",SUBJECT_CODE);
 
 
                                 view.getContext().startActivity(intent);

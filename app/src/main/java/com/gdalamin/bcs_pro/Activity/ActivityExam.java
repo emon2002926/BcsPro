@@ -156,24 +156,13 @@ public class ActivityExam extends AppCompatActivity {
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-             /*   Intent intent = getIntent();
-                // gating number of question  and  from user *2 for userInputed custom time
-                time = (Integer.parseInt(intent.getStringExtra("time")))*2;
 
-
-                String numberOfQuestion = intent.getStringExtra("numOfQuestion");
-                String SUBJECT_CODE =intent.getStringExtra("subjectCode");
-
-
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+numberOfQuestion;
-              */
-//                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
                 time = (sharedPreferences.getInt("time",0)*2);
                 NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
                 String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
 
 
-                questionType = "Test%20Api%27s/holder.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
+                questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
 
 
