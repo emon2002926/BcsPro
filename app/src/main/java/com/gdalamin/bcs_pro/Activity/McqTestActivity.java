@@ -322,6 +322,7 @@ public class McqTestActivity extends AppCompatActivity {
                                 String option4 = row.getString("option4");
                                 int answer = row.getInt("answer");
 
+                                startQuizeTimer(180);
 
                                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
 

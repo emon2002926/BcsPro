@@ -49,18 +49,22 @@ public class QuizResult extends AppCompatActivity {
         final AppCompatButton reTakeBtn = findViewById(R.id.reTakeQuizBtn);
         final TextView textViewCongras = findViewById(R.id.congratulation);
         final TextView textViewgerting = findViewById(R.id.textViewgereting);
+        reTakeBtn.setOnClickListener(view -> {
+            finish();
+            onBackPressed();
+
+        });
 
 
         questionLists = (List<QuestionList>) getIntent().getSerializableExtra("qutions");
         totalScoreTv.setText("/"+"10");
 
         String answerd = getIntent().getStringExtra("answerd");
-        scoreTv.setText(String.valueOf(answerd));
+        scoreTv.setText(String.valueOf(getCorrectAnswer()+""));
 
 
         correctTv.setText(getCorrectAnswer()+"");
 
-//        incorrect.setText(String.valueOf(questionLists.size() - getCorrectAnswer()));
 
         incorrect.setText(String.valueOf(10 - getCorrectAnswer()));
 

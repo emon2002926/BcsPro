@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -111,21 +112,27 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
                                 String time = edTime.getText().toString().trim();
-                                String NumOfQuestion= edNumOfQuestion.getText().toString().trim();
-
-                                int NUM_OF_QUESTION = Integer.valueOf(NumOfQuestion);
+                                String NUM_OF_QUESTION= edNumOfQuestion.getText().toString().trim();
 
 
+                                if (time.isEmpty()){
+                                    edTime.setError("please enter time");
+                                    edTime.requestFocus();
+                                    return;
+                                } else if (NUM_OF_QUESTION.isEmpty()) {
+                                    edNumOfQuestion.setError("please enter the amount of question");
+                                    edNumOfQuestion.requestFocus();
+                                    return;
+                                }else {
 
-                                Intent intent = new Intent(view.getContext(), ActivityExam.class);
 
-                                editor.putInt("examQuestionNum", NUM_OF_QUESTION);
-                                editor.putInt("time",Integer.valueOf(time));
-                                editor.putInt("LogicForExam",2);
-                                editor.commit();
+                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
+                                    editor.putInt("time",Integer.valueOf(time));
+                                    editor.putInt("LogicForExam",2);
+                                    editor.commit();
+                                    navigateTo(view.getContext());
+                                }
 
-
-                                view.getContext().startActivity(intent);
 
                             });
 
@@ -168,6 +175,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
         }
     }
 
+    public void  navigateTo(Context context){
+
+        context.startActivity(new Intent(context.getApplicationContext(),ActivityExam.class));
+
+    }
+
+
 
     @Override
     public int getItemCount() {
@@ -191,5 +205,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvPosition = itemView.findViewById(R.id.tvPosition);
         }
+
+
     }
 }

@@ -18,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Geography (Bangladesh and the World), Environment and Disaster Management"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:id="@+id/tvSubjectName"
-            android:gravity="center"
+            android:gravity="start"
+            android:padding="10dp"
             android:textColor="@color/blue"
 
             />
@@ -43,8 +43,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:padding="10dp"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:text="Time (MAX minutes 18) "/>
 
@@ -54,8 +55,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="60dp"
                     android:padding="10dp"
                     android:inputType="number"
                     android:id="@+id/edTime"
@@ -75,7 +76,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:padding="10dp"
                     android:textColor="@color/black"
                     android:text="Time (Question 50) "/>
@@ -86,8 +87,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="60dp"
                     android:padding="10dp"
                     android:inputType="number"
                     android:id="@+id/edNumOfQuestion"

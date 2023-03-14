@@ -137,7 +137,7 @@ public class ActivityLogin extends AppCompatActivity {
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
 
-            signIn();
+            signInWithGoogle();
         });
 
 
@@ -145,7 +145,25 @@ public class ActivityLogin extends AppCompatActivity {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
 
-            loginUser(phone,pass);
+            if (phone.isEmpty()) {
+                phoneEtL.setError("Please enter a Phone Number");
+                phoneEtL.requestFocus();
+                return;
+            } else if (phone.toString().length() != 11) {
+                phoneEtL.setError("Please enter a Valid Phone Number");
+                phoneEtL.requestFocus();
+                return;
+
+            } else if (pass.isEmpty()) {
+
+                passEtL.setError("Please enter the Password");
+                phoneEtL.requestFocus();
+                return;
+            }else {
+                loginUser(phone,pass);
+            }
+
+
 
         });
 
@@ -290,7 +308,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    void signIn() {
+    void signInWithGoogle() {
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
     }

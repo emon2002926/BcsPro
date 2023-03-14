@@ -110,8 +110,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     String option4 = data[position].getOption4();
                     int answer = Integer.parseInt(data[position].getAnswer());
 
-
-
                     // Create a new QuestionList object with the obtained data
                     QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                     questionslists.add(questionList);
@@ -127,8 +125,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                         holder.questionTv.setVisibility(View.GONE);
                         holder.questionImageLayout.setVisibility(View.VISIBLE);
-                        Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
+                        Glide.with(holder.questionImg.getContext()).load("http://emon.searchwizy.com/api2/image/" + data[position].getImage()).into(holder.questionImg);
                         holder.questionImg.setVisibility(View.VISIBLE);
+                        holder.textViewPosition.setText(questionPosition);
                     }
 
                     // Set the text of the options to their respective text views
@@ -231,8 +230,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 } else {
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
-                    Glide.with(holder.questionImg.getContext()).load("http://192.168.0.104/api/images/" + data[position].getImage()).into(holder.questionImg);
+                    Glide.with(holder.questionImg.getContext()).load("http://emon.searchwizy.com/api2/image/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
+                    holder.textViewPosition.setText(questionPosition+")");
                 }
 
                 // OnClickListeners for each option
