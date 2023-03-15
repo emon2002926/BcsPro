@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 
 import org.json.JSONArray;
@@ -305,8 +306,11 @@ public class McqTestActivity extends AppCompatActivity {
     // URL to the PHP API
         String url = "http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=1";
 
+        String apiWithSql = ApiKeys.API_WITH_SQL;
+        String url2 = apiWithSql+"&query=SELECT * FROM question WHERE subjects LIKE 'IA' ORDER BY id DESC LIMIT 10";
+
     // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

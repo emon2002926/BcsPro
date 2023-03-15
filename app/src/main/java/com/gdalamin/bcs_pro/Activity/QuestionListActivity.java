@@ -88,13 +88,21 @@ public class QuestionListActivity extends AppCompatActivity {
 
             String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
 
+
             String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
+
             processdata(url);
 
         }else  {
 
+            String subjectName = sharedPreferences.getString("bcsYearName","");
+            String apiWithSql = ApiKeys.API_WITH_SQL;
+
+            String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 100";
+
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
-            processdata(API_URL);
+            Log.d("dddd",url2);
+            processdata(url2);
         }
 
 
