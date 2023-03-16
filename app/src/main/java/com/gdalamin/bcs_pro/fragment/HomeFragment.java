@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment {
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
 
-            int subCode = 4;
+            int subCode = 3;
             editor.putInt("subCode", subCode);
             editor.commit();
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);

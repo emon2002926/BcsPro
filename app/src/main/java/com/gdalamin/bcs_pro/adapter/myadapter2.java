@@ -53,8 +53,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
         String examDitals = data[position].getDailyExam();
         String getDetails = data[position].getDetails();
-        Log.d("examDital",getDetails);
-
 
 
 

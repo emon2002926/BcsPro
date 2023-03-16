@@ -159,6 +159,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                     @Override
                     public void onClick(View view) {
 
+                        String subjectName = data[position].getText();
+                        Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
+                        editor.putString("bcsYearName",subjectName);
+                        editor.commit();
+
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
                         view.getContext().startActivity(intent);
                     }

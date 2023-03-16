@@ -72,10 +72,10 @@ public class ActivityLogin extends AppCompatActivity {
 
     private RequestQueue queue;
 
-    private static final String url = "http://192.168.0.104/api2/volley/signUpLogin.php";
+
 
     ProgressBar progressBar;
-    CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +137,8 @@ public class ActivityLogin extends AppCompatActivity {
         layoutSignInImage = findViewById(R.id.googleSignIN);
         layoutSignInImage.setOnClickListener(view -> {
 
+
+
             signInWithGoogle();
         });
 
@@ -149,7 +151,7 @@ public class ActivityLogin extends AppCompatActivity {
                 phoneEtL.setError("Please enter a Phone Number");
                 phoneEtL.requestFocus();
                 return;
-            } else if (phone.toString().length() != 11) {
+            } else if (phone.length() != 11) {
                 phoneEtL.setError("Please enter a Valid Phone Number");
                 phoneEtL.requestFocus();
                 return;
@@ -182,7 +184,7 @@ public class ActivityLogin extends AppCompatActivity {
                 phoneEtS.setError("Please enter a Phone Number");
                 phoneEtS.requestFocus();
                 return;
-            } else if (phone.toString().length() != 11) {
+            } else if (phone.length() != 11) {
                 phoneEtS.setError("Please enter a Valid Phone Number");
                 phoneEtS.requestFocus();
                 return;

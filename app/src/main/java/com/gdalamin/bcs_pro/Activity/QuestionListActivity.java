@@ -91,14 +91,15 @@ public class QuestionListActivity extends AppCompatActivity {
 
             String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
+            Log.d("thiss",url);
             processdata(url);
 
-        }else  {
+        }else if (subCode == 4){
 
             String subjectName = sharedPreferences.getString("bcsYearName","");
             String apiWithSql = ApiKeys.API_WITH_SQL;
 
-            String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 100";
+            String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
             Log.d("dddd",url2);
@@ -123,6 +124,8 @@ public class QuestionListActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+//                SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
+//                sharedPreferences.edit().clear().apply();
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
 

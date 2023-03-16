@@ -102,10 +102,6 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
 
 
-
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
