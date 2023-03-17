@@ -39,6 +39,7 @@ import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -199,10 +200,13 @@ public class HomeFragment extends Fragment {
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
 
+
+
             int subCode = 5;
+
             editor.putInt("subCode", subCode);
             editor.commit();
-            Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);
+            Intent intent = new Intent(getActivity(), QuestionListActivity.class);
             //need to add important question php api to this link
 
             view12.getContext().startActivity(intent);

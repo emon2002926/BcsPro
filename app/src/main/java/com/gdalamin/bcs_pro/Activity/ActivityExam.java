@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
@@ -158,7 +159,9 @@ public class ActivityExam extends AppCompatActivity {
 
 
                 time = (sharedPreferences.getInt("time",0)*2);
-                NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+                SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
+                NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
+//                NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
                 String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
 
                 questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;

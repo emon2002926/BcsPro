@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -55,6 +56,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
+            SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.t1.getContext());
+
             int LOGIC = sharedPreferences.getInt("logic", 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             int subCode = sharedPreferences.getInt("subCode",0);
@@ -127,7 +130,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                     return;
                                 }else {
 
-                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
+                                    preferencesManager.saveInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
+//                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
                                     editor.putInt("time",Integer.valueOf(time));
                                     editor.putInt("LogicForExam",2);
                                     editor.commit();

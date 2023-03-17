@@ -95,8 +95,6 @@ public class QuestionListActivity extends AppCompatActivity {
 
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
-            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
-            Log.d("dddd",String.valueOf(subCode));
             processdata(url2);
         }else {
 
