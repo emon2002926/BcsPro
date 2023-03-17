@@ -1,6 +1,4 @@
 package com.gdalamin.bcs_pro.Activity;
-
-
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
@@ -44,7 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
 public class QuestionListActivity extends AppCompatActivity {
 
     RecyclerView recview;
@@ -59,12 +56,9 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
 
-        recview=(RecyclerView)findViewById(R.id.recview);
+        recview=findViewById(R.id.recview);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
-
-
-
 
 
         textView = findViewById(R.id.topTv);
@@ -91,7 +85,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
             String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
-            Log.d("thiss",url);
+            Log.d("thiss",String.valueOf(url));
             processdata(url);
 
         }else if (subCode == 4){
@@ -102,8 +96,13 @@ public class QuestionListActivity extends AppCompatActivity {
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
-            Log.d("dddd",url2);
+            Log.d("dddd",String.valueOf(subCode));
             processdata(url2);
+        }else {
+
+            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
+            Log.d("eee",API_URL);
+            processdata(API_URL);
         }
 
 

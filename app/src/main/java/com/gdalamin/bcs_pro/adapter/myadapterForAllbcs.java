@@ -74,6 +74,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 if (subCode ==3){
                     holder.cardView2.setOnClickListener(view -> {
 
+                        int NUM_OF_QUESTION =200;
+                        editor.putInt("examQuestionNum", NUM_OF_QUESTION);
 
                         editor.putString("subjectPosition",SUBJECT_CODE);
                         editor.commit();
@@ -124,7 +126,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                     edNumOfQuestion.requestFocus();
                                     return;
                                 }else {
-
 
                                     editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
                                     editor.putInt("time",Integer.valueOf(time));

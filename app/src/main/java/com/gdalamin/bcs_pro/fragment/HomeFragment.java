@@ -123,6 +123,8 @@ public class HomeFragment extends Fragment {
 
         sharedPreferences= getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        editor.remove("examQuestionNum");
+        editor.apply();
 
 
 
@@ -197,7 +199,7 @@ public class HomeFragment extends Fragment {
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
 
-            int subCode = 3;
+            int subCode = 5;
             editor.putInt("subCode", subCode);
             editor.commit();
             Intent intent = new Intent(view12.getContext(), QuestionListActivity.class);

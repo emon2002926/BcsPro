@@ -227,11 +227,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 if (!question.isEmpty()) {
                     holder.questionImg.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.VISIBLE);
+                    holder.textViewPosition.setVisibility(View.GONE);
                 } else {
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
                     Glide.with(holder.questionImg.getContext()).load("http://emon.searchwizy.com/api2/image/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
+                    holder.textViewPosition.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setText(questionPosition+")");
                 }
 
@@ -270,6 +272,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option4Layout.setOnClickListener(optionClickListener);
 
             }
+
+
+
 
         //for Exam Activity
 
@@ -344,10 +349,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
-
-
-
-
 
 
         selectedOptionIcon.setImageResource(R.drawable.chack);

@@ -64,6 +64,7 @@
                     android:id="@+id/textViewPosition"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     />
 
                 <ImageView

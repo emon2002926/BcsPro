@@ -161,7 +161,6 @@ public class ActivityExam extends AppCompatActivity {
                 NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
                 String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
 
-
                 questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
 
