@@ -204,6 +204,9 @@ public class HomeFragment extends Fragment {
 
             int subCode = 5;
 
+            int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+            editor.putInt("LogicForExam", LOGIC_FOR_ALL_SUBJECT_EXAM);
+
             editor.putInt("subCode", subCode);
             editor.commit();
             Intent intent = new Intent(getActivity(), QuestionListActivity.class);

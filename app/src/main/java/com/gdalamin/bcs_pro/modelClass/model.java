@@ -4,13 +4,15 @@ import androidx.annotation.Keep;
 
  public class model
 {
-   String id, question, option1, option2,option3,option4,text,answer,explanation,batchNum,image;
+   String id, question, option1, option2,option3,option4,text,answer,explanation,image,
+           option1Image,option2Image,option3Image,option4Image;
 
     public model() {
     }
 
     public model(String id, String question, String option1, String option2, String option3,String option4
-            , String text,String answer,String explanation,String batchNum,String image) {
+            , String text,String answer,String explanation,String image,String option1Image,String option2Image,
+                 String option3Image,String option4Image) {
         this.id = id;
         this.question = question;
         this.option1 = option1;
@@ -20,49 +22,50 @@ import androidx.annotation.Keep;
         this.text = text;
         this.answer = answer;
         this.explanation = explanation;
-        this.batchNum = batchNum;
         this.image = image;
+        this.option1Image = option1Image;
+        this.option2Image = option2Image;
+        this.option3Image = option3Image;
+        this.option4Image = option4Image;
+    }
+
+    public String getOption1Image() {
+        return option1Image;
+    }
+
+    public String getOption2Image() {
+        return option2Image;
+    }
+
+    public String getOption3Image() {
+        return option3Image;
+    }
+
+    public String getOption4Image() {
+        return option4Image;
     }
 
     public String getImage() {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getOption4() {
         return option4;
     }
 
-    public void setOption4(String option4) {
-        this.option4 = option4;
-    }
 
-    public String getBatchNum() {
-        return batchNum;
-    }
 
-    public void setBatchNum(String batchNum) {
-        this.batchNum = batchNum;
-    }
 
     public String getExplanation() {
         return explanation;
     }
 
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
 
     public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 
     public String getText() {
         return text;
@@ -92,23 +95,14 @@ import androidx.annotation.Keep;
         return option1;
     }
 
-    public void setOption1(String option1) {
-        this.option1 = option1;
-    }
 
     public String getOption2() {
         return option2;
     }
 
-    public void setOption2(String option2) {
-        this.option2 = option2;
-    }
 
     public String getOption3() {
         return option3;
     }
 
-    public void setOption3(String option3) {
-        this.option3 = option3;
-    }
 }

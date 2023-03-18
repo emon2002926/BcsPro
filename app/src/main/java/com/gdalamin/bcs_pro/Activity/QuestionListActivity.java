@@ -88,7 +88,7 @@ public class QuestionListActivity extends AppCompatActivity {
             Log.d("thiss",String.valueOf(url));
             processdata(url);
 
-        }else if (subCode == 4){
+        } else if (subCode == 4){
 
             String subjectName = sharedPreferences.getString("bcsYearName","");
             String apiWithSql = ApiKeys.API_WITH_SQL;
@@ -96,7 +96,7 @@ public class QuestionListActivity extends AppCompatActivity {
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             processdata(url2);
-        }else {
+        }else if (subCode == 5){
 
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
             Log.d("eee",API_URL);

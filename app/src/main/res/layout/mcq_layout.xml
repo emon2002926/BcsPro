@@ -64,7 +64,7 @@
                     android:id="@+id/textViewPosition"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     />
 
                 <ImageView
@@ -89,6 +89,8 @@
                 android:layout_marginTop="20dp"
                 >
 
+
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -102,14 +104,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15sp"
-                    android:layout_marginBottom="10sp"
-                    android:text="Option 1"
+                    android:layout_marginBottom="5sp"
                     android:textSize="18sp"
+                    android:visibility="visible"
                     android:textColor="@color/black"
+                    android:text="Option 1"
+
                     />
+                <ImageView
+                    android:id="@+id/option1IV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="5sp"
+                    android:visibility="gone"
+                    android:src="@drawable/answer_test"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
             <!--        option 2 layout-->
@@ -127,10 +142,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
-
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-
                     android:id="@+id/option2Icon"
                     />
                 <TextView
@@ -138,13 +151,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60sp"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
                     android:layout_marginEnd="15sp"
                     android:textSize="18sp"
+                    android:visibility="visible"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="10sp"
+                    android:layout_marginBottom="5sp"
                     android:text="Option 2"
                     android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/option2IV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="5sp"
+                    android:visibility="gone"
+                    android:src="@drawable/answer_test"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="5sp"/>
+
 
             </RelativeLayout>
 
@@ -172,13 +199,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60sp"
-                    android:layout_marginTop="15sp"
+                    android:layout_marginTop="5dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10sp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10sp"
+                    android:visibility="visible"
                     android:text="Option 3"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/option3IV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="5sp"
+                    android:visibility="gone"
+                    android:src="@drawable/answer_test"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
             <!--        option 4 layout-->
@@ -196,7 +235,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
-
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:id="@+id/option4Icon"
@@ -208,12 +246,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60sp"
                     android:textSize="18sp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="1dp"
+                    android:visibility="visible"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_alignParentEnd="true"
                     android:text="Option 4"
                     android:textColor="@color/black"
                     />
+                <ImageView
+                    android:id="@+id/option4IV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="5sp"
+                    android:visibility="gone"
+                    android:src="@drawable/answer_test"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
 
@@ -227,7 +277,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/pink_baground"
                 >
                 <TextView

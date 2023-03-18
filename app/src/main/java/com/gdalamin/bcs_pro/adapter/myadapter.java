@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
@@ -66,6 +67,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+        String BASE_URL = ApiKeys.API_URL_BASE;
 
 
 
@@ -125,7 +127,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                         holder.questionTv.setVisibility(View.GONE);
                         holder.questionImageLayout.setVisibility(View.VISIBLE);
-                        Glide.with(holder.questionImg.getContext()).load("http://emon.searchwizy.com/api2/image/" + data[position].getImage()).into(holder.questionImg);
+                        Glide.with(holder.questionImg.getContext()).load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
                         holder.questionImg.setVisibility(View.VISIBLE);
                         holder.textViewPosition.setText(questionPosition);
                     }
@@ -212,8 +214,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String option3 = data[position].getOption3();
                 String  option4 = data[position].getOption4();
                 String explain = data[position].getExplanation();
-
                 String questionPosition = String.valueOf(position+1);
+
+
+
+                String option1ImageName = data[position].getOption1Image();
+                String option2ImageName = data[position].getOption2Image();
+                String option3ImageName = data[position].getOption3Image();
+                String option4ImageName = data[position].getOption4Image();
+
+
 
                 holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
 
@@ -231,7 +241,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 } else {
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
-                    Glide.with(holder.questionImg.getContext()).load("http://emon.searchwizy.com/api2/image/" + data[position].getImage()).into(holder.questionImg);
+                    Glide.with(holder.questionImg.getContext()).load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setText(questionPosition+")");

@@ -77,8 +77,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 if (subCode ==3){
                     holder.cardView2.setOnClickListener(view -> {
 
-                        int NUM_OF_QUESTION =200;
-                        editor.putInt("examQuestionNum", NUM_OF_QUESTION);
+
+                        int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+
+                        editor.putInt("LogicForExam", LOGIC_FOR_ALL_SUBJECT_EXAM);
+
 
                         editor.putString("subjectPosition",SUBJECT_CODE);
                         editor.commit();
