@@ -216,8 +216,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String explain = data[position].getExplanation();
                 String questionPosition = String.valueOf(position+1);
 
-
-
                 String option1ImageName = data[position].getOption1Image();
                 String option2ImageName = data[position].getOption2Image();
                 String option3ImageName = data[position].getOption3Image();
@@ -241,11 +239,26 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 } else {
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
-                    Glide.with(holder.questionImg.getContext()).load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
+                    Glide.with(holder.questionImg.getContext())
+                            .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setText(questionPosition+")");
                 }
+
+                if (!option3.isEmpty()){
+
+                    holder.option3Image.setVisibility(View.GONE);
+                    holder.option3TV.setVisibility(View.VISIBLE);
+                }else {
+                    holder.option3TV.setVisibility(View.GONE);
+                    holder.option3Image.setVisibility(View.VISIBLE);
+                    Glide.with(holder.option3Image.getContext())
+                            .load(BASE_URL+"image/option3/"+option3ImageName).into(holder.option3Image);
+
+                }
+
+
 
                 // OnClickListeners for each option
                 View.OnClickListener optionClickListener = view -> {
@@ -301,7 +314,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img1,img2,img3,img4,questionImg;
+        ImageView img1,img2,img3,img4,questionImg,option3Image,option1Image,option2Image,option4Image;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout layoutExplain,fullLayout,questionImageLayout;
@@ -320,6 +333,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option2TV=itemView.findViewById(R.id.option2Tv);
             option3TV=itemView.findViewById(R.id.option3Tv);
             option4TV=itemView.findViewById(R.id.option4Tv);
+
+            option1Image = itemView.findViewById(R.id.option1IV);
+            option2Image = itemView.findViewById(R.id.option2IV);
+            option3Image = itemView.findViewById(R.id.option3IV);
+            option4Image = itemView.findViewById(R.id.option4IV);
+
+
 
             explainTv = itemView.findViewById(R.id.tvExplain);
 
