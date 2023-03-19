@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.adapter;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -105,12 +106,18 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                     // Get the question and options data from the data array at the given position
 
-                    String question = data[position].getQuestion();
-                    String option1 = data[position].getOption1();
-                    String option2 = data[position].getOption2();
-                    String option3 = data[position].getOption3();
-                    String option4 = data[position].getOption4();
+                    String question = data[position].getQuestion().trim();
+                    String option1 = data[position].getOption1().trim();
+                    String option2 = data[position].getOption2().trim();
+                    String option3 = data[position].getOption3().trim();
+                    String option4 = data[position].getOption4().trim();
                     int answer = Integer.parseInt(data[position].getAnswer());
+
+                    String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
+                    String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
+                    String option3ImageURL = BASE_URL+"image/option3/"+data[position].getOption3Image().trim();
+                    String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
+
 
                     // Create a new QuestionList object with the obtained data
                     QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
@@ -119,29 +126,41 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     String questionPosition = String.valueOf(position+1);
 
 
-                    holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
-                    holder.questionImg.setVisibility(View.GONE);
 
-                    // If the question text is empty, hide the text view and display the question image
-                    if (question.trim().isEmpty()) {
-
-                        holder.questionTv.setVisibility(View.GONE);
-                        holder.questionImageLayout.setVisibility(View.VISIBLE);
-                        Glide.with(holder.questionImg.getContext()).load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
-                        holder.questionImg.setVisibility(View.VISIBLE);
-                        holder.textViewPosition.setText(questionPosition);
-                    }
 
                     // Set the text of the options to their respective text views
+                    holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
+                    holder.option1TV.setText(convertToUTF8(option1));
+                    holder.option2TV.setText(convertToUTF8(option2));
+                    holder.option3TV.setText(convertToUTF8(option3));
+                    holder.option4TV.setText(convertToUTF8(option4));
 
-                    holder.option1TV.setText(convertToUTF8(option1.trim()));
-                    holder.option2TV.setText(convertToUTF8(option2.trim()));
-                    holder.option3TV.setText(convertToUTF8(option3.trim()));
-                    holder.option4TV.setText(convertToUTF8(option4.trim()));
+
+                    // If the question text is empty, hide the text view and display the question image
+                    if (!question.isEmpty()) {
+                        holder.questionImg.setVisibility(View.GONE);
+                        holder.questionTv.setVisibility(View.VISIBLE);
+                        holder.textViewPosition.setVisibility(View.GONE);
+                    } else {
+                        holder.questionTv.setVisibility(View.GONE);
+                        holder.questionImageLayout.setVisibility(View.VISIBLE);
+                        Glide.with(holder.questionImg.getContext())
+                                .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
+                        holder.questionImg.setVisibility(View.VISIBLE);
+                        holder.textViewPosition.setVisibility(View.VISIBLE);
+                        holder.textViewPosition.setText(questionPosition+")");
+                    }
+
+
+                    //Showing Image or text with there respective logic
+                    showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
+                    showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
+                    showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
+                    showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
+
+
 
                     // Use LocalBroadcastManager to send the broadcast
-
-
                     if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                         // If the question has a selected option, highlight the corresponding option
                         switch (questionslists.get(position).getUserSelecedAnswer()) {
@@ -208,28 +227,28 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             {
                 // Get the question and options data from the data array at the given position
 
-                String question = data[position].getQuestion();
-                String option1 = data[position].getOption1();
-                String option2 = data[position].getOption2();
-                String option3 = data[position].getOption3();
-                String  option4 = data[position].getOption4();
-                String explain = data[position].getExplanation();
+                String question = data[position].getQuestion().trim();
+                String option1 = data[position].getOption1().trim();
+                String option2 = data[position].getOption2().trim();
+                String option3 = data[position].getOption3().trim();
+                String  option4 = data[position].getOption4().trim();
+                String explain = data[position].getExplanation().trim();
                 String questionPosition = String.valueOf(position+1);
 
-                String option1ImageName = data[position].getOption1Image();
-                String option2ImageName = data[position].getOption2Image();
-                String option3ImageName = data[position].getOption3Image();
-                String option4ImageName = data[position].getOption4Image();
+                String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
+                String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
+                String option3ImageURL = BASE_URL+"image/option3/"+data[position].getOption3Image().trim();
+                String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
 
 
 
                 holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
 
-                holder.option1TV.setText(convertToUTF8(option1.trim()));
-                holder.option2TV.setText(convertToUTF8(option2.trim()));
-                holder.option3TV.setText(convertToUTF8(option3.trim()));
-                holder.option4TV.setText(convertToUTF8(option4.trim()));
-                holder.explainTv.setText(convertToUTF8(explain).trim());
+                holder.option1TV.setText(convertToUTF8(option1));
+                holder.option2TV.setText(convertToUTF8(option2));
+                holder.option3TV.setText(convertToUTF8(option3));
+                holder.option4TV.setText(convertToUTF8(option4));
+                holder.explainTv.setText(convertToUTF8(explain));
 
                 // Check if question is empty, if not, display text. If yes, display image
                 if (!question.isEmpty()) {
@@ -246,17 +265,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.textViewPosition.setText(questionPosition+")");
                 }
 
-                if (!option3.isEmpty()){
 
-                    holder.option3Image.setVisibility(View.GONE);
-                    holder.option3TV.setVisibility(View.VISIBLE);
-                }else {
-                    holder.option3TV.setVisibility(View.GONE);
-                    holder.option3Image.setVisibility(View.VISIBLE);
-                    Glide.with(holder.option3Image.getContext())
-                            .load(BASE_URL+"image/option3/"+option3ImageName).into(holder.option3Image);
-
-                }
+                //Showing Image or text with there respective logic
+                showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
+                showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
+                showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
+                showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
 
 
 
@@ -364,6 +378,28 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     }
+
+
+
+    public  void showTextViewOrImageView(String questionOrAnyOption,TextView TvQuestionOrAnyOption,ImageView IvQuestionOrAnyOption,
+                        String ImageURL){
+
+        if (!questionOrAnyOption.isEmpty()){
+            //When questionOrAnyOption has data
+            TvQuestionOrAnyOption.setVisibility(View.VISIBLE);
+            IvQuestionOrAnyOption.setVisibility(View.GONE);
+        }else {
+            //When questionOrAnyOption is Empty
+            TvQuestionOrAnyOption.setVisibility(View.GONE);
+            IvQuestionOrAnyOption.setVisibility(View.VISIBLE);
+            Glide.with(IvQuestionOrAnyOption.getContext())
+                    .load(ImageURL)
+                    .into(IvQuestionOrAnyOption);
+        }
+    }
+
+
+
 
 
     private String convertToUTF8(String inputString) {
