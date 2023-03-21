@@ -174,9 +174,6 @@ public class HomeFragment extends Fragment {
 
 
 
-
-
-
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
 
@@ -359,7 +356,7 @@ public class HomeFragment extends Fragment {
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
 
-                scrollView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
                 modelForExam data2[]=gson.fromJson(response,modelForExam[].class);
