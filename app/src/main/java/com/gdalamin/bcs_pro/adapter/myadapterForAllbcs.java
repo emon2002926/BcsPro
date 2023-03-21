@@ -58,12 +58,17 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
             SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.t1.getContext());
 
-            int LOGIC = sharedPreferences.getInt("logic", 0);
+//            int LOGIC = sharedPreferences.getInt("logic", 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
+
             int subCode = sharedPreferences.getInt("subCode",0);
 
 
             String SUBJECT_CODE = String.valueOf(position+1);
+
+            SharedPreferencesManager preferencesManager1 = new SharedPreferencesManager(holder.t1.getContext());
+            int LOGIC = preferencesManager1.getInt("logic");
+
 
             if (LOGIC == 2){
 
@@ -138,7 +143,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                     editor.putInt("time",Integer.valueOf(time));
                                     editor.putInt("LogicForExam",2);
                                     editor.commit();
-                                    navigateTo(view.getContext());
+                                    view.getContext().startActivity(new Intent(view.getContext(),ActivityExam.class));
                                 }
 
 
@@ -157,7 +162,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
                 
-            } else if (LOGIC ==1) {
+            }
+            else if (LOGIC ==1) {
 
 
                 holder.t1.setText(data[position].getText());
@@ -169,8 +175,9 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                         String subjectName = data[position].getText();
                         Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
-                        editor.putString("bcsYearName",subjectName);
-                        editor.commit();
+                        sharedPreferences.getString("bcsYearName",subjectName);
+//                        editor.putString("bcsYearName",subjectName);
+//                        editor.commit();
 
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
                         view.getContext().startActivity(intent);
@@ -188,11 +195,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
         }
     }
 
-    public void  navigateTo(Context context){
 
-        context.startActivity(new Intent(context.getApplicationContext(),ActivityExam.class));
-
-    }
 
 
 

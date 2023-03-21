@@ -4,6 +4,7 @@ package com.gdalamin.bcs_pro.Activity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.model;
 import  com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
@@ -54,17 +55,20 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
 
-        sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        int OPENING_LOGIC = sharedPreferences.getInt("logic", 0);
-        Log.d("logic",String.valueOf(OPENING_LOGIC));
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(imageBackButton.getContext());
+        int OPENING_LOGIC = preferencesManager.getInt("logic");
+
 
 
 
         if (OPENING_LOGIC ==1){
 
-            //thats will open  older Question
+            //thats will open  older BCS Question
            String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=7";
+
+
             processdata(API_URL);
+
         } else if (OPENING_LOGIC ==2) {
 
 

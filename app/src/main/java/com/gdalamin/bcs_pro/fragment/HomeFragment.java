@@ -125,9 +125,15 @@ public class HomeFragment extends Fragment {
         sharedPreferences= getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.remove("examQuestionNum");
+
+//        editor.remove("logic");
+
+        int logic= sharedPreferences.getInt("logic",0);
+
+        Log.d("logic55",String.valueOf(logic));
         editor.apply();
 
-
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(getActivity());
 
 
 
@@ -197,6 +203,8 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
 
@@ -205,10 +213,9 @@ public class HomeFragment extends Fragment {
             int subCode = 5;
 
             int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
-            editor.putInt("LogicForExam", LOGIC_FOR_ALL_SUBJECT_EXAM);
+            preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+            preferencesManager.saveInt("subCode",subCode);
 
-            editor.putInt("subCode", subCode);
-            editor.commit();
             Intent intent = new Intent(getActivity(), QuestionListActivity.class);
             //need to add important question php api to this link
 
@@ -219,7 +226,6 @@ public class HomeFragment extends Fragment {
         letcureLayout = view.findViewById(R.id.l4);
         letcureLayout.setOnClickListener(view1 -> {
 
-//                SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
             startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
         });
 
@@ -277,10 +283,11 @@ public class HomeFragment extends Fragment {
                     Intent intent = new Intent(view1.getContext(), ActivityExam.class);
                     intent.putExtra("UserSelectedOption", "Overall exam");
                     view1.getContext().startActivity(intent);
-                    editor.putInt("examQuestionNum", tolatExamQuestion);
-                    editor.putInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
 
-                    editor.commit();
+                    preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
+                    preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+
+
                     bottomSheetDialog.dismiss();
                 } else {
                     Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
@@ -302,9 +309,12 @@ public class HomeFragment extends Fragment {
             int LOGIC = 2;
             int subCode = 2;
 
-            editor.putInt("logic", LOGIC);
-            editor.putInt("subCode", subCode);
-            editor.commit();
+            preferencesManager.saveInt("logic",LOGIC);
+
+//            editor.putInt("subCode", subCode);
+            preferencesManager.saveInt("subCode",subCode);
+
+
             startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
 
         });
@@ -313,10 +323,10 @@ public class HomeFragment extends Fragment {
 
             int subCode = 3;
             int LOGIC = 2;
-            editor.putInt("subCode", subCode);
-            editor.putInt("logic", LOGIC);
 
-            editor.commit();
+            preferencesManager.saveInt("subCode",subCode);
+            preferencesManager.saveInt("logic",LOGIC);
+
             Intent intent = new Intent(view13.getContext(), AllBcsQuestionActivity.class);
             view13.getContext().startActivity(intent);
 
@@ -329,22 +339,14 @@ public class HomeFragment extends Fragment {
 
             int LOGIC = 1;
 
-            editor.putInt("logic", LOGIC);
-            editor.commit();
+            preferencesManager.saveInt("logic",LOGIC);
+
+//            editor.putInt("logic", LOGIC);
+//            editor.commit();
             startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
 
 
         });
-
-
-        if (isInternetAvailable()) {
-            // Internet is available
-            Log.d("intentt","yes");
-        } else {
-            // Internet is not available
-            Log.d("intentt","no");
-
-        }
 
         processdata();
 
