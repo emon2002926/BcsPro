@@ -56,12 +56,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
+
             SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.t1.getContext());
 
-//            int LOGIC = sharedPreferences.getInt("logic", 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            int subCode = sharedPreferences.getInt("subCode",0);
+
+            int subCode = preferencesManager.getInt("subCode");
 
 
             String SUBJECT_CODE = String.valueOf(position+1);
@@ -175,9 +176,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                         String subjectName = data[position].getText();
                         Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
-                        sharedPreferences.getString("bcsYearName",subjectName);
-//                        editor.putString("bcsYearName",subjectName);
-//                        editor.commit();
+//                        sharedPreferences.getString("bcsYearName",subjectName);
+
+                        preferencesManager.saveString("bcsYearName",subjectName);
+
+                        preferencesManager.saveInt("subCode",4);
 
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
                         view.getContext().startActivity(intent);

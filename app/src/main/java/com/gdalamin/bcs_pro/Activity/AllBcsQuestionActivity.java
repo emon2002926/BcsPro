@@ -69,6 +69,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
             processdata(API_URL);
 
+
         } else if (OPENING_LOGIC ==2) {
 
 

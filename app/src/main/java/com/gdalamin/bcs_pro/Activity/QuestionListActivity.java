@@ -36,8 +36,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
 import java.io.Serializable;
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,7 +87,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
             String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
-            Log.d("thiss",String.valueOf(url));
+            Log.d("eee3",url);
             processdata(url);
 
         } else if (subCode == 4){
@@ -96,17 +98,17 @@ public class QuestionListActivity extends AppCompatActivity {
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             processdata(url2);
+            Log.d("eee2",subjectName);
 
         }else if (subCode == 5){
 
             API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
-            Log.d("eee",API_URL);
+            Log.d("eee1",API_URL);
             processdata(API_URL);
+        } else if (subCode == 6) {
+            Log.d("eee4","this one");
+
         }
-
-
-
-
 
 
     }
@@ -129,9 +131,14 @@ public class QuestionListActivity extends AppCompatActivity {
 
                 recview.setVisibility(View.VISIBLE);
 
-                GsonBuilder builder=new GsonBuilder();
-                Gson gson=builder.create();
-                model data[]=gson.fromJson(response,model[].class);
+                GsonBuilder builder = new GsonBuilder().setLenient();
+                Gson gson = builder.create();
+
+                JsonReader reader = new JsonReader(new StringReader(response));
+                reader.setLenient(true);
+
+
+                model data[] = gson.fromJson(reader, model[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                         ,LinearLayoutManager.VERTICAL,false);

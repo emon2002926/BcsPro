@@ -130,6 +130,7 @@ public class HomeFragment extends Fragment {
 
         int logic= sharedPreferences.getInt("logic",0);
 
+
         Log.d("logic55",String.valueOf(logic));
         editor.apply();
 
@@ -353,9 +354,6 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
-
-
-
 
 
 
