@@ -86,7 +86,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.option2Layout.setEnabled(true);
         holder.option3Layout.setEnabled(true);
         holder.option4Layout.setEnabled(true);
-        holder.layoutExplain.setVisibility(View.GONE);
+//        holder.layoutExplain.setVisibility(View.GONE);
+        holder.explainTv.setVisibility(View.GONE);
 
 
 
@@ -240,6 +241,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
                 String option3ImageURL = BASE_URL+"image/option3/"+data[position].getOption3Image().trim();
                 String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
+                String explainImageURL = BASE_URL+ "image/explainImage/"+data[position].getExplanationImage();
 
 
 
@@ -275,9 +277,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+
                 // OnClickListeners for each option
                 View.OnClickListener optionClickListener = view -> {
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
+//                    holder.layoutExplain.setVisibility(View.VISIBLE);
+                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
 
                     switch (view.getId()) {
                         case R.id.option1Layout:
@@ -324,10 +328,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img1,img2,img3,img4,questionImg,option3Image,option1Image,option2Image,option4Image;
+        ImageView img1,img2,img3,img4,questionImg,option3Image,option1Image,option2Image,option4Image,explainImage;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
-        LinearLayout layoutExplain,fullLayout,questionImageLayout;
+        LinearLayout fullLayout,questionImageLayout;
 
          TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition;
 
@@ -343,15 +347,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option2TV=itemView.findViewById(R.id.option2Tv);
             option3TV=itemView.findViewById(R.id.option3Tv);
             option4TV=itemView.findViewById(R.id.option4Tv);
+            explainTv = itemView.findViewById(R.id.tvExplain);
 
             option1Image = itemView.findViewById(R.id.option1IV);
             option2Image = itemView.findViewById(R.id.option2IV);
             option3Image = itemView.findViewById(R.id.option3IV);
             option4Image = itemView.findViewById(R.id.option4IV);
+            explainImage = itemView.findViewById(R.id.explainIV);
 
 
-
-            explainTv = itemView.findViewById(R.id.tvExplain);
 
             img1 = itemView.findViewById(R.id.option1Icon);
             img2 = itemView.findViewById(R.id.option2Icon);
@@ -360,7 +364,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             questionImg = itemView.findViewById(R.id.questionIv);
 
             fullLayout = itemView.findViewById(R.id.fullLayout);
-            layoutExplain = itemView.findViewById(R.id.layoutExplain);
 
             option1Layout = itemView.findViewById(R.id.option1Layout);
             option2Layout = itemView.findViewById(R.id.option2Layout);

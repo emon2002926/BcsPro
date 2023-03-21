@@ -5,14 +5,14 @@ import androidx.annotation.Keep;
  public class model
 {
    String id, question, option1, option2,option3,option4,text,answer,explanation,image,
-           option1Image,option2Image,option3Image,option4Image;
+           option1Image,option2Image,option3Image,option4Image,explanationImage;
 
     public model() {
     }
 
     public model(String id, String question, String option1, String option2, String option3,String option4
             , String text,String answer,String explanation,String image,String option1Image,String option2Image,
-                 String option3Image,String option4Image) {
+                 String option3Image,String option4Image,String explanationImage) {
         this.id = id;
         this.question = question;
         this.option1 = option1;
@@ -27,6 +27,11 @@ import androidx.annotation.Keep;
         this.option2Image = option2Image;
         this.option3Image = option3Image;
         this.option4Image = option4Image;
+        this.explanationImage = explanationImage;
+    }
+
+    public String getExplanationImage() {
+        return explanationImage;
     }
 
     public String getOption1Image() {
