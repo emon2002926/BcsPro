@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
 import java.io.UnsupportedEncodingException;
@@ -48,27 +49,27 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
 
-        SharedPreferences sharedPreferences = holder.cardView.getContext().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.cardView.getContext());
 
         String examDitals = data[position].getDailyExam();
         String getDetails = data[position].getDetails();
 
 
 
-        holder.examDate.setText(examDitals);
+        holder.TvExamDate.setText(examDitals);
 
 
 
-        holder.t2.setText(convertToUTF8(getDetails));
+        holder.TvExamDetails.setText(convertToUTF8(getDetails));
 
         holder.cardView.setOnClickListener(view -> {
 
             int LOGIC_FOR_ALL_SUBJECT_EXAM = data[position].getTotalQc();
 
-            editor.putInt("examQuestionNum",data[position].getTotalQc());
-            editor.putInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-            editor.commit();
+
+            preferencesManager.saveInt("examQuestionNum",data[position].getTotalQc());
+            preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
             view.getContext().startActivity(intent);
 
@@ -84,18 +85,17 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     }
     class myviewholder extends RecyclerView.ViewHolder
     {
-        ImageView img;
-        TextView examDate,t2;
+
+        TextView TvExamDate,TvExamDetails;
         CardView cardView;
-        RelativeLayout relativeLayout;
 
 
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
 
-            examDate=itemView.findViewById(R.id.exam);
-            t2=itemView.findViewById(R.id.q1);
+            TvExamDate=itemView.findViewById(R.id.exam);
+            TvExamDetails=itemView.findViewById(R.id.q1);
             cardView = itemView.findViewById(R.id.card);
 
         }

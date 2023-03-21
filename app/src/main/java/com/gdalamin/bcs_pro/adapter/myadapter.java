@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
@@ -88,10 +89,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.layoutExplain.setVisibility(View.GONE);
 
 
-        SharedPreferences sharedPreferences = holder.explainTv.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        int NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
-        int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam",0);
 
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.explainTv.getContext());
+        int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM >=1){
@@ -310,15 +311,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
             }
 
-
-
-
         //for Exam Activity
 
 
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -374,8 +370,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             progressBar = itemView.findViewById(R.id.progressBar4);
 
         }
-
-
 
     }
 

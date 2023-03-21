@@ -79,8 +79,8 @@ public class HomeFragment extends Fragment {
     ScrollView scrollView;
 
 
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
+    GoogleSignInOptions googleSignInOptions;
+    GoogleSignInClient googleSignInClient;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ImageView imageView1,imageView2,imageView3;
@@ -122,24 +122,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        sharedPreferences= getActivity().getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.remove("examQuestionNum");
-
-//        editor.remove("logic");
-
-        int logic= sharedPreferences.getInt("logic",0);
-
-
-        Log.d("logic55",String.valueOf(logic));
-        editor.apply();
 
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(getActivity());
 
+        preferencesManager.remove("examQuestionNum");
 
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(view.getContext(), gso);
+
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(view.getContext(), googleSignInOptions);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
         if (account !=null){
@@ -183,7 +174,6 @@ public class HomeFragment extends Fragment {
 
 
 
-        ///Swipe to refress layout
 
 
 

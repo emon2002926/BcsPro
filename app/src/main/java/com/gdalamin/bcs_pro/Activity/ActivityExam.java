@@ -103,12 +103,15 @@ public class ActivityExam extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
 
-        NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+//        NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
+        NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
 
-        int LOGIC_FOR_ALL_SUBJECT_EXAM = sharedPreferences.getInt("LogicForExam", 0);
 
 
-        Log.d("LOGIC_FOR_ALL_SUBJECT",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
+
+
 
         imageBackButton.setOnClickListener(view -> {
 
@@ -157,12 +160,10 @@ public class ActivityExam extends AppCompatActivity {
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
 
-
-                time = (sharedPreferences.getInt("time",0)*2);
-                SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
+                time = (preferencesManager.getInt("time")*2);
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
-//                NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
-                String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
+                String SUBJECT_CODE = preferencesManager.getString("subjectPosition");
+
 
                 questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
@@ -306,10 +307,6 @@ public class ActivityExam extends AppCompatActivity {
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
-
-
-
-
         String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
 
 
@@ -317,7 +314,7 @@ public class ActivityExam extends AppCompatActivity {
         SharedPreferences sharedPreferences1;
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
-        Log.d("userIdd",userId);
+
 
         if (questionLists !=null){
 

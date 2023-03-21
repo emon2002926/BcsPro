@@ -63,12 +63,12 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
             int subCode = preferencesManager.getInt("subCode");
+            int LOGIC = preferencesManager.getInt("logic");
 
 
             String SUBJECT_CODE = String.valueOf(position+1);
 
-            SharedPreferencesManager preferencesManager1 = new SharedPreferencesManager(holder.t1.getContext());
-            int LOGIC = preferencesManager1.getInt("logic");
+
 
 
             if (LOGIC == 2){
@@ -82,22 +82,15 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                 if (subCode ==3){
                     holder.cardView2.setOnClickListener(view -> {
-
-
                         int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
 
-                        editor.putInt("LogicForExam", LOGIC_FOR_ALL_SUBJECT_EXAM);
-
-
-                        editor.putString("subjectPosition",SUBJECT_CODE);
-                        editor.commit();
+                        preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+                        preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
                         view.getContext().startActivity(new Intent(view.getContext(),QuestionListActivity.class));
                     });
 
 
                 }else if (subCode == 2){
-
-
                     holder.cardView2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -117,7 +110,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
 
-                            editor.putString("subjectPosition",SUBJECT_CODE);
+                            preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
 
 
 
@@ -141,9 +134,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                                     preferencesManager.saveInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
 //                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
-                                    editor.putInt("time",Integer.valueOf(time));
-                                    editor.putInt("LogicForExam",2);
-                                    editor.commit();
+
+                                    preferencesManager.saveInt("time",Integer.valueOf(time));
+                                    preferencesManager.saveInt("LogicForExam",2);
+
+
                                     view.getContext().startActivity(new Intent(view.getContext(),ActivityExam.class));
                                 }
 
