@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -114,6 +115,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     String option3 = data[position].getOption3().trim();
                     String option4 = data[position].getOption4().trim();
                     int answer = Integer.parseInt(data[position].getAnswer());
+                    String questionPosition = String.valueOf(position+1);
 
                     String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
                     String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
@@ -125,7 +127,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                     questionslists.add(questionList);
 
-                    String questionPosition = String.valueOf(position+1);
+
 
 
 
@@ -235,6 +237,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String option3 = data[position].getOption3().trim();
                 String  option4 = data[position].getOption4().trim();
                 String explain = data[position].getExplanation().trim();
+                int answer = Integer.parseInt(data[position].getAnswer().trim());
                 String questionPosition = String.valueOf(position+1);
 
                 String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
@@ -275,18 +278,156 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
                 showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
 
+                QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
+                questionslists.add(questionList);
 
 
 
-                // OnClickListeners for each option
+
+
+
+
+                if (questionslists.get(position).getUserSelecedAnswer() > 0) {
+                    // If the question has a selected option, highlight the corresponding option
+                    if (answer == 1){
+                        selectedOption(holder.option1Layout,holder.img1);
+                    } else if (answer ==2) {
+                        selectedOption(holder.option2Layout,holder.img2);
+                    } else if (answer == 3) {
+                        selectedOption(holder.option3Layout,holder.img3);
+                    } else if (answer == 4) {
+                        selectedOption(holder.option4Layout,holder.img4);
+                    }
+
+                    int userSelecedAnswer = questionList.getUserSelecedAnswer();
+                    switch (questionslists.get(position).getUserSelecedAnswer()) {
+                        case 1:
+                            if (userSelecedAnswer == answer){
+                                selectedOption(holder.option1Layout, holder.img1);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }else {
+                                selectedOption2(holder.option1Layout, holder.img1);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }
+
+                            break;
+                        case 2:
+                            if (userSelecedAnswer == answer){
+
+                                selectedOption(holder.option2Layout, holder.img2);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }else {
+                                selectedOption2(holder.option2Layout, holder.img2);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }
+
+                            break;
+                        case 3:
+                            if (userSelecedAnswer == answer){
+                                selectedOption(holder.option3Layout, holder.img3);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }else {
+
+                                selectedOption2(holder.option3Layout, holder.img3);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }
+
+                            break;
+                        case 4:
+
+                            if (userSelecedAnswer == answer){
+
+                                selectedOption(holder.option4Layout, holder.img4);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }else {
+                                selectedOption2(holder.option4Layout, holder.img4);
+                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                            }
+                            break;
+                    }
+                }
+
                 View.OnClickListener optionClickListener = view -> {
-//                    holder.layoutExplain.setVisibility(View.VISIBLE);
+                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+
+                    if (answer == 1){
+                        selectedOption(holder.option1Layout,holder.img1);
+                    } else if (answer ==2) {
+                        selectedOption(holder.option2Layout,holder.img2);
+                    } else if (answer == 3) {
+                        selectedOption(holder.option3Layout,holder.img3);
+                    } else if (answer == 4) {
+                        selectedOption(holder.option4Layout,holder.img4);
+                    }
+
+                    int selectedOption = 0;
+                    ImageView img = null;
+                    // Determine which option was clicked based on the view that was clicked
+                    if (view == holder.option1Layout) {
+                        selectedOption = 1;
+                        img = holder.img1;
+
+
+                    } else if (view == holder.option2Layout) {
+                        selectedOption = 2;
+                        img = holder.img2;
+
+
+                    } else if (view == holder.option3Layout) {
+                        selectedOption = 3;
+                        img = holder.img3;
+
+                    } else if (view == holder.option4Layout) {
+                        selectedOption = 4;
+                        img = holder.img4;
+
+
+                    }
+                    questionslists.get(position).setUserSelecedAnswer(selectedOption);
+
+
+//
+                    if (selectedOption == answer){
+
+                        selectedOption(view, img);
+                    }else {
+                        selectedOption2(view,img);
+                    }
+
+
+
+
+
+
+                    holder.option1Layout.setEnabled(false);
+                    holder.option2Layout.setEnabled(false);
+                    holder.option3Layout.setEnabled(false);
+                    holder.option4Layout.setEnabled(false);
+
+
+                };
+
+                holder.option1Layout.setOnClickListener(optionClickListener);
+                holder.option2Layout.setOnClickListener(optionClickListener);
+                holder.option3Layout.setOnClickListener(optionClickListener);
+                holder.option4Layout.setOnClickListener(optionClickListener);
+
+
+
+
+
+
+//                 OnClickListeners for each option
+                /*
+                View.OnClickListener optionClickListener = view -> {
+                    holder.layoutExplain.setVisibility(View.VISIBLE);
                     showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
 
                     switch (view.getId()) {
                         case R.id.option1Layout:
                             holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
                             holder.img1.setImageResource(R.drawable.chack);
+
                             break;
                         case R.id.option2Layout:
                             holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
@@ -313,7 +454,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option3Layout.setOnClickListener(optionClickListener);
                 holder.option4Layout.setOnClickListener(optionClickListener);
 
+
+
+                 */
+
+
+
+
             }
+
+
 
         //for Exam Activity
 
@@ -418,6 +568,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }
+    private void selectedOption2(View selectedOptionLayout , ImageView selectedOptionIcon) {
+
+
+        selectedOptionIcon.setImageResource(R.drawable.cross);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+
+    }
+
 public void intent(){
 
     Intent intent = new Intent();
