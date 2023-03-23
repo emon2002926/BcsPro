@@ -126,10 +126,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     questionslists.add(questionList);
 
 
-
-
-
-
                     // Set the text of the options to their respective text views
                     holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
                     holder.option1TV.setText(convertToUTF8(option1));
@@ -279,12 +275,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                 questionslists.add(questionList);
 
-
-
-
-
-
-
                 if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                     // If the question has a selected option, highlight the corresponding option
                     if (answer == 1){
@@ -406,9 +396,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option2Layout.setOnClickListener(optionClickListener);
                 holder.option3Layout.setOnClickListener(optionClickListener);
                 holder.option4Layout.setOnClickListener(optionClickListener);
-
-
-
 
 
 
@@ -553,21 +540,18 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
-
-
-
     private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
 
-        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }
     private void selectedOption2(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
 
-        selectedOptionIcon.setImageResource(R.drawable.cross);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_close_24);
+        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
 
     }
 
