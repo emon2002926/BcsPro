@@ -73,8 +73,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         String BASE_URL = ApiKeys.API_URL_BASE;
 
 
-
-
         holder.option1Layout.setBackgroundResource(0);
         holder.img1.setImageResource(R.drawable.round_back_white50_100);
         holder.option2Layout.setBackgroundResource(0);
@@ -376,12 +374,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     } else if (view == holder.option3Layout) {
                         selectedOption = 3;
                         img = holder.img3;
-
                     } else if (view == holder.option4Layout) {
                         selectedOption = 4;
                         img = holder.img4;
-
-
                     }
                     questionslists.get(position).setUserSelecedAnswer(selectedOption);
 

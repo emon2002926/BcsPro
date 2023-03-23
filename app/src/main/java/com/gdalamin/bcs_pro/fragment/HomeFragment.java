@@ -81,8 +81,8 @@ public class HomeFragment extends Fragment {
 
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+
+    SwipeRefreshLayout swipeRefreshLayout;
     ImageView imageView1,imageView2,imageView3;
 
 
@@ -321,7 +321,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
         CvQuestionBank.setOnClickListener(view15 -> {
 
@@ -334,6 +333,15 @@ public class HomeFragment extends Fragment {
             startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
 
 
+        });
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                processdata();
+            }
         });
 
         processdata();
@@ -355,6 +363,7 @@ public class HomeFragment extends Fragment {
 
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
 
                 recyclerView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();

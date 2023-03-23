@@ -2,8 +2,8 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="350dp"
+    android:layout_height="wrap_content">
 
     <!-- Your views go here -->
 
@@ -11,15 +11,12 @@
 
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@color/white"
 
                 >
-
-
-
 
 
                 <RelativeLayout
@@ -29,26 +26,24 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="4dp"
                     android:id="@+id/r2"
-                    android:layout_marginBottom="4dp">
+                    android:layout_marginBottom="15dp">
 
 
 
                     <LinearLayout
                         android:id="@+id/l2"
                         android:layout_width="fill_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
+                            android:layout_width="250dp"
                             android:layout_height="fill_parent"
                             android:layout_marginEnd="60dp"
                             android:elevation="4dp"
                             app:cardCornerRadius="10dp"
-                            android:layout_weight="1"
                             >
 
                             <TextView
@@ -69,12 +64,11 @@
 
                     <LinearLayout
                         android:id="@+id/l3"
-                        android:layout_width="fill_parent"
+                        android:layout_width="350dp"
                         android:layout_height="40dp"
                         android:layout_below="@id/l2"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
