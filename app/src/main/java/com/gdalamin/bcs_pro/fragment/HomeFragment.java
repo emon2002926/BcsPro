@@ -6,23 +6,21 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,11 +35,10 @@ import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
-
+import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
-import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -396,7 +393,7 @@ public class HomeFragment extends Fragment {
 
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
-        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }

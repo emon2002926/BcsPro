@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="10dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginEnd="20dp"
     android:layout_marginStart="10dp"
+    android:layout_marginBottom="10dp"
     android:id="@+id/layoutLecture"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#e3eeff"
+
             >
 
             <LinearLayout

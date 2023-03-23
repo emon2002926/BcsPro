@@ -1,8 +1,10 @@
 package com.gdalamin.bcs_pro.modelClass;
 
+import androidx.annotation.Keep;
+
 import java.io.Serializable;
 
-public class QuestionList implements Serializable {
+@Keep public class QuestionList implements Serializable {
 
     private final String question, option1, option2, option3, option4 ;
     private final int answer;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#eceff1"
+    android:background="@color/white"
     android:gravity="center"
     tools:context=".Activity.AllBcsQuestionActivity">
 
@@ -64,9 +64,6 @@
             android:orientation="vertical"
             >
 
-            <include layout="@layout/shimer_nots"/>
-            <include layout="@layout/shimer_nots"/>
-            <include layout="@layout/shimer_nots"/>
             <include layout="@layout/shimer_nots"/>
             <include layout="@layout/shimer_nots"/>
             <include layout="@layout/shimer_nots"/>

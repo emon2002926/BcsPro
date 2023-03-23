@@ -29,16 +29,11 @@ public class QuizResult extends AppCompatActivity {
 
     private List<QuestionList> questionLists = new ArrayList<>();
 
-
-
     static String score;
-    int answeredQuestions = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
-
-
 
 
         final TextView scoreTv = findViewById(R.id.scoreTv);

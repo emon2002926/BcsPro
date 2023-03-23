@@ -1,31 +1,26 @@
 package com.gdalamin.bcs_pro.Activity;
 
 
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
-import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
-import com.gdalamin.bcs_pro.modelClass.model;
-import  com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
+import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,7 +30,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
-    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

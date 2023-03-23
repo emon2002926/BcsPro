@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class modelForExam {
+import androidx.annotation.Keep;
+
+@Keep public class modelForExam {
 
     String dailyExam,details;
     int totalQc;

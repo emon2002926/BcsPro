@@ -53,6 +53,7 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/homeLayout"
                     android:visibility="visible"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
 
                     <RelativeLayout
@@ -60,6 +61,7 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:background="@color/white"
+
                         >
 
 
@@ -280,7 +282,6 @@
                                     android:layout_height="100dp"
                                     android:layout_weight="0.8"
                                     android:layout_margin="5dp"
-
                                     android:src="@drawable/subject_exam"
                                     android:scaleType="fitXY"/>
 
@@ -488,6 +489,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
                             android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
                             app:cardCornerRadius="8dp"
                             android:id="@+id/l7">
 

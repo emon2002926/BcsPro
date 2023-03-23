@@ -457,20 +457,20 @@ public class McqTestActivity extends AppCompatActivity {
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
         restOption();
-        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }
 
     private void selectedWrongOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
-        selectedOptionIcon.setImageResource(R.drawable.cross);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
 
     }
 
     private void selectedRightOption(RelativeLayout selectedOptionLayout,ImageView selectedOptionIcon){
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_green50_10);
-        selectedOptionIcon.setImageResource(R.drawable.chack);
+        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
 
     }
 

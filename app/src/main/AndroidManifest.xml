@@ -20,9 +20,6 @@
             android:name=".Activity.ActivityAllCourse"
             android:exported="false" />
         <activity
-            android:name=".Activity.ActivityTestResult"
-            android:exported="false" />
-        <activity
             android:name=".Activity.ActivityExam"
             android:exported="false" />
         <activity

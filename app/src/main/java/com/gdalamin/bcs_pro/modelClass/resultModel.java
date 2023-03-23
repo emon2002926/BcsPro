@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class resultModel
+import androidx.annotation.Keep;
+
+@Keep public class resultModel
 {
    String total,correct,wrong,mark ,date;
 

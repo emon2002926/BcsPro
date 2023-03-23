@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class ModelForLectureAndAllQuestion {
+import androidx.annotation.Keep;
+
+@Keep public class ModelForLectureAndAllQuestion {
 
     String lectureDetails,pdfLink,pdfDate,course,text,subjects,subjectCode;
 
