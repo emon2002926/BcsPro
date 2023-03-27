@@ -32,10 +32,12 @@ public class QuizResult extends AppCompatActivity {
         final AppCompatButton reTakeBtn = findViewById(R.id.reTakeQuizBtn);
 
         reTakeBtn.setOnClickListener(view -> {
-            finish();
+
             startActivity(new Intent(QuizResult.this,MainActivity.class));
+            finish();
 
         });
+
 
 
         questionLists = (List<QuestionList>) getIntent().getSerializableExtra("qutions");

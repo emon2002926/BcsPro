@@ -2,7 +2,7 @@ package com.gdalamin.bcs_pro.modelClass;
 
 import androidx.annotation.Keep;
 
- @Keep public class model
+@Keep public class model
 {
    String id, question, option1, option2,option3,option4,text,answer,explanation,image,
            option1Image,option2Image,option3Image,option4Image,explanationImage;

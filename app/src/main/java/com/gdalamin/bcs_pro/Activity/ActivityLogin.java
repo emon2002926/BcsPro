@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -295,13 +296,13 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
- void signInWithGoogle() {
+ @Keep void signInWithGoogle() {
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Keep  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
