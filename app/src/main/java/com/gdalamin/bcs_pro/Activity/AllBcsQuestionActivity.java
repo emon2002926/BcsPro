@@ -1,15 +1,14 @@
 package com.gdalamin.bcs_pro.Activity;
-
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,6 +30,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
 
+    TextView titleTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,31 +47,25 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-
+        titleTv = findViewById(R.id.titleTv);
 
 
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(imageBackButton.getContext());
         int OPENING_LOGIC = preferencesManager.getInt("logic");
 
 
-
+        Intent intent = getIntent();
+        String titleText=intent.getStringExtra("titleText");
+        titleTv.setText(titleText);
+        Log.d("titleText",titleText);
 
         if (OPENING_LOGIC ==1){
-
             //thats will open  older BCS Question
            String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=7";
-
-
             processdata(API_URL);
-
-
         } else if (OPENING_LOGIC ==2) {
-
-
             //thats will open  subject based Exam
-
             String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=8";
-
             processdata(API_URL);
         }
 

@@ -3,8 +3,6 @@ package com.gdalamin.bcs_pro.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,19 +80,12 @@ public class HomeFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView imageView1,imageView2,imageView3;
 
+    String titleText;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -121,7 +112,6 @@ public class HomeFragment extends Fragment {
 
 
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(getActivity());
-
         preferencesManager.remove("examQuestionNum");
 
 
@@ -131,14 +121,11 @@ public class HomeFragment extends Fragment {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
         if (account !=null){
-            String name = account.getDisplayName();
             String email = account.getEmail();
             SharedPreferences sharedPreferences1= getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences1.edit();
             editor.putString("key_phone", email);
             editor.commit();
-
-
         }
 
 
@@ -173,7 +160,6 @@ public class HomeFragment extends Fragment {
 
         //For quiz activity
         recyclerView = view.findViewById(R.id.recview2);
-
         CvQuizLayout = view.findViewById(R.id.l7);
         CvQuizLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,22 +173,18 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
         CvImportantQuestion.setOnClickListener(view12 -> {
 
-
-
             int subCode = 5;
-
             int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
             preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
             preferencesManager.saveInt("subCode",subCode);
 
             Intent intent = new Intent(getActivity(), QuestionListActivity.class);
-            //need to add important question php api to this link
+
+            titleText = "Important Question";
+            intent.putExtra("titleText",titleText);
 
             view12.getContext().startActivity(intent);
         });
@@ -218,7 +200,10 @@ public class HomeFragment extends Fragment {
          When an option is selected, the selectedOption method is called to update the UI, and the number of questions for the exam is set accordingly.
          When the user clicks the "Start Exam" button, an Intent is created to start the ActivityExam activity, with the number of questions passed as an extra.
          The selected number of questions is also saved in SharedPreferences, and the BottomSheetDialog is dismissed.
-         If the user clicks the "Cancel" button, the BottomSheetDialog is dismissed without starting the exam. */
+         If the user clicks the "Cancel" button, the BottomSheetDialog is dismissed without starting the exam.
+
+      */
+
         tvAllExam = view.findViewById(R.id.tvAllExam);
         tvAllExam.setOnClickListener(view14 -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
@@ -266,12 +251,12 @@ public class HomeFragment extends Fragment {
 
 
                     Intent intent = new Intent(view1.getContext(), ActivityExam.class);
-                    intent.putExtra("UserSelectedOption", "Overall exam");
+                    titleText = "Overall Exam";
+                    intent.putExtra("titleText",titleText);
                     view1.getContext().startActivity(intent);
 
                     preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-
 
                     bottomSheetDialog.dismiss();
                 } else {
@@ -286,21 +271,20 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
         subjectBasedExam =view.findViewById(R.id.subject_based_exam);
         subjectBasedExam.setOnClickListener(view1 -> {
 
             int LOGIC = 2;
             int subCode = 2;
+            titleText = "Subject Based Exam";
 
             preferencesManager.saveInt("logic",LOGIC);
-
-//            editor.putInt("subCode", subCode);
             preferencesManager.saveInt("subCode",subCode);
 
 
-            startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
+            Intent intent = new Intent(getContext(),AllBcsQuestionActivity.class);
+            intent.putExtra("titleText",titleText);
+            startActivity(intent);
 
         });
         tvPractice = view.findViewById(R.id.tvPractice);
@@ -308,11 +292,14 @@ public class HomeFragment extends Fragment {
 
             int subCode = 3;
             int LOGIC = 2;
+            titleText = "Practise Subject Based Question";
 
             preferencesManager.saveInt("subCode",subCode);
             preferencesManager.saveInt("logic",LOGIC);
 
+
             Intent intent = new Intent(view13.getContext(), AllBcsQuestionActivity.class);
+            intent.putExtra("titleText",titleText);
             view13.getContext().startActivity(intent);
 
         });
@@ -322,13 +309,12 @@ public class HomeFragment extends Fragment {
         CvQuestionBank.setOnClickListener(view15 -> {
 
             int LOGIC = 1;
+            titleText = "Question Bank";
 
             preferencesManager.saveInt("logic",LOGIC);
-
-//            editor.putInt("logic", LOGIC);
-//            editor.commit();
-            startActivity(new Intent(getContext(), AllBcsQuestionActivity.class));
-
+            Intent intent = new Intent(getContext(), AllBcsQuestionActivity.class);
+            intent.putExtra("titleText",titleText);
+            startActivity(intent);
 
         });
 
@@ -397,14 +383,4 @@ public class HomeFragment extends Fragment {
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
 
     }
-    public boolean isInternetAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-
-
-
-
 }

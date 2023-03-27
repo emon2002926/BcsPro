@@ -1,18 +1,11 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,27 +27,19 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
-import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
-import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
@@ -90,7 +79,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-        String title = getIntent().getStringExtra("UserSelectedOption");
+        String title = getIntent().getStringExtra("titleText");
 
         textView.setText(title);
 

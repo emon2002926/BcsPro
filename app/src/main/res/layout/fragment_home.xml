@@ -251,7 +251,7 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Subject-based exam"
+                                            android:text="Subject-Based Exam"
                                             android:textSize="20sp"
                                             android:paddingTop="10dp"
                                             android:paddingBottom="10dp"

@@ -1,14 +1,9 @@
 package com.gdalamin.bcs_pro.adapter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,8 +24,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public myadapter2(modelForExam[] data2) {
         this.data = data2;
     }
-
-
 
 
     @NonNull
@@ -70,7 +63,9 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
             preferencesManager.saveInt("examQuestionNum",data[position].getTotalQc());
             preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
 
+
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
+            intent.putExtra("titleText","Daily Model Test");
             view.getContext().startActivity(intent);
 
         });
