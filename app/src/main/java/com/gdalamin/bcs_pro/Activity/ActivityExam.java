@@ -91,8 +91,6 @@ public class ActivityExam extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
-
-//        NUM_OF_QUESTION = sharedPreferences.getInt("examQuestionNum", 0);
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
 
@@ -316,22 +314,18 @@ public class ActivityExam extends AppCompatActivity {
 
                 // Get the correct answer for the current question
                 int getQuestionAnswer = question.getAnswer();
-
                 // Get the answer selected by the user for the current question
                 int getUserSelectedOption = question.getUserSelecedAnswer();
                 // If the user has selected an answer, increment the answeredQuestions counter
                 if (getUserSelectedOption != 0) {
                     answeredQuestions++;
                 }
-
                 // If the user's selected answer is the same as the correct answer, increment the correct counter
                 if (getQuestionAnswer == getUserSelectedOption) {
                     correct++;
                 }
-
                 if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
                 {
-
                     wrong++;
                 }
 
@@ -353,8 +347,6 @@ public class ActivityExam extends AppCompatActivity {
             saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,examDateTime);
 
             sharedPreferences.edit().clear().apply();
-
-
         }
 
 
