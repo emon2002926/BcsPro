@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -302,14 +303,13 @@ public class ActivityExam extends AppCompatActivity {
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
 
-
+/*
+        Old Code
         if (questionLists !=null){
 
             int answeredQuestions = 0;
             int correct = 0;
             int wrong = 0;
-
-
             for (QuestionList question : questionLists) {
 
                 // Get the correct answer for the current question
@@ -349,6 +349,77 @@ public class ActivityExam extends AppCompatActivity {
             sharedPreferences.edit().clear().apply();
         }
 
+
+*/
+
+
+        if (questionLists != null) {
+            int totalQuestion = questionLists.size();
+            int startIndex = 0;
+            int[] sectionSize = {10, 5, 20, 15};
+
+            // Variables for overall exam result
+            int totalAnswered = 0;
+            int totalCorrect = 0;
+            int totalWrong = 0;
+            double totalMarks = 0;
+
+            for (int i = 0; i < sectionSize.length; i++) {
+                int endIndex = Math.min(startIndex + sectionSize[i], questionLists.size());
+                List<QuestionList> sectionQuestions = questionLists.subList(startIndex, endIndex);
+
+                // Calculate marks for this section
+                int answeredQuestions = 0;
+                int correct = 0;
+                int wrong = 0;
+                for (QuestionList question : sectionQuestions) {
+                    // Get the correct answer for the current question
+                    int getQuestionAnswer = question.getAnswer();
+                    // Get the answer selected by the user for the current question
+                    int getUserSelectedOption = question.getUserSelecedAnswer();
+                    // If the user has selected an answer, increment the answeredQuestions counter
+                    if (getUserSelectedOption != 0) {
+                        answeredQuestions++;
+                        totalAnswered++;
+                    }
+                    // If the user's selected answer is the same as the correct answer, increment the correct counter
+                    if (getQuestionAnswer == getUserSelectedOption) {
+                        correct++;
+                        totalCorrect++;
+                    }
+                    if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
+                        wrong++;
+                        totalWrong++;
+                    }
+                }
+                double cutMarks = (double) wrong / 2;
+                double mark = (double) correct - cutMarks;
+                totalMarks += mark;
+
+                String answered = String.valueOf(answeredQuestions);
+                String correctAnswer = String.valueOf(correct);
+                String wrongAnswer = String.valueOf(wrong);
+                String totalMark = String.valueOf(mark);
+
+                Log.d("sectionResult", "section " + (i + 1) + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+
+                // Move the start index to the end of this section
+                startIndex = endIndex;
+            }
+
+            // Calculate overall exam result
+            double overallCutMarks = (double) totalWrong / 2;
+            double overallMark = (double) totalCorrect - overallCutMarks;
+            String overallAnswered = String.valueOf(totalAnswered);
+            String overallCorrectAnswer = String.valueOf(totalCorrect);
+            String overallWrongAnswer = String.valueOf(totalWrong);
+            String overallTotalMark = String.valueOf(overallMark);
+            Log.d("overallResult", "answered " + overallAnswered + " questions and got " + overallCorrectAnswer + " correct, "
+                    + overallWrongAnswer + " wrong, and total mark " + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
+
+            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
+            sharedPreferences.edit().clear().apply();
+        }
 
 
     }
