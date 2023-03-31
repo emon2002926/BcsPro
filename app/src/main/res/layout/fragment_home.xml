@@ -342,6 +342,7 @@
                                         android:text="@string/overall_exams"
                                         android:id="@+id/tvAllExam"
                                         android:textColor="@color/black"
+                                        android:padding="10dp"
                                         android:textSize="17sp"
 
                                         />
@@ -365,6 +366,7 @@
                                         android:text="Question Bank"
                                         android:textColor="@color/black"
                                         android:textSize="17sp"
+                                        android:padding="10dp"
 
                                         />
 
@@ -404,6 +406,7 @@
                                         android:id="@+id/tvPractice"
                                         android:textColor="@color/black"
                                         android:textSize="17sp"
+                                        android:padding="10dp"
 
                                         />
 
@@ -430,6 +433,7 @@
                                         android:gravity="center"
                                         android:text="Important Question"
                                         android:textColor="@color/black"
+                                        android:padding="10dp"
                                         android:textSize="17sp" />
 
                                 </androidx.cardview.widget.CardView>

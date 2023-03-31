@@ -414,8 +414,12 @@ public class ActivityExam extends AppCompatActivity {
             String overallCorrectAnswer = String.valueOf(totalCorrect);
             String overallWrongAnswer = String.valueOf(totalWrong);
             String overallTotalMark = String.valueOf(overallMark);
-            Log.d("overallResult", "answered " + overallAnswered + " questions and got " + overallCorrectAnswer + " correct, "
-                    + overallWrongAnswer + " wrong, and total mark " + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
+
+
+            Log.d("overallResult", "answered " + overallAnswered + " questions and got "
+                    + overallCorrectAnswer + " correct, "
+                    + overallWrongAnswer + " wrong, and total mark "
+                    + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
 
             saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
             sharedPreferences.edit().clear().apply();
