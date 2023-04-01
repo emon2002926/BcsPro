@@ -303,7 +303,7 @@ public class ActivityExam extends AppCompatActivity {
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
 
-/*
+        /*
         Old Code
         if (questionLists !=null){
 
@@ -353,6 +353,7 @@ public class ActivityExam extends AppCompatActivity {
 */
 
 
+
         if (questionLists != null) {
             int totalQuestion = questionLists.size();
             int startIndex = 0;
@@ -400,10 +401,18 @@ public class ActivityExam extends AppCompatActivity {
                 String correctAnswer = String.valueOf(correct);
                 String wrongAnswer = String.valueOf(wrong);
                 String totalMark = String.valueOf(mark);
+                if (i==0){
+                    Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                } else if (i==1) {
+                    Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                } else if (i==2) {
+                    Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                } else if (i==3) {
+                    Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
 
-                Log.d("sectionResult", "section " + (i + 1) + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+//                Log.d("sectionResult", "section " + (i + 1) + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
 
-                // Move the start index to the end of this section
                 startIndex = endIndex;
             }
 
@@ -439,9 +448,12 @@ public class ActivityExam extends AppCompatActivity {
 
                 Toast.makeText(ActivityExam.this,"Result saved",Toast.LENGTH_SHORT).show();
 
-                Intent intent1 = new Intent(ActivityExam.this, MainActivity.class);
-                startActivity(intent1);
-                finish();
+
+
+
+//                Intent intent1 = new Intent(ActivityExam.this, MainActivity.class);
+//                startActivity(intent1);
+//                finish();
 
             }
         }, new Response.ErrorListener() {

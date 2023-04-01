@@ -155,7 +155,7 @@
                                     android:text="Show All"
                                     android:textColor="@color/blue"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:id="@+id/showAllCourse"
                                     android:layout_marginEnd="20dp"
 
@@ -252,7 +252,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Subject-Based Exam"
-                                            android:textSize="20sp"
+                                            android:textSize="18sp"
                                             android:paddingTop="10dp"
                                             android:paddingBottom="10dp"
                                             android:textColor="@color/blue"/>
@@ -273,7 +273,7 @@
                                         android:paddingStart="10dp"
                                         android:paddingBottom="5dp"
                                         android:text="Give an unlimited subject-based exam. Set your own time and number!"
-                                        android:textSize="15sp"/>
+                                        android:textSize="14sp"/>
 
                                 </LinearLayout>
 
@@ -343,7 +343,7 @@
                                         android:id="@+id/tvAllExam"
                                         android:textColor="@color/black"
                                         android:padding="10dp"
-                                        android:textSize="17sp"
+                                        android:textSize="14sp"
 
                                         />
                                 </androidx.cardview.widget.CardView>
@@ -365,7 +365,7 @@
                                         android:gravity="center"
                                         android:text="Question Bank"
                                         android:textColor="@color/black"
-                                        android:textSize="17sp"
+                                        android:textSize="14sp"
                                         android:padding="10dp"
 
                                         />
@@ -405,7 +405,7 @@
                                         android:text="Practice"
                                         android:id="@+id/tvPractice"
                                         android:textColor="@color/black"
-                                        android:textSize="17sp"
+                                        android:textSize="14sp"
                                         android:padding="10dp"
 
                                         />
@@ -434,7 +434,7 @@
                                         android:text="Important Question"
                                         android:textColor="@color/black"
                                         android:padding="10dp"
-                                        android:textSize="17sp" />
+                                        android:textSize="14sp" />
 
                                 </androidx.cardview.widget.CardView>
 
@@ -469,13 +469,13 @@
                                     android:text="Lecture and Notes"
                                     android:layout_weight="1"
                                     android:textColor="#0095ff"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_gravity="center"
                                     />
 
                                 <ImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_gravity="end"
                                     android:src="@drawable/ic_baseline_arrow_forward_24"
                                     />
@@ -518,6 +518,7 @@
                                         android:id="@+id/l5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="40dp"
+                                        android:padding="10dp"
                                         android:layout_marginTop="10dp"
                                         android:orientation="horizontal">
 
@@ -530,7 +531,7 @@
                                             android:gravity="fill"
                                             android:text=" Quiz Quiz"
                                             android:textColor="#0095ff"
-                                            android:textSize="22sp" />
+                                            android:textSize="18sp" />
 
                                     </LinearLayout>
 
@@ -551,7 +552,7 @@
                                             android:gravity="center"
                                             android:text="Easy and fun way to Learn "
                                             android:textColor="@color/black"
-                                            android:textSize="17sp"
+                                            android:textSize="14sp"
                                             android:layout_marginStart="5dp"
                                             android:padding="4dp"
 

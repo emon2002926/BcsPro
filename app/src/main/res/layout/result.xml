@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="30dp"
@@ -10,24 +11,18 @@
     android:background="#C1BEBE"
     android:layout_height="wrap_content">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-
         >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="5"
-
             >
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -35,10 +30,8 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"
                 android:paddingStart="10dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_weight="2.4"
-
-
                 />
             <TextView
                 android:layout_width="0dp"
@@ -46,18 +39,13 @@
                 android:text="Date: 11-02-2023"
                 android:textColor="@color/blue"
                 android:layout_marginBottom="5dp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:gravity="end"
                 android:maxLines="1"
                 android:paddingEnd="10dp"
                 android:layout_weight="2.6"
                 android:id="@+id/tvDate"
-
-
                 />
-
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Total"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:gravity="center"
                 />
@@ -90,7 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.2"
                 android:text="Correct"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textColor="@color/liteGreen"
                 android:gravity="center"
                 />
@@ -99,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".8"
                 android:text="wrong"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:textColor="@color/liteRed"
                 />
@@ -108,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Marks"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:gravity="center"
                 android:textColor="@color/liteBlue"
                 />
@@ -133,7 +121,7 @@
                 android:text="Result"
                 android:paddingStart="10dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:gravity="center_vertical"
                 />
             <TextView
