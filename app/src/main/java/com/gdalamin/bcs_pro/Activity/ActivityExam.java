@@ -144,6 +144,8 @@ public class ActivityExam extends AppCompatActivity {
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
                 time = 100;
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
+
+
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
                 time = 50;
@@ -251,6 +253,8 @@ public class ActivityExam extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthName = new DateFormatSymbols().getMonths()[month];
+        preferencesManager = new SharedPreferencesManager(this);
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
@@ -267,18 +271,66 @@ public class ActivityExam extends AppCompatActivity {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.test_result, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
+        TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
+        TextView correctTv = bottomSheetView.findViewById(R.id.correctTv);
+        TextView wrongTv = bottomSheetView.findViewById(R.id.wrongTv);
+        TextView marksTv = bottomSheetView.findViewById(R.id.marksTv);
 
-        preferencesManager = new SharedPreferencesManager(this);
+        TextView totalTVIA = bottomSheetView.findViewById(R.id.totalTvIA);
+        TextView correctTvIA = bottomSheetView.findViewById(R.id.correctTvIA);
+        TextView wrongTvIA = bottomSheetView.findViewById(R.id.wrongTvIA);
+        TextView marksTvIA = bottomSheetView.findViewById(R.id.marksTvIA);
 
-        int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
+        TextView totalTVBA = bottomSheetView.findViewById(R.id.totalTvBA);
+        TextView correctTvBA = bottomSheetView.findViewById(R.id.correctTvBA);
+        TextView wrongTvBA = bottomSheetView.findViewById(R.id.wrongTvBA);
+        TextView marksTvBA = bottomSheetView.findViewById(R.id.marksTvBA);
+
+        TextView totalTVB = bottomSheetView.findViewById(R.id.totalTvB);
+        TextView correctTvB = bottomSheetView.findViewById(R.id.correctTvB);
+        TextView wrongTvB = bottomSheetView.findViewById(R.id.wrongTvB);
+        TextView marksTvB = bottomSheetView.findViewById(R.id.marksTvB);
+
+        TextView totalTVMAV = bottomSheetView.findViewById(R.id.totalTvMAV);
+        TextView correctTvMAV = bottomSheetView.findViewById(R.id.correctTvMAV);
+        TextView wrongTvMAV = bottomSheetView.findViewById(R.id.wrongTvMAV);
+        TextView marksTvMAV = bottomSheetView.findViewById(R.id.marksTvMAV);
+
+        TextView totalTVG = bottomSheetView.findViewById(R.id.totalTvG);
+        TextView correctTvG = bottomSheetView.findViewById(R.id.correctTvG);
+        TextView wrongTvG = bottomSheetView.findViewById(R.id.wrongTvG);
+        TextView marksTvG = bottomSheetView.findViewById(R.id.marksTvG);
+
+        TextView totalTVML = bottomSheetView.findViewById(R.id.totalTvML);
+        TextView correctTvML = bottomSheetView.findViewById(R.id.correctTvML);
+        TextView wrongTvML = bottomSheetView.findViewById(R.id.wrongTvML);
+        TextView marksTvML = bottomSheetView.findViewById(R.id.marksTvML);
+
+        TextView totalTVEL = bottomSheetView.findViewById(R.id.totalTvEL);
+        TextView correctTvEL = bottomSheetView.findViewById(R.id.correctTvEL);
+        TextView wrongTvEL = bottomSheetView.findViewById(R.id.wrongTvEL);
+        TextView marksTvEL = bottomSheetView.findViewById(R.id.marksTvEL);
+
+        TextView totalTVMS = bottomSheetView.findViewById(R.id.totalTvMS);
+        TextView correctTvMS = bottomSheetView.findViewById(R.id.correctTvMS);
+        TextView wrongTvMS = bottomSheetView.findViewById(R.id.wrongTvMS);
+        TextView marksTvMS = bottomSheetView.findViewById(R.id.marksTvMS);
+
+        TextView totalTVGS = bottomSheetView.findViewById(R.id.totalTvGS);
+        TextView correctTvGS = bottomSheetView.findViewById(R.id.correctTvGS);
+        TextView wrongTvGS = bottomSheetView.findViewById(R.id.wrongTvGS);
+        TextView marksTvGS = bottomSheetView.findViewById(R.id.marksTvGS);
+
+        TextView totalTVICT = bottomSheetView.findViewById(R.id.totalTvICT);
+        TextView correctTvICT = bottomSheetView.findViewById(R.id.correctTvICT);
+        TextView wrongTvICT = bottomSheetView.findViewById(R.id.wrongTvICT);
+        TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
+
+
 
         if (questionLists != null) {
             int totalQuestion = questionLists.size();
             int startIndex = 0;
-
-
-            ////////////////////////////////
-
 
 
             int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
@@ -324,9 +376,13 @@ public class ActivityExam extends AppCompatActivity {
                 String correctAnswer = String.valueOf(correct);
                 String wrongAnswer = String.valueOf(wrong);
                 String totalMark = String.valueOf(mark);
+
+
                 if (i==0){
+                    setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,"20",correctAnswer,wrongAnswer,totalMark);
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 } else if (i==1) {
+                    //Todo Continue from hare
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 } else if (i==2) {
                     Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
@@ -429,7 +485,6 @@ public class ActivityExam extends AppCompatActivity {
     public void showSubmissionOption (String answered){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-
         View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                 .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
@@ -451,7 +506,6 @@ public class ActivityExam extends AppCompatActivity {
             //added for testing
 
             startActivity(new Intent(ActivityExam.this,MainActivity.class));
-
             bottomSheetDialog.dismiss();
         });
     }
@@ -465,14 +519,25 @@ public class ActivityExam extends AppCompatActivity {
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
                 sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
-                sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
+                sectionSize = new int[]{10, 15, 18, 5, 5, 7, 17, 8, 7, 8};
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
-                sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
+                sectionSize = new int[]{5, 7, 9, 3, 3, 4, 8, 4, 3, 4};
             }
         }
 
         return sectionSize;
     }
+
+    public  void setResultIntoTextView(TextView totalTV,TextView correctTV,TextView wrongTV,TextView marksTV ,String total,
+                                       String correct,String wrong,String marks){
+        totalTV.setText(total);
+        correctTV.setText(correct);
+        wrongTV.setText(wrong);
+        marksTV.setText(marks);
+
+    }
+
+
 
 
 
