@@ -66,6 +66,7 @@ public class ActivityExam extends AppCompatActivity {
     ShimmerFrameLayout shimmerFrameLayout;
 
 
+    SharedPreferencesManager preferencesManager;
 
 
     @Override
@@ -92,7 +93,7 @@ public class ActivityExam extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
-        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
+        preferencesManager = new SharedPreferencesManager(this);
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
 
 
@@ -139,10 +140,12 @@ public class ActivityExam extends AppCompatActivity {
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
                 time = 200;
                 questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
-            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
+            }
+            else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
                 time = 100;
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
-            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
+            }
+            else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
                 time = 50;
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
@@ -154,8 +157,8 @@ public class ActivityExam extends AppCompatActivity {
 
                 questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
-            } else {
-
+            }
+            else {
 
                 return;
            }
@@ -164,16 +167,8 @@ public class ActivityExam extends AppCompatActivity {
             showMcq.processdata( url+questionType);
             Log.d("questionUrl",url+questionType);
 
-        }else {
-
         }
-
-
-
     }
-
-
-
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -185,15 +180,11 @@ public class ActivityExam extends AppCompatActivity {
 
                 // Get the total number of questions from the intent
 
-
-
                 // Set a click listener for the floating action button
                 floatingActionButton.setOnClickListener(view -> {
                     // Initialize counters for answered questions, correct answers, and wrong answers
 
-
                     int answeredQuestions = 0;
-
 
                     for (QuestionList question : questionLists) {
                         int getUserSelectedOption = question.getUserSelecedAnswer();
@@ -237,7 +228,6 @@ public class ActivityExam extends AppCompatActivity {
 
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
-
             finishExam();
 
         });
@@ -273,79 +263,33 @@ public class ActivityExam extends AppCompatActivity {
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
 
-        /*
-        Old Code
-        if (questionLists !=null){
-
-            int answeredQuestions = 0;
-            int correct = 0;
-            int wrong = 0;
-            for (QuestionList question : questionLists) {
-
-                // Get the correct answer for the current question
-                int getQuestionAnswer = question.getAnswer();
-                // Get the answer selected by the user for the current question
-                int getUserSelectedOption = question.getUserSelecedAnswer();
-                // If the user has selected an answer, increment the answeredQuestions counter
-                if (getUserSelectedOption != 0) {
-                    answeredQuestions++;
-                }
-                // If the user's selected answer is the same as the correct answer, increment the correct counter
-                if (getQuestionAnswer == getUserSelectedOption) {
-                    correct++;
-                }
-                if (getUserSelectedOption !=0 && getQuestionAnswer!=getUserSelectedOption)
-                {
-                    wrong++;
-                }
-
-            }
-
-            /////
-            // Calculateing  the marks
-            double cutMarks = (double) wrong / 2;
-            double mark = (double) correct - cutMarks;
-
-            String answered = String.valueOf(answeredQuestions);
-            String correctAnswer = String.valueOf(correct);
-            String wrongAnswer = String.valueOf(wrong);
-            String totalMark = String.valueOf(mark);
-
-            Log.d("totalQuestion", "answered " + answered + " question of " + totalQuestion + " and the correctAnswer is " + correctAnswer
-                    + " and user id is" + userId + " and wrong answer is " + wrongAnswer + " your mark is " + totalMark);
-
-            saveResult(totalQuestion, correctAnswer, wrongAnswer, totalMark, userId,examDateTime);
-
-            sharedPreferences.edit().clear().apply();
-        }
-
-
-*/
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.test_result, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
 
+        preferencesManager = new SharedPreferencesManager(this);
 
-
-
-
-
-
+        int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
         if (questionLists != null) {
             int totalQuestion = questionLists.size();
             int startIndex = 0;
-            int[] sectionSize = {20,30,35,10,10,15,35,15,15,15};
 
+
+            ////////////////////////////////
+
+
+
+            int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
             // Variables for overall exam result
             int totalAnswered = 0;
             int totalCorrect = 0;
             int totalWrong = 0;
             double totalMarks = 0;
 
-            for (int i = 0; i < sectionSize.length; i++) {
-                int endIndex = Math.min(startIndex + sectionSize[i], questionLists.size());
+            for (int i = 0; i < sectionSizeArray.length; i++) {
+                int endIndex = Math.min(startIndex + sectionSizeArray[i], questionLists.size());
                 List<QuestionList> sectionQuestions = questionLists.subList(startIndex, endIndex);
 
                 // Calculate marks for this section
@@ -389,6 +333,24 @@ public class ActivityExam extends AppCompatActivity {
                 } else if (i==3) {
                     Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
+                else if (i==4) {
+                    Log.d("sectionResult5", "section 5"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
+                else if (i==5) {
+                    Log.d("sectionResult6", "section 6"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
+                else if (i==6) {
+                    Log.d("sectionResult7", "section 7"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
+                else if (i==7) {
+                    Log.d("sectionResult8", "section 8"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
+                else if (i==8) {
+                    Log.d("sectionResult9", "section 9"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
+                else if (i==9) {
+                    Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
+                }
 
 //                Log.d("sectionResult", "section " + (i + 1) + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
 
@@ -412,7 +374,7 @@ public class ActivityExam extends AppCompatActivity {
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
 
-            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
+//            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
             sharedPreferences.edit().clear().apply();
 
         }
@@ -492,6 +454,24 @@ public class ActivityExam extends AppCompatActivity {
 
             bottomSheetDialog.dismiss();
         });
+    }
+
+    public int[] sectionSizeSelector(int LOGIC_FOR_ALL_SUBJECT_EXAM) {
+
+        int[] sectionSize = null;
+
+        if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
+
+            if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
+                sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
+            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
+                sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
+            } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
+                sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
+            }
+        }
+
+        return sectionSize;
     }
 
 
