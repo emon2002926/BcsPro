@@ -73,15 +73,12 @@ public class ActivityExam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
 
-
         recview=findViewById(R.id.recview);
         textView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
-
-
 
         String title = getIntent().getStringExtra("titleText");
 
@@ -189,8 +186,6 @@ public class ActivityExam extends AppCompatActivity {
                 // Get the total number of questions from the intent
 
 
-                 Log.d("timerw",String.valueOf(NUM_OF_QUESTION));
-
 
                 // Set a click listener for the floating action button
                 floatingActionButton.setOnClickListener(view -> {
@@ -207,29 +202,6 @@ public class ActivityExam extends AppCompatActivity {
                         }
                     }
                     String answered = String.valueOf(answeredQuestions);
-
-                    //  Show a bottom sheet dialog to allow the user to submit the answers
-//                     bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-//                    View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-//                            .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-//
-//
-//                    TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-//                    textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
-//
-//                    bottomSheetDialog.setContentView(bottomSheetView);
-//                    bottomSheetDialog.show();
-//
-//                    bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
-//
-//
-//                        finishExam();
-//
-//                    });
-//
-//                    bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-//                        bottomSheetDialog.dismiss();
-//                    });
                     showSubmissionOption(answered);
                 });
             }
@@ -354,7 +326,9 @@ public class ActivityExam extends AppCompatActivity {
         View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.test_result, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
 
-        bottomSheetDialog.setContentView(bottomSheetView);
+
+
+
 
 
 
@@ -362,7 +336,7 @@ public class ActivityExam extends AppCompatActivity {
         if (questionLists != null) {
             int totalQuestion = questionLists.size();
             int startIndex = 0;
-            int[] sectionSize = {10, 5, 20, 15};
+            int[] sectionSize = {20,30,35,10,10,15,35,15,15,15};
 
             // Variables for overall exam result
             int totalAnswered = 0;
@@ -435,8 +409,12 @@ public class ActivityExam extends AppCompatActivity {
                     + overallWrongAnswer + " wrong, and total mark "
                     + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
 
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
+
             saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
             sharedPreferences.edit().clear().apply();
+
         }
 
 
@@ -504,8 +482,7 @@ public class ActivityExam extends AppCompatActivity {
 
             finishExam();
             bottomSheetDialog.dismiss();
-
-
+            
         });
 
         bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
@@ -516,20 +493,6 @@ public class ActivityExam extends AppCompatActivity {
             bottomSheetDialog.dismiss();
         });
     }
-    public void showResultSummery(){
-
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-
-        View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-                .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
-
-
-
-        bottomSheetDialog.setContentView(bottomSheetView);
-        bottomSheetDialog.show();
-    }
-
 
 
 
