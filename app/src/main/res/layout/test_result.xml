@@ -21,7 +21,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal"
-            android:background="#676565"/>
+            android:background="@drawable/view_bar"
+            />
 
 
         <LinearLayout
@@ -120,7 +121,6 @@
                     android:layout_weight="2"
                     android:text="Result"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -131,7 +131,6 @@
                     android:text=""
                     android:id="@+id/totalTv"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -141,7 +140,6 @@
                     android:text=""
                     android:id="@+id/correctTv"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -152,7 +150,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTv"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -162,7 +159,6 @@
                     android:id="@+id/marksTv"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -189,7 +185,6 @@
                     android:layout_weight="2"
                     android:text="International Affairs"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -200,7 +195,6 @@
                     android:text=""
                     android:id="@+id/totalTvIA"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -210,7 +204,6 @@
                     android:text=""
                     android:id="@+id/correctTvIA"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -221,7 +214,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvIA"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -231,7 +223,6 @@
                     android:id="@+id/marksTvIA"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -255,7 +246,6 @@
                     android:layout_weight="2"
                     android:text="Bangladesh Affairs"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -266,7 +256,6 @@
                     android:text=""
                     android:id="@+id/totalTvBA"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -276,7 +265,6 @@
                     android:text=""
                     android:id="@+id/correctTvBA"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -287,7 +275,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvBA"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -297,7 +284,6 @@
                     android:id="@+id/marksTvBA"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -321,7 +307,6 @@
                     android:layout_weight="2"
                     android:text="Bangla"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -332,7 +317,6 @@
                     android:text=""
                     android:id="@+id/totalTvB"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -342,7 +326,6 @@
                     android:text=""
                     android:id="@+id/correctTvB"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -353,7 +336,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvB"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -363,7 +345,6 @@
                     android:id="@+id/marksTvB"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -389,7 +370,6 @@
                     android:layout_weight="2"
                     android:text="Morals, values and good governance"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -400,7 +380,6 @@
                     android:text=""
                     android:id="@+id/totalTvMAV"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -410,7 +389,6 @@
                     android:text=""
                     android:id="@+id/correctTvMAV"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -421,7 +399,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvMAV"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -431,7 +408,6 @@
                     android:id="@+id/marksTvMAV"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -455,7 +431,6 @@
                     android:layout_weight="2"
                     android:text="Geography"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -466,7 +441,6 @@
                     android:text=""
                     android:id="@+id/totalTvG"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -476,7 +450,6 @@
                     android:text=""
                     android:id="@+id/correctTvG"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -487,7 +460,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvG"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -497,7 +469,6 @@
                     android:id="@+id/marksTvG"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -521,7 +492,6 @@
                     android:layout_weight="2"
                     android:text="Math"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -532,7 +502,6 @@
                     android:text=""
                     android:id="@+id/totalTvML"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -542,7 +511,6 @@
                     android:text=""
                     android:id="@+id/correctTvML"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -553,7 +521,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvML"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -563,7 +530,6 @@
                     android:id="@+id/marksTvML"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -588,7 +554,6 @@
                     android:layout_weight="2"
                     android:text="English"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -599,7 +564,6 @@
                     android:text=""
                     android:id="@+id/totalTvEL"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -609,7 +573,6 @@
                     android:text=""
                     android:id="@+id/correctTvEL"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -620,7 +583,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvEL"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -630,7 +592,6 @@
                     android:id="@+id/marksTvEL"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -654,7 +615,6 @@
                     android:layout_weight="2"
                     android:text="Mental skils"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -665,7 +625,6 @@
                     android:text=""
                     android:id="@+id/totalTvMS"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -675,7 +634,6 @@
                     android:text=""
                     android:id="@+id/correctTvMS"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -686,7 +644,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvMS"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -696,7 +653,6 @@
                     android:id="@+id/marksTvMS"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -721,7 +677,6 @@
                     android:layout_weight="2"
                     android:text="General science"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -732,7 +687,6 @@
                     android:text=""
                     android:id="@+id/totalTvGS"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -742,7 +696,6 @@
                     android:text=""
                     android:id="@+id/correctTvGS"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -753,7 +706,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvGS"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -763,7 +715,6 @@
                     android:id="@+id/marksTvGS"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -790,7 +741,6 @@
                     android:layout_weight="2"
                     android:text="Computer and Information Technology"
                     android:paddingStart="10dp"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -801,7 +751,6 @@
                     android:text=""
                     android:id="@+id/totalTvICT"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -811,7 +760,6 @@
                     android:text=""
                     android:id="@+id/correctTvICT"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     />
                 <TextView
@@ -822,7 +770,6 @@
                     android:textSize="18sp"
                     android:id="@+id/wrongTvICT"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -832,7 +779,6 @@
                     android:id="@+id/marksTvICT"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     />
 
             </LinearLayout>

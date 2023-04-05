@@ -334,6 +334,19 @@ public class ActivityExam extends AppCompatActivity {
 
 
             int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
+            String totalIA  = Integer.toString(sectionSizeArray[0]);
+            String totalBA  = Integer.toString(sectionSizeArray[1]);
+            String totalB  = Integer.toString(sectionSizeArray[2]);
+            String totalMAV  = Integer.toString(sectionSizeArray[3]);
+            String totalG  = Integer.toString(sectionSizeArray[4]);
+            String totalML  = Integer.toString(sectionSizeArray[5]);
+            String totalEL  = Integer.toString(sectionSizeArray[6]);
+            String totalMS  = Integer.toString(sectionSizeArray[7]);
+            String totalGS  = Integer.toString(sectionSizeArray[8]);
+            String totalICT  = Integer.toString(sectionSizeArray[9]);
+
+
+
             // Variables for overall exam result
             int totalAnswered = 0;
             int totalCorrect = 0;
@@ -349,7 +362,9 @@ public class ActivityExam extends AppCompatActivity {
                 int correct = 0;
                 int wrong = 0;
                 for (QuestionList question : sectionQuestions) {
+
                     // Get the correct answer for the current question
+
                     int getQuestionAnswer = question.getAnswer();
                     // Get the answer selected by the user for the current question
                     int getUserSelectedOption = question.getUserSelecedAnswer();
@@ -379,49 +394,54 @@ public class ActivityExam extends AppCompatActivity {
 
 
                 if (i==0){
-                    setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
+                            totalIA,correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
-                } else if (i==1) {
+                }
+                else if (i==1) {
                     //Todo Continue from hare
-                    setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
-                } else if (i==2) {
-                    setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,"20",correctAnswer,wrongAnswer,totalMark);
+                }
+                else if (i==2) {
+                    setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
-                } else if (i==3) {
-                    setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,"20",correctAnswer,wrongAnswer,totalMark);
+                }
+                else if (i==3) {
+                    setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==4) {
-                    setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult5", "section 5"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==5) {
-                    setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,totalML,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult6", "section 6"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==6) {
-                    setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult7", "section 7"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==7) {
-                    setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult8", "section 8"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==8) {
-                    setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult9", "section 9"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==9) {
-                    setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,"20",correctAnswer,wrongAnswer,totalMark);
+                    setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
@@ -450,7 +470,10 @@ public class ActivityExam extends AppCompatActivity {
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
 
+
 //            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
+            setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
+                    ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
             sharedPreferences.edit().clear().apply();
 
         }
@@ -556,6 +579,16 @@ public class ActivityExam extends AppCompatActivity {
     }
 
 
+    public  void saveResultIntoSharedPref(String keyTotal ,String total,String keyCorrect,
+                                          String correct,String keyWrong,String wrong,String keyMark,String mark){
+        preferencesManager = new SharedPreferencesManager(this);
+        preferencesManager.saveString(keyTotal,total);
+        preferencesManager.saveString(keyCorrect,correct);
+        preferencesManager.saveString(keyWrong , wrong);
+        preferencesManager.saveString(keyMark , mark);
+
+
+    }
 
 
 
