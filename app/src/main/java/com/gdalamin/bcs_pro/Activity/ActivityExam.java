@@ -383,28 +383,46 @@ public class ActivityExam extends AppCompatActivity {
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 } else if (i==1) {
                     //Todo Continue from hare
+                    setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 } else if (i==2) {
+                    setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 } else if (i==3) {
+                    setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==4) {
+                    setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult5", "section 5"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==5) {
+                    setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult6", "section 6"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==6) {
+                    setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult7", "section 7"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==7) {
+                    setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult8", "section 8"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==8) {
+                    setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult9", "section 9"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==9) {
+                    setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,"20",correctAnswer,wrongAnswer,totalMark);
+
                     Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
 
@@ -427,6 +445,8 @@ public class ActivityExam extends AppCompatActivity {
                     + overallWrongAnswer + " wrong, and total mark "
                     + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
 
+
+
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
 
@@ -448,10 +468,6 @@ public class ActivityExam extends AppCompatActivity {
             {
 
                 Toast.makeText(ActivityExam.this,"Result saved",Toast.LENGTH_SHORT).show();
-
-
-
-
 
 //                Intent intent1 = new Intent(ActivityExam.this, MainActivity.class);
 //                startActivity(intent1);
@@ -482,6 +498,8 @@ public class ActivityExam extends AppCompatActivity {
         queue.add(request);
 
     }
+
+
     public void showSubmissionOption (String answered){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);

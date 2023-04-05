@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
     android:layout_marginBottom="20dp"
-    android:layout_marginTop="20dp"
+    android:background="@drawable/botton_sheet_baground"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,36 +15,33 @@
         android:orientation="vertical"
 
         >
+        <View
+            android:layout_width="60dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#676565"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:layout_gravity="center"
             android:weightSum="5"
             >
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/overall_exams"
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"
                 android:paddingStart="10dp"
+                android:gravity="center"
                 android:textSize="20sp"
-                android:layout_weight="2.4"
                 />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Date: 11-02-2023"
-                android:textColor="@color/blue"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:gravity="end"
-                android:maxLines="1"
-                android:paddingEnd="10dp"
-                android:layout_weight="2.6"
-                android:id="@+id/tvDate"
-                />
+
         </LinearLayout>
 
 
@@ -61,7 +57,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="#"
-                android:paddingStart="10dp"
+
+                android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:gravity="center_vertical"
@@ -108,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -178,7 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="5dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -244,7 +241,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -310,7 +307,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -377,7 +374,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="5dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -444,7 +441,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -510,7 +507,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -576,7 +573,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -643,7 +640,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"            >
+            android:layout_marginTop="1dp"            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -709,7 +706,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -777,7 +774,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
 
             >
             <LinearLayout
