@@ -259,6 +259,8 @@ public class ActivityExam extends AppCompatActivity {
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
 
+
+
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
         String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
@@ -328,6 +330,8 @@ public class ActivityExam extends AppCompatActivity {
         TextView wrongTvICT = bottomSheetView.findViewById(R.id.wrongTvICT);
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
+        ExamResult saveResult = new ExamResult();
+        ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl, saveResult);
 
 
         if (questionLists != null) {
@@ -400,16 +404,24 @@ public class ActivityExam extends AppCompatActivity {
                             totalIA,correctAnswer,wrongAnswer,totalMark);
 
 
+                    saveResult.setTotalIA(totalIA.trim());
+                    saveResult.setCorrectIA(correctAnswer.trim());
+                    saveResult.setWrongIA(wrongAnswer.trim());
+                    saveResult.setMarksIA(totalMark.trim());
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==1) {
-                    //Todo Continue from hare
                     setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
 
-
+                    saveResult.setTotalBA(totalBA.trim());
+                    saveResult.setCorrectBA(correctAnswer.trim());
+                    saveResult.setWrongBA(wrongAnswer.trim());
+                    saveResult.setMarkBA(totalMark.trim());
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==2) {
+                    //Todo Continue from hare
+
                     setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctAnswer,wrongAnswer,totalMark);
 
                     Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
@@ -476,14 +488,16 @@ public class ActivityExam extends AppCompatActivity {
                     ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
 
 
-            ExamResult examResult2 = new ExamResult();
-            examResult2.setTotal("50");
-            examResult2.setCorrect(overallCorrectAnswer);
-            examResult2.setWrong(overallWrongAnswer);
-            examResult2.setMark(overallTotalMark);
-            examResult2.setUserId(userId);
-            examResult2.setDate(examDateTime);
-            ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl, examResult2);
+
+
+            saveResult.setTotal("50");
+            saveResult.setCorrect(overallCorrectAnswer);
+            saveResult.setWrong(overallWrongAnswer);
+            saveResult.setMark(overallTotalMark);
+            saveResult.setUserId(userId);
+            saveResult.setDate(examDateTime);
+
+
             resultSaver.saveResult();
 
             sharedPreferences.edit().clear().apply();

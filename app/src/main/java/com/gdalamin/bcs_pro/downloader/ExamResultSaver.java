@@ -45,8 +45,19 @@ public class ExamResultSaver {
                 param.put("correct", examResult.getCorrect());
                 param.put("wrong", examResult.getWrong());
                 param.put("mark", examResult.getMark());
-                param.put("userId", examResult.getUserId());
                 param.put("date", examResult.getDate());
+                param.put("userId", examResult.getUserId());
+
+                param.put("totalIA",examResult.getTotalIA());
+                param.put("correctIA",examResult.getCorrectIA());
+                param.put("wrongIA",examResult.getWrongIA());
+                param.put("marksIA",examResult.getMarksIA());
+
+                param.put("totalBA",examResult.getTotalBA());
+                param.put("correctBA",examResult.getCorrectBA());
+                param.put("wrongBA",examResult.getWrongBA());
+                param.put("marksBA",examResult.getMarkBA());
+
 
                 return param;
             }
