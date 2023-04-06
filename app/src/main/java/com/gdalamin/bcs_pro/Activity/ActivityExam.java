@@ -30,6 +30,7 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
+import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -398,8 +399,6 @@ public class ActivityExam extends AppCompatActivity {
                     setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                             totalIA,correctAnswer,wrongAnswer,totalMark);
 
-                    saveResultIntoSharedPref("totalIA",totalIA,"correctIA",correctAnswer
-                            ,"wrongIA",wrongAnswer,"marksIA",totalMark);
 
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
@@ -451,8 +450,6 @@ public class ActivityExam extends AppCompatActivity {
                     Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
 
-//                Log.d("sectionResult", "section " + (i + 1) + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
-
                 startIndex = endIndex;
             }
 
@@ -475,15 +472,20 @@ public class ActivityExam extends AppCompatActivity {
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
 
-
-//            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
-
-            ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl);
-            resultSaver.saveResult(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM), overallCorrectAnswer, overallWrongAnswer, overallTotalMark, userId, examDateTime);
-
-
             setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
                     ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
+
+
+            ExamResult examResult2 = new ExamResult();
+            examResult2.setTotal("50");
+            examResult2.setCorrect(overallCorrectAnswer);
+            examResult2.setWrong(overallWrongAnswer);
+            examResult2.setMark(overallTotalMark);
+            examResult2.setUserId(userId);
+            examResult2.setDate(examDateTime);
+            ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl, examResult2);
+            resultSaver.saveResult();
+
             sharedPreferences.edit().clear().apply();
 
         }
@@ -585,18 +587,6 @@ public class ActivityExam extends AppCompatActivity {
         correctTV.setText(correct);
         wrongTV.setText(wrong);
         marksTV.setText(marks);
-
-    }
-
-
-    public  void saveResultIntoSharedPref(String keyTotal ,String total,String keyCorrect,
-                                          String correct,String keyWrong,String wrong,String keyMark,String mark){
-        preferencesManager = new SharedPreferencesManager(this);
-        preferencesManager.saveString(keyTotal,total);
-        preferencesManager.saveString(keyCorrect,correct);
-        preferencesManager.saveString(keyWrong , wrong);
-        preferencesManager.saveString(keyMark , mark);
-
 
     }
 
