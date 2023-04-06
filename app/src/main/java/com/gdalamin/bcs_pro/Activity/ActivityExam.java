@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -397,11 +398,15 @@ public class ActivityExam extends AppCompatActivity {
                     setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                             totalIA,correctAnswer,wrongAnswer,totalMark);
 
+                    saveResultIntoSharedPref("totalIA",totalIA,"correctIA",correctAnswer
+                            ,"wrongIA",wrongAnswer,"marksIA",totalMark);
+
                     Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==1) {
                     //Todo Continue from hare
                     setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
+
 
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
@@ -472,6 +477,11 @@ public class ActivityExam extends AppCompatActivity {
 
 
 //            saveResult(String.valueOf(totalQuestion),overallCorrectAnswer,overallWrongAnswer,overallTotalMark,userId,examDateTime);
+
+            ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl);
+            resultSaver.saveResult(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM), overallCorrectAnswer, overallWrongAnswer, overallTotalMark, userId, examDateTime);
+
+
             setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
                     ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
             sharedPreferences.edit().clear().apply();
