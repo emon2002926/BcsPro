@@ -58,6 +58,47 @@ public class ExamResultSaver {
                 param.put("wrongBA",examResult.getWrongBA());
                 param.put("marksBA",examResult.getMarkBA());
 
+                param.put("totalB",examResult.getTotalB());
+                param.put("correctB",examResult.getCorrectB());
+                param.put("wrongB",examResult.getWrongB());
+                param.put("marksB",examResult.getMarksB());
+
+                param.put("totalMAV",examResult.getTotalMAV());
+                param.put("correctMAV",examResult.getCorrectMAV());
+                param.put("wrongMAV",examResult.getWrongMAV());
+                param.put("marksMAV",examResult.getMarksMAV());
+
+                param.put("totalML",examResult.getTotalML());
+                param.put("correctML",examResult.getCorrectML());
+                param.put("wrongML",examResult.getWrongML());
+                param.put("marksML",examResult.getTotalML());
+
+                param.put("totalEL",examResult.getTotalEL());
+                param.put("correctEL",examResult.getCorrectEL());
+                param.put("wrongEL",examResult.getWrongEL());
+                param.put("marksEL",examResult.getMarksEL());
+
+                param.put("totalG",examResult.getTotalG());
+                param.put("correctG",examResult.getCorrectG());
+                param.put("wrongG",examResult.getWrongG());
+                param.put("marksG",examResult.getMarksG());
+
+                param.put("totalMS",examResult.getTotalMS());
+                param.put("correctMS",examResult.getCorrectMS());
+                param.put("wrongMS",examResult.getWrongMS());
+                param.put("marksMS",examResult.getMarksMS());
+
+                param.put("totalGS",examResult.getTotalGS());
+                param.put("correctGS",examResult.getCorrectGS());
+                param.put("wrongGS",examResult.getWrongGS());
+                param.put("marksGS",examResult.getMarksMS());
+
+                param.put("totalICT",examResult.getTotalICT());
+                param.put("correctICT",examResult.getCorrectICT());
+                param.put("wrongICT",examResult.getWrongICT());
+                param.put("marksICT",examResult.getMarksICT());
+
+
 
                 return param;
             }

@@ -421,44 +421,71 @@ public class ActivityExam extends AppCompatActivity {
                 }
                 else if (i==2) {
                     //Todo Continue from hare
-
                     setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctAnswer,wrongAnswer,totalMark);
-
+                    saveResult.setTotalB(totalB);
+                    saveResult.setCorrectB(correctAnswer);
+                    saveResult.setWrongB(wrongAnswer);
+                    saveResult.setMarksB(totalMark);
                     Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==3) {
                     setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctAnswer,wrongAnswer,totalMark);
-
+                    saveResult.setTotalMAV(totalMAV);
+                    saveResult.setCorrectMAV(correctAnswer);
+                    saveResult.setWrongMAV(wrongAnswer);
+                    saveResult.setMarksMAV(totalMark);
                     Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==4) {
                     setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctAnswer,wrongAnswer,totalMark);
-
+                    saveResult.setTotalG(totalG);
+                    saveResult.setCorrectG(correctAnswer);
+                    saveResult.setWrongG(wrongAnswer);
+                    saveResult.setMarksG(totalMark);
                     Log.d("sectionResult5", "section 5"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==5) {
+                    ///Somthing wrong hare
                     setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,totalML,correctAnswer,wrongAnswer,totalMark);
+                    saveResult.setTotalML(totalML);
+                    saveResult.setCorrectML(correctAnswer);
+                    saveResult.setWrongML(wrongAnswer);
+                    saveResult.setMarksML(totalMark);
 
                     Log.d("sectionResult6", "section 6"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==6) {
                     setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctAnswer,wrongAnswer,totalMark);
 
+                    saveResult.setTotalEL(totalEL);
+                    saveResult.setCorrectEL(correctAnswer);
+                    saveResult.setWrongEL(wrongAnswer);
+                    saveResult.setMarksEL(totalMark);
                     Log.d("sectionResult7", "section 7"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==7) {
                     setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctAnswer,wrongAnswer,totalMark);
 
+                    saveResult.setTotalMS(totalMS);
+                    saveResult.setCorrectMS(correctAnswer);
+                    saveResult.setWrongMS(wrongAnswer);
+                    saveResult.setMarksMS(totalMark);
                     Log.d("sectionResult8", "section 8"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==8) {
                     setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctAnswer,wrongAnswer,totalMark);
-
+                    saveResult.setTotalGS(totalGS);
+                    saveResult.setCorrectGS(correctAnswer);
+                    saveResult.setWrongGS(wrongAnswer);
+                    saveResult.setMarksGS(totalMark);
                     Log.d("sectionResult9", "section 9"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==9) {
                     setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctAnswer,wrongAnswer,totalMark);
-
+                    saveResult.setTotalICT(totalICT);
+                    saveResult.setCorrectICT(correctAnswer);
+                    saveResult.setWrongICT(wrongAnswer);
+                    saveResult.setMarksICT(totalMark);
                     Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
 
@@ -490,7 +517,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-            saveResult.setTotal("50");
+            saveResult.setTotal(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
             saveResult.setCorrect(overallCorrectAnswer);
             saveResult.setWrong(overallWrongAnswer);
             saveResult.setMark(overallTotalMark);
