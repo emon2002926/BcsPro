@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class ExamResult {
+import androidx.annotation.Keep;
+
+@Keep public class ExamResult {
     private String total,totalIA,totalBA,totalB,totalMAV,totalML,totalEL,totalG,totalMS,totalGS,totalICT;
     private String correct,correctIA,correctBA,correctB,correctMAV,correctML,correctEL,correctG,correctMS,correctGS,correctICT;
     private String wrong,wrongIA,wrongBA,wrongB,wrongMAV,wrongML,wrongEL,wrongG,wrongMS,wrongGS,wrongICT;

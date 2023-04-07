@@ -3,28 +3,24 @@ package com.gdalamin.bcs_pro.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.modelClass.resultModel;
+import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,7 +98,7 @@ public class DashBordFragment extends Fragment {
                 response -> {
 
                     Gson gson = new Gson();
-                    resultModel[] data = gson.fromJson(response, resultModel[].class);
+                    ExamResult[] examResults = gson.fromJson(response, ExamResult[].class);
 
                     // Set the layout manager for the RecyclerView
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -110,7 +106,7 @@ public class DashBordFragment extends Fragment {
 
 
                     // Set the adapter for the RecyclerView using the parsed data
-                    resultAdapter adapter = new resultAdapter(data);
+                    resultAdapter adapter = new resultAdapter(examResults);
                     recview.setAdapter(adapter);
 
                     shimmerFrameLayout.stopShimmer();
