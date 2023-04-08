@@ -2,13 +2,16 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gdalamin.bcs_pro.R;
 
 public class TestResult extends AppCompatActivity {
+
+    ImageView imageBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class TestResult extends AppCompatActivity {
         String correct = intent.getStringExtra("correct");
         String wrong = intent.getStringExtra("wrong");
         String marks = intent.getStringExtra("marks");
+
+
+
 
         String totalIA = intent.getStringExtra("totalIA");
         String correctIA = intent.getStringExtra("correctIA");
@@ -76,10 +82,88 @@ public class TestResult extends AppCompatActivity {
 
 
 
+        TextView totalTV = findViewById(R.id.totalTv);
+        TextView correctTv = findViewById(R.id.correctTv);
+        TextView wrongTv = findViewById(R.id.wrongTv);
+        TextView marksTv = findViewById(R.id.marksTv);
+        setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,total,correct,wrong,marks);
+
+        TextView totalTVIA = findViewById(R.id.totalTvIA);
+        TextView correctTvIA = findViewById(R.id.correctTvIA);
+        TextView wrongTvIA = findViewById(R.id.wrongTvIA);
+        TextView marksTvIA = findViewById(R.id.marksTvIA);
+        setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,totalIA,correctIA,wrongIA,marksIA);
+
+        TextView totalTVBA = findViewById(R.id.totalTvBA);
+        TextView correctTvBA =findViewById(R.id.correctTvBA);
+        TextView wrongTvBA = findViewById(R.id.wrongTvBA);
+        TextView marksTvBA = findViewById(R.id.marksTvBA);
+        setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctBA,wrongBA,marksBA);
+
+        TextView totalTVB = findViewById(R.id.totalTvB);
+        TextView correctTvB = findViewById(R.id.correctTvB);
+        TextView wrongTvB = findViewById(R.id.wrongTvB);
+        TextView marksTvB = findViewById(R.id.marksTvB);
+        setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctB,wrongB,marksB);
+
+        TextView totalTVMAV = findViewById(R.id.totalTvMAV);
+        TextView correctTvMAV = findViewById(R.id.correctTvMAV);
+        TextView wrongTvMAV = findViewById(R.id.wrongTvMAV);
+        TextView marksTvMAV = findViewById(R.id.marksTvMAV);
+        setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctMAV,wrongMAV,marksMAV);
+
+        TextView totalTVG = findViewById(R.id.totalTvG);
+        TextView correctTvG = findViewById(R.id.correctTvG);
+        TextView wrongTvG = findViewById(R.id.wrongTvG);
+        TextView marksTvG = findViewById(R.id.marksTvG);
+        setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctG,wrongG,marksG);
+
+
+        TextView totalTVML = findViewById(R.id.totalTvML);
+        TextView correctTvML = findViewById(R.id.correctTvML);
+        TextView wrongTvML = findViewById(R.id.wrongTvML);
+        TextView marksTvML = findViewById(R.id.marksTvML);
+        setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,totalML,correctML,wrongML,marksML);
+
+        TextView totalTVEL = findViewById(R.id.totalTvEL);
+        TextView correctTvEL = findViewById(R.id.correctTvEL);
+        TextView wrongTvEL = findViewById(R.id.wrongTvEL);
+        TextView marksTvEL = findViewById(R.id.marksTvEL);
+        setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctEL,wrongEL,marksEL);
+
+
+        TextView totalTVMS = findViewById(R.id.totalTvMS);
+        TextView correctTvMS = findViewById(R.id.correctTvMS);
+        TextView wrongTvMS = findViewById(R.id.wrongTvMS);
+        TextView marksTvMS = findViewById(R.id.marksTvMS);
+        setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctMS,wrongMS,marksMS);
+
+        TextView totalTVGS = findViewById(R.id.totalTvGS);
+        TextView correctTvGS = findViewById(R.id.correctTvGS);
+        TextView wrongTvGS = findViewById(R.id.wrongTvGS);
+        TextView marksTvGS = findViewById(R.id.marksTvGS);
+        setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctGS,wrongGS,marksGS);
+
+        TextView totalTVICT = findViewById(R.id.totalTvICT);
+        TextView correctTvICT = findViewById(R.id.correctTvICT);
+        TextView wrongTvICT = findViewById(R.id.wrongTvICT);
+        TextView marksTvICT = findViewById(R.id.marksTvICT);
+        setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctICT,wrongICT,marksICT);
 
 
 
+        imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
-        Toast.makeText(this, totalICT, Toast.LENGTH_SHORT).show();
+    }
+    public  void setResultIntoTextView(TextView totalTV,TextView correctTV,TextView wrongTV,TextView marksTV ,String total,
+                                       String correct,String wrong,String marks){
+        totalTV.setText(total);
+        correctTV.setText(correct);
+        wrongTV.setText(wrong);
+        marksTV.setText(marks);
+
     }
 }

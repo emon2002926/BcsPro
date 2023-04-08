@@ -273,7 +273,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-        View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.test_result, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+        View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
         TextView correctTv = bottomSheetView.findViewById(R.id.correctTv);
