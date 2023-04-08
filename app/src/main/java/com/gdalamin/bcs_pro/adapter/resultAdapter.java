@@ -41,11 +41,73 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
 
-        holder.total.setText(examResults[position].getTotal());
-        holder.correct.setText(examResults[position].getCorrect());
-        holder.wrong.setText(examResults[position].getWrong());
-        holder.marks.setText(examResults[position].getMark());
-        holder.date.setText(examResults[position].getDate());
+
+        String date = examResults[position].getDate();
+        String total = examResults[position].getTotal();
+        String correct = examResults[position].getCorrect();
+        String wrong = examResults[position].getWrong();
+        String marks = examResults[position].getMark();
+
+        String totalIA = examResults[position].getTotalIA();
+        String correctIA = examResults[position].getCorrectIA();
+        String wrongIA = examResults[position].getWrongIA();
+        String marksIA = examResults[position].getMarksIA();
+
+        String totalBA = examResults[position].getTotalBA();
+        String correctBA = examResults[position].getCorrectBA();
+        String wrongBA = examResults[position].getWrongBA();
+        String marksBA = examResults[position].getMarksBA();
+
+        String totalB = examResults[position].getTotalB();
+        String correctB = examResults[position].getCorrectB();
+        String wrongB = examResults[position].getWrongB();
+        String marksB = examResults[position].getMarksB();
+
+        String totalMAV = examResults[position].getTotalMAV();
+        String correctMAV = examResults[position].getCorrectMAV();
+        String wrongMAV = examResults[position].getWrongMAV();
+        String marksMAV = examResults[position].getMarksMAV();
+
+        String totalG = examResults[position].getTotalG();
+        String correctG = examResults[position].getCorrectG();
+        String wrongG = examResults[position].getWrongG();
+        String marksG = examResults[position].getMarksG();
+
+        String totalML = examResults[position].getTotalML();
+        String correctML = examResults[position].getCorrectML();
+        String wrongML = examResults[position].getWrongML();
+        String marksML = examResults[position].getMarksML();
+
+        String totalEL = examResults[position].getTotalEL();
+        String correctEL = examResults[position].getCorrectEL();
+        String wrongEL = examResults[position].getWrongEL();
+        String marksEL = examResults[position].getMarksEL();
+
+        String totalMS = examResults[position].getTotalMS();
+        String correctMS = examResults[position].getCorrectMS();
+        String wrongMS = examResults[position].getWrongMS();
+        String marksMS = examResults[position].getMarksMS();
+
+        String totalGS = examResults[position].getTotalGS();
+        String correctGS = examResults[position].getCorrectGS();
+        String wrongGS = examResults[position].getWrongGS();
+        String marksGS = examResults[position].getMarksGS();
+
+        String totalICT = examResults[position].getTotalICT();
+        String correctICT = examResults[position].getCorrectICT();
+        String wrongICT = examResults[position].getWrongICT();
+        String marksICT = examResults[position].getMarksICT();
+
+
+
+
+
+
+        holder.total.setText(total);
+        holder.correct.setText(correct);
+        holder.wrong.setText(wrong);
+        holder.marks.setText(marks);
+        holder.date.setText(date);
 
 
 
@@ -53,7 +115,68 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
-            view.getContext().startActivity(new Intent(view.getContext(), TestResult.class));
+            Intent intent = new Intent(holder.correct.getContext(),TestResult.class);
+            intent.putExtra("date",date);
+            intent.putExtra("total",total);
+            intent.putExtra("correct",correct);
+            intent.putExtra("wrong",wrong);
+            intent.putExtra("marks",marks);
+
+            intent.putExtra("totalIA",totalIA);
+            intent.putExtra("correctIA",correctIA);
+            intent.putExtra("wrongIA",wrongIA);
+            intent.putExtra("marksIA",marksIA);
+
+            intent.putExtra("totalBA",totalBA);
+            intent.putExtra("correctBA",correctBA);
+            intent.putExtra("wrongBA",wrongBA);
+            intent.putExtra("marksBA",marksBA);
+
+            intent.putExtra("totalB",totalB);
+            intent.putExtra("correctB",correctB);
+            intent.putExtra("wrongB",wrongB);
+            intent.putExtra("marksB",marksB);
+
+            intent.putExtra("totalMAV",totalMAV);
+            intent.putExtra("correctMAV",correctMAV);
+            intent.putExtra("wrongMAV",wrongMAV);
+            intent.putExtra("marksMAV",marksMAV);
+
+            intent.putExtra("totalG",totalG);
+            intent.putExtra("correctG",correctG);
+            intent.putExtra("wrongG",wrongG);
+            intent.putExtra("marksG",marksG);
+
+            intent.putExtra("totalML",totalML);
+            intent.putExtra("correctML",correctML);
+            intent.putExtra("wrongML",wrongML);
+            intent.putExtra("marksML",marksML);
+
+            intent.putExtra("totalEL",totalEL);
+            intent.putExtra("correctEL",correctEL);
+            intent.putExtra("wrongEL",wrongEL);
+            intent.putExtra("marksEL",marksEL);
+
+            intent.putExtra("totalMS",totalMS);
+            intent.putExtra("correctMS",correctMS);
+            intent.putExtra("wrongMS",wrongMS);
+            intent.putExtra("marksMS",marksMS);
+
+            intent.putExtra("totalGS",totalGS);
+            intent.putExtra("correctGS",correctGS);
+            intent.putExtra("wrongGS",wrongGS);
+            intent.putExtra("marksGS",marksGS);
+
+            intent.putExtra("totalICT",totalICT);
+            intent.putExtra("correctICT",correctICT);
+            intent.putExtra("wrongICT",wrongICT);
+            intent.putExtra("marksICT",marksICT);
+
+
+
+            view.getContext().startActivity(intent);
+
+
         });
 
 
@@ -87,7 +210,21 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
+    public void shareResult(Context context,String date,String total,String correct) {
+        // Create an intent to share text
+        Intent intent = new Intent(context, TestResult.class);
+
+        intent.putExtra("MESSAGE", total);
 
 
+
+
+
+
+        context.startActivity(intent);
+
+        // Verify that there is an app available to receive the intent
+
+    }
 
 }

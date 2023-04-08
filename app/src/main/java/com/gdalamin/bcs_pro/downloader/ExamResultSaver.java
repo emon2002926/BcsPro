@@ -56,7 +56,7 @@ public class ExamResultSaver {
                 param.put("totalBA",examResult.getTotalBA());
                 param.put("correctBA",examResult.getCorrectBA());
                 param.put("wrongBA",examResult.getWrongBA());
-                param.put("marksBA",examResult.getMarkBA());
+                param.put("marksBA",examResult.getMarksBA());
 
                 param.put("totalB",examResult.getTotalB());
                 param.put("correctB",examResult.getCorrectB());

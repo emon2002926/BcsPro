@@ -6,7 +6,7 @@ import androidx.annotation.Keep;
     private String total,totalIA,totalBA,totalB,totalMAV,totalML,totalEL,totalG,totalMS,totalGS,totalICT;
     private String correct,correctIA,correctBA,correctB,correctMAV,correctML,correctEL,correctG,correctMS,correctGS,correctICT;
     private String wrong,wrongIA,wrongBA,wrongB,wrongMAV,wrongML,wrongEL,wrongG,wrongMS,wrongGS,wrongICT;
-    private String mark,marksIA,markBA,marksB,marksMAV,marksML,marksEL,marksG,marksMS,marksGS,marksICT;
+    private String mark,marksIA,marksBA,marksB,marksMAV,marksML,marksEL,marksG,marksMS,marksGS,marksICT;
     private String userId;
     private String date;
 
@@ -29,7 +29,7 @@ import androidx.annotation.Keep;
         this.totalBA = "";
         this.correctBA = "";
         this.wrongBA = "";
-        this.markBA = "";
+        this.marksBA = "";
 
         this.totalB = "";
         this.correctB = "";
@@ -121,7 +121,7 @@ import androidx.annotation.Keep;
         this.totalBA = totalBA;
         this.correctBA = correctBA;
         this.wrongBA = wrongBA;
-        this.markBA = markBA;
+        this.marksBA = markBA;
 
         this.totalIA = totalIA;
         this.correctIA = correctIA;
@@ -135,6 +135,14 @@ import androidx.annotation.Keep;
         this.userId = userId;
         this.date = date;
 
+    }
+
+    public String getMarksBA() {
+        return marksBA;
+    }
+
+    public void setMarksBA(String marksBA) {
+        this.marksBA = marksBA;
     }
 
     public String getTotalICT() {
@@ -417,13 +425,6 @@ import androidx.annotation.Keep;
         this.wrongBA = wrongBA;
     }
 
-    public String getMarkBA() {
-        return markBA;
-    }
-
-    public void setMarkBA(String markBA) {
-        this.markBA = markBA;
-    }
 
     public String getMarksIA() {
         return marksIA;

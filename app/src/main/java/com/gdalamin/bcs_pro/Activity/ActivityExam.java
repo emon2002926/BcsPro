@@ -416,7 +416,7 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setTotalBA(totalBA.trim());
                     saveResult.setCorrectBA(correctAnswer.trim());
                     saveResult.setWrongBA(wrongAnswer.trim());
-                    saveResult.setMarkBA(totalMark.trim());
+                    saveResult.setMarksBA(totalMark.trim());
                     Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==2) {
