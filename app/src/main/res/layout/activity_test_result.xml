@@ -40,7 +40,7 @@
                 android:textSize="23sp"
                 android:id="@+id/titleTv"
                 android:textStyle="bold"
-                android:text="Detailed marks "
+                android:text="Detailed exam score "
                 />
 
         </LinearLayout>

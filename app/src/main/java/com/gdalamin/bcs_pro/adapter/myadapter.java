@@ -125,14 +125,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                     questionslists.add(questionList);
 
-
                     // Set the text of the options to their respective text views
                     holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
                     holder.option1TV.setText(convertToUTF8(option1));
                     holder.option2TV.setText(convertToUTF8(option2));
                     holder.option3TV.setText(convertToUTF8(option3));
                     holder.option4TV.setText(convertToUTF8(option4));
-
 
                     // If the question text is empty, hide the text view and display the question image
                     if (!question.isEmpty()) {
@@ -149,16 +147,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         holder.textViewPosition.setText(questionPosition+")");
                     }
 
-
                     //Showing Image or text with there respective logic
                     showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
                     showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
                     showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
                     showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
-
-
-
-
 
                     if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                         // If the question has a selected option, highlight the corresponding option
@@ -302,7 +295,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String explainImageURL = BASE_URL+ "image/explainImage/"+data[position].getExplanationImage();
 
 
-
                 holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
 
                 holder.option1TV.setText(convertToUTF8(option1));
@@ -339,12 +331,26 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                     // If the question has a selected option, highlight the corresponding option
                     if (answer == 1){
+
+                        holder.option2Layout.setEnabled(false);
+                        holder.option3Layout.setEnabled(false);
+                        holder.option4Layout.setEnabled(false);
+
                         highLightClickedOption(holder.option1Layout,holder.img1);
                     } else if (answer ==2) {
+                        holder.option1Layout.setEnabled(false);
+                        holder.option3Layout.setEnabled(false);
+                        holder.option4Layout.setEnabled(false);
                         highLightClickedOption(holder.option2Layout,holder.img2);
                     } else if (answer == 3) {
+                        holder.option1Layout.setEnabled(false);
+                        holder.option2Layout.setEnabled(false);
+                        holder.option4Layout.setEnabled(false);
                         highLightClickedOption(holder.option3Layout,holder.img3);
                     } else if (answer == 4) {
+                        holder.option1Layout.setEnabled(false);
+                        holder.option3Layout.setEnabled(false);
+                        holder.option2Layout.setEnabled(false);
                         highLightClickedOption(holder.option4Layout,holder.img4);
                     }
 
