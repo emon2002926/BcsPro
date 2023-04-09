@@ -56,9 +56,6 @@ public class ActivityExam extends AppCompatActivity {
     TextView textView,textViewTimer;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
-
-    String totalQuestion = "";
-
     SharedPreferences sharedPreferences;
 
     int NUM_OF_QUESTION =0;
