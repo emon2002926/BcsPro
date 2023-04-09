@@ -65,6 +65,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
         String BASE_URL = ApiKeys.API_URL_BASE;
+        Context ctx = holder.fullLayout.getContext();
 
 
         holder.option1Layout.setBackgroundResource(0);
@@ -79,6 +80,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.option2Layout.setEnabled(true);
         holder.option3Layout.setEnabled(true);
         holder.option4Layout.setEnabled(true);
+
+        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
 //        holder.layoutExplain.setVisibility(View.GONE);
         holder.explainTv.setVisibility(View.GONE);
 
@@ -153,10 +159,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+
                     if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                         // If the question has a selected option, highlight the corresponding option
 
-                        Context ctx = holder.fullLayout.getContext();
+
 //                        holder.fullLayout.setEnabled(false);
                         int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
                         if (userSelectedAnswer == 1){
@@ -166,7 +173,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
 
-                            holder.option1TV.setTextColor(ContextCompat.getColor(holder.option1TV.getContext(),R.color.GreyText));
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
 
                             highLightClickedOption(holder.option1Layout,holder.img1);
 
@@ -174,17 +183,32 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option1Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
+
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+
                             highLightClickedOption(holder.option2Layout,holder.img2);
 
                         } else if (userSelectedAnswer == 3) {
                             holder.option1Layout.setEnabled(false);
                             holder.option2Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
+
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+
                             highLightClickedOption(holder.option3Layout,holder.img3);
                         } else if (userSelectedAnswer == 4) {
                             holder.option1Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option2Layout.setEnabled(false);
+
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+
                             highLightClickedOption(holder.option4Layout,holder.img4);
                         }
 
@@ -210,6 +234,29 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             img = holder.img4;
                         }
 
+
+
+                        // Change text color of all options to default
+                        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+
+                        // Change text color of selected option
+                        switch (selectedOption) {
+                            case 1:
+                                holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                                break;
+                            case 2:
+                                holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                                break;
+                            case 3:
+                                holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                                break;
+                            case 4:
+                                holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                                break;
+                        }
 
                         questionslists.get(position).setUserSelecedAnswer(selectedOption);
                         highLightClickedOption(view, img);
