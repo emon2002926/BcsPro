@@ -53,7 +53,7 @@ public class ActivityExam extends AppCompatActivity {
     private  static final  String saveResultUrl = "http://emon.searchwizy.com/api2/saveResult.php";
     RecyclerView recview;
 
-    TextView textView,textViewTimer;
+    TextView textView,textViewTimer,btnBackTohome;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
     SharedPreferences sharedPreferences;
@@ -79,6 +79,11 @@ public class ActivityExam extends AppCompatActivity {
         imageBackButton = findViewById(R.id.backButton);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
+
+        btnBackTohome = findViewById(R.id.btnBackToHome);
+        btnBackTohome.setOnClickListener(view -> {
+            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+        });
 
         String title = getIntent().getStringExtra("titleText");
 
@@ -588,6 +593,8 @@ public class ActivityExam extends AppCompatActivity {
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
+            recview.setVisibility(View.GONE);
+            btnBackTohome.setVisibility(View.VISIBLE);
             finishExam();
             bottomSheetDialog.dismiss();
             
