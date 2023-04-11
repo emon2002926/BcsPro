@@ -1,22 +1,18 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,18 +22,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class ActivityOtpLogin extends AppCompatActivity {
 
@@ -46,7 +40,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     TextView btnVerifyOTP;
     EditText inputNumber1,inputNumber2,inputNumber3,inputNumber4,inputNumber5,inputNumber6;
 
-    private static final String url="http://emon.searchwizy.com/api2/volley/signUp.php?apiKey=ghi789";
+    private static final String API_URL= ApiKeys.API_URL;
 
      String number,name,password,firebaseOtp;
      ProgressBar progressBar;
@@ -165,7 +159,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
 
     private void signUp(final String name, final String phone ,final String pwd ) {
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(Request.Method.POST, API_URL+"api2/volley/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.toString().equals("exists")) {

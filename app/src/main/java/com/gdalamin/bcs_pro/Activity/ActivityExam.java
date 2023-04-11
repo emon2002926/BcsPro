@@ -18,15 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
@@ -39,18 +33,16 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class ActivityExam extends AppCompatActivity {
 
-    private  static final String url="http://emon.searchwizy.com/";
-    String APIKEY ="api2/getExamMcq.php?apiKey=abc123&apiNum=1&";
+
+    private static String APIKEY ="api2/getExamMcq.php?apiKey=abc123&apiNum=1&";
 
 
-    private  static final  String saveResultUrl = "http://emon.searchwizy.com/api2/saveResult.php";
+    String API_URL= ApiKeys.API_URL;
     RecyclerView recview;
 
     TextView textView,textViewTimer,btnBackTohome;
@@ -63,8 +55,6 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
 
     ShimmerFrameLayout shimmerFrameLayout;
-
-
     SharedPreferencesManager preferencesManager;
 
 
@@ -170,8 +160,8 @@ public class ActivityExam extends AppCompatActivity {
            }
 
             ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
-            showMcq.processdata( url+questionType);
-            Log.d("questionUrl",url+questionType);
+            showMcq.processdata( API_URL+questionType);
+            Log.d("questionUrl",API_URL+questionType);
 
         }
     }
@@ -333,7 +323,7 @@ public class ActivityExam extends AppCompatActivity {
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
         ExamResult saveResult = new ExamResult();
-        ExamResultSaver resultSaver = new ExamResultSaver(this, saveResultUrl, saveResult);
+        ExamResultSaver resultSaver = new ExamResultSaver(this, API_URL+"api2/saveResult.php", saveResult);
 
 
         if (questionLists != null) {
@@ -410,7 +400,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectIA(correctAnswer.trim());
                     saveResult.setWrongIA(wrongAnswer.trim());
                     saveResult.setMarksIA(totalMark.trim());
-                    Log.d("sectionResult4", "section 1"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==1) {
                     setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
@@ -419,7 +408,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectBA(correctAnswer.trim());
                     saveResult.setWrongBA(wrongAnswer.trim());
                     saveResult.setMarksBA(totalMark.trim());
-                    Log.d("sectionResult4", "section 2"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==2) {
                     //Todo Continue from hare
@@ -428,7 +416,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectB(correctAnswer);
                     saveResult.setWrongB(wrongAnswer);
                     saveResult.setMarksB(totalMark);
-                    Log.d("sectionResult4", "section 3"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==3) {
                     setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctAnswer,wrongAnswer,totalMark);
@@ -436,7 +423,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectMAV(correctAnswer);
                     saveResult.setWrongMAV(wrongAnswer);
                     saveResult.setMarksMAV(totalMark);
-                    Log.d("sectionResult4", "section 4"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==4) {
                     setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctAnswer,wrongAnswer,totalMark);
@@ -444,7 +430,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectG(correctAnswer);
                     saveResult.setWrongG(wrongAnswer);
                     saveResult.setMarksG(totalMark);
-                    Log.d("sectionResult5", "section 5"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==5) {
                     ///Somthing wrong hare
@@ -453,8 +438,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectML(correctAnswer);
                     saveResult.setWrongML(wrongAnswer);
                     saveResult.setMarksML(totalMark);
-
-                    Log.d("sectionResult6", "section 6"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==6) {
                     setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctAnswer,wrongAnswer,totalMark);
@@ -463,7 +446,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectEL(correctAnswer);
                     saveResult.setWrongEL(wrongAnswer);
                     saveResult.setMarksEL(totalMark);
-                    Log.d("sectionResult7", "section 7"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==7) {
                     setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctAnswer,wrongAnswer,totalMark);
@@ -472,7 +454,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectMS(correctAnswer);
                     saveResult.setWrongMS(wrongAnswer);
                     saveResult.setMarksMS(totalMark);
-                    Log.d("sectionResult8", "section 8"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==8) {
                     setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctAnswer,wrongAnswer,totalMark);
@@ -480,7 +461,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectGS(correctAnswer);
                     saveResult.setWrongGS(wrongAnswer);
                     saveResult.setMarksGS(totalMark);
-                    Log.d("sectionResult9", "section 9"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
                 else if (i==9) {
                     setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctAnswer,wrongAnswer,totalMark);
@@ -488,7 +468,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setCorrectICT(correctAnswer);
                     saveResult.setWrongICT(wrongAnswer);
                     saveResult.setMarksICT(totalMark);
-                    Log.d("sectionResult10", "section 10"  + ": answered " + answered + " questions and got " + correctAnswer + " correct, " + wrongAnswer + " wrong, and total mark " + totalMark);
                 }
 
                 startIndex = endIndex;
@@ -503,19 +482,11 @@ public class ActivityExam extends AppCompatActivity {
             String overallTotalMark = String.valueOf(overallMark);
 
 
-            Log.d("overallResult", "answered " + overallAnswered + " questions and got "
-                    + overallCorrectAnswer + " correct, "
-                    + overallWrongAnswer + " wrong, and total mark "
-                    + overallTotalMark + " totalQuestion "+ String.valueOf(totalQuestion));
-
-
-
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
 
             setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
                     ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
-
 
 
 
@@ -533,47 +504,6 @@ public class ActivityExam extends AppCompatActivity {
 
         }
 
-
-    }
-
-
-    private void saveResult(final String total, final String correct ,final String wrong
-            ,final String mark,final String userId,String date)
-    {
-        StringRequest request=new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response)
-            {
-
-                Toast.makeText(ActivityExam.this,"Result saved",Toast.LENGTH_SHORT).show();
-
-//                Intent intent1 = new Intent(ActivityExam.this, MainActivity.class);
-//                startActivity(intent1);
-//                finish();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("total",total);
-                param.put("correct",correct);
-                param.put("wrong",wrong);
-                param.put("mark",mark);
-                param.put("userId",userId);
-                param.put("date",date);
-
-                return param;
-            }
-        };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
 
     }
 

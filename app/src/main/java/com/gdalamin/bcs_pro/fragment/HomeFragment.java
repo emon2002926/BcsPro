@@ -337,7 +337,7 @@ public class HomeFragment extends Fragment {
     public void processdata()
     {
 
-        String API_URL =  ApiKeys.API_URL_GENERAL+"apiNum=2";
+        String API_URL =  ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=2";
 
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override

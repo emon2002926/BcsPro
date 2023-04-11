@@ -61,11 +61,11 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
         if (OPENING_LOGIC ==1){
             //thats will open  older BCS Question
-           String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=7";
+           String API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=7";
             processdata(API_URL);
         } else if (OPENING_LOGIC ==2) {
             //thats will open  subject based Exam
-            String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=8";
+            String API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=8";
             processdata(API_URL);
         }
 

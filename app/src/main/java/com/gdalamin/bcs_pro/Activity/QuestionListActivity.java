@@ -1,49 +1,32 @@
 package com.gdalamin.bcs_pro.Activity;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.modelClass.QuestionList;
-import com.gdalamin.bcs_pro.modelClass.model;
-import com.gdalamin.bcs_pro.adapter.myadapter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.service.controls.actions.FloatAction;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import java.io.Serializable;
 import java.io.StringReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 public class QuestionListActivity extends AppCompatActivity {
 
     RecyclerView recview;
@@ -102,7 +85,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
         }else if (subCode == 5){
 
-            API_URL = ApiKeys.API_URL_GENERAL+"apiNum=1";
+            API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=1";
             Log.d("eee1",API_URL);
             processdata(API_URL);
         } else if (subCode == 6) {

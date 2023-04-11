@@ -45,7 +45,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
    static int userSelectedOption = 0;
 
+
     private final List<QuestionList> questionslists = new ArrayList<>();
+
 
 
 
@@ -64,7 +66,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-        String BASE_URL = ApiKeys.API_URL_BASE;
+
+        String BASE_URL = ApiKeys.API_URL+"api2/";
         Context ctx = holder.fullLayout.getContext();
 
 

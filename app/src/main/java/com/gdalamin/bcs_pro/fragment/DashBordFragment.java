@@ -21,6 +21,7 @@ import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,35 +92,35 @@ public class DashBordFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("key_phone", "");
 
-        String API_URL = ApiKeys.API_URL_GENERAL+"apiNum=6&userId=";
+        String API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=6&userId=";
 
         StringRequest request = new StringRequest(API_URL+userId,
-                // On successful response, parse the JSON data into resultModel objects using Gson
                 response -> {
+                    try {
+                        Gson gson = new Gson();
+                        ExamResult[] examResults = gson.fromJson(response, ExamResult[].class);
 
-                    Gson gson = new Gson();
-                    ExamResult[] examResults = gson.fromJson(response, ExamResult[].class);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        recview.setLayoutManager(linearLayoutManager);
 
-                    // Set the layout manager for the RecyclerView
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    recview.setLayoutManager(linearLayoutManager);
+                        resultAdapter adapter = new resultAdapter(examResults);
+                        recview.setAdapter(adapter);
 
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
 
-                    // Set the adapter for the RecyclerView using the parsed data
-                    resultAdapter adapter = new resultAdapter(examResults);
-                    recview.setAdapter(adapter);
-
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-
-                    recview.setVisibility(View.VISIBLE);
-
+                        recview.setVisibility(View.VISIBLE);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        // Handle the exception here, e.g. display an error message to the user
+                        Toast.makeText(getContext(), "JSON syntax error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 },
+                error -> {
+                    // Handle the error here, e.g. display an error message to the user
+                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                });
 
-                // On error, display an error message using a Toast
-                error -> Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show());
-
-        // Add the request to a RequestQueue for execution
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }
