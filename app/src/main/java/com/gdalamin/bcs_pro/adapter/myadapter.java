@@ -67,7 +67,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-        String BASE_URL = ApiKeys.API_URL+"api2/";
+        String BASE_URL = ApiKeys.API_URL+"api/";
         Context ctx = holder.fullLayout.getContext();
 
 

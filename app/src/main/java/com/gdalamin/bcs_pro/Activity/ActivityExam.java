@@ -39,7 +39,7 @@ import java.util.Locale;
 public class ActivityExam extends AppCompatActivity {
 
 
-    private static String APIKEY ="api2/getExamMcq.php?apiKey=abc123&apiNum=1&";
+    private static String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
 
 
     String API_URL= ApiKeys.API_URL;
@@ -151,7 +151,7 @@ public class ActivityExam extends AppCompatActivity {
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
                 String SUBJECT_CODE = preferencesManager.getString("subjectPosition");
 
-                questionType = "api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
+                questionType = "api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
             }
             else {
@@ -323,7 +323,7 @@ public class ActivityExam extends AppCompatActivity {
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
         ExamResult saveResult = new ExamResult();
-        ExamResultSaver resultSaver = new ExamResultSaver(this, API_URL+"api2/saveResult.php", saveResult);
+        ExamResultSaver resultSaver = new ExamResultSaver(this, API_URL+"api/saveResult.php", saveResult);
 
 
         if (questionLists != null) {

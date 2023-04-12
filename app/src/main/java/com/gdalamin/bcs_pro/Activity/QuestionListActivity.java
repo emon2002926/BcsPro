@@ -68,7 +68,7 @@ public class QuestionListActivity extends AppCompatActivity {
             String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
 
 
-            String url = "http://emon.searchwizy.com/api2/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
+            String url = "http://emon.searchwizy.com/api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
             Log.d("eee3",url);
             processdata(url);
@@ -85,7 +85,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
         }else if (subCode == 5){
 
-            API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=1";
+            API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
             Log.d("eee1",API_URL);
             processdata(API_URL);
         } else if (subCode == 6) {

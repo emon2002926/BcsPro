@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
 public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myviewholder>
@@ -52,7 +53,7 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
         String courseImageName = data[position].getCourse();
 
         Glide.with(holder.imgCourse1.getContext())
-                .load("http://emon.searchwizy.com/api2/image/" + courseImageName)
+                .load(ApiKeys.API_URL+"api/image/" + courseImageName)
                 .into(holder.imgCourse1);
 
 

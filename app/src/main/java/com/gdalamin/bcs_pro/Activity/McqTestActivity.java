@@ -1,8 +1,5 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,6 +12,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -304,7 +304,7 @@ public class McqTestActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
     // URL to the PHP API
-        String url = "http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=1";
+        String url = "http://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=1";
 
         String apiWithSql = ApiKeys.API_WITH_SQL;
         String url2 = apiWithSql+"&query=SELECT * FROM question WHERE subjects LIKE 'IA' ORDER BY id DESC LIMIT 10";

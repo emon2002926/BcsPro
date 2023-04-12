@@ -92,7 +92,7 @@ public class DashBordFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("key_phone", "");
 
-        String API_URL = ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=6&userId=";
+        String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=6&userId=";
 
         StringRequest request = new StringRequest(API_URL+userId,
                 response -> {

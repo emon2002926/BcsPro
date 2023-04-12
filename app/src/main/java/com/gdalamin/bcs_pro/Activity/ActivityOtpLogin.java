@@ -159,7 +159,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
 
     private void signUp(final String name, final String phone ,final String pwd ) {
-        StringRequest request=new StringRequest(Request.Method.POST, API_URL+"api2/volley/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
+        StringRequest request=new StringRequest(Request.Method.POST, API_URL+"api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.toString().equals("exists")) {

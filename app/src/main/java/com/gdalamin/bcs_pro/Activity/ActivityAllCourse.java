@@ -47,7 +47,7 @@ public class ActivityAllCourse extends AppCompatActivity {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(API_URL+"api2/getData.php?apiKey=abc123&apiNum=4", new Response.Listener<String>() {
+        StringRequest request=new StringRequest(API_URL+"api/getData.php?apiKey=abc123&apiNum=4", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

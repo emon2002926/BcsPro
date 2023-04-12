@@ -181,7 +181,7 @@ public class ActivityLogin extends AppCompatActivity {
             } else {
 
 
-                checkNumber(phone, name, pass);
+                checkNumberExistOrNot(phone, name, pass);
             }
 
         });
@@ -192,7 +192,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     public void loginUser(final String phone, final String password) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                ApiKeys.API_URL+ "api2/login.php?apiKey=ghi789",
+                ApiKeys.API_URL+ "api/singUpAndLogin/login.php?apiKey=ghi789",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -237,10 +237,10 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     //checking the number is registered or not in the database ,Before passing the data into Otp Activity
-    private void checkNumber(String number, String name, String password) {
+    private void checkNumberExistOrNot(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
-        String API_URL_WITH_USER_ID = ApiKeys.API_URL+"api2/volley/chackNumber.php?phone=" + number;
+        String API_URL_WITH_USER_ID = ApiKeys.API_URL+"api/singUpAndLogin/chackNumber.php?phone=" + number;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL_WITH_USER_ID,
                 new Response.Listener<String>() {
@@ -256,7 +256,6 @@ public class ActivityLogin extends AppCompatActivity {
                             } else if (status == 1) {
                                 // Phone number is available
                                 progressBar.setVisibility(View.INVISIBLE);
-
 
                                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                                         "+880" + number.toString(), 60, TimeUnit.SECONDS
