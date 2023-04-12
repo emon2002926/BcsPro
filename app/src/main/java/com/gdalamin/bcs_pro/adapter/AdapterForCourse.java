@@ -2,19 +2,15 @@ package com.gdalamin.bcs_pro.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.gdalamin.bcs_pro.Activity.ActivityPdfViwer;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
@@ -25,6 +21,8 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
 
 
     private Context mContext;
+
+
 
 
 

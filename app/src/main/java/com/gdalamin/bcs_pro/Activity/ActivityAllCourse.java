@@ -1,14 +1,12 @@
 package com.gdalamin.bcs_pro.Activity;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,7 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.AdapterForCourse;
-import com.gdalamin.bcs_pro.adapter.LectureAndNotesAdapter;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +26,8 @@ public class ActivityAllCourse extends AppCompatActivity {
     CardView backBtn;
 
 
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=4";
+    private  static final String API_URL = ApiKeys.API_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +47,7 @@ public class ActivityAllCourse extends AppCompatActivity {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(API_URL+"api2/getData.php?apiKey=abc123&apiNum=4", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

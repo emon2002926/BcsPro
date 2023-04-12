@@ -1,31 +1,30 @@
 package com.gdalamin.bcs_pro.Activity;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.LectureAndNotesAdapter;
+import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class ActivityLectureAndNote extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    private  static final String url="http://emon.searchwizy.com/api2/getData.php?apiKey=abc123&apiNum=3";
-
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
 
@@ -54,7 +53,7 @@ public class ActivityLectureAndNote extends AppCompatActivity {
     public void processdata()
     {
 
-        StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(ApiKeys.API_URL+"api2/getData.php?apiKey=abc123&apiNum=3", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

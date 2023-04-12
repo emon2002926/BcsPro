@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -190,8 +191,8 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     public void loginUser(final String phone, final String password) {
-        String url = "http://emon.searchwizy.com/api2/login.php?apiKey=ghi789";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                ApiKeys.API_URL+ "api2/login.php?apiKey=ghi789",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -239,9 +240,9 @@ public class ActivityLogin extends AppCompatActivity {
     private void checkNumber(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
-        String API_URL = "http://emon.searchwizy.com/api2/volley/chackNumber.php?phone=" + number;
+        String API_URL_WITH_USER_ID = ApiKeys.API_URL+"api2/volley/chackNumber.php?phone=" + number;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL_WITH_USER_ID,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
