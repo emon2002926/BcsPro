@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:gravity="fill"
                 android:text="Daily Exam -6 january 2023"
-                android:textColor="@color/black"
+                android:textColor="@color/DeepGrey"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -85,7 +85,7 @@
                 android:layout_weight="1"
                 android:gravity="fill"
                 android:text="50 Question -20 minute"
-                android:textColor="#E4000000"
+                android:textColor="@color/GreyText"
                 android:textSize="14sp"
 
                 />

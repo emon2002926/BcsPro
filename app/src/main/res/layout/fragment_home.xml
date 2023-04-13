@@ -80,7 +80,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Live exam"
-                                android:textColor="@color/black"
+                                android:textColor="@color/LiteBlack"
                                 android:textStyle="bold"
                                 android:textSize="20sp"
                                 />
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/r1"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="20dp"
                             android:layout_below="@id/l40"
                             >
 
@@ -141,7 +141,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="All  Course"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/LiteBlack"
                                     android:layout_marginStart="20dp"
                                     android:textSize="20sp"
                                     android:textStyle="bold"
@@ -177,35 +177,32 @@
 
                                 <com.makeramen.roundedimageview.RoundedImageView
 
-                                    android:background="@drawable/round_back_white50_10"
                                     android:layout_weight="1"
-                                    android:layout_height="100dip"
+                                    android:layout_height="125dip"
                                     android:layout_marginEnd="20dp"
                                     android:id="@+id/imageView1"
                                     android:src="@drawable/image_one"
                                     android:layout_width="0dp"
                                     android:scaleType="fitXY"
-                                    app:riv_corner_radius="10dp"
+                                    app:riv_corner_radius="15dp"
 
                                     />
 
                                 <com.makeramen.roundedimageview.RoundedImageView
-                                    android:background="@drawable/round_back_white50_10"
                                     android:gravity="center"
                                     android:layout_weight="1"
-                                    android:layout_height="100dip"
+                                    android:layout_height="125dip"
                                     android:src="@drawable/image_two"
                                     android:layout_width="0dp"
                                     android:id="@+id/imageView2"
                                     android:scaleType="fitXY"
-                                    app:riv_corner_radius="10dp"
+                                    app:riv_corner_radius="15dp"
                                     />
                                 <com.makeramen.roundedimageview.RoundedImageView
-                                    android:background="@drawable/round_back_white50_10"
-                                    app:riv_corner_radius="10dp"
+                                    app:riv_corner_radius="15dp"
                                     android:gravity="center"
                                     android:layout_weight="1"
-                                    android:layout_height="100dip"
+                                    android:layout_height="125dip"
                                     android:layout_marginStart="20dp"
                                     android:layout_width="0dp"
                                     android:id="@+id/imageView3"
@@ -222,6 +219,7 @@
                             android:layout_below="@id/r1"
                             android:layout_marginStart="15dp"
                             android:layout_marginEnd="15dp"
+                            android:layout_marginTop="10dp"
                             app:cardCornerRadius="8dp"
                             android:layout_height="wrap_content">
                             <LinearLayout
@@ -230,8 +228,6 @@
                                 android:orientation="horizontal"
                                 android:weightSum="3"
                                 android:background="@drawable/round_back_white50_10"
-
-
 
                                 >
 
@@ -269,7 +265,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/GreyText"
                                         android:paddingStart="10dp"
                                         android:paddingBottom="5dp"
                                         android:text="Give an unlimited subject-based exam. Set your own time and number!"
@@ -281,6 +277,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="100dp"
                                     android:layout_weight="0.8"
+                                    android:padding="5dp"
                                     android:layout_margin="5dp"
                                     android:src="@drawable/subject_exam"
                                     android:scaleType="fitXY"/>
@@ -298,7 +295,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/subject_based_exam"
                             android:layout_marginStart="4dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="4dp"
                             android:id="@+id/r2"
 
@@ -309,8 +306,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20dp"
-                                android:text="Practices MCQ"
-                                android:textColor="@color/black"
+                                android:text="Practices"
+                                android:textColor="@color/LiteBlack"
                                 android:textStyle="bold"
                                 android:textSize="20sp" />
 
@@ -341,7 +338,7 @@
                                         android:gravity="center"
                                         android:text="@string/overall_exams"
                                         android:id="@+id/tvAllExam"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/DeepGrey"
                                         android:padding="10dp"
                                         android:textSize="14sp"
 
@@ -364,7 +361,7 @@
                                         android:background="@drawable/round_back_white50_10"
                                         android:gravity="center"
                                         android:text="Question Bank"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/DeepGrey"
                                         android:textSize="14sp"
                                         android:padding="10dp"
 
@@ -404,7 +401,7 @@
                                         android:gravity="center"
                                         android:text="Practice"
                                         android:id="@+id/tvPractice"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/DeepGrey"
                                         android:textSize="14sp"
                                         android:padding="10dp"
 
@@ -432,7 +429,7 @@
                                         android:background="@drawable/round_back_white50_10"
                                         android:gravity="center"
                                         android:text="Important Question"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/DeepGrey"
                                         android:padding="10dp"
                                         android:textSize="14sp" />
 
@@ -551,7 +548,7 @@
                                             android:layout_height="wrap_content"
                                             android:gravity="center"
                                             android:text="Easy and fun way to Learn "
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/DeepGrey"
                                             android:textSize="14sp"
                                             android:layout_marginStart="5dp"
                                             android:padding="4dp"
