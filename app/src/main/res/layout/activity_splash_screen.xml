@@ -8,4 +8,6 @@
     android:background="@drawable/splash"
     tools:context=".Activity.SplashScreen">
 
+
+
 </RelativeLayout>

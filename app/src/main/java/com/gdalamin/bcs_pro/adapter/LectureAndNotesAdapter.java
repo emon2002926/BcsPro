@@ -39,6 +39,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
 
 
+
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_for_lecture_notes,parent,false);
 
 
