@@ -129,7 +129,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     questionslists.add(questionList);
 
                     // Set the text of the options to their respective text views
-                    holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
+                    holder.textViewPosition2.setText(questionPosition+") ");
+                    holder.questionTv.setText(convertToUTF8(question));
                     holder.option1TV.setText(convertToUTF8(option1));
                     holder.option2TV.setText(convertToUTF8(option2));
                     holder.option3TV.setText(convertToUTF8(option3));
@@ -298,7 +299,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 String explainImageURL = BASE_URL+ "image/explainImage/"+data[position].getExplanationImage();
 
 
-                holder.questionTv.setText(convertToUTF8(questionPosition+") "+question));
+                holder.textViewPosition2.setText(questionPosition+") ");
+                holder.questionTv.setText(convertToUTF8(question));
 
                 holder.option1TV.setText(convertToUTF8(option1));
                 holder.option2TV.setText(convertToUTF8(option2));
@@ -531,13 +533,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout fullLayout,questionImageLayout;
 
-         TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition;
+         TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition,textViewPosition2;
 
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
 
             textViewPosition = itemView.findViewById(R.id.textViewPosition);
+            textViewPosition2 = itemView.findViewById(R.id.textViewPosition2);
+
             questionImageLayout = itemView.findViewById(R.id.questionIvLayout);
 
             questionTv=itemView.findViewById(R.id.questionTv);
@@ -606,41 +610,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     }
 
 
-    private void testHighLightClickedOption(View selectedOptionLayout1 ,View selectedOptionLayout2,View selectedOptionLayout3
-            ,View selectedOptionLayout4,ImageView selectedOptionIcon,int logic) {
 
-        if (logic >0){
-            if (logic ==1){
-
-                selectedOptionLayout2.setEnabled(false);
-                selectedOptionLayout3.setEnabled(false);
-                selectedOptionLayout4.setEnabled(false);
-
-                selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-                selectedOptionLayout1.setBackgroundResource(R.drawable.round_back_selected_option);
-
-
-
-            } else if (logic ==2) {
-                selectedOptionLayout1.setEnabled(false);
-                selectedOptionLayout3.setEnabled(false);
-                selectedOptionLayout4.setEnabled(false);
-                selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-                selectedOptionLayout2.setBackgroundResource(R.drawable.round_back_selected_option);
-            }else if (logic ==3) {
-
-                selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-                selectedOptionLayout3.setBackgroundResource(R.drawable.round_back_selected_option);
-            }else if (logic ==4) {
-                selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-                selectedOptionLayout4.setBackgroundResource(R.drawable.round_back_selected_option);
-            }
-        }
-
-        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-        selectedOptionLayout1.setBackgroundResource(R.drawable.round_back_selected_option);
-
-    }
     private void highLightClickedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
 

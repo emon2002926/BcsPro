@@ -2,6 +2,7 @@ package com.gdalamin.bcs_pro.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,8 +107,17 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 //        holder.total.setText(total);
 //        holder.correct.setText(correct);
 //        holder.wrong.setText(wrong);
-//        holder.marks.setText(marks);
-//        holder.date.setText(date);
+
+        int time = Integer.parseInt(examResults[position].getTotal())/2;
+
+
+
+
+        holder.examDetails.setText("Overall "+total+" question and "+String.valueOf(time)+" minutes");
+
+        Log.d("time22","Overall "+total+" question and "+String.valueOf(time));
+        holder.marks.setText("Marks:"+marks);
+        holder.date.setText("Date:"+date);
 
 
 
@@ -188,7 +198,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     }
     class myviewholder extends RecyclerView.ViewHolder
     {
-        TextView total,correct,wrong,marks,date;
+        TextView total,correct,examDetails,marks,date;
         CardView cvResultLayout;
 
 
@@ -204,7 +214,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
             date = itemView.findViewById(R.id.tvDate);
             marks = itemView.findViewById(R.id.marksTv);
-
+            examDetails = itemView.findViewById(R.id.examDetails);
 
         }
     }

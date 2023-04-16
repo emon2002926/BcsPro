@@ -40,10 +40,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Overall Exam"
+                android:id="@+id/examDetails"
                 android:textColor="@color/tangerine"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 />
 
             <LinearLayout

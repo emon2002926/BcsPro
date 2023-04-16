@@ -28,21 +28,42 @@
             android:id="@+id/linear"
             android:orientation="vertical">
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:textSize="15sp"
-                android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text=""
-                android:visibility="visible"
-                android:textAlignment="inherit"
-                android:id="@+id/questionTv"
-                />
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="1)"
+                    android:paddingStart="5dp"
+                    android:textStyle="bold"
+                    android:id="@+id/textViewPosition2"
+                    android:textColor="@color/t2"
+                    android:textSize="20sp"
+                    android:visibility="visible"
+                    />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/LiteBlack"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:text=""
+                    android:visibility="visible"
+                    android:textAlignment="inherit"
+                    android:id="@+id/questionTv"
+                    />
+
+            </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

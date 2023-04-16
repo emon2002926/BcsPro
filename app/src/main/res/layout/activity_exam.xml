@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/darkTangerine"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -51,7 +51,7 @@
                 android:layout_marginEnd="10dp"
                 android:textSize="16sp"
                 android:id="@+id/tvTimer"
-                android:textColor="@color/liteGreen"
+                android:textColor="@color/tangerine"
                 android:text="00:00:00"/>
 
         </RelativeLayout>
@@ -114,8 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:background="@color/blue"
-        app:backgroundTint="@color/blue"
+        android:background="@color/tangerine"
+        app:backgroundTint="@color/tangerine"
         android:layout_marginBottom="50dp"
         app:fabSize="normal"
         android:visibility="gone"
