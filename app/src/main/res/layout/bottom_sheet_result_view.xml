@@ -46,7 +46,7 @@
 
 
         <include
-            layout="@layout/test_result"/>
+            layout="@layout/full_result_view"/>
 
 
     </LinearLayout>

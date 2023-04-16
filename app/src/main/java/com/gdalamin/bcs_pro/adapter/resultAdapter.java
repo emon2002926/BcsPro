@@ -32,7 +32,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
-         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.result,parent,false);
+         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.test_layout,parent,false);
 
          return new myviewholder(view);
     }
@@ -102,12 +102,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
-
-        holder.total.setText(total);
-        holder.correct.setText(correct);
-        holder.wrong.setText(wrong);
-        holder.marks.setText(marks);
-        holder.date.setText(date);
+///thats ui elements
+//        holder.total.setText(total);
+//        holder.correct.setText(correct);
+//        holder.wrong.setText(wrong);
+//        holder.marks.setText(marks);
+//        holder.date.setText(date);
 
 
 
@@ -115,7 +115,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
-            Intent intent = new Intent(holder.correct.getContext(),TestResult.class);
+            Intent intent = new Intent(holder.date.getContext(),TestResult.class);
             intent.putExtra("date",date);
             intent.putExtra("total",total);
             intent.putExtra("correct",correct);
@@ -198,11 +198,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
             cvResultLayout = itemView.findViewById(R.id.resultLayoutCV);
 
-            total = itemView.findViewById(R.id.totalTv);
-            correct = itemView.findViewById(R.id.correctTv);
-            wrong =itemView.findViewById(R.id.wrongTv);
-            marks = itemView.findViewById(R.id.marksTv);
+//            total = itemView.findViewById(R.id.totalTv);
+//            correct = itemView.findViewById(R.id.correctTv);
+//            wrong =itemView.findViewById(R.id.wrongTv);
+
             date = itemView.findViewById(R.id.tvDate);
+            marks = itemView.findViewById(R.id.marksTv);
 
 
         }

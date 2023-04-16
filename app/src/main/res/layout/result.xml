@@ -62,7 +62,7 @@
                             android:layout_height="25dp"
                             android:contentDescription="@string/app_name"
                             android:src="@drawable/ic_baseline_arrow_forward_24"
-                            app:tint="@color/DeepGrey"
+                            app:tint="@color/tangerine"
                             />
 
                     </LinearLayout>
