@@ -1,21 +1,27 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.gdalamin.bcs_pro.Activity.MainActivity;
+import androidx.fragment.app.Fragment;
+
+import com.gdalamin.bcs_pro.Activity.ActivityLogin;
 import com.gdalamin.bcs_pro.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +39,7 @@ public class SettingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    LinearLayout messengerChatBtn,facebookGroup;
+    LinearLayout messengerChatBtn,facebookGroup,logOutButton;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -86,18 +92,74 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        logOutButton = view.findViewById(R.id.logOutButton);
+        logOutButton.setOnClickListener(view1 -> {
+
+            signOut(view1.getContext());
+
+        }
+        );
+
+
+
         return view;
     }
 
 
-    //    void signOut(){
-//        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(Task<Void> task) {
-//                finish();
-//                startActivity(new Intent(singintestActivity.this,ActivityLogin.class));
-//            }
-//        });
-//    }
+    private void signOut(Context context) {
+        // Get the last signed-in Google account from the given context
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+
+        // Get the SharedPreferences instance for storing login information
+        SharedPreferences preferences = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+
+        // Get the SharedPreferences.Editor instance for editing login information
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Build the GoogleSignInOptions for signing in
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // If the user is already signed in, sign them out
+        if (account != null) {
+            // Create a GoogleSignInClient using the given context and GoogleSignInOptions
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+
+            // Call signOut() on the GoogleSignInClient to sign the user out
+            mGoogleSignInClient.signOut().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Sign out successful
+                    Log.d("SignOut", "Google sign out successful");
+
+                    // Clear the login information from SharedPreferences
+                    editor.clear();
+                    editor.apply();
+
+                    // Start the LoginActivity and finish the current Activity
+                    Intent intent = new Intent(context, ActivityLogin.class);
+                    context.startActivity(intent);
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                } else {
+                    // Sign out failed
+                    Log.w("SignOut", "Google sign out failed", task.getException());
+                }
+            });
+
+        } else {
+            // User is not signed in
+
+            // Clear the login information from SharedPreferences
+            Intent intent = new Intent(context, ActivityLogin.class);
+            context.startActivity(intent);
+            if (context instanceof Activity) {
+                ((Activity) context).finish();
+            }
+            editor.clear();
+            editor.apply();
+        }
+    }
 
 }

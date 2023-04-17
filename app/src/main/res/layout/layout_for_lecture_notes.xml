@@ -7,8 +7,10 @@
     android:orientation="vertical"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="10dp"
+    app:cardElevation="5dp"
     android:layout_marginStart="10dp"
     android:id="@+id/layoutLecture"
+    app:cardCornerRadius="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -17,14 +19,12 @@
         android:layout_height="match_parent"
         android:elevation="30dp"
         android:padding="5dp"
-        app:cardCornerRadius="10dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#e3eeff"
             >
 
             <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="10dp"
                 >
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/tangerine"
                     android:layout_weight="1"
                     android:id="@+id/tvLectureDitals"
                     android:textSize="20dp"
@@ -69,16 +69,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/liteTangerine"
                     android:textSize="18sp"
                     android:id="@+id/tvDate"
                     android:text="Last Update"/>
-
-
             </LinearLayout>
 
         </LinearLayout>
-
 
         <!-- Your card content goes here -->
 

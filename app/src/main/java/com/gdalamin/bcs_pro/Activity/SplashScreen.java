@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class SplashScreen extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                 String valueString = sharedPreferences.getString("key_phone", "");
+
+                Log.d("key_phone",valueString);
 
                 if (!valueString.isEmpty()){
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);

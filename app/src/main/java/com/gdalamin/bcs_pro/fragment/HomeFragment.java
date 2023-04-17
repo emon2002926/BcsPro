@@ -291,7 +291,7 @@ public class HomeFragment extends Fragment {
 
             int subCode = 3;
             int LOGIC = 2;
-            titleText = "Practise Subject Based Question";
+            titleText = "Practise MCQ";
 
             preferencesManager.saveInt("subCode",subCode);
             preferencesManager.saveInt("logic",LOGIC);

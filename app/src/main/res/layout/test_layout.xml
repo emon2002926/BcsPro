@@ -33,7 +33,6 @@
                 android:textColor="@color/darkTangerine"
                 android:id="@+id/tvLectureDitals"
                 android:textSize="20dp"
-
                 android:text="Exam Details"/>
 
             <TextView
