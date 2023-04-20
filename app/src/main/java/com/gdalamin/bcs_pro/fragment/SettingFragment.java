@@ -1,8 +1,10 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.gdalamin.bcs_pro.Activity.ActivityLogin;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -79,6 +82,7 @@ public class SettingFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_setting, container, false);
 
 
+
         facebookGroup = view.findViewById(R.id.facebookGroup);
         facebookGroup.setOnClickListener(view1 -> {
             String groupId = "887679785774255"; //   Messenger group ID
@@ -95,14 +99,57 @@ public class SettingFragment extends Fragment {
         logOutButton = view.findViewById(R.id.logOutButton);
         logOutButton.setOnClickListener(view1 -> {
 
-            signOut(view1.getContext());
+            singOutOption();
 
         }
         );
+        messengerChatBtn = view.findViewById(R.id.messengerChat);
+
+        messengerChatBtn.setOnClickListener(view1 -> {
+            openMessenger();
+
+        });
+
+
 
 
 
         return view;
+    }
+
+
+    private void openMessenger(){
+        String userIdOrGroupId = "100009066774848";
+
+// Launch Messenger chat with the specified user or group ID
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb-messenger://user/" + userIdOrGroupId));
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello, let's chat!"); // Optional: add a message
+        intent.setPackage("com.facebook.orca"); // Set the package name of Messenger app
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            // Messenger is not installed, handle the error here
+        }
+    }
+
+    private void  singOutOption(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//        builder.setTitle("Alert");
+        builder.setMessage("Are you sure to sing out");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Action to be taken when OK button is clicked
+                signOut(getContext());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Action to be taken when Cancel button is clicked
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
@@ -111,10 +158,13 @@ public class SettingFragment extends Fragment {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
 
         // Get the SharedPreferences instance for storing login information
-        SharedPreferences preferences = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        SharedPreferences loginPreferences;
+        loginPreferences   = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        loginPreferences   = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
 
-        // Get the SharedPreferences.Editor instance for editing login information
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = loginPreferences.edit();
+
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
 
         // Build the GoogleSignInOptions for signing in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -133,8 +183,10 @@ public class SettingFragment extends Fragment {
                     Log.d("SignOut", "Google sign out successful");
 
                     // Clear the login information from SharedPreferences
+                    sharedPreferencesManager.clear();
                     editor.clear();
                     editor.apply();
+
 
                     // Start the LoginActivity and finish the current Activity
                     Intent intent = new Intent(context, ActivityLogin.class);
@@ -157,6 +209,7 @@ public class SettingFragment extends Fragment {
             if (context instanceof Activity) {
                 ((Activity) context).finish();
             }
+            sharedPreferencesManager.clear();
             editor.clear();
             editor.apply();
         }

@@ -69,8 +69,6 @@
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-
-
                 />
 
         </LinearLayout>
