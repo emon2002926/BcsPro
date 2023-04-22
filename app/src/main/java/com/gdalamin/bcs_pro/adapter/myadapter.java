@@ -342,17 +342,20 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         holder.option4Layout.setEnabled(false);
 
                         highLightClickedOption(holder.option1Layout,holder.img1);
-                    } else if (answer ==2) {
+                    }
+                    else if (answer ==2) {
                         holder.option1Layout.setEnabled(false);
                         holder.option3Layout.setEnabled(false);
                         holder.option4Layout.setEnabled(false);
                         highLightClickedOption(holder.option2Layout,holder.img2);
-                    } else if (answer == 3) {
+                    }
+                    else if (answer == 3) {
                         holder.option1Layout.setEnabled(false);
                         holder.option2Layout.setEnabled(false);
                         holder.option4Layout.setEnabled(false);
                         highLightClickedOption(holder.option3Layout,holder.img3);
-                    } else if (answer == 4) {
+                    }
+                    else if (answer == 4) {
                         holder.option1Layout.setEnabled(false);
                         holder.option3Layout.setEnabled(false);
                         holder.option2Layout.setEnabled(false);
@@ -364,6 +367,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         case 1:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option1Layout, holder.img1);
+
+               //Todo  work from hare
                                 showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
                                 selectedOption2(holder.option1Layout, holder.img1);
@@ -464,50 +469,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option2Layout.setOnClickListener(optionClickListener);
                 holder.option3Layout.setOnClickListener(optionClickListener);
                 holder.option4Layout.setOnClickListener(optionClickListener);
-
-
-
-//                 OnClickListeners for each option
-                /*
-                View.OnClickListener optionClickListener = view -> {
-                    holder.layoutExplain.setVisibility(View.VISIBLE);
-                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-
-                    switch (view.getId()) {
-                        case R.id.option1Layout:
-                            holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                            holder.img1.setImageResource(R.drawable.chack);
-
-                            break;
-                        case R.id.option2Layout:
-                            holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                            holder.img2.setImageResource(R.drawable.chack);
-                            break;
-                        case R.id.option3Layout:
-                            holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                            holder.img3.setImageResource(R.drawable.chack);
-                            break;
-                        case R.id.opton4Layout:
-                            holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                            holder.img4.setImageResource(R.drawable.chack);
-                            break;
-                    }
-
-                    holder.option1Layout.setEnabled(false);
-                    holder.option2Layout.setEnabled(false);
-                    holder.option3Layout.setEnabled(false);
-                    holder.option4Layout.setEnabled(false);
-                };
-
-                holder.option1Layout.setOnClickListener(optionClickListener);
-                holder.option2Layout.setOnClickListener(optionClickListener);
-                holder.option3Layout.setOnClickListener(optionClickListener);
-                holder.option4Layout.setOnClickListener(optionClickListener);
-
-
-
-                 */
-
 
 
 

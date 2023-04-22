@@ -1,6 +1,5 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +20,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.model;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -33,6 +34,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
     TextView textView;
     ImageView imageBackButton;
+    FloatingActionButton showAnswer;
       String  API_URL ="";
 
     ShimmerFrameLayout shimmerFrameLayout;
@@ -55,27 +57,24 @@ public class QuestionListActivity extends AppCompatActivity {
         });
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
-        int subCode = sharedPreferences.getInt("subCode",0);
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(QuestionListActivity.this);
+        int subCode = preferencesManager.getInt("subCode");
         Log.d("subCode100",String.valueOf(subCode));
-//        sharedPreferences.edit().clear().apply();
+
 
 
 
         if (subCode == 3){
 
-
-            String SUBJECT_CODE= sharedPreferences.getString("subjectPosition","");
-
-
-            String url = "http://emon.searchwizy.com/api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
+            String SUBJECT_CODE= preferencesManager.getString("subjectPosition");
+            String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
             Log.d("eee3",url);
             processdata(url);
 
         } else if (subCode == 4){
 
-            String subjectName = sharedPreferences.getString("bcsYearName","");
+            String subjectName = preferencesManager.getString("bcsYearName");
             String apiWithSql = ApiKeys.API_WITH_SQL;
 
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
@@ -93,6 +92,17 @@ public class QuestionListActivity extends AppCompatActivity {
 
         }
 
+        showAnswer = findViewById(R.id.btnShowAnswer);
+        showAnswer.setOnClickListener(view -> {
+
+            boolean currentValue = preferencesManager.getBoolean("showOrHide");
+            preferencesManager.putBoolean("showOrHide",!currentValue);
+
+
+        });
+
+
+
 
     }
 
@@ -100,9 +110,10 @@ public class QuestionListActivity extends AppCompatActivity {
     {
 
 
-        // Todo got the api url
 
+        Toast.makeText(QuestionListActivity.this,API_URL,Toast.LENGTH_SHORT).show();
 
+        Log.d("passedUrl",API_URL);
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
