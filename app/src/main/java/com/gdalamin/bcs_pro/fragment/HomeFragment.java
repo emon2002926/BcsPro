@@ -215,6 +215,7 @@ public class HomeFragment extends Fragment {
             final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
             final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
 
+
             option1Layout.setOnClickListener(view15 -> {
                 selectedOption(option1Layout, icon1);
                 option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);

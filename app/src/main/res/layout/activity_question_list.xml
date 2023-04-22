@@ -85,7 +85,19 @@
             tools:ignore="MissingConstraints" />
 
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        app:backgroundTint="@color/tangerine"
+        android:layout_marginBottom="50dp"
+        app:fabSize="normal"
+        android:visibility="visible"
+        android:src="@drawable/baseline_check_24"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        />
 
 
 </RelativeLayout>

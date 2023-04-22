@@ -15,7 +15,7 @@
         android:padding="15dp"
         android:textSize="22sp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/darkTangerine"
         />
 
 
@@ -40,7 +40,7 @@
             android:text="50 Question-25 Minutes"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            />
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -73,7 +73,7 @@
             android:text="100 Question-50 Minutes"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@color/black" />
+            />
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -107,7 +107,7 @@
             android:text="200 Question-100 Minutes"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@color/black" />
+            />
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

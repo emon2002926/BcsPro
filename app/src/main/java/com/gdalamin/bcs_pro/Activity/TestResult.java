@@ -82,6 +82,7 @@ public class TestResult extends AppCompatActivity {
 
 
 
+
         TextView totalTV = findViewById(R.id.totalTv);
         TextView correctTv = findViewById(R.id.correctTv);
         TextView wrongTv = findViewById(R.id.wrongTv);
@@ -155,6 +156,13 @@ public class TestResult extends AppCompatActivity {
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> {
             onBackPressed();
+        });
+
+
+        TextView backToHome = findViewById(R.id.btnBackToHome);
+        backToHome.setOnClickListener(view -> {
+            startActivity(new Intent(TestResult.this,MainActivity.class));
+            finish();
         });
 
     }
