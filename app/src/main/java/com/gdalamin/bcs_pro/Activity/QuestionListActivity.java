@@ -114,9 +114,6 @@ public class QuestionListActivity extends AppCompatActivity {
     {
 
 
-
-        Toast.makeText(QuestionListActivity.this,API_URL,Toast.LENGTH_SHORT).show();
-
         Log.d("passedUrl",API_URL);
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override

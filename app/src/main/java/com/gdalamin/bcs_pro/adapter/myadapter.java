@@ -39,8 +39,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     private boolean mBooleanValue;
 
 
-
-
     public myadapter(model[] data,boolean mBooleanValue) {
         this.data = data;
         this.mBooleanValue = mBooleanValue;
@@ -56,9 +54,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     private final List<QuestionList> questionslists = new ArrayList<>();
-
-
-
 
     @NonNull
     @Override
@@ -330,19 +325,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 }
 
 
-                boolean currentValue = preferencesManager.getBoolean("showOrHide");
-
 
                 //Todo  work from hare
-
-                if (mBooleanValue == true){
-                    Log.d("showOrHide","true");
-                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-                } else if (mBooleanValue==false) {
-                    Log.d("showOrHide","false");
-                }
-////
-
 
                 //Showing Image or text with there respective logic
                 showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
@@ -353,67 +337,53 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
                 questionslists.add(questionList);
 
-                if (questionslists.get(position).getUserSelecedAnswer() > 0) {
-                    // If the question has a selected option, highlight the corresponding option
+
+
+                // When hide or  unHide button was clicked this if else function will activate
+                if (mBooleanValue == true){
+                    Log.d("showOrHide","true");
+
                     if (answer == 1){
-
-                        holder.option2Layout.setEnabled(false);
-                        holder.option3Layout.setEnabled(false);
-                        holder.option4Layout.setEnabled(false);
-
-                        highLightClickedOption(holder.option1Layout,holder.img1);
+                        highLightClickedOption2(holder.option1Layout,holder.img1,holder.option2Layout,holder.option3Layout
+                                ,holder.option4Layout);
                     }
                     else if (answer ==2) {
-                        holder.option1Layout.setEnabled(false);
-                        holder.option3Layout.setEnabled(false);
-                        holder.option4Layout.setEnabled(false);
-                        highLightClickedOption(holder.option2Layout,holder.img2);
+
+                        highLightClickedOption2(holder.option2Layout,holder.img2,holder.option1Layout
+                                ,holder.option3Layout,holder.option4Layout);
                     }
                     else if (answer == 3) {
-                        holder.option1Layout.setEnabled(false);
-                        holder.option2Layout.setEnabled(false);
-                        holder.option4Layout.setEnabled(false);
-                        highLightClickedOption(holder.option3Layout,holder.img3);
+                        highLightClickedOption2(holder.option3Layout,holder.img3,holder.option1Layout
+                                ,holder.option2Layout,holder.option4Layout);
                     }
                     else if (answer == 4) {
-                        holder.option1Layout.setEnabled(false);
-                        holder.option3Layout.setEnabled(false);
-                        holder.option2Layout.setEnabled(false);
-                        highLightClickedOption(holder.option4Layout,holder.img4);
+                        highLightClickedOption2(holder.option4Layout,holder.img4,holder.option1Layout
+                                ,holder.option3Layout,holder.option2Layout);
                     }
+
+                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
 
                     int userSelecedAnswer = questionList.getUserSelecedAnswer();
                     switch (questionslists.get(position).getUserSelecedAnswer()) {
                         case 1:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option1Layout, holder.img1);
-
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
                                 selectedOption2(holder.option1Layout, holder.img1);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
-
                             break;
                         case 2:
                             if (userSelecedAnswer == answer){
-
                                 highLightClickedOption(holder.option2Layout, holder.img2);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
                                 selectedOption2(holder.option2Layout, holder.img2);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
-
                             break;
                         case 3:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option3Layout, holder.img3);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
-
                                 selectedOption2(holder.option3Layout, holder.img3);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
 
                             break;
@@ -422,15 +392,87 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             if (userSelecedAnswer == answer){
 
                                 highLightClickedOption(holder.option4Layout, holder.img4);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
                                 selectedOption2(holder.option4Layout, holder.img4);
-                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
                             break;
                     }
+
+
+                }
+                else if (mBooleanValue==false) {
+                    Log.d("showOrHide","false");
+                    if (questionslists.get(position).getUserSelecedAnswer() > 0) {
+//                     If the question has a selected option, highlight the corresponding option
+                        if (answer == 1){
+                            highLightClickedOption2(holder.option1Layout,holder.img1,holder.option2Layout,holder.option3Layout
+                                    ,holder.option4Layout);
+                        }
+                        else if (answer ==2) {
+
+                            highLightClickedOption2(holder.option2Layout,holder.img2,holder.option1Layout
+                                    ,holder.option3Layout,holder.option4Layout);
+                        }
+                        else if (answer == 3) {
+                            highLightClickedOption2(holder.option3Layout,holder.img3,holder.option1Layout
+                                    ,holder.option2Layout,holder.option4Layout);
+                        }
+                        else if (answer == 4) {
+                            highLightClickedOption2(holder.option4Layout,holder.img4,holder.option1Layout
+                                    ,holder.option3Layout,holder.option2Layout);
+                        }
+
+                        showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                        int userSelecedAnswer = questionList.getUserSelecedAnswer();
+                        switch (questionslists.get(position).getUserSelecedAnswer()) {
+                            case 1:
+                                if (userSelecedAnswer == answer){
+                                    highLightClickedOption(holder.option1Layout, holder.img1);
+                                }else {
+                                    selectedOption2(holder.option1Layout, holder.img1);
+                                }
+                                break;
+                            case 2:
+                                if (userSelecedAnswer == answer){
+                                    highLightClickedOption(holder.option2Layout, holder.img2);
+                                }else {
+                                    selectedOption2(holder.option2Layout, holder.img2);
+                                }
+                                break;
+                            case 3:
+                                if (userSelecedAnswer == answer){
+                                    highLightClickedOption(holder.option3Layout, holder.img3);
+                                }else {
+                                    selectedOption2(holder.option3Layout, holder.img3);
+                                }
+
+                                break;
+                            case 4:
+
+                                if (userSelecedAnswer == answer){
+
+                                    highLightClickedOption(holder.option4Layout, holder.img4);
+//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                                }else {
+                                    selectedOption2(holder.option4Layout, holder.img4);
+//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                                }
+                                break;
+                        }
+                    }
+
                 }
 
+
+
+
+
+
+
+
+                /// it activative  when user clicked
                 View.OnClickListener optionClickListener = view -> {
                     showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
 
@@ -443,20 +485,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     } else if (answer == 4) {
                         highLightClickedOption(holder.option4Layout,holder.img4);
                     }
-
                     int selectedOption = 0;
                     ImageView img = null;
                     // Determine which option was clicked based on the view that was clicked
                     if (view == holder.option1Layout) {
                         selectedOption = 1;
                         img = holder.img1;
-
-
                     } else if (view == holder.option2Layout) {
                         selectedOption = 2;
                         img = holder.img2;
-
-
                     } else if (view == holder.option3Layout) {
                         selectedOption = 3;
                         img = holder.img3;
@@ -465,16 +502,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         img = holder.img4;
                     }
                     questionslists.get(position).setUserSelecedAnswer(selectedOption);
-
-
-//
+                 // if answer id correct selected option will be green if its wrong it will be read
                     if (selectedOption == answer){
 
                         highLightClickedOption(view, img);
                     }else {
                         selectedOption2(view,img);
                     }
-
 
                     holder.option1Layout.setEnabled(false);
                     holder.option2Layout.setEnabled(false);
@@ -593,12 +627,22 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     private void highLightClickedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
-
-
-
         selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
         selectedOptionLayout.setEnabled(false);
+
+    }
+
+
+    private void highLightClickedOption2( View highlightedOptionLayout , ImageView highlightedOptionIcon,View disableOptionLayout1,
+                                         View disableOptionLayout2,View disableOptionLayout3 ) {
+
+        highlightedOptionIcon.setImageResource(R.drawable.baseline_check_24);
+        highlightedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+        highlightedOptionLayout.setEnabled(false);
+        disableOptionLayout1.setEnabled(false);
+        disableOptionLayout2.setEnabled(false);
+        disableOptionLayout3.setEnabled(false);
 
     }
     private void selectedOption2(View selectedOptionLayout , ImageView selectedOptionIcon) {
