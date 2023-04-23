@@ -2,7 +2,6 @@ package com.gdalamin.bcs_pro.downloader;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -80,7 +78,7 @@ public class ShowMcq {
                                 LinearLayoutManager.VERTICAL, false);
 
                         recview.setLayoutManager(linearLayoutManager);
-                        myadapter adapter = new myadapter(data);
+                        myadapter adapter = new myadapter(data,false);
                         recview.setAdapter(adapter);
 
                     }

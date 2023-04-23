@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,15 +36,23 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     model data[];
 
     ProgressBar progressBar;
+    private boolean mBooleanValue;
 
-    public myadapter(model[] data) {
+
+
+
+    public myadapter(model[] data,boolean mBooleanValue) {
         this.data = data;
+        this.mBooleanValue = mBooleanValue;
+    }
+
+    public void setBooleanValue(boolean booleanValue) {
+        mBooleanValue = booleanValue;
+        notifyDataSetChanged();
     }
 
 
     Context context;
-
-   static int userSelectedOption = 0;
 
 
     private final List<QuestionList> questionslists = new ArrayList<>();
@@ -63,9 +72,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
-
-
-
 
         String BASE_URL = ApiKeys.API_URL+"api/";
         Context ctx = holder.fullLayout.getContext();
@@ -324,6 +330,20 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 }
 
 
+                boolean currentValue = preferencesManager.getBoolean("showOrHide");
+
+
+                //Todo  work from hare
+
+                if (mBooleanValue == true){
+                    Log.d("showOrHide","true");
+                    showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                } else if (mBooleanValue==false) {
+                    Log.d("showOrHide","false");
+                }
+////
+
+
                 //Showing Image or text with there respective logic
                 showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
                 showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
@@ -368,7 +388,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option1Layout, holder.img1);
 
-               //Todo  work from hare
                                 showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
                                 selectedOption2(holder.option1Layout, holder.img1);

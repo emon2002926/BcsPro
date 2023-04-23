@@ -38,6 +38,8 @@ public class QuestionListActivity extends AppCompatActivity {
       String  API_URL ="";
 
     ShimmerFrameLayout shimmerFrameLayout;
+    private boolean mBooleanValue = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,21 +89,23 @@ public class QuestionListActivity extends AppCompatActivity {
             API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
             Log.d("eee1",API_URL);
             processdata(API_URL);
+
         } else if (subCode == 6) {
             Log.d("eee4","this one");
 
         }
 
         showAnswer = findViewById(R.id.btnShowAnswer);
-        showAnswer.setOnClickListener(view -> {
-
-            boolean currentValue = preferencesManager.getBoolean("showOrHide");
-            preferencesManager.putBoolean("showOrHide",!currentValue);
 
 
-        });
 
-
+//        boolean currentValue = preferencesManager.getBoolean("showOrHide");
+//
+//        if (currentValue == true){
+//            Log.d("showOrHide","true");
+//        } else if (currentValue==false) {
+//            Log.d("showOrHide","false");
+//        }
 
 
     }
@@ -138,9 +142,14 @@ public class QuestionListActivity extends AppCompatActivity {
                         ,LinearLayoutManager.VERTICAL,false);
 
                 recview.setLayoutManager(linearLayoutManager);
-                myadapter adapter=new myadapter(data);
+                myadapter adapter=new myadapter(data,mBooleanValue);
                 recview.setAdapter(adapter);
 
+                showAnswer.setOnClickListener(view -> {
+                    mBooleanValue = !mBooleanValue;
+                    adapter.setBooleanValue(mBooleanValue);
+                    Toast.makeText(QuestionListActivity.this,"clicked",Toast.LENGTH_SHORT).show();
+                });
 
             }
         }, new Response.ErrorListener() {
