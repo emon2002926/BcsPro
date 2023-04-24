@@ -145,7 +145,15 @@ public class QuestionListActivity extends AppCompatActivity {
                 showAnswer.setOnClickListener(view -> {
                     mBooleanValue = !mBooleanValue;
                     adapter.setBooleanValue(mBooleanValue);
-                    Toast.makeText(QuestionListActivity.this,"clicked",Toast.LENGTH_SHORT).show();
+
+                    if (mBooleanValue == false){
+
+                        showAnswer.setImageResource(R.drawable.hidden);
+
+
+                    }else if (mBooleanValue == true){
+                        showAnswer.setImageResource(R.drawable.view);
+                    }
                 });
 
             }

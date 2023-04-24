@@ -217,7 +217,7 @@ public class ActivityExam extends AppCompatActivity {
                 .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-        textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
+        textView.setText("You have answered " + answered + " question out of "+NUM_OF_QUESTION);
 
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
@@ -249,8 +249,6 @@ public class ActivityExam extends AppCompatActivity {
         String monthName = new DateFormatSymbols().getMonths()[month];
         preferencesManager = new SharedPreferencesManager(this);
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
-
-
 
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());

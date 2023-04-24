@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="30dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/layout1"
         app:cardCornerRadius="10dp"
         app:cardElevation="40dp"
@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
 
 
             >
@@ -37,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+
                 android:orientation="horizontal"
                 >
 
@@ -45,9 +47,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darkTangerine"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:id="@+id/questionBatch"
                     android:text="44th Batch BCS Question"/>
 
@@ -56,7 +58,7 @@
                     android:layout_height="25dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/black"
+                    app:tint="@color/tangerine"
                     />
 
 
@@ -67,15 +69,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="5dp"
                 >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="#52e5ba"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:id="@+id/numOFQuestion"
                     android:text="Total"/>
 
@@ -86,11 +87,12 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/layout2"
         app:cardElevation="5dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="10dp"
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android">

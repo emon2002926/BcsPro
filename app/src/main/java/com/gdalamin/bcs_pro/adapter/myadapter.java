@@ -142,7 +142,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         holder.questionImg.setVisibility(View.GONE);
                         holder.questionTv.setVisibility(View.VISIBLE);
                         holder.textViewPosition.setVisibility(View.GONE);
+                        holder.textViewPosition2.setVisibility(View.VISIBLE);
                     } else {
+                        holder.textViewPosition2.setVisibility(View.GONE);
                         holder.questionTv.setVisibility(View.GONE);
                         holder.questionImageLayout.setVisibility(View.VISIBLE);
                         Glide.with(holder.questionImg.getContext())
@@ -159,14 +161,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
 
                     if (questionslists.get(position).getUserSelecedAnswer() > 0) {
-                        // If the question has a selected option, highlight the corresponding option
-
-
 //                        holder.fullLayout.setEnabled(false);
                         int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
-                        if (userSelectedAnswer == 1){
-
-
+                        if (userSelectedAnswer == 1) {
                             holder.option2Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
@@ -177,7 +174,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                             highLightClickedOption(holder.option1Layout,holder.img1);
 
-                        } else if (userSelectedAnswer ==2) {
+                        }
+                        else if (userSelectedAnswer ==2) {
                             holder.option1Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
@@ -188,7 +186,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                             highLightClickedOption(holder.option2Layout,holder.img2);
 
-                        } else if (userSelectedAnswer == 3) {
+                        }
+                        else if (userSelectedAnswer == 3) {
                             holder.option1Layout.setEnabled(false);
                             holder.option2Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
@@ -198,15 +197,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
 
                             highLightClickedOption(holder.option3Layout,holder.img3);
-                        } else if (userSelectedAnswer == 4) {
+                        }
+                        else if (userSelectedAnswer == 4) {
                             holder.option1Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option2Layout.setEnabled(false);
-
                             holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
                             holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
                             holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-
                             highLightClickedOption(holder.option4Layout,holder.img4);
                         }
 
@@ -314,7 +312,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.questionImg.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.GONE);
+                    holder.textViewPosition2.setVisibility(View.VISIBLE);
                 } else {
+                    holder.textViewPosition2.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
                     Glide.with(holder.questionImg.getContext())
@@ -369,21 +369,21 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option1Layout, holder.img1);
                             }else {
-                                selectedOption2(holder.option1Layout, holder.img1);
+//                                selectedOption2(holder.option1Layout, holder.img1);
                             }
                             break;
                         case 2:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option2Layout, holder.img2);
                             }else {
-                                selectedOption2(holder.option2Layout, holder.img2);
+//                                selectedOption2(holder.option2Layout, holder.img2);
                             }
                             break;
                         case 3:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option3Layout, holder.img3);
                             }else {
-                                selectedOption2(holder.option3Layout, holder.img3);
+//                                selectedOption2(holder.option3Layout, holder.img3);
                             }
 
                             break;
@@ -394,7 +394,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                                 highLightClickedOption(holder.option4Layout, holder.img4);
 //                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
-                                selectedOption2(holder.option4Layout, holder.img4);
+//                                selectedOption2(holder.option4Layout, holder.img4);
 //                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
                             break;
@@ -425,51 +425,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         }
 
                         showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-                        int userSelecedAnswer = questionList.getUserSelecedAnswer();
-                        switch (questionslists.get(position).getUserSelecedAnswer()) {
-                            case 1:
-                                if (userSelecedAnswer == answer){
-                                    highLightClickedOption(holder.option1Layout, holder.img1);
-                                }else {
-                                    selectedOption2(holder.option1Layout, holder.img1);
-                                }
-                                break;
-                            case 2:
-                                if (userSelecedAnswer == answer){
-                                    highLightClickedOption(holder.option2Layout, holder.img2);
-                                }else {
-                                    selectedOption2(holder.option2Layout, holder.img2);
-                                }
-                                break;
-                            case 3:
-                                if (userSelecedAnswer == answer){
-                                    highLightClickedOption(holder.option3Layout, holder.img3);
-                                }else {
-                                    selectedOption2(holder.option3Layout, holder.img3);
-                                }
 
-                                break;
-                            case 4:
-
-                                if (userSelecedAnswer == answer){
-
-                                    highLightClickedOption(holder.option4Layout, holder.img4);
-//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-                                }else {
-                                    selectedOption2(holder.option4Layout, holder.img4);
-//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-                                }
-                                break;
-                        }
                     }
 
                 }
-
-
-
-
-
-
 
 
                 /// it activative  when user clicked

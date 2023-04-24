@@ -12,7 +12,7 @@
         android:textStyle="bold"
         android:text=""
         android:padding="15dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:id="@+id/tvDis"
         android:gravity="center"
         android:textColor="@color/black"
@@ -21,12 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Are you Sure\n You want to submit"
+        android:text="Are you Sure  You want to submit"
         android:padding="15dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:id="@+id/tvDis2"
         android:gravity="center"
-        android:textColor="@color/black"
         />
 
     <TextView
@@ -52,6 +51,6 @@
         android:layout_marginBottom="30dp"
         android:textSize="20sp"
         android:padding="10dp"
-        android:textColor="#ec6666"/>
+        android:textColor="@color/liteTangerine"/>
 
 </LinearLayout>

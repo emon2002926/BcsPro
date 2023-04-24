@@ -409,6 +409,8 @@ public class McqTestActivity extends AppCompatActivity {
         countDownTimer.start();
     }
 
+
+
     private void selectQuestion(int questionListPositon){
 
         restOption();
@@ -482,4 +484,12 @@ public class McqTestActivity extends AppCompatActivity {
         }
     }
 
-}
+    @Override
+    public void onBackPressed(){
+        countDownTimer.onFinish();
+        finish();
+    }
+
+
+
+    }
