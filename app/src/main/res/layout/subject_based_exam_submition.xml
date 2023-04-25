@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Geography (Bangladesh and the World), Environment and Disaster Management"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/tvSubjectName"
-            android:gravity="start"
+            android:gravity="center"
             android:padding="10dp"
-            android:textColor="@color/blue"
+
+            android:textColor="@color/darkTangerine"
 
             />
 
@@ -46,7 +47,7 @@
                     android:textSize="14sp"
                     android:padding="10dp"
                     android:maxLines="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/LiteBlack"
                     android:text="Time (MAX minutes 18) "/>
 
 
@@ -55,10 +56,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="70dp"
                     android:padding="10dp"
+                    android:layout_marginTop="10dp"
                     android:inputType="number"
+                    android:textAlignment="center"
                     android:id="@+id/edTime"
                     android:maxLength="2"
                     />
@@ -78,8 +81,9 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:text="Time (Question 50) "/>
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/LiteBlack"
+                    android:text="Time (Max question 50) "/>
 
 
                 <EditText
@@ -87,10 +91,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="50dp"
                     android:padding="10dp"
                     android:inputType="number"
+                    android:textAlignment="center"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/edNumOfQuestion"
                     android:maxLength="2"
 
@@ -108,8 +114,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Submit"
+            android:textSize="16dp"
+            android:text="Start Exam"
             android:padding="10dp"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
@@ -125,10 +131,11 @@
             android:text="Not Now"
             android:id="@+id/btnCancal"
             android:gravity="center"
-            android:layout_marginBottom="30dp"
-            android:textSize="20sp"
+            android:layout_marginBottom="40dp"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
             android:padding="10dp"
-            android:textColor="#ec6666"/>
+            android:textColor="@color/tangerine"/>
 
     </LinearLayout>
 

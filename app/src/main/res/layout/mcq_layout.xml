@@ -24,7 +24,7 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
             android:id="@+id/linear"
@@ -42,6 +42,7 @@
                     android:text="1)"
                     android:padding="5dp"
                     android:textStyle="bold"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/textViewPosition2"
                     android:textColor="@color/DeepGrey"
                     android:textSize="18sp"
@@ -82,6 +83,7 @@
                     android:text="1)"
                     android:textStyle="bold"
                     android:padding="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/textViewPosition"
                     android:textColor="@color/DeepGrey"
                     android:textSize="18sp"
@@ -102,8 +104,8 @@
 
             <!--        option 1 layOut-->
             <RelativeLayout
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:id="@+id/option1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,8 +155,8 @@
             <!--        option 2 layout-->
 
             <RelativeLayout
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:id="@+id/option2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -201,8 +203,8 @@
 
             <!--        option 3 layout-->
             <RelativeLayout
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:id="@+id/option3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -225,8 +227,8 @@
                     android:layout_marginStart="60sp"
                     android:layout_marginTop="5dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10sp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5sp"
                     android:visibility="visible"
                     android:text="Option 3"
                     android:padding="5dp"
@@ -247,8 +249,8 @@
             </RelativeLayout>
             <!--        option 4 layout-->
             <RelativeLayout
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:id="@+id/opton4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,6 +278,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_alignParentEnd="true"
                     android:padding="5dp"
+                    android:layout_marginEnd="15dp"
                     android:text="Option 4"
                     android:textColor="@color/black"
                     />

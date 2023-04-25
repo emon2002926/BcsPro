@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:text="All  Exam"
         android:padding="15dp"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/darkTangerine"
         />
@@ -38,7 +38,7 @@
             android:layout_marginEnd="15sp"
             android:layout_marginBottom="15sp"
             android:text="50 Question-25 Minutes"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             />
         <ImageView
@@ -53,8 +53,8 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
         android:id="@+id/layout50Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:layout_marginBottom="15sp"
             android:text="100 Question-50 Minutes"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="16sp"
             />
         <ImageView
             android:layout_width="20dp"
@@ -106,7 +106,7 @@
             android:layout_marginBottom="15sp"
             android:text="200 Question-100 Minutes"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="16sp"
             />
         <ImageView
             android:layout_width="20dp"
@@ -125,7 +125,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:text="Start Exam"
         android:padding="10dp"
         android:layout_marginStart="35dp"
@@ -145,7 +145,7 @@
         android:id="@+id/btnCancal"
         android:gravity="center"
         android:layout_marginBottom="30dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:padding="10dp"
         android:textColor="@color/tangerine"/>
 

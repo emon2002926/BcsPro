@@ -168,9 +168,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
 
-                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
 
                             highLightClickedOption(holder.option1Layout,holder.img1);
 
@@ -180,9 +180,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option3Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
 
-                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
 
                             highLightClickedOption(holder.option2Layout,holder.img2);
 
@@ -192,9 +192,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option2Layout.setEnabled(false);
                             holder.option4Layout.setEnabled(false);
 
-                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
 
                             highLightClickedOption(holder.option3Layout,holder.img3);
                         }
@@ -202,13 +202,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option1Layout.setEnabled(false);
                             holder.option3Layout.setEnabled(false);
                             holder.option2Layout.setEnabled(false);
-                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
-                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.GreyText));
+                            holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
+                            holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
                             highLightClickedOption(holder.option4Layout,holder.img4);
                         }
-
-
                     }
 
 
@@ -313,7 +311,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.questionTv.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.GONE);
                     holder.textViewPosition2.setVisibility(View.VISIBLE);
-                } else {
+                }
+                else {
                     holder.textViewPosition2.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
@@ -368,34 +367,24 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         case 1:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option1Layout, holder.img1);
-                            }else {
-//                                selectedOption2(holder.option1Layout, holder.img1);
                             }
                             break;
                         case 2:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option2Layout, holder.img2);
-                            }else {
-//                                selectedOption2(holder.option2Layout, holder.img2);
                             }
                             break;
                         case 3:
                             if (userSelecedAnswer == answer){
                                 highLightClickedOption(holder.option3Layout, holder.img3);
-                            }else {
-//                                selectedOption2(holder.option3Layout, holder.img3);
                             }
-
                             break;
                         case 4:
 
                             if (userSelecedAnswer == answer){
-
                                 highLightClickedOption(holder.option4Layout, holder.img4);
-//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }else {
 //                                selectedOption2(holder.option4Layout, holder.img4);
-//                                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                             }
                             break;
                     }
@@ -423,11 +412,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             highLightClickedOption2(holder.option4Layout,holder.img4,holder.option1Layout
                                     ,holder.option3Layout,holder.option2Layout);
                         }
-
                         showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
-
                     }
-
                 }
 
 
@@ -481,9 +467,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.option2Layout.setOnClickListener(optionClickListener);
                 holder.option3Layout.setOnClickListener(optionClickListener);
                 holder.option4Layout.setOnClickListener(optionClickListener);
-
-
-
             }
 
 
