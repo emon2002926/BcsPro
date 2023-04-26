@@ -345,19 +345,38 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     if (answer == 1){
                         highLightClickedOption2(holder.option1Layout,holder.img1,holder.option2Layout,holder.option3Layout
                                 ,holder.option4Layout);
+
+                        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+
                     }
                     else if (answer ==2) {
 
                         highLightClickedOption2(holder.option2Layout,holder.img2,holder.option1Layout
                                 ,holder.option3Layout,holder.option4Layout);
+                        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
                     }
                     else if (answer == 3) {
                         highLightClickedOption2(holder.option3Layout,holder.img3,holder.option1Layout
                                 ,holder.option2Layout,holder.option4Layout);
+                        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
                     }
+
                     else if (answer == 4) {
                         highLightClickedOption2(holder.option4Layout,holder.img4,holder.option1Layout
                                 ,holder.option3Layout,holder.option2Layout);
+                        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+                        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
+                        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
                     }
 
                     showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
@@ -577,7 +596,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     private void highLightClickedOption2( View highlightedOptionLayout , ImageView highlightedOptionIcon,View disableOptionLayout1,
-                                         View disableOptionLayout2,View disableOptionLayout3 ) {
+                                         View disableOptionLayout2,View disableOptionLayout3) {
 
         highlightedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         highlightedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
