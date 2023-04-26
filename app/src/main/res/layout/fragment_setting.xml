@@ -128,10 +128,11 @@
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"
+            android:id="@+id/shareBtn"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -155,7 +156,7 @@
 
                 />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -184,11 +185,12 @@
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
             android:layout_marginTop="2dp"
+            android:id="@+id/privacy"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -210,13 +212,13 @@
                 android:textColor="@color/black"
                 />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
             android:layout_marginTop="2dp"
-
+            android:id="@+id/termsOfUse"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -237,7 +239,7 @@
                 android:textColor="@color/black"
                 />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

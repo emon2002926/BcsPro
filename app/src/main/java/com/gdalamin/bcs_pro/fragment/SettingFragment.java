@@ -42,7 +42,7 @@ public class SettingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    LinearLayout messengerChatBtn,facebookGroup,logOutButton;
+    LinearLayout messengerChatBtn,facebookGroup,logOutButton,shareButton,privacyPolicyBtn,termsConditionsBtn;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -110,9 +110,30 @@ public class SettingFragment extends Fragment {
 
         });
 
+        shareButton = view.findViewById(R.id.shareBtn);
+        shareButton.setOnClickListener(view1 -> {
 
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            String playStoreLink = "https://play.google.com/store/apps/details?id=com.gdalamin.bcs_pro";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, playStoreLink);
+            startActivity(Intent.createChooser(shareIntent, "Share via"));
+        });
 
-
+        privacyPolicyBtn = view.findViewById(R.id.privacy);
+        termsConditionsBtn = view.findViewById(R.id.termsOfUse);
+        privacyPolicyBtn.setOnClickListener(view1 -> {
+            String privacyPolicyUrl = "https://doc-hosting.flycricket.io/bcs-pro-privacy-policy/5c7da9fa-9a36-49af-915c-27bb7a5483df/privacy";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(privacyPolicyUrl));
+            startActivity(intent);
+        });
+        termsConditionsBtn.setOnClickListener(view1 -> {
+            String  termsConditionUrl = "https://doc-hosting.flycricket.io/bcs-pro-terms-of-use/4267f876-2eee-43ce-8417-0fd41c538b03/terms";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(termsConditionUrl));
+            startActivity(intent);
+        });
 
         return view;
     }
