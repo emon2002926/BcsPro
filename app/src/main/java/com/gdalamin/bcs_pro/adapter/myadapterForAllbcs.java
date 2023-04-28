@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,7 +53,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
 
             SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
@@ -121,16 +122,29 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 String time = edTime.getText().toString().trim();
                                 String NUM_OF_QUESTION= edNumOfQuestion.getText().toString().trim();
 
+                                int NUM_OF_QUESTION2 = Integer.parseInt(NUM_OF_QUESTION);
+
+                                int time2 = Integer.parseInt(time);
 
                                 if (time.isEmpty()){
                                     edTime.setError("please enter time");
                                     edTime.requestFocus();
                                     return;
+                                } else if (time2 >18) {
+                                    edTime.setError("Maximum time is 18 minutes");
+                                    edTime.requestFocus();
+                                    return;
+
                                 } else if (NUM_OF_QUESTION.isEmpty()) {
                                     edNumOfQuestion.setError("please enter the amount of question");
                                     edNumOfQuestion.requestFocus();
                                     return;
-                                }else {
+                                }else if (NUM_OF_QUESTION2 >50) {
+                                    edNumOfQuestion.setError("Maximum question is 50");
+                                    edNumOfQuestion.requestFocus();
+                                    return;
+                                }
+                                else {
 
                                     preferencesManager.saveInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
 //                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
