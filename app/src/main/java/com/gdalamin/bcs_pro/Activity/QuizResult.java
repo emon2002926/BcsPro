@@ -77,6 +77,16 @@ public class QuizResult extends AppCompatActivity {
 
 
 
+    @Override
+    public void onBackPressed(){
+
+
+        startActivity(new Intent(QuizResult.this,MainActivity.class));
+        finish();
+
+
+    }
+
 
 
 }

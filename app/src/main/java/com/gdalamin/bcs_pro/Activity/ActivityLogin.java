@@ -149,6 +149,7 @@ public class ActivityLogin extends AppCompatActivity {
                 phoneEtL.requestFocus();
                 return;
             }else {
+                progressBar.setVisibility(View.VISIBLE);
                 loginUser(phone,pass);
             }
 
@@ -207,14 +208,19 @@ public class ActivityLogin extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("key_phone", phone);
                                 editor.commit();
+                                progressBar.setVisibility(View.GONE);
                                 navigateToSecondActivity();
 
 
                             } else {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(ActivityLogin.this,"Login failed wrong user credentials",Toast.LENGTH_SHORT).show();
                                 // Todo Login failed, handle error case
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 },
@@ -223,6 +229,8 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 
                         Log.d("loginError",error.toString());
+                        Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                         // Handle network error
                     }
                 }) {

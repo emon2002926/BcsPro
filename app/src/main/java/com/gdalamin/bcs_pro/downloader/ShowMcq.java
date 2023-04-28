@@ -86,7 +86,8 @@ public class ShowMcq {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+
                     }
                 }
         );

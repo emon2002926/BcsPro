@@ -366,7 +366,7 @@ public class HomeFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(recyclerView.getContext(),error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
             }
         }

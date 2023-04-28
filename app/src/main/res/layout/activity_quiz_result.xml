@@ -188,7 +188,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@drawable/round_sceondery_button_100"
-                android:text="Ok"
+                android:text="Back to Home"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp" />

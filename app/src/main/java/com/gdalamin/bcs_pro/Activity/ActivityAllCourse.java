@@ -71,7 +71,8 @@ public class ActivityAllCourse extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(recyclerView.getContext(),error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityAllCourse.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+
             }
         }
         );

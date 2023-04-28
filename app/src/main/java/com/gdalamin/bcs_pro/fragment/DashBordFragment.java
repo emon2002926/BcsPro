@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +41,7 @@ public class DashBordFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
+    TextView textViewDitels;
 
     public DashBordFragment() {
         // Required empty public constructor
@@ -76,6 +77,8 @@ public class DashBordFragment extends Fragment {
         recview=view.findViewById(R.id.recview);
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
+        textViewDitels = view.findViewById(R.id.ditels);
+
 
 
 
@@ -108,17 +111,23 @@ public class DashBordFragment extends Fragment {
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-
                         recview.setVisibility(View.VISIBLE);
+                        textViewDitels.setVisibility(View.GONE);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
+                        textViewDitels.setVisibility(View.VISIBLE);
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
                         // Handle the exception here, e.g. display an error message to the user
-                        Toast.makeText(getContext(), "JSON syntax error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "JSON syntax error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
                     // Handle the error here, e.g. display an error message to the user
-                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+//                    shimmerFrameLayout.stopShimmer();
+//                    shimmerFrameLayout.setVisibility(View.GONE);
+//                    textViewDitels.setVisibility(View.VISIBLE);
                 });
 
         RequestQueue queue = Volley.newRequestQueue(getContext());

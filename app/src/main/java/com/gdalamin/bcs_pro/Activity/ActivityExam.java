@@ -57,6 +57,8 @@ public class ActivityExam extends AppCompatActivity {
     ShimmerFrameLayout shimmerFrameLayout;
     SharedPreferencesManager preferencesManager;
 
+     public static int REQ_CODE = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,47 +198,7 @@ public class ActivityExam extends AppCompatActivity {
         }
     };
 
-    @Override
-    public void onBackPressed(){
 
-        int answeredQuestions = 0;
-
-
-        for (QuestionList question : questionLists) {
-            int getUserSelectedOption = question.getUserSelecedAnswer();
-            if (getUserSelectedOption != 0) {
-                answeredQuestions++;
-            }
-        }
-        String answered = String.valueOf(answeredQuestions);
-
-        //  Show a bottom sheet dialog to allow the user to submit the answers
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-
-        View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-                .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
-        TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-        textView.setText("You have answered " + answered + " question out of "+NUM_OF_QUESTION);
-
-        bottomSheetDialog.setContentView(bottomSheetView);
-        bottomSheetDialog.show();
-
-        bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
-
-            finishExam();
-
-        });
-
-        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-            //added for testing
-
-            startActivity(new Intent(ActivityExam.this,MainActivity.class));
-
-            bottomSheetDialog.dismiss();
-        });
-
-    }
 
 
     public void  finishExam(){
@@ -521,6 +483,7 @@ public class ActivityExam extends AppCompatActivity {
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
+            REQ_CODE = 1;
             recview.setVisibility(View.GONE);
             btnBackTohome.setVisibility(View.VISIBLE);
             finishExam();
@@ -528,14 +491,48 @@ public class ActivityExam extends AppCompatActivity {
             
         });
 
-        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-            //added for testing
+        if (REQ_CODE == 1){
+            bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+                //added for testing
 
             startActivity(new Intent(ActivityExam.this,MainActivity.class));
-            bottomSheetDialog.dismiss();
-        });
+                bottomSheetDialog.dismiss();
+                REQ_CODE = 0;
+            });
+        }else {
+
+                bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
+                    //added for testing
+
+//            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+                    bottomSheetDialog.dismiss();
+                });
+        }
+
     }
 
+    @Override
+    public void onBackPressed(){
+
+        if (REQ_CODE == 0){
+            int answeredQuestions = 0;
+            for (QuestionList question : questionLists) {
+                int getUserSelectedOption = question.getUserSelecedAnswer();
+                if (getUserSelectedOption != 0) {
+                    answeredQuestions++;
+                }
+            }
+            String answered = String.valueOf(answeredQuestions);
+
+            showSubmissionOption(answered);
+        } else if (REQ_CODE == 1) {
+            REQ_CODE = 0;
+            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+            finish();
+        }
+
+
+    }
     public int[] sectionSizeSelector(int LOGIC_FOR_ALL_SUBJECT_EXAM) {
 
         int[] sectionSize = null;

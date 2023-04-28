@@ -43,10 +43,27 @@
 
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:id="@+id/ditels"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:textColor="@color/liteTangerine"
+            android:gravity="center"
+            android:text="First, you have to take the exam, and then the results will be shown here"
+            />
+
+
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/shimer"
+            android:visibility="visible"
             android:layout_below="@id/card">
             <LinearLayout
                 android:layout_width="match_parent"

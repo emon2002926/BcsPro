@@ -109,6 +109,7 @@
                             android:background="@drawable/bg_edit_text"
                             android:textColor="@color/black"
                             android:inputType="phone"
+                            android:maxLength="11"
                             android:hint="Email or Phone"/>
 
                         <EditText

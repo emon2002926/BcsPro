@@ -62,12 +62,8 @@ public class McqTestActivity extends AppCompatActivity {
     //seleced option valu should be be
     private  int selectedOption = 0;
     ProgressBar progressBar;
-
-    static int getAnswer;
-
     static int getAnswer2;
 
-    static int totalQuestion;
 
     ShimmerFrameLayout shimmerFrameLayout;
 
@@ -109,17 +105,15 @@ public class McqTestActivity extends AppCompatActivity {
 
         final AppCompatButton nextBtn = findViewById ( R.id.nextQuction ) ;
 
-        totalQuestion = getIntent().getExtras().getInt("selectedOption");
 
-        totalQuestionTV.setText(String.valueOf("/"+totalQuestion));
+        totalQuestionTV.setText("/10");
 
 
-        //Show Instration Dailog
 
 //
         progressBar =findViewById(R.id.progressBar4);
 //        progressBar.setVisibility(View.VISIBLE);
-//
+
 //        progressBar.setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -262,31 +256,18 @@ public class McqTestActivity extends AppCompatActivity {
                 selectedOption = 0;
                 currenQuestiontPosition++; //gating New Question
 
-                // set  limit for Question
 
-
-                if (currenQuestiontPosition ==totalQuestion){
-//                        countDownTimer.cancel();
+                if (currenQuestiontPosition ==10){
                     finishQuiz();
                 }
-
-
-
-                //Check list has more Question
+//                Check list has more Question
                 new Handler().postDelayed(() -> {
                     nextBtn.setEnabled(true);
                     if (currenQuestiontPosition < questionslists.size()){
-
                         selectQuestion(currenQuestiontPosition);
-
-                    }else {
-                        countDownTimer.cancel();
-                        finishQuiz();
                     }
 
                 }, 10);
-
-
             }else {
                 Toast.makeText(McqTestActivity.this,"please Select A Option",Toast.LENGTH_SHORT).show();
             }
@@ -296,6 +277,13 @@ public class McqTestActivity extends AppCompatActivity {
 
 //
         get();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Toast.makeText(McqTestActivity.this,"Please, finish the Quiz",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -310,7 +298,7 @@ public class McqTestActivity extends AppCompatActivity {
         String url2 = apiWithSql+"&query=SELECT * FROM question WHERE subjects LIKE 'IA' ORDER BY id DESC LIMIT 10";
 
     // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -360,26 +348,25 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
 
+
+
     //////////////////////////
     private void finishQuiz(){
 
-        Intent intent = new Intent(McqTestActivity.this, QuizResult.class);
+            Intent intent = new Intent(McqTestActivity.this, QuizResult.class);
 
-        //Creating Bundle To pass QuestionList
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("qutions",(Serializable) questionslists);
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("qutions",(Serializable) questionslists);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
 
-        intent.putExtras(bundle);
-        startActivity(intent);
-
-        ////Distroy Current Activity
-        finish();
     }
 
 
     // ToDo method to start QuizeTimer
-    private void startQuizeTimer(int maxTimerSceounds){
+    private void startQuizeTimer(int maxTimerSceounds ){
         countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -398,20 +385,17 @@ public class McqTestActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-
-                //Finish  quiz when time is Over
                 finishQuiz();
-
             }
-
-
         };
         countDownTimer.start();
     }
 
 
 
+
     private void selectQuestion(int questionListPositon){
+
 
         restOption();
 //        Collections.shuffle(questionslists);
@@ -441,8 +425,6 @@ public class McqTestActivity extends AppCompatActivity {
 
     }
     private  void restOption () {
-
-//        Collections.shuffle(questionslists);
 
         option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
         option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
@@ -482,12 +464,6 @@ public class McqTestActivity extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void onBackPressed(){
-        countDownTimer.onFinish();
-        finish();
     }
 
 
