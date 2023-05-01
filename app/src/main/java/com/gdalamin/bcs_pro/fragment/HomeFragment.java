@@ -1,5 +1,7 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -130,7 +132,7 @@ public class HomeFragment extends Fragment {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
         if (account !=null){
             String email = account.getEmail();
-            SharedPreferences sharedPreferences1= getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences1= getActivity().getSharedPreferences("LoginInfo", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences1.edit();
             editor.putString("key_phone", email);
             editor.commit();
@@ -344,7 +346,10 @@ public class HomeFragment extends Fragment {
 
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        ////////////////////////////////////////////////////
 
+
+///////////////////////////////////////////////////////////////////////////
         if (activeNetwork != null && activeNetwork.isConnected()) {
             // The device is connected to the internet
             if (!isDataProcessed) {
@@ -368,6 +373,7 @@ public class HomeFragment extends Fragment {
                 boolean newIsConnected = isConnected();
                 if (!isConnected && newIsConnected) {
                     // Internet connection is restored
+                    processdata();
                     Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
                 } else if (isConnected && !newIsConnected) {
                     // Internet connection is gone
