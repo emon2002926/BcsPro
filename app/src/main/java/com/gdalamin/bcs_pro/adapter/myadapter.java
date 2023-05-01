@@ -171,8 +171,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option2TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
                             holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
                             holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
-
                             highLightClickedOption(holder.option1Layout,holder.img1);
+//                            dimOtherItem(holder.img2,holder.img3,holder.img4);
 
                         }
                         else if (userSelectedAnswer ==2) {
@@ -185,6 +185,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
 
                             highLightClickedOption(holder.option2Layout,holder.img2);
+//                            dimOtherItem(holder.img1,holder.img3,holder.img4);
 
                         }
                         else if (userSelectedAnswer == 3) {
@@ -197,6 +198,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option4TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
 
                             highLightClickedOption(holder.option3Layout,holder.img3);
+//                            dimOtherItem(holder.img1,holder.img2,holder.img4);
                         }
                         else if (userSelectedAnswer == 4) {
                             holder.option1Layout.setEnabled(false);
@@ -206,6 +208,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                             holder.option3TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
                             holder.option1TV.setTextColor(ContextCompat.getColor(ctx,R.color.shmirBagroung));
                             highLightClickedOption(holder.option4Layout,holder.img4);
+//                            dimOtherItem(holder.img1,holder.img2,holder.img3);
+
                         }
                     }
 
@@ -612,6 +616,18 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         selectedOptionLayout.setEnabled(false);
 
     }
+
+
+    private  void dimOtherItem(ImageView deSelectedOptionIcon1
+    ,ImageView deSelectedOptionIcon2,ImageView deSelectedOptionIcon3 ) {
+
+
+        deSelectedOptionIcon1.setImageResource(0);
+        deSelectedOptionIcon2.setImageResource(0);
+        deSelectedOptionIcon3.setImageResource(0);
+
+    }
+
 
 
     private void highLightClickedOption2( View highlightedOptionLayout , ImageView highlightedOptionIcon,View disableOptionLayout1,

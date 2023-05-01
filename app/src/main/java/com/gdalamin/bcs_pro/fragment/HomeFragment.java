@@ -374,10 +374,10 @@ public class HomeFragment extends Fragment {
                 if (!isConnected && newIsConnected) {
                     // Internet connection is restored
                     processdata();
-                    Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
                 } else if (isConnected && !newIsConnected) {
                     // Internet connection is gone
-//                    Toast.makeText(getActivity(), "Internet connection is gone", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Internet connection is gone", Toast.LENGTH_SHORT).show();
                 }
                 isConnected = newIsConnected;
             }
