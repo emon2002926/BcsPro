@@ -4,20 +4,14 @@ package com.gdalamin.bcs_pro.adapter;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,8 +22,6 @@ import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
-import com.gdalamin.bcs_pro.modelClass.QuestionList;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.UnsupportedEncodingException;
@@ -119,6 +111,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
 
+
+
                                 String time = edTime.getText().toString().trim();
                                 String NUM_OF_QUESTION= edNumOfQuestion.getText().toString().trim();
 
@@ -184,7 +178,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                     public void onClick(View view) {
 
                         String subjectName = data[position].getText();
-                        Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
 //                        sharedPreferences.getString("bcsYearName",subjectName);
 
                         preferencesManager.saveString("bcsYearName",subjectName);

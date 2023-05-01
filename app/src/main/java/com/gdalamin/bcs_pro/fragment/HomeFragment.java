@@ -1,8 +1,12 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +82,14 @@ public class HomeFragment extends Fragment {
 
     String titleText;
 
+    private boolean isConnected;
+    private BroadcastReceiver networkReceiver;
+    private boolean isDataProcessed = false; // Declare a boolean flag
+
+
+
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -123,6 +135,9 @@ public class HomeFragment extends Fragment {
             editor.putString("key_phone", email);
             editor.commit();
         }
+
+
+
 
 
 
@@ -327,18 +342,70 @@ public class HomeFragment extends Fragment {
 
 
 
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            // The device is connected to the internet
+            if (!isDataProcessed) {
+                // Call the processData() method
+                processdata();
+                isDataProcessed = true; // Set the boolean flag to true after calling the method
+            }
+        } else {
+            // The device is not connected to the internet
+            // Show an error message or perform some other action
+            Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
-        processdata();
+        }
+
+        // Register a BroadcastReceiver to listen for network connectivity changes
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        networkReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                boolean newIsConnected = isConnected();
+                if (!isConnected && newIsConnected) {
+                    // Internet connection is restored
+                    Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
+                } else if (isConnected && !newIsConnected) {
+                    // Internet connection is gone
+//                    Toast.makeText(getActivity(), "Internet connection is gone", Toast.LENGTH_SHORT).show();
+                }
+                isConnected = newIsConnected;
+            }
+        };
+        getActivity().registerReceiver(networkReceiver, intentFilter);
+        // Check the initial network connectivity status
+        isConnected = isConnected();
 
         return view;
 
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Unregister the BroadcastReceiver when the fragment is destroyed
+        getActivity().unregisterReceiver(networkReceiver);
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+
 
     public void processdata()
     {
+
+
+        Intent intent = new Intent("INTERNET_RESTORED");
+        getActivity().sendBroadcast(intent);
 
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
 
@@ -366,7 +433,7 @@ public class HomeFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+//                Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
             }
         }
@@ -377,6 +444,8 @@ public class HomeFragment extends Fragment {
         queue.add(request);
 
     }
+
+
 
 
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {

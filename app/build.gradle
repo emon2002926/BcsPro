@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.gdalamin.bcs_pro"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 2
         versionName "2.0"
