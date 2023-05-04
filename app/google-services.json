@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "838612717637-aje1fmn3sf1cbe706deelebgklfeqg0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gdalamin.bcs_pro",
+            "certificate_hash": "f75bd4e805602157308bf2a18e889d60f9d3a8d4"
+          }
+        },
+        {
           "client_id": "838612717637-f7jklquu1cs052av1js7arkag3otr0p2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
