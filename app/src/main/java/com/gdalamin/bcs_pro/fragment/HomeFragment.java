@@ -457,7 +457,8 @@ public class HomeFragment extends Fragment {
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
         selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-        selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
+        selectedOptionLayout.setBackgroundResource(R.drawable
+                .round_back_selected_option);
 
     }
 }
