@@ -31,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 {
     model data[];
@@ -394,7 +395,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         if (userSelecedAnswer == answer){
                             highLightClickedOption(holder.option4Layout, holder.img4);
                         }else {
-                                selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
+                            selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
                         }
                         break;
                 }
@@ -406,16 +407,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                 // If the question has a selected option, highlight the corresponding option
                 if (answer == 1){
-                    selectedOption2(holder.option1Layout,holder.rightOrWrongImg1,holder.option1TV,ctx);
+//                    selectedOption2(holder.option1Layout,holder.rightOrWrongImg1,holder.option1TV,ctx);
                     highLightClickedOption(holder.option1Layout,holder.img1);
                 } else if (answer ==2) {
-                    selectedOption2(holder.option2Layout,holder.rightOrWrongImg2,holder.option2TV,ctx);
+//                    selectedOption2(holder.option2Layout,holder.rightOrWrongImg2,holder.option2TV,ctx);
                     highLightClickedOption(holder.option2Layout,holder.img2);
                 } else if (answer == 3) {
-                    selectedOption2(holder.option3Layout,holder.rightOrWrongImg3,holder.option3TV,ctx);
+//                    selectedOption2(holder.option3Layout,holder.rightOrWrongImg3,holder.option3TV,ctx);
                     highLightClickedOption(holder.option3Layout,holder.img3);
                 } else if (answer == 4) {
-                    selectedOption2(holder.option4Layout,holder.rightOrWrongImg4,holder.option4TV,ctx);
+//                    selectedOption2(holder.option4Layout,holder.rightOrWrongImg4,holder.option4TV,ctx);
                     highLightClickedOption(holder.option4Layout,holder.img4);
                 }
 
@@ -550,7 +551,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img1,img2,img3,img4,questionImg,option3Image,option1Image,option2Image,option4Image,explainImage,
-        rightOrWrongImg1,rightOrWrongImg2,rightOrWrongImg3,rightOrWrongImg4;
+                rightOrWrongImg1,rightOrWrongImg2,rightOrWrongImg3,rightOrWrongImg4;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout fullLayout,questionImageLayout,iconBackground1,iconBackground2,iconBackground3,iconBackground4;
@@ -642,7 +643,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     private void highLightClickedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
-        selectedOptionIcon.setImageResource(R.drawable.black_baground);
+        selectedOptionIcon.setImageResource(R.drawable.black_dot);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
         selectedOptionLayout.setEnabled(false);
 
