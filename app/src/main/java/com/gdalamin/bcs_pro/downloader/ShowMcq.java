@@ -1,6 +1,5 @@
 package com.gdalamin.bcs_pro.downloader;
 
-
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -37,6 +36,7 @@ public class ShowMcq {
     private TextView textViewTimer;
     private Context context;
     private TimerCallback timerCallback;
+    private CountDownTimer countDownTimer;
 
     public ShowMcq(Context context, ShimmerFrameLayout shimmerFrameLayout,
                    RecyclerView recview, FloatingActionButton floatingActionButton,
@@ -71,7 +71,6 @@ public class ShowMcq {
                         JsonReader reader = new JsonReader(new StringReader(response));
                         reader.setLenient(true);
 
-
                         model data[] = gson.fromJson(reader, model[].class);
 
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,
@@ -87,7 +86,6 @@ public class ShowMcq {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-
                     }
                 }
         );
@@ -98,8 +96,7 @@ public class ShowMcq {
     }
 
     private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
-
-        CountDownTimer countDownTimer = new CountDownTimer(maxTimerSeconds * 1000, 1000) {
+        countDownTimer = new CountDownTimer(maxTimerSeconds * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long getHour = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
@@ -122,6 +119,13 @@ public class ShowMcq {
             }
         };
         countDownTimer.start();
+    }
+
+    public void stopTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            textViewTimer.setVisibility(View.GONE);
+        }
     }
 
     public interface TimerCallback {

@@ -66,9 +66,10 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
             if (LOGIC == 2){
 
-                String subjectName = data[position].getSubjects();
+
+                String subjectName = convertToUTF8(data[position].getSubjects());
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
-                holder.tvSubject.setText(convertToUTF8(subjectName));
+                holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.cardView2.setVisibility(View.VISIBLE);
 
@@ -146,8 +147,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                     preferencesManager.saveInt("time",Integer.valueOf(time));
                                     preferencesManager.saveInt("LogicForExam",2);
 
+                                    Intent intent = new Intent(view.getContext(),ActivityExam.class);
+                                    intent.putExtra("titleText",subjectName);
 
-                                    view.getContext().startActivity(new Intent(view.getContext(),ActivityExam.class));
+                                    view.getContext().startActivity(intent);
+
                                 }
 
 

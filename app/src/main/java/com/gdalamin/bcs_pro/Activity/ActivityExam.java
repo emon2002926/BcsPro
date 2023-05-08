@@ -58,6 +58,7 @@ public class ActivityExam extends AppCompatActivity {
 
      public static int REQ_CODE = 0;
 
+     ShowMcq showMcq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class ActivityExam extends AppCompatActivity {
 
         btnBackTohome = findViewById(R.id.btnBackToHome);
         btnBackTohome.setOnClickListener(view -> {
-            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+//            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+//            finish();
+            onBackPressed();
         });
 
         String title = getIntent().getStringExtra("titleText");
@@ -99,8 +102,10 @@ public class ActivityExam extends AppCompatActivity {
 
         imageBackButton.setOnClickListener(view -> {
 
-            onBackPressed();
 
+            Intent intent = new Intent(ActivityExam.this,MainActivity.class);
+            startActivity(intent);
+            finish();
                 });
 
 
@@ -160,7 +165,7 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
 
-            ShowMcq showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
+            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
             showMcq.processdata( API_URL+questionType);
             Log.d("questionUrl",API_URL+questionType);
 
@@ -291,8 +296,9 @@ public class ActivityExam extends AppCompatActivity {
 
 
             int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
-            String totalIA  = Integer.toString(sectionSizeArray[0]);
+
             String totalBA  = Integer.toString(sectionSizeArray[1]);
+            String totalIA  = Integer.toString(sectionSizeArray[0]);
             String totalB  = Integer.toString(sectionSizeArray[2]);
             String totalMAV  = Integer.toString(sectionSizeArray[3]);
             String totalG  = Integer.toString(sectionSizeArray[4]);
@@ -458,7 +464,8 @@ public class ActivityExam extends AppCompatActivity {
 
 
             resultSaver.saveResult();
-
+            showMcq.stopTimer();
+            floatingActionButton.setVisibility(View.GONE);
             sharedPreferences.edit().clear().apply();
 
         }
@@ -511,9 +518,8 @@ public class ActivityExam extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-
-        if (REQ_CODE == 0){
+    public void onBackPressed() {
+        if (REQ_CODE == 0) {
             int answeredQuestions = 0;
             for (QuestionList question : questionLists) {
                 int getUserSelectedOption = question.getUserSelecedAnswer();
@@ -522,16 +528,16 @@ public class ActivityExam extends AppCompatActivity {
                 }
             }
             String answered = String.valueOf(answeredQuestions);
-
             showSubmissionOption(answered);
         } else if (REQ_CODE == 1) {
             REQ_CODE = 0;
-            startActivity(new Intent(ActivityExam.this,MainActivity.class));
+            super.onBackPressed();
             finish();
+        } else {
+            super.onBackPressed();
         }
-
-
     }
+
     public int[] sectionSizeSelector(int LOGIC_FOR_ALL_SUBJECT_EXAM) {
 
         int[] sectionSize = null;

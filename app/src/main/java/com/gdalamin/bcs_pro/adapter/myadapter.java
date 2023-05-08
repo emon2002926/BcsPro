@@ -672,7 +672,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     private void highLightClickedOption2( View highlightedOptionLayout , ImageView highlightedOptionIcon,View disableOptionLayout1,
                                           View disableOptionLayout2,View disableOptionLayout3) {
 
-        highlightedOptionIcon.setImageResource(R.drawable.baseline_check_24);
+        highlightedOptionIcon.setImageResource(R.drawable.black_dot);
         highlightedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
         highlightedOptionLayout.setEnabled(false);
         disableOptionLayout1.setEnabled(false);
