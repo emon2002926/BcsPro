@@ -218,7 +218,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
     static class myviewholder extends RecyclerView.ViewHolder {
         TextView t1, t2,tvSubject,tvPosition;
-        CardView cardView1, cardView2;
+        LinearLayout cardView1,cardView2;
 
 
         public myviewholder(@NonNull View itemView) {

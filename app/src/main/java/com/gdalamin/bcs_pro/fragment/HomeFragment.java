@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -64,10 +65,8 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
-    CardView CvQuizLayout,CvQuestionBank,CvImportantQuestion,subjectBasedExam;
-    TextView tvPractice,showAllCourse;
-
-    CardView letcureLayout;
+    TextView tvPractice,showAllCourse,CvQuestionBank,CvImportantQuestion;
+    LinearLayout subjectBasedExam,letcureLayout,CvQuizLayout;
     TextView tvAllExam;
     int tolatExamQuestion = 0;
     int LOGIC_FOR_ALL_SUBJECT_EXAM = 0;

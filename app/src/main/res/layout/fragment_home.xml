@@ -209,28 +209,25 @@
                             </LinearLayout>
                         </RelativeLayout>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:id="@+id/subject_based_exam"
-                            android:layout_below="@id/r1"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginTop="10dp"
-                            app:cardCornerRadius="10dp"
-                            android:layout_height="wrap_content">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:weightSum="3"
-                                android:background="@drawable/round_back_white50_10"
+                                android:layout_below="@id/r1"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:id="@+id/subject_based_exam"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/lite_round_baground"
 
                                 >
 
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="2.2"
+                                    android:layout_weight="2.1"
                                     android:orientation="vertical"
                                     android:paddingStart="10dp"
                                     >
@@ -238,6 +235,7 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:orientation="horizontal"
+                                        android:layout_marginStart="5dp"
                                         android:layout_height="wrap_content">
 
                                         <TextView
@@ -262,7 +260,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:paddingStart="10dp"
+                                        android:paddingStart="15dp"
                                         android:paddingBottom="5dp"
                                         android:text="Give an unlimited subject-based exam. Set your own time and number!"
                                         android:textSize="12sp"/>
@@ -272,8 +270,7 @@
                                 <ImageView
                                     android:layout_width="0dp"
                                     android:layout_height="100dp"
-                                    android:layout_weight="0.8"
-                                    android:padding="5dp"
+                                    android:layout_weight="0.9"
                                     android:layout_margin="5dp"
                                     android:src="@drawable/subject_exam"
                                     android:scaleType="fitXY"/>
@@ -281,184 +278,137 @@
 
                             </LinearLayout>
 
-                        </androidx.cardview.widget.CardView>
 
 
 
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/subject_based_exam"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="4dp"
-                            android:id="@+id/r2"
-
-                            android:layout_marginBottom="4dp">
-
-                            <TextView
-                                android:id="@+id/tv1"
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:text="Practices"
-                                android:textColor="@color/darkTangerine"
-                                android:textStyle="bold"
-                                android:textSize="20sp" />
+                                android:id="@+id/r2"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_below="@id/subject_based_exam"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Practices"
+                                    android:textColor="@color/darkTangerine"
+                                    android:textStyle="bold"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginStart="5dp"
+                                    android:textSize="20sp" />
+
+                                <LinearLayout
+                                    android:id="@+id/l2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_below="@id/tv1"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:weightSum="2"
+                                    android:orientation="horizontal">
+
+
+
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_height="fill_parent"
+                                                android:gravity="center"
+                                                android:text="@string/overall_exams"
+                                                android:id="@+id/tvAllExam"
+                                                android:padding="10dp"
+                                                android:layout_weight="1"
+                                                android:layout_marginEnd="10dp"
+                                                android:background="@drawable/lite_round_baground"
+                                                android:textColor="@color/LiteBlack2"
+                                                android:textSize="14sp"
+                                                />
+
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:background="@drawable/lite_round_baground"
+                                            android:gravity="center"
+                                            android:text="Question Bank"
+                                            android:textSize="14sp"
+                                            android:id="@+id/CvQuestionBank"
+                                            android:layout_weight="1"
+                                            android:textColor="@color/LiteBlack2"
+                                            android:padding="10dp"
+
+                                            />
+
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l3"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_below="@id/l2"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:orientation="horizontal">
+
+
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/lite_round_baground"
+                                            android:gravity="center"
+                                            android:text="Practice"
+                                            android:id="@+id/tvPractice"
+                                            android:textSize="14sp"
+                                            android:layout_marginEnd="10dp"
+                                            android:textColor="@color/LiteBlack2"
+                                            android:padding="10dp"
+                                            />
+
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="fill_parent"
+                                            android:background="@drawable/lite_round_baground"
+                                            android:gravity="center"
+                                            android:id="@+id/CvImportantQuestion"
+                                            android:layout_weight="1"
+                                            android:text="Important Question"
+                                            android:padding="10dp"
+                                            android:textColor="@color/LiteBlack2"
+                                            android:textSize="14sp" />
+
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+
+
+
+
 
                             <LinearLayout
-                                android:id="@+id/l2"
                                 android:layout_width="fill_parent"
-                                android:layout_height="40dp"
-                                android:layout_below="@id/tv1"
+                                android:layout_height="wrap_content"
+                                android:padding="12dp"
+                                android:layout_below="@id/r2"
+                                android:id="@+id/l4"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginEnd="20dp"
-                                android:orientation="horizontal">
-
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="0dp"
-                                    android:layout_height="fill_parent"
-                                    android:layout_marginEnd="10dp"
-                                    app:cardCornerRadius="10dp"
-                                    app:cardElevation="3dp"
-                                    android:layout_weight="1"
-
-                                    >
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="fill_parent"
-
-                                        android:background="@drawable/round_back_white50_10"
-                                        >
-
-                                        <TextView
-                                            android:layout_margin="2dp"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="fill_parent"
-                                            android:gravity="center"
-                                            android:text="@string/overall_exams"
-                                            android:id="@+id/tvAllExam"
-                                            android:padding="10dp"
-                                            android:textSize="14sp"
-
-                                            />
-                                    </LinearLayout>
-
-
-                                </androidx.cardview.widget.CardView>
-
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="0dp"
-                                    android:layout_height="fill_parent"
-                                    android:layout_marginEnd="10dp"
-                                    android:elevation="4dp"
-                                    android:id="@+id/CvQuestionBank"
-                                    app:cardCornerRadius="10dp"
-                                    app:cardElevation="3dp"
-                                    android:layout_weight="1">
-
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="fill_parent"
-                                        android:background="@drawable/round_back_white50_10"
-                                        android:gravity="center"
-                                        android:text="Question Bank"
-                                        android:textSize="14sp"
-                                        android:padding="10dp"
-
-                                        />
-
-                                </androidx.cardview.widget.CardView>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/l3"
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
-                                android:layout_below="@id/l2"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginEnd="20dp"
-                                android:orientation="horizontal">
-
-
-
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="0dp"
-                                    android:layout_height="fill_parent"
-                                    android:layout_marginEnd="10dp"
-                                    android:elevation="4dp"
-                                    app:cardElevation="3dp"
-                                    app:cardCornerRadius="10dp"
-                                    android:layout_weight="1"
-                                    >
-
-                                    <TextView
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight="1"
-                                        android:background="@drawable/round_back_white50_10"
-                                        android:gravity="center"
-                                        android:text="Practice"
-                                        android:id="@+id/tvPractice"
-                                        android:textSize="14sp"
-                                        android:padding="10dp"
-
-                                        />
-
-                                </androidx.cardview.widget.CardView>
-
-
-
-
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="0dp"
-                                    android:layout_height="fill_parent"
-                                    android:layout_marginEnd="10dp"
-                                    android:elevation="4dp"
-                                    app:cardCornerRadius="10dp"
-                                    android:layout_weight="1"
-                                    app:cardElevation="3dp"
-                                    android:id="@+id/CvImportantQuestion"
-                                    >
-
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="fill_parent"
-                                        android:background="@drawable/round_back_white50_10"
-                                        android:gravity="center"
-                                        android:text="Important Question"
-                                        android:padding="10dp"
-                                        android:textSize="14sp" />
-
-                                </androidx.cardview.widget.CardView>
-
-                            </LinearLayout>
-
-                        </RelativeLayout>
-
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_below="@id/r2"
-                            android:id="@+id/l4"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="20dp"
-                            app:cardCornerRadius="10dp"
-                            android:layout_height="wrap_content">
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:background="@drawable/round_back_white50_10"
+                                android:background="@drawable/lite_round_baground"
                                 android:orientation="horizontal"
                                 >
                                 <TextView
@@ -480,29 +430,21 @@
                                     />
                             </LinearLayout>
 
-                        </androidx.cardview.widget.CardView>
 
-
-
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/l4"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="10dp"
-                            app:cardCornerRadius="8dp"
-                            android:id="@+id/l7">
 
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/round_back_white50_10"
+                                android:background="@drawable/lite_round_baground"
                                 android:orientation="horizontal"
                                 app:cardCornerRadius="10dp"
+                                android:layout_below="@id/l4"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginTop="20dp"
+                                android:id="@+id/l7"
+                                android:layout_marginBottom="30dp"
                                 >
 
 
@@ -580,7 +522,7 @@
 
                             </LinearLayout>
 
-                        </androidx.cardview.widget.CardView>
+
 
 
 

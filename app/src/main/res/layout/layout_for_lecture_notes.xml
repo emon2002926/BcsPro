@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/tangerine"
+                    android:textColor="@color/LiteBlack2"
                     android:layout_weight="1"
                     android:id="@+id/tvLectureDitals"
                     android:textSize="20dp"
@@ -71,7 +71,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textColor="@color/liteTangerine"
                     android:textSize="18sp"
                     android:id="@+id/tvDate"
                     android:text="Last Update"/>
