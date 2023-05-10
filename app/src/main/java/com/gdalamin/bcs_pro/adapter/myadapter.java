@@ -20,6 +20,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
@@ -258,7 +259,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.option4Layout.setEnabled(false);
 
                     //Broadcasting Data to ExamActivity
-                    Intent intent = new Intent("my_list_action");
+//                    Intent intent = new Intent("my_list_action");
+//                    intent.putExtra("my_list_key", (Serializable) questionslists);
+//                    intent.putExtra("totalQuestion", NUM_OF_QUESTION);
+//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+                    Intent intent = new Intent(ctx, ActivityExam.class);
+                    intent.setAction("my_list_action");
                     intent.putExtra("my_list_key", (Serializable) questionslists);
                     intent.putExtra("totalQuestion", NUM_OF_QUESTION);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);

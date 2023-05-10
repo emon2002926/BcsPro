@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "838612717637-uhgkkhni6khe2bb9j2pcuesindkm4bmg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gdalamin.bcs_pro",
+            "certificate_hash": "895c366c88dd4e9978a541a2a5f9adbdc18c436f"
+          }
+        },
+        {
           "client_id": "838612717637-dh5ageh77an268881p3p0rqj4lpt5bvi.apps.googleusercontent.com",
           "client_type": 3
         }

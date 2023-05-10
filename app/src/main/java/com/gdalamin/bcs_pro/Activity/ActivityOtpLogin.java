@@ -60,7 +60,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar4);
 
         auth = FirebaseAuth.getInstance();
-
+//todo chack this
         Bundle extras = getIntent().getExtras();
 
          number = extras.getString("mobile");

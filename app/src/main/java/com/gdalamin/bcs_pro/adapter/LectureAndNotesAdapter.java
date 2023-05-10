@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -79,7 +80,7 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
         TextView t1,t2;
 
 
-        CardView cardView;
+        LinearLayout cardView;
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);

@@ -124,8 +124,6 @@ public class ActivityLogin extends AppCompatActivity {
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(view -> {
 
-
-
             signInWithGoogle();
         });
 
