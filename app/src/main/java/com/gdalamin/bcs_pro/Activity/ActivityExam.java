@@ -202,6 +202,24 @@ public class ActivityExam extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Register the BroadcastReceiver to receive the "my_list_action" broadcast
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("my_list_action");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Unregister the BroadcastReceiver when the Activity is paused
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+
+
 
 
 

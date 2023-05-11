@@ -226,7 +226,6 @@ public class ActivityLogin extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.d("loginError",error.toString());
                         Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         // Handle network error
