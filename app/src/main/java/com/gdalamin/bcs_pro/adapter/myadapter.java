@@ -265,8 +265,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 //                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                     Intent intent = new Intent(ctx, ActivityExam.class);
-                    intent.setAction("my_list_action");
-                    intent.putExtra("my_list_key", (Serializable) questionslists);
+                    intent.setAction("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
+                    intent.putExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!", (Serializable) questionslists);
                     intent.putExtra("totalQuestion", NUM_OF_QUESTION);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 

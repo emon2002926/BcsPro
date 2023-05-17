@@ -158,7 +158,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
     }
 
 
-    private void signUp(final String name, final String phone ,final String pwd ) {
+    private void signUp(final String name, final String phone ,final String password ) {
         StringRequest request=new StringRequest(Request.Method.POST, API_URL+"api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,7 +182,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String,String>();
                 params.put("name", name);
                 params.put("phone", phone);
-                params.put("password", pwd);
+                params.put("password", password);
                 return params;
             }
         };

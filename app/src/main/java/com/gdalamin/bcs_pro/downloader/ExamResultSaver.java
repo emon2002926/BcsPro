@@ -30,12 +30,11 @@ public class ExamResultSaver {
         StringRequest request = new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Result saved", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+
             }
         }) {
             @Override

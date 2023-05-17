@@ -38,15 +38,14 @@ import java.util.Locale;
 
 public class ActivityExam extends AppCompatActivity {
 
-    private static String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
+    private static final String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
 
 
     String API_URL= ApiKeys.API_URL;
     RecyclerView recview;
-
     TextView textView,textViewTimer,btnBackTohome;
     FloatingActionButton floatingActionButton;
-    ArrayList<QuestionList> questionLists = new ArrayList<QuestionList>();
+    ArrayList<QuestionList> questionLists = new ArrayList<>();
     SharedPreferences sharedPreferences;
 
     int NUM_OF_QUESTION =0;
@@ -87,7 +86,7 @@ public class ActivityExam extends AppCompatActivity {
 
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("my_list_action"));
+                new IntentFilter("xy@4gfk@9*2cxlds&0k@#hLAnsx!"));
 
         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
@@ -175,10 +174,10 @@ public class ActivityExam extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            if (intent.getAction().equals("my_list_action")) {
+            if (intent.getAction().equals("xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
 
                 // Get the list of QuestionList objects from the intent
-                 questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("my_list_key");
+                 questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
 
                 // Get the total number of questions from the intent
 
@@ -216,6 +215,12 @@ public class ActivityExam extends AppCompatActivity {
         super.onPause();
 
         // Unregister the BroadcastReceiver when the Activity is paused
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
@@ -480,6 +485,8 @@ public class ActivityExam extends AppCompatActivity {
             saveResult.setUserId(userId);
             saveResult.setDate(examDateTime);
 
+
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
             resultSaver.saveResult();
             showMcq.stopTimer();
