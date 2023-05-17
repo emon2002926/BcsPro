@@ -10,16 +10,16 @@ android {
         applicationId "com.gdalamin.bcs_pro"
         minSdk 23
         targetSdk 32
-        versionCode 8
-        versionName '2.6'
+        versionCode 9
+        versionName '2.6.1'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
