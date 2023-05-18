@@ -300,6 +300,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
             String explainImageURL = BASE_URL+ "image/explainImage/"+data[position].getExplanationImage();
 
+            holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+            holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+            holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+            holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+
 
             holder.textViewPosition2.setText(questionPosition+") ");
             holder.questionTv.setText(convertToUTF8(question));
@@ -413,6 +418,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
             if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                 // If the question has a selected option, highlight the corresponding option
+                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+
                 if (answer == 1){
 //                    selectedOption2(holder.option1Layout,holder.rightOrWrongImg1,holder.option1TV,ctx);
                     highLightClickedOption(holder.option1Layout,holder.img1);
@@ -427,34 +434,67 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     highLightClickedOption(holder.option4Layout,holder.img4);
                 }
 
-                int userSelecedAnswer = questionList.getUserSelecedAnswer();
+                int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
+
+                if (userSelectedAnswer == 1){
+                    if (answer ==1 ){
+                        highLightClickedOption(holder.option1Layout,holder.img1);
+                    }else {
+                        selectedOption2(holder.option1Layout, holder.rightOrWrongImg1,holder.option1TV,ctx);
+
+                    }
+
+                } else if (userSelectedAnswer == 2) {
+
+                    if (answer == 2){
+                        highLightClickedOption(holder.option2Layout, holder.img2);
+                    }else {
+                        selectedOption2(holder.option2Layout, holder.rightOrWrongImg2,holder.option2TV,ctx);
+                    }
+                } else if (userSelectedAnswer == 3) {
+                    if (answer==3){
+                        highLightClickedOption(holder.option3Layout, holder.img3);
+                    }else {
+                        selectedOption2(holder.option3Layout, holder.rightOrWrongImg3,holder.option3TV,ctx);
+                    }
+                } else if (userSelectedAnswer == 4) {
+                    if (answer==4){
+                        highLightClickedOption(holder.option4Layout, holder.img4);
+                    }else {
+                        selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
+                    }
+
+                }
+
+                /*
                 switch (questionslists.get(position).getUserSelecedAnswer()) {
                     case 1:
-                        if (userSelecedAnswer == answer){
-                            selectedOption2(holder.option1Layout, holder.rightOrWrongImg1, holder.option1TV,ctx);
+                        if (userSelectedAnswer == answer){
+//                            selectedOption2(holder.option1Layout, holder.rightOrWrongImg1, holder.option1TV,ctx);
                             highLightClickedOption(holder.option1Layout, holder.img1);
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                         }else {
                             selectedOption2(holder.option1Layout, holder.rightOrWrongImg1,holder.option1TV,ctx);
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+
                         }
 
                         break;
                     case 2:
-                        if (userSelecedAnswer == answer){
+                        if (userSelectedAnswer == answer){
 
-                            selectedOption2(holder.option2Layout, holder.rightOrWrongImg2,holder.option2TV,ctx);
+//                            selectedOption2(holder.option2Layout, holder.rightOrWrongImg2,holder.option2TV,ctx);
                             highLightClickedOption(holder.option2Layout, holder.img2);
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                         }else {
-                            selectedOption2(holder.option2Layout, holder.rightOrWrongImg2,holder.option2TV,ctx);
+
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                         }
 
                         break;
                     case 3:
-                        if (userSelecedAnswer == answer){
-                            selectedOption2(holder.option3Layout, holder.rightOrWrongImg3,holder.option3TV,ctx);
+                        if (userSelectedAnswer == answer){
+//                            selectedOption2(holder.option3Layout, holder.rightOrWrongImg3,holder.option3TV,ctx);
                             highLightClickedOption(holder.option3Layout, holder.img3);
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                         }else {
@@ -466,9 +506,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         break;
                     case 4:
 
-                        if (userSelecedAnswer == answer){
+                        if (userSelectedAnswer == answer){
 
-                            selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
+//                            selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
                             highLightClickedOption(holder.option4Layout, holder.img4);
                             showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
                         }else {
@@ -477,6 +517,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         }
                         break;
                 }
+
+                 */
             }
 
             /// it activative  when user clicked
