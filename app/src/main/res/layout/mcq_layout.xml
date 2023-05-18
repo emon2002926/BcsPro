@@ -152,8 +152,8 @@
 
                     />
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:src="@drawable/baseline_check_24"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5sp"
@@ -163,7 +163,6 @@
                     android:scaleType="fitXY"
                     android:visibility="gone"
                     android:id="@+id/optionIcon1"
-                    android:padding="3dp"
                     app:riv_corner_radius="10dp"
                     />
 
@@ -191,7 +190,7 @@
                 android:id="@+id/option2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:paddingTop="2.5dp"
                 android:paddingBottom="2.5dp"
                 >
@@ -231,8 +230,8 @@
                     android:text="Option 2"
                     android:textColor="@color/black" />
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:src="@drawable/baseline_check_24"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5sp"
@@ -242,7 +241,6 @@
                     android:id="@+id/optionIcon2"
                     android:scaleType="fitXY"
                     android:visibility="gone"
-                    android:padding="3dp"
                     app:riv_corner_radius="10dp"
                     />
 
@@ -268,7 +266,7 @@
                 android:id="@+id/option3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:paddingTop="2.5dp"
                 android:paddingBottom="2.5dp"                >
 
@@ -307,8 +305,8 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:id="@+id/optionIcon3"
                     android:src="@drawable/baseline_check_24"
                     android:layout_alignParentEnd="true"
@@ -318,7 +316,6 @@
                     android:layout_centerVertical="true"
                     android:scaleType="fitXY"
                     android:visibility="gone"
-                    android:padding="3dp"
                     app:riv_corner_radius="10dp"
                     />
                 <ImageView
@@ -341,7 +338,7 @@
                 android:id="@+id/opton4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:paddingTop="2.5dp"
                 android:paddingBottom="2.5dp"
                 android:layout_marginBottom="10dp"
@@ -384,8 +381,8 @@
 
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:src="@drawable/baseline_check_24"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5sp"
@@ -395,7 +392,6 @@
                     android:id="@+id/optionIcon4"
                     android:scaleType="fitXY"
                     android:visibility="gone"
-                    android:padding="3dp"
                     app:riv_corner_radius="10dp"
                     />
                 <ImageView

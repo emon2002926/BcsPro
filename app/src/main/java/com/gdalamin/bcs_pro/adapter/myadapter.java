@@ -305,6 +305,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
             holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
 
+            holder.rightOrWrongImg1.setImageResource(0);
+            holder.rightOrWrongImg2.setImageResource(0);
+            holder.rightOrWrongImg3.setImageResource(0);
+            holder.rightOrWrongImg4.setImageResource(0);
+
 
             holder.textViewPosition2.setText(questionPosition+") ");
             holder.questionTv.setText(convertToUTF8(question));
@@ -422,24 +427,54 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 if (answer == 1){
 //                    selectedOption2(holder.option1Layout,holder.rightOrWrongImg1,holder.option1TV,ctx);
-                    highLightClickedOption(holder.option1Layout,holder.img1);
+//                    highLightClickedOption(holder.option1Layout,holder.img1);
+                    holder.iconBackground1.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg1.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg1.setVisibility(View.VISIBLE);
+                    holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
+
                 } else if (answer ==2) {
 //                    selectedOption2(holder.option2Layout,holder.rightOrWrongImg2,holder.option2TV,ctx);
-                    highLightClickedOption(holder.option2Layout,holder.img2);
+//                    highLightClickedOption(holder.option2Layout,holder.img2);
+                    holder.iconBackground2.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg2.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg2.setVisibility(View.VISIBLE);
+                    holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
+
                 } else if (answer == 3) {
 //                    selectedOption2(holder.option3Layout,holder.rightOrWrongImg3,holder.option3TV,ctx);
-                    highLightClickedOption(holder.option3Layout,holder.img3);
+//                    highLightClickedOption(holder.option3Layout,holder.img3);
+                    holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg3.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg3.setVisibility(View.VISIBLE);
+                    holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
+
+
                 } else if (answer == 4) {
 //                    selectedOption2(holder.option4Layout,holder.rightOrWrongImg4,holder.option4TV,ctx);
-                    highLightClickedOption(holder.option4Layout,holder.img4);
+//                    highLightClickedOption(holder.option4Layout,holder.img4);
+                    holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg4.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg4.setVisibility(View.VISIBLE);
+                    holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
+
                 }
 
-                int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
 
+                int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
                 if (userSelectedAnswer == 1){
                     if (answer ==1 ){
                         highLightClickedOption(holder.option1Layout,holder.img1);
                     }else {
+                        holder.img1.setImageResource(R.drawable.black_dot);
                         selectedOption2(holder.option1Layout, holder.rightOrWrongImg1,holder.option1TV,ctx);
 
                     }
@@ -449,24 +484,28 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     if (answer == 2){
                         highLightClickedOption(holder.option2Layout, holder.img2);
                     }else {
+
+                        holder.img2.setImageResource(R.drawable.black_dot);
                         selectedOption2(holder.option2Layout, holder.rightOrWrongImg2,holder.option2TV,ctx);
                     }
                 } else if (userSelectedAnswer == 3) {
                     if (answer==3){
                         highLightClickedOption(holder.option3Layout, holder.img3);
                     }else {
+                        holder.img3.setImageResource(R.drawable.black_dot);
                         selectedOption2(holder.option3Layout, holder.rightOrWrongImg3,holder.option3TV,ctx);
                     }
                 } else if (userSelectedAnswer == 4) {
                     if (answer==4){
                         highLightClickedOption(holder.option4Layout, holder.img4);
                     }else {
+                        holder.img4.setImageResource(R.drawable.black_dot);
                         selectedOption2(holder.option4Layout, holder.rightOrWrongImg4,holder.option4TV,ctx);
                     }
 
                 }
 
-                /*
+                                /*
                 switch (questionslists.get(position).getUserSelecedAnswer()) {
                     case 1:
                         if (userSelectedAnswer == answer){
@@ -519,29 +558,59 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 }
 
                  */
+
             }
 
-            /// it activative  when user clicked
 
+            /// it activative  when user clicked
             View.OnClickListener optionClickListener = view -> {
 
                 showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
 
                 if (answer == 1){
-                    highLightClickedOption(holder.option1Layout,holder.img1);
+
+                    holder.iconBackground1.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg1.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg1.setVisibility(View.VISIBLE);
+                    holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
+
+
                 } else if (answer ==2) {
-                    highLightClickedOption(holder.option2Layout,holder.img2);
+
+                    holder.iconBackground2.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg2.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg2.setVisibility(View.VISIBLE);
+                    holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
+
+
                 } else if (answer == 3) {
-                    highLightClickedOption(holder.option3Layout,holder.img3);
+                    holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg3.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg3.setVisibility(View.VISIBLE);
+                    holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
+
+
                 } else if (answer == 4) {
-                    highLightClickedOption(holder.option4Layout,holder.img4);
+                    holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
+                    holder.rightOrWrongImg4.setImageResource(R.drawable.baseline_check_24);
+                    holder.rightOrWrongImg4.setVisibility(View.VISIBLE);
+                    holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
+                    makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
+
                 }
+
+            // Determine which option was clicked based on the view that was clicked
                 int selectedOption = 0;
                 ImageView img = null;
                 ImageView imgWrong = null;
                 TextView  wrongOption = null;
-
-                // Determine which option was clicked based on the view that was clicked
                 if (view == holder.option1Layout) {
                     selectedOption = 1;
                     img = holder.img1;
@@ -568,9 +637,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 // if answer id correct selected option will be green if its wrong it will be read
                 if (selectedOption == answer){
                     highLightClickedOption(view, img);
+                    imgWrong.setImageResource(R.drawable.baseline_check_24);
+                    imgWrong.setVisibility(View.VISIBLE);
                 }else {
+                    img.setImageResource(R.drawable.black_dot);
                     selectedOption2(view,imgWrong,wrongOption,ctx);
                 }
+
+
 
                 holder.option1Layout.setEnabled(false);
                 holder.option2Layout.setEnabled(false);

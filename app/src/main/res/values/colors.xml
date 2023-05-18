@@ -17,13 +17,13 @@
     <color name="transPerent">#00FFFFFF</color>
     <color name="textcolor">#999999</color>
     <color name="textcolor2">#071833</color>
-    <color name="liteGreen">#52e5ba</color>
-    <color name="liteRed">#ec6666</color>
+    <color name="liteGreen">#f6fcf2</color>
+    <color name="liteRed">#fb4c4c</color>
     <color name="liteBlue">#0095ff</color>
     <color name="shmirBagroung">#989898</color>
     <color name="color1">#64a5ff</color>
     <color name="gesture_nav_color">#00C5C1C1</color>
-    <color name="GreyText">#605F5F</color>
+    <color name="GreyText">#999999</color>
     <color name="DeepGrey">#636262</color>
     <color name="LiteBlack">#252525</color>
     <color name="t2">#B9B8B8</color>
