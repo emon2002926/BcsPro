@@ -81,8 +81,6 @@ public class DashBordFragment extends Fragment {
 
 
 
-
-
         processData();
 
 
@@ -111,7 +109,7 @@ public class DashBordFragment extends Fragment {
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.VISIBLE);
+                        recview.setVisibility(View.GONE);
                         textViewDitels.setVisibility(View.GONE);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();

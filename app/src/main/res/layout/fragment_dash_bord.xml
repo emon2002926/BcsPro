@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.DashBordFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#FAF7F7"
         >
 
         <androidx.cardview.widget.CardView
@@ -17,6 +19,8 @@
             android:layout_height="wrap_content"
             android:elevation="30dp"
             android:id="@+id/card"
+            android:background="@color/white"
+            app:cardElevation="2dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,7 +36,7 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:text="Results"
+                    android:text="Your Profile"
                     />
 
             </LinearLayout>
@@ -63,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/shimer"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_below="@id/card">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,6 +102,21 @@
             android:layout_below="@id/card"
             android:visibility="gone"
             tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/card"
+            >
+            <include
+                layout="@layout/profile_layout"
+                />
+            <include
+                layout="@layout/statistics_layout"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 
