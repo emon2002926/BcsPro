@@ -15,7 +15,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/facebooklogo"
+            android:src="@drawable/test_profile_image"
             app:riv_corner_radius="30dp"
             android:layout_weight="0.10"
             android:layout_marginTop="10dp"

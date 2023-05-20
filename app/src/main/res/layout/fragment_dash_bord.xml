@@ -115,8 +115,56 @@
             <include
                 layout="@layout/statistics_layout"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight=".70"
+                    android:layout_gravity="center_vertical"
+                    >
+                    <TextView
+                        android:id="@+id/exam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:gravity="fill"
+                        android:text="Results"
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="16sp" />
+                    <TextView
+
+                        android:id="@+id/q1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Please click here to view your individual exam results. "
+                        android:textSize="14sp"
+                        android:layout_marginStart="5dp"
+                        android:padding="4dp"
+                        android:layout_marginTop="10dp"
+                        />
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:src="@drawable/show_result"/>
+            </LinearLayout>
         </LinearLayout>
 
+        
     </RelativeLayout>
 
 
