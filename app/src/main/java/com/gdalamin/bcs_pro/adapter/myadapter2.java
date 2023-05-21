@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
-
 
 
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.cardView.getContext());

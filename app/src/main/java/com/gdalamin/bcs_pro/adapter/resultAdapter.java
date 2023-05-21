@@ -14,13 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.TestResult;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 
 public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewholder>
 {
+
     ExamResult examResults[];
 
-    public resultAdapter(ExamResult[] data) {
+    public resultAdapter(ExamResult[] data ){
         this.examResults = data;
     }
 
@@ -41,6 +43,19 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
+
+        int totalQuestions = 0;
+
+        for (int i = 0; i < examResults.length; i++) {
+            totalQuestions += Integer.parseInt(examResults[i].getTotal());
+        }
+
+//        if (listener != null) {
+//            listener.onTotalQuestionsReceived(totalQuestions);
+//        }
+
+        Log.d("TotalQuestions5", String.valueOf(totalQuestions));
+//        int totalQuestions = calculateTotalQuestions();
 
 
         String date = examResults[position].getDate();
@@ -196,6 +211,9 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     public int getItemCount() {
         return examResults.length;
     }
+
+
+
     class myviewholder extends RecyclerView.ViewHolder
     {
         TextView total,correct,examDetails,marks,date;
@@ -221,16 +239,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
+
     public void shareResult(Context context,String date,String total,String correct) {
         // Create an intent to share text
         Intent intent = new Intent(context, TestResult.class);
 
         intent.putExtra("MESSAGE", total);
-
-
-
-
-
 
         context.startActivity(intent);
 

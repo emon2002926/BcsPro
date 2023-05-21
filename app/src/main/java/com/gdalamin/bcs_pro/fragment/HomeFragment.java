@@ -426,7 +426,6 @@ public class HomeFragment extends Fragment {
 
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
 
-        Log.d("dhgf",API_URL);
 
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
@@ -446,6 +445,8 @@ public class HomeFragment extends Fragment {
 
                 recyclerView.setLayoutManager(linearLayoutManager);
                 myadapter2 adapter=new myadapter2(data2);
+
+
                 recyclerView.setAdapter(adapter);
 
             }

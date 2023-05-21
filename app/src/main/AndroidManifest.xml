@@ -36,6 +36,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.gdalamin.bcs_pro.fragment.DashBordFragment"
+            android:label="DashBordFragment" >
+        </activity>
+        <activity
             android:name=".Activity.ActivityOtpLogin"
             android:exported="false">
             <meta-data

@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,15 @@ public class DashBordFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private int totalQuestions;
+
 
     RecyclerView recview;
 
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
-    TextView textViewDitels;
+    TextView textViewDitels,totalQuestionTextView;
 
     public DashBordFragment() {
         // Required empty public constructor
@@ -78,6 +81,7 @@ public class DashBordFragment extends Fragment {
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         textViewDitels = view.findViewById(R.id.ditels);
+        totalQuestionTextView = view.findViewById(R.id.totalExamTv);
 
 
 
@@ -87,6 +91,8 @@ public class DashBordFragment extends Fragment {
         return view;
 
     }
+
+
 
     public void processData() {
         // Create a new StringRequest to retrieve data from the API
@@ -105,30 +111,36 @@ public class DashBordFragment extends Fragment {
                         recview.setLayoutManager(linearLayoutManager);
 
                         resultAdapter adapter = new resultAdapter(examResults);
+
                         recview.setAdapter(adapter);
+
+
+
+                        int totalQuestion = adapter.getItemCount();
+                        totalQuestionTextView.setText(String.valueOf(totalQuestion));
+
+
+
+
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.GONE);
+                        recview.setVisibility(View.INVISIBLE);
                         textViewDitels.setVisibility(View.GONE);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                         textViewDitels.setVisibility(View.VISIBLE);
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-                        // Handle the exception here, e.g. display an error message to the user
-//                        Toast.makeText(getContext(), "JSON syntax error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
                     }
                 },
                 error -> {
-                    // Handle the error here, e.g. display an error message to the user
-//                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
-//                    shimmerFrameLayout.stopShimmer();
-//                    shimmerFrameLayout.setVisibility(View.GONE);
-//                    textViewDitels.setVisibility(View.VISIBLE);
+
                 });
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }
+
 }

@@ -135,11 +135,17 @@ public class QuestionListActivity extends AppCompatActivity {
 
                 model data[] = gson.fromJson(reader, model[].class);
 
+
+
+
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                         ,LinearLayoutManager.VERTICAL,false);
 
                 recview.setLayoutManager(linearLayoutManager);
                 myadapter adapter=new myadapter(data,mBooleanValue);
+
+
+
                 recview.setAdapter(adapter);
 
                 showAnswer.setOnClickListener(view -> {

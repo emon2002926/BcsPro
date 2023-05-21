@@ -74,6 +74,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         Context ctx = holder.fullLayout.getContext();
 
 
+
+
+
         holder.option1Layout.setBackgroundResource(0);
         holder.img1.setImageResource(R.drawable.round_back_white50_100);
         holder.option2Layout.setBackgroundResource(0);
@@ -361,6 +364,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
             QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
             questionslists.add(questionList);
+
 
 
 
@@ -655,6 +659,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     @Override
     public int getItemCount() {
+
+
+
         return data.length;
     }
 
