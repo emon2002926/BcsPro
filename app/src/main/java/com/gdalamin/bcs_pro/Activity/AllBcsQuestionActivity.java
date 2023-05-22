@@ -19,6 +19,8 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.fragment.DashBordFragment;
+import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,7 +46,11 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> {
+
+
             onBackPressed();
+
+
         });
 
         titleTv = findViewById(R.id.titleTv);

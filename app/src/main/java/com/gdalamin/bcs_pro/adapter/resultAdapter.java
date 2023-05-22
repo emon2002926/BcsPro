@@ -26,6 +26,8 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         this.examResults = data;
     }
 
+    public static final String ACTION_TOTAL_QUESTIONS_CHANGED = "com.gdalamin.bcs_pro.fragment.DashBordFragment";
+
     private Context mContext;
 
 
@@ -54,7 +56,15 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 //            listener.onTotalQuestionsReceived(totalQuestions);
 //        }
 
+
         Log.d("TotalQuestions5", String.valueOf(totalQuestions));
+
+
+
+        Intent intent1 = new Intent(ACTION_TOTAL_QUESTIONS_CHANGED);
+        intent1.putExtra("totalQuestions", totalQuestions);
+        holder.date.getContext().sendBroadcast(intent1);
+
 //        int totalQuestions = calculateTotalQuestions();
 
 

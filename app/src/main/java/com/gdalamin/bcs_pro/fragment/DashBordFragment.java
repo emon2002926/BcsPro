@@ -1,6 +1,9 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,17 +27,9 @@ import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashBordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DashBordFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
     private int totalQuestions;
 
@@ -44,35 +39,12 @@ public class DashBordFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
-    TextView textViewDitels,totalQuestionTextView;
+    TextView textViewDitels,totalExamTextView,totalQuestionTextView;
 
-    public DashBordFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static DashBordFragment newInstance(String param1, String param2) {
-        DashBordFragment fragment = new DashBordFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
 
 
@@ -81,8 +53,8 @@ public class DashBordFragment extends Fragment {
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         textViewDitels = view.findViewById(R.id.ditels);
-        totalQuestionTextView = view.findViewById(R.id.totalExamTv);
-
+        totalExamTextView = view.findViewById(R.id.totalExamTv);
+        totalQuestionTextView = view.findViewById(R.id.totalQuestionTv);
 
 
         processData();
@@ -91,6 +63,31 @@ public class DashBordFragment extends Fragment {
         return view;
 
     }
+
+    private BroadcastReceiver totalQuestionsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED)) {
+                int totalQuestions = intent.getIntExtra("totalQuestions", 0);
+                Log.d("djfkgkf",String.valueOf(totalQuestions));
+                totalQuestionTextView.setText(String.valueOf(totalQuestions));
+                // Handle the updated totalQuestions value here
+            }
+        }
+    };
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED);
+        requireContext().registerReceiver(totalQuestionsReceiver, intentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireContext().unregisterReceiver(totalQuestionsReceiver);
+    }
+
 
 
 
