@@ -152,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="0 (0.0%)"
+                android:id="@+id/correctAnswerTv"
                 android:textColor="@color/LiteBlack"
                 android:layout_gravity="end" />
 
@@ -188,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="0 (0.0%)"
+                android:id="@+id/wrongAnswerTv"
                 android:textColor="@color/LiteBlack"
                 android:layout_gravity="end" />
 

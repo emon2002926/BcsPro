@@ -6,6 +6,7 @@ import androidx.annotation.Keep;
     private String total,totalIA,totalBA,totalB,totalMAV,totalML,totalEL,totalG,totalMS,totalGS,totalICT;
     private String correct,correctIA,correctBA,correctB,correctMAV,correctML,correctEL,correctG,correctMS,correctGS,correctICT;
     private String wrong,wrongIA,wrongBA,wrongB,wrongMAV,wrongML,wrongEL,wrongG,wrongMS,wrongGS,wrongICT;
+    private String notAnswred;
     private String mark,marksIA,marksBA,marksB,marksMAV,marksML,marksEL,marksG,marksMS,marksGS,marksICT;
     private String userId;
     private String date;
@@ -13,6 +14,7 @@ import androidx.annotation.Keep;
     public ExamResult() {
         // Default constructor
 
+        this.notAnswred ="";
 
         this.total = "";
         this.correct = "";
@@ -70,7 +72,7 @@ import androidx.annotation.Keep;
 
     }
 
-    public ExamResult(String total, String correct, String wrong, String mark
+    public ExamResult(String total, String correct, String wrong,String notAnswred, String mark
             , String userId, String date,String totalIA,String correctIA,String wrongIA,String marksIA, String totalBA,String correctBA
     ,String wrongBA, String markBA,String totalB,String correctB,String wrongB,String marksB,String totalMAV,String correctMAV
     ,String wrongMAV,String marksMAV,String totalML,String correctML,String wrongML,String marksML,String totalEL
@@ -78,6 +80,7 @@ import androidx.annotation.Keep;
     ,String correctMS,String wrongMS,String marksMS,String totalGS,String correctGS,String wrongGS,String marksGS
     ,String totalICT,String correctICT, String wrongICT,String marksICT) {
 
+        this.notAnswred = notAnswred;
         this.totalICT = totalICT;
         this.correctICT = correctICT;
         this.wrongICT = wrongICT;
@@ -135,6 +138,14 @@ import androidx.annotation.Keep;
         this.userId = userId;
         this.date = date;
 
+    }
+
+    public String getNotAnswred() {
+        return notAnswred;
+    }
+
+    public void setNotAnswred(String notAnswred) {
+        this.notAnswred = notAnswred;
     }
 
     public String getMarksBA() {

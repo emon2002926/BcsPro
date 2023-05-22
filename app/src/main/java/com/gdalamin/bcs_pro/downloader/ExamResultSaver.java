@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.downloader;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,6 +45,7 @@ public class ExamResultSaver {
                 param.put("correct", examResult.getCorrect());
                 param.put("wrong", examResult.getWrong());
                 param.put("mark", examResult.getMark());
+                param.put("notAnswred",examResult.getNotAnswred());
                 param.put("date", examResult.getDate());
                 param.put("userId", examResult.getUserId());
 
@@ -97,6 +99,8 @@ public class ExamResultSaver {
                 param.put("wrongICT",examResult.getWrongICT());
                 param.put("marksICT",examResult.getMarksICT());
 
+
+                Log.d("notAnswred44",examResult.getNotAnswred());
 
 
                 return param;

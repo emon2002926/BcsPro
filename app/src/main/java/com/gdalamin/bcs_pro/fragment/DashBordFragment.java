@@ -39,7 +39,7 @@ public class DashBordFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
-    TextView textViewDitels,totalExamTextView,totalQuestionTextView;
+    TextView textViewDitels,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView;
 
 
     @Override
@@ -55,6 +55,8 @@ public class DashBordFragment extends Fragment {
         textViewDitels = view.findViewById(R.id.ditels);
         totalExamTextView = view.findViewById(R.id.totalExamTv);
         totalQuestionTextView = view.findViewById(R.id.totalQuestionTv);
+        wrongAnswerTextView = view.findViewById(R.id.wrongAnswerTv);
+        correctAnswerTextView = view.findViewById(R.id.correctAnswerTv);
 
 
         processData();
@@ -69,8 +71,13 @@ public class DashBordFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED)) {
                 int totalQuestions = intent.getIntExtra("totalQuestions", 0);
-                Log.d("djfkgkf",String.valueOf(totalQuestions));
+                int wrongAnswer = intent.getIntExtra("wrongAnswer", 0);
+                int correctAnswer = intent.getIntExtra("correctAnswer",0);
+
+                Log.d("djfkgkf",String.valueOf(wrongAnswer));
                 totalQuestionTextView.setText(String.valueOf(totalQuestions));
+                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" (0.1%)");
+                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" (0.1%)");
                 // Handle the updated totalQuestions value here
             }
         }
@@ -114,15 +121,14 @@ public class DashBordFragment extends Fragment {
 
 
                         int totalQuestion = adapter.getItemCount();
-                        totalQuestionTextView.setText(String.valueOf(totalQuestion));
+                        totalExamTextView.setText(String.valueOf(totalQuestion));
 
-
-
+                        Log.d("fjkkufdg",String.valueOf(totalQuestion));
 
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.INVISIBLE);
+                        recview.setVisibility(View.VISIBLE);
                         textViewDitels.setVisibility(View.GONE);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();

@@ -320,8 +320,9 @@ public class ActivityExam extends AppCompatActivity {
 
             int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
 
-            String totalBA  = Integer.toString(sectionSizeArray[1]);
+
             String totalIA  = Integer.toString(sectionSizeArray[0]);
+            String totalBA  = Integer.toString(sectionSizeArray[1]);
             String totalB  = Integer.toString(sectionSizeArray[2]);
             String totalMAV  = Integer.toString(sectionSizeArray[3]);
             String totalG  = Integer.toString(sectionSizeArray[4]);
@@ -383,7 +384,9 @@ public class ActivityExam extends AppCompatActivity {
                     setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                             totalIA,correctAnswer,wrongAnswer,totalMark);
 
-
+                    Toast.makeText(ActivityExam.this,answered,Toast.LENGTH_SHORT)
+                                    .show();
+                    Log.d("answred1","IA"+answered);
                     saveResult.setTotalIA(totalIA.trim());
                     saveResult.setCorrectIA(correctAnswer.trim());
                     saveResult.setWrongIA(wrongAnswer.trim());
@@ -392,6 +395,7 @@ public class ActivityExam extends AppCompatActivity {
                 else if (i==1) {
                     setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
 
+                    Log.d("answred1","BA"+answered);
                     saveResult.setTotalBA(totalBA.trim());
                     saveResult.setCorrectBA(correctAnswer.trim());
                     saveResult.setWrongBA(wrongAnswer.trim());
@@ -469,6 +473,8 @@ public class ActivityExam extends AppCompatActivity {
             String overallWrongAnswer = String.valueOf(totalWrong);
             String overallTotalMark = String.valueOf(overallMark);
 
+            int notAnswred = LOGIC_FOR_ALL_SUBJECT_EXAM-Integer.parseInt(overallAnswered);
+
 
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
@@ -484,6 +490,7 @@ public class ActivityExam extends AppCompatActivity {
             saveResult.setMark(overallTotalMark);
             saveResult.setUserId(userId);
             saveResult.setDate(examDateTime);
+            saveResult.setNotAnswred(String.valueOf(notAnswred));
 
 
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);

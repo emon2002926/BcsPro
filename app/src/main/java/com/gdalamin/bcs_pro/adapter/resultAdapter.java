@@ -48,21 +48,29 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
         int totalQuestions = 0;
 
+        int wrongAnswer = 0;
+        int correctAnswer = 0;
+
         for (int i = 0; i < examResults.length; i++) {
             totalQuestions += Integer.parseInt(examResults[i].getTotal());
         }
+        for (int i = 0; i < examResults.length; i++) {
+            wrongAnswer += Integer.parseInt(examResults[i].getWrong());
+        }
+        for (int i = 0; i < examResults.length; i++) {
+            correctAnswer += Integer.parseInt(examResults[i].getCorrect());
+        }
 
-//        if (listener != null) {
-//            listener.onTotalQuestionsReceived(totalQuestions);
-//        }
 
-
-        Log.d("TotalQuestions5", String.valueOf(totalQuestions));
+        Log.d("TotalQuestionsWrong5", String.valueOf(correctAnswer));
 
 
 
         Intent intent1 = new Intent(ACTION_TOTAL_QUESTIONS_CHANGED);
         intent1.putExtra("totalQuestions", totalQuestions);
+        intent1.putExtra("wrongAnswer", wrongAnswer);
+        intent1.putExtra("correctAnswer", correctAnswer);
+
         holder.date.getContext().sendBroadcast(intent1);
 
 //        int totalQuestions = calculateTotalQuestions();

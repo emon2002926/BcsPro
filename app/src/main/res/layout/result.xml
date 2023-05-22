@@ -130,7 +130,7 @@
                             android:layout_weight="1.2"
                             android:text="Correct"
                             android:textSize="14sp"
-                            android:textColor="@color/liteGreen"
+                            android:textColor="@color/color3"
                             android:gravity="center"
                             />
                         <TextView

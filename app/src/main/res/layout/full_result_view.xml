@@ -48,7 +48,7 @@
                 android:layout_weight=".80"
                 android:text="Correct"
                 android:textSize="17sp"
-                android:textColor="@color/liteGreen"
+                android:textColor="@color/color3"
                 android:gravity="center"
                 />
             <TextView
