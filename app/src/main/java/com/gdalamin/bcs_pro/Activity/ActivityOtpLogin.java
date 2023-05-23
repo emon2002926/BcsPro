@@ -68,11 +68,6 @@ public class ActivityOtpLogin extends AppCompatActivity {
          password = extras.getString("password");
          firebaseOtp = extras.getString("otp");
 
-        Log.d("number",number+name+password);
-
-
-
-
         btnVerifyOTP.setOnClickListener(view -> {
             if (!inputNumber1.getText().toString().trim().isEmpty() && !inputNumber2.getText().toString().trim().isEmpty() && !inputNumber3.getText().toString().trim().isEmpty()&& !inputNumber4.getText().toString().trim().isEmpty() && !inputNumber5.getText().toString().trim().isEmpty()&& !inputNumber6.getText().toString().trim().isEmpty())
             {

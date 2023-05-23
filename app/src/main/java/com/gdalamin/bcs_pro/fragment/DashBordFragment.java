@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -39,9 +41,11 @@ public class DashBordFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
-    TextView textViewDitels,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView;
+    TextView textViewDitels,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView;
 
+    ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
 
+    int totalExam = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +61,12 @@ public class DashBordFragment extends Fragment {
         totalQuestionTextView = view.findViewById(R.id.totalQuestionTv);
         wrongAnswerTextView = view.findViewById(R.id.wrongAnswerTv);
         correctAnswerTextView = view.findViewById(R.id.correctAnswerTv);
+        notAnswredTextView = view.findViewById(R.id.notAnswredTv);
 
+
+        progressBarCorrect = view.findViewById(R.id.percentageProgressBarCorrect);
+        progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
+        progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
         processData();
 
@@ -66,34 +75,6 @@ public class DashBordFragment extends Fragment {
 
     }
 
-    private BroadcastReceiver totalQuestionsReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED)) {
-                int totalQuestions = intent.getIntExtra("totalQuestions", 0);
-                int wrongAnswer = intent.getIntExtra("wrongAnswer", 0);
-                int correctAnswer = intent.getIntExtra("correctAnswer",0);
-
-                Log.d("djfkgkf",String.valueOf(wrongAnswer));
-                totalQuestionTextView.setText(String.valueOf(totalQuestions));
-                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" (0.1%)");
-                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" (0.1%)");
-                // Handle the updated totalQuestions value here
-            }
-        }
-    };
-    @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter intentFilter = new IntentFilter(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED);
-        requireContext().registerReceiver(totalQuestionsReceiver, intentFilter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireContext().unregisterReceiver(totalQuestionsReceiver);
-    }
 
 
 
@@ -120,15 +101,16 @@ public class DashBordFragment extends Fragment {
 
 
 
-                        int totalQuestion = adapter.getItemCount();
-                        totalExamTextView.setText(String.valueOf(totalQuestion));
+                        totalExam = adapter.getItemCount();
 
-                        Log.d("fjkkufdg",String.valueOf(totalQuestion));
+
+
+
 
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.VISIBLE);
+                        recview.setVisibility(View.INVISIBLE);
                         textViewDitels.setVisibility(View.GONE);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
@@ -144,6 +126,53 @@ public class DashBordFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
+    }
+
+
+
+    private BroadcastReceiver totalQuestionsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED)) {
+                int totalQuestions = intent.getIntExtra("totalQuestions", 0);
+                int wrongAnswer = intent.getIntExtra("wrongAnswer", 0);
+                int correctAnswer = intent.getIntExtra("correctAnswer",0);
+                int notAnswered= intent.getIntExtra("notAnswred",0);
+
+
+                float totalPercentageCorrect  =((float) correctAnswer/totalQuestions)*100;
+                float totalPercentageWrong  =((float) wrongAnswer/totalQuestions)*100;
+                float totalPercentageNotAnswred =((float) notAnswered/totalQuestions)*100;
+
+
+                totalQuestionTextView.setText(String.valueOf(totalQuestions));
+                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
+                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
+                notAnswredTextView.setText(String.valueOf(notAnswered)+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswred))+"%)");
+                totalExamTextView.setText(String.valueOf(totalExam));
+
+
+                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
+                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
+                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswred));
+                // Handle the updated totalQuestions value here
+            }
+        }
+    };
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED);
+        requireContext().registerReceiver(totalQuestionsReceiver, intentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireContext().unregisterReceiver(totalQuestionsReceiver);
     }
 
 }

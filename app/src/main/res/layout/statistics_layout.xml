@@ -27,6 +27,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
         android:background="@drawable/round_back_red50_10">
 
         <LinearLayout
@@ -73,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/LiteBlack"
                 android:id="@+id/totalExamTv"
@@ -90,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/LiteBlack"
                 android:text="0"/>
@@ -120,7 +121,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/LiteBlack"
                 android:id="@+id/totalQuestionTv"
@@ -154,16 +155,22 @@
                 android:text="0 (0.0%)"
                 android:id="@+id/correctAnswerTv"
                 android:textColor="@color/LiteBlack"
+                android:layout_marginEnd="8dp"
                 android:layout_gravity="end" />
 
         </LinearLayout>
 
 
-        <View
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#CDE5E8"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/bg_for_progressbar"
+            android:id="@+id/percentageProgressBarCorrect"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -191,16 +198,22 @@
                 android:text="0 (0.0%)"
                 android:id="@+id/wrongAnswerTv"
                 android:textColor="@color/LiteBlack"
+                android:layout_marginEnd="8dp"
                 android:layout_gravity="end" />
 
 
         </LinearLayout>
 
-        <View
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#CDE5E8"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/bg_for_progressbar"
+            android:id="@+id/percentageProgressBarWrong"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            />
 
 
         <LinearLayout
@@ -228,17 +241,24 @@
                 android:textSize="14sp"
                 android:text="0 (0.0%)"
                 android:textColor="@color/LiteBlack"
+                android:id="@+id/notAnswredTv"
+                android:layout_marginEnd="8dp"
                 android:layout_gravity="end" />
 
 
         </LinearLayout>
 
 
-        <View
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#CDE5E8"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/bg_for_progressbar"
+            android:id="@+id/percentageProgressBarNotAnswred"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            />
     </LinearLayout>
 
 

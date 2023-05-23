@@ -50,6 +50,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
         int wrongAnswer = 0;
         int correctAnswer = 0;
+        int notAnswred = 0;
 
         for (int i = 0; i < examResults.length; i++) {
             totalQuestions += Integer.parseInt(examResults[i].getTotal());
@@ -59,6 +60,9 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         }
         for (int i = 0; i < examResults.length; i++) {
             correctAnswer += Integer.parseInt(examResults[i].getCorrect());
+        }
+        for (int i = 0; i < examResults.length; i++) {
+            notAnswred += Integer.parseInt(examResults[i].getNotAnswred());
         }
 
 
@@ -70,6 +74,8 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         intent1.putExtra("totalQuestions", totalQuestions);
         intent1.putExtra("wrongAnswer", wrongAnswer);
         intent1.putExtra("correctAnswer", correctAnswer);
+        intent1.putExtra("notAnswred", notAnswred);
+
 
         holder.date.getContext().sendBroadcast(intent1);
 
@@ -133,13 +139,6 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         String marksICT = examResults[position].getMarksICT();
 
 
-
-
-
-///thats ui elements
-//        holder.total.setText(total);
-//        holder.correct.setText(correct);
-//        holder.wrong.setText(wrong);
 
         int time = Integer.parseInt(examResults[position].getTotal())/2;
 
