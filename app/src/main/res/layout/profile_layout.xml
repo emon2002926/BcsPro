@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="ID: emon79605@gmail.com"
                 android:textSize="14sp"
+                android:id="@+id/userIdTv"
                 />
 
         </LinearLayout>

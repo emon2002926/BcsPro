@@ -18,7 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -28,6 +32,10 @@ import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class DashBordFragment extends Fragment {
@@ -41,7 +49,8 @@ public class DashBordFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
 
     SharedPreferences sharedPreferences;
-    TextView textViewDitels,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView;
+    TextView textViewDitels,
+            userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView;
 
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
 
@@ -62,14 +71,26 @@ public class DashBordFragment extends Fragment {
         wrongAnswerTextView = view.findViewById(R.id.wrongAnswerTv);
         correctAnswerTextView = view.findViewById(R.id.correctAnswerTv);
         notAnswredTextView = view.findViewById(R.id.notAnswredTv);
-
+        userIdTv = view.findViewById(R.id.userIdTv);
 
         progressBarCorrect = view.findViewById(R.id.percentageProgressBarCorrect);
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
+
+        SharedPreferences sharedPreferences1;
+        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences1.getString("key_phone", "");
+
+        if (userId !=null){
+            userIdTv.setText("ID: "+userId);
+        }
+        Log.d("jjfdkgk",userId);
         processData();
 
+ //https://learnbcs.xyz/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = '1234'
+
+        getUsernameFromAPI("abc123","1234");
 
         return view;
 
@@ -77,6 +98,41 @@ public class DashBordFragment extends Fragment {
 
 
 
+    private void getUsernameFromAPI(String apiKey, String phoneNumber) {
+        // API URL
+        String apiUrl = "https://learnbcs.xyz/Test%20Api's/holder.php";
+
+        // Create the full URL with query parameters
+//        String url = apiUrl + "?api_key=" + apiKey + "&query=" + "SELECT%20name%20FROM%20users%20WHERE%20phone%20%3D%20%27" + phoneNumber + "%27";
+        String url = "https://learnbcs.xyz/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
+
+        // Create a new JSONArrayRequest
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            // Handle the JSON response
+                            JSONObject jsonObject = response.getJSONObject(0);
+                            String username = jsonObject.getString("name");
+                            Log.d("usernamefh",username);
+                            // TODO: Process the username as desired
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Handle JSON parsing error
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error response
+                    }
+                });
+
+        // Add the request to the Volley request queue
+        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
+    }
 
 
     public void processData() {
@@ -102,10 +158,6 @@ public class DashBordFragment extends Fragment {
 
 
                         totalExam = adapter.getItemCount();
-
-
-
-
 
 
                         shimmerFrameLayout.stopShimmer();
