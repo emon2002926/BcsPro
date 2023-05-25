@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReCreateQuize"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.ResultListActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.TestResult"
             android:exported="false" />
@@ -26,17 +28,13 @@
             android:exported="false" />
         <activity
             android:name=".Activity.SplashScreen"
-            android:theme="@style/AppTheme.FullScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.gdalamin.bcs_pro.fragment.DashBordFragment"
-            android:label="DashBordFragment" >
         </activity>
         <activity
             android:name=".Activity.ActivityOtpLogin"
@@ -104,7 +102,6 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
-
     </application>
 
 </manifest>

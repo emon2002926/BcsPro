@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -26,10 +27,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -50,9 +54,13 @@ public class DashBordFragment extends Fragment {
 
     SharedPreferences sharedPreferences;
     TextView textViewDitels,
-            userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView;
+            userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
 
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
+    SharedPreferences sharedPreferences1;
+    SharedPreferences.Editor editor;
+
+    LinearLayout showResultList;
 
     int totalExam = 0;
     @Override
@@ -72,25 +80,89 @@ public class DashBordFragment extends Fragment {
         correctAnswerTextView = view.findViewById(R.id.correctAnswerTv);
         notAnswredTextView = view.findViewById(R.id.notAnswredTv);
         userIdTv = view.findViewById(R.id.userIdTv);
-
+        userNameTextView = view.findViewById(R.id.userNameTv);
         progressBarCorrect = view.findViewById(R.id.percentageProgressBarCorrect);
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
+        showResultList = view.findViewById(R.id.resultListLayout);
+        showResultList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), ResultListActivity.class));
+            }
+        });
 
-        SharedPreferences sharedPreferences1;
+
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences1.getString("key_phone", "");
 
-        if (userId !=null){
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        if (account != null) {
+            String userId = account.getEmail();
+            String userName = account.getDisplayName();
+
             userIdTv.setText("ID: "+userId);
+
+            userNameTextView.setText(userName);
+
+            // Use the email for further processing
+        } else {
+            // User is not signed in
+            String userId = sharedPreferences1.getString("key_phone", "");
+            String userName = sharedPreferences1.getString("name", "");
+            userIdTv.setText("ID: "+userId);
+            userNameTextView.setText(userName);
+
+            getUsernameFromAPI("abc123",userId);
+            Log.d("usernamefh33",userName);
+
+            if (userId !=null && userName!=null){
+                getUsernameFromAPI("abc123",userId);
+            }
         }
-        Log.d("jjfdkgk",userId);
+
+        String totalQuestions = sharedPreferences1.getString("totalQuestions", "");
+
+        if (totalQuestions !=null){
+
+            String totalQuestions2 = sharedPreferences1.getString("totalQuestions", "");
+            String wrongAnswer = sharedPreferences1.getString("wrongAnswer", "");
+            String correctAnswer = sharedPreferences1.getString("correctAnswer", "").trim();
+            String notAnswered = sharedPreferences1.getString("notAnswred", "");
+            String totalExam = sharedPreferences1.getString("totalExam", "");
+
+            int correctAnswer1 = Integer.parseInt(correctAnswer);
+            int wrongAnswer1 = Integer.parseInt(wrongAnswer);
+            int totalQuestions1 = Integer.parseInt(totalQuestions2);
+            int notAnswered1 = Integer.parseInt(notAnswered);
+
+            float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
+            float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
+            float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
+
+
+            totalQuestionTextView.setText(totalQuestions2);
+            correctAnswerTextView.setText(correctAnswer+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
+            wrongAnswerTextView.setText(wrongAnswer+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
+            notAnswredTextView.setText(notAnswered+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswered))+"%)");
+
+            totalExamTextView.setText(totalExam);
+
+
+            progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
+            progressBarWrong.setProgress(Math.round(totalPercentageWrong));
+            progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
+
+
+        }
+
+
         processData();
 
  //https://learnbcs.xyz/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = '1234'
 
-        getUsernameFromAPI("abc123","1234");
+
 
         return view;
 
@@ -100,11 +172,11 @@ public class DashBordFragment extends Fragment {
 
     private void getUsernameFromAPI(String apiKey, String phoneNumber) {
         // API URL
-        String apiUrl = "https://learnbcs.xyz/Test%20Api's/holder.php";
+
 
         // Create the full URL with query parameters
 //        String url = apiUrl + "?api_key=" + apiKey + "&query=" + "SELECT%20name%20FROM%20users%20WHERE%20phone%20%3D%20%27" + phoneNumber + "%27";
-        String url = "https://learnbcs.xyz/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
+        String url = "https://emon.searchwizy.com/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
 
         // Create a new JSONArrayRequest
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -115,7 +187,12 @@ public class DashBordFragment extends Fragment {
                             // Handle the JSON response
                             JSONObject jsonObject = response.getJSONObject(0);
                             String username = jsonObject.getString("name");
-                            Log.d("usernamefh",username);
+                            userNameTextView.setText(username);
+                            editor = sharedPreferences1.edit();
+                            editor.putString("name",username);
+                            editor.apply();
+
+//                            userNameTextView.setText(username);
                             // TODO: Process the username as desired
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -160,6 +237,8 @@ public class DashBordFragment extends Fragment {
                         totalExam = adapter.getItemCount();
 
 
+
+
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
                         recview.setVisibility(View.INVISIBLE);
@@ -191,16 +270,29 @@ public class DashBordFragment extends Fragment {
                 int correctAnswer = intent.getIntExtra("correctAnswer",0);
                 int notAnswered= intent.getIntExtra("notAnswred",0);
 
-
                 float totalPercentageCorrect  =((float) correctAnswer/totalQuestions)*100;
                 float totalPercentageWrong  =((float) wrongAnswer/totalQuestions)*100;
                 float totalPercentageNotAnswred =((float) notAnswered/totalQuestions)*100;
 
+                sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
 
+                editor = sharedPreferences1.edit();
+                editor.putString("totalQuestions",String.valueOf(totalQuestions));
+                editor.putString("wrongAnswer",String.valueOf(wrongAnswer));
+                editor.putString("correctAnswer",String.valueOf(correctAnswer));
+                editor.putString("notAnswred",String.valueOf(notAnswered));
+                editor.putString("totalExam",String.valueOf(totalExam));
+                editor.apply();
+                editor.commit();
+
+
+
+//
                 totalQuestionTextView.setText(String.valueOf(totalQuestions));
                 wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
                 correctAnswerTextView.setText(String.valueOf(correctAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
                 notAnswredTextView.setText(String.valueOf(notAnswered)+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswred))+"%)");
+
                 totalExamTextView.setText(String.valueOf(totalExam));
 
 
