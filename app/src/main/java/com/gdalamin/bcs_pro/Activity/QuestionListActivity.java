@@ -61,7 +61,6 @@ public class QuestionListActivity extends AppCompatActivity {
 
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(QuestionListActivity.this);
         int subCode = preferencesManager.getInt("subCode");
-        Log.d("subCode100",String.valueOf(subCode));
 
 
 
@@ -71,7 +70,6 @@ public class QuestionListActivity extends AppCompatActivity {
             String SUBJECT_CODE= preferencesManager.getString("subjectPosition");
             String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
 
-            Log.d("eee3",url);
             processdata(url);
 
         } else if (subCode == 4){
@@ -82,16 +80,14 @@ public class QuestionListActivity extends AppCompatActivity {
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             processdata(url2);
-            Log.d("eee2",subjectName);
+
 
         }else if (subCode == 5){
 
             API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
-            Log.d("eee1",API_URL);
             processdata(API_URL);
 
         } else if (subCode == 6) {
-            Log.d("eee4","this one");
 
         }
 
@@ -114,8 +110,7 @@ public class QuestionListActivity extends AppCompatActivity {
     {
 
 
-        Log.d("passedUrl",API_URL);
-        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
+       StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

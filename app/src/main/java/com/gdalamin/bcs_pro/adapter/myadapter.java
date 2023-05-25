@@ -233,6 +233,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         img = holder.img4;
                     }
 
+
                     // Change text color of all options to default
                     holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
                     makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
@@ -371,7 +372,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             // When hide or  unHide button was clicked this if else function will activate
 
             if (mBooleanValue == true){
-                Log.d("showOrHide","true");
 
                 if (answer == 1){
                     highLightClickedOption2(holder.option1Layout,holder.option2Layout,holder.option3Layout

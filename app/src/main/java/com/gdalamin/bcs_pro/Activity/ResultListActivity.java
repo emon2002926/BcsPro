@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -23,12 +24,20 @@ public class ResultListActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     RecyclerView recview;
+    ImageView backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_list);
 
         recview=findViewById(R.id.recview);
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         processData();
     }
 
@@ -51,13 +60,6 @@ public class ResultListActivity extends AppCompatActivity {
                         resultAdapter adapter = new resultAdapter(examResults);
 
                         recview.setAdapter(adapter);
-
-
-
-
-
-
-
 
                         recview.setVisibility(View.VISIBLE);
                     } catch (JsonSyntaxException e) {

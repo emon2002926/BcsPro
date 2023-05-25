@@ -28,7 +28,6 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
     public static final String ACTION_TOTAL_QUESTIONS_CHANGED = "com.gdalamin.bcs_pro.fragment.DashBordFragment";
 
-    private Context mContext;
 
 
     @NonNull
@@ -66,7 +65,6 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         }
 
 
-        Log.d("TotalQuestionsWrong5", String.valueOf(correctAnswer));
 
 
 
@@ -145,9 +143,8 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
 
-        holder.examDetails.setText("Overall "+total+" question and "+String.valueOf(time)+" minutes");
+        holder.examDetails.setText("(Overall "+total+" question and "+String.valueOf(time)+" minutes)");
 
-        Log.d("time22","Overall "+total+" question and "+String.valueOf(time));
         holder.marks.setText("Marks:"+marks);
         holder.date.setText("Date:"+date);
 

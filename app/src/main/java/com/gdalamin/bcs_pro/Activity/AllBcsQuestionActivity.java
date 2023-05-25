@@ -83,6 +83,8 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
 
 
+
+
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -106,7 +108,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(AllBcsQuestionActivity.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                Toast.makeText(AllBcsQuestionActivity.this,"Please check ",Toast.LENGTH_LONG).show();
             }
         }
         );

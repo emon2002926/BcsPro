@@ -28,7 +28,8 @@
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
-        android:background="@drawable/round_back_red50_10">
+        android:background="@drawable/round_back_red50_10"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

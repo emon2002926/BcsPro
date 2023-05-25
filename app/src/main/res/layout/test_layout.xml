@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="5dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    app:cardElevation="5dp"
+    app:cardElevation="1dp"
     android:id="@+id/resultLayoutCV"
     android:layout_height="wrap_content">
 
@@ -26,31 +27,40 @@
             android:orientation="vertical"
             android:layout_weight="2.7">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
-                android:textColor="@color/darkTangerine"
-                android:id="@+id/tvLectureDitals"
-                android:textSize="20dp"
-                android:text="Exam Details"/>
+                android:orientation="horizontal"
+                >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Overall Exam"
-                android:id="@+id/examDetails"
-                android:textColor="@color/tangerine"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:textColor="@color/LiteBlack"
+                    android:id="@+id/tvLectureDitals"
+                    android:textSize="16dp"
+                    android:text="Exam Details"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Overall Exam"
+                    android:id="@+id/examDetails"
+                    android:textColor="@color/t2"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    />
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 >
 
 
@@ -58,7 +68,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date: 11-02-2023"
-                    android:textColor="@color/liteTangerine"
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:gravity="end"
@@ -75,7 +84,6 @@
                     android:gravity="center"
                     android:id="@+id/marksTv"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/liteTangerine"
                     />
 
             </LinearLayout>
@@ -94,8 +102,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/right_arro"
-                android:padding="6dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/baseline_arrow_forward_ios_24"
                 />
 
         </LinearLayout>

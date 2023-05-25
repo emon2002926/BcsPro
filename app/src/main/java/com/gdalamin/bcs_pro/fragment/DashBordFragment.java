@@ -115,46 +115,53 @@ public class DashBordFragment extends Fragment {
             userNameTextView.setText(userName);
 
             getUsernameFromAPI("abc123",userId);
-            Log.d("usernamefh33",userName);
 
             if (userId !=null && userName!=null){
                 getUsernameFromAPI("abc123",userId);
             }
         }
 
+
+
+
         String totalQuestions = sharedPreferences1.getString("totalQuestions", "");
 
-        if (totalQuestions !=null){
-
+        if (totalQuestions != null && !totalQuestions.isEmpty()) {
             String totalQuestions2 = sharedPreferences1.getString("totalQuestions", "");
             String wrongAnswer = sharedPreferences1.getString("wrongAnswer", "");
             String correctAnswer = sharedPreferences1.getString("correctAnswer", "").trim();
             String notAnswered = sharedPreferences1.getString("notAnswred", "");
             String totalExam = sharedPreferences1.getString("totalExam", "");
 
-            int correctAnswer1 = Integer.parseInt(correctAnswer);
-            int wrongAnswer1 = Integer.parseInt(wrongAnswer);
-            int totalQuestions1 = Integer.parseInt(totalQuestions2);
-            int notAnswered1 = Integer.parseInt(notAnswered);
+            int correctAnswer1 = 0;
+            int wrongAnswer1 = 0;
+            int totalQuestions1 = 0;
+            int notAnswered1 = 0;
+
+            try {
+                correctAnswer1 = Integer.parseInt(correctAnswer);
+                wrongAnswer1 = Integer.parseInt(wrongAnswer);
+                totalQuestions1 = Integer.parseInt(totalQuestions2);
+                notAnswered1 = Integer.parseInt(notAnswered);
+            } catch (NumberFormatException e) {
+                // Handle the exception appropriately, such as logging an error or showing an error message
+                e.printStackTrace();
+            }
 
             float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
             float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
             float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
 
-
             totalQuestionTextView.setText(totalQuestions2);
-            correctAnswerTextView.setText(correctAnswer+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
-            wrongAnswerTextView.setText(wrongAnswer+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
-            notAnswredTextView.setText(notAnswered+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswered))+"%)");
+            correctAnswerTextView.setText(correctAnswer + " (" + String.valueOf(String.format("%.2f", totalPercentageCorrect)) + "%)");
+            wrongAnswerTextView.setText(wrongAnswer + " (" + String.valueOf(String.format("%.2f", totalPercentageWrong)) + "%)");
+            notAnswredTextView.setText(notAnswered + " (" + String.valueOf(String.format("%.2f", totalPercentageNotAnswered)) + "%)");
 
             totalExamTextView.setText(totalExam);
-
 
             progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
             progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
-
-
         }
 
 
@@ -176,7 +183,7 @@ public class DashBordFragment extends Fragment {
 
         // Create the full URL with query parameters
 //        String url = apiUrl + "?api_key=" + apiKey + "&query=" + "SELECT%20name%20FROM%20users%20WHERE%20phone%20%3D%20%27" + phoneNumber + "%27";
-        String url = "https://emon.searchwizy.com/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
+        String url = "https://emon.searchwizy.com/Test%20Api's/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
 
         // Create a new JSONArrayRequest
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -284,8 +291,6 @@ public class DashBordFragment extends Fragment {
                 editor.putString("totalExam",String.valueOf(totalExam));
                 editor.apply();
                 editor.commit();
-
-
 
 //
                 totalQuestionTextView.setText(String.valueOf(totalQuestions));

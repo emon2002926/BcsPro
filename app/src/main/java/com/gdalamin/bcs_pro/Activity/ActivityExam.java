@@ -384,9 +384,7 @@ public class ActivityExam extends AppCompatActivity {
                     setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                             totalIA,correctAnswer,wrongAnswer,totalMark);
 
-                    Toast.makeText(ActivityExam.this,answered,Toast.LENGTH_SHORT)
-                                    .show();
-                    Log.d("answred1","IA"+answered);
+
                     saveResult.setTotalIA(totalIA.trim());
                     saveResult.setCorrectIA(correctAnswer.trim());
                     saveResult.setWrongIA(wrongAnswer.trim());
@@ -395,7 +393,6 @@ public class ActivityExam extends AppCompatActivity {
                 else if (i==1) {
                     setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
 
-                    Log.d("answred1","BA"+answered);
                     saveResult.setTotalBA(totalBA.trim());
                     saveResult.setCorrectBA(correctAnswer.trim());
                     saveResult.setWrongBA(wrongAnswer.trim());
@@ -546,6 +543,7 @@ public class ActivityExam extends AppCompatActivity {
                     bottomSheetDialog.dismiss();
                 });
         }
+
 
     }
 

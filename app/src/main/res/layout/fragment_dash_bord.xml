@@ -117,8 +117,10 @@
                 android:orientation="horizontal"
                 android:weightSum="1"
                 android:id="@+id/resultListLayout"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/round_back_red50_10"
                 >
                 <LinearLayout
                     android:layout_width="0dp"
@@ -134,7 +136,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:gravity="fill"
-                        android:text="Results"
+                        android:text="Show Results"
                         android:textStyle="bold"
                         android:textColor="@color/LiteBlack"
                         android:textSize="16sp" />
@@ -143,11 +145,10 @@
                         android:id="@+id/q1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="Please click here to view your individual exam results. "
                         android:textSize="14sp"
                         android:layout_marginStart="5dp"
-                        android:padding="4dp"
                         android:layout_marginTop="10dp"
                         />
 

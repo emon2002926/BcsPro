@@ -12,18 +12,20 @@
         android:textStyle="bold"
         android:text=""
         android:padding="15dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:id="@+id/tvDis"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/LiteBlack"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="Are you Sure  You want to submit"
-        android:padding="15dp"
-        android:textSize="16sp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="14sp"
         android:id="@+id/tvDis2"
         android:gravity="center"
         />
@@ -31,15 +33,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:text="Submit"
         android:padding="10dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
         android:gravity="center"
         android:id="@+id/btnSubmit"
         android:background="@drawable/round_sceondery_button_100"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:textColor="@color/white"/>
 
     <TextView
@@ -48,8 +50,8 @@
         android:text="Not Now"
         android:id="@+id/btnCancal"
         android:gravity="center"
-        android:layout_marginBottom="30dp"
-        android:textSize="20sp"
+        android:layout_marginBottom="50dp"
+        android:textSize="18sp"
         android:padding="10dp"
         android:textColor="@color/liteTangerine"/>
 

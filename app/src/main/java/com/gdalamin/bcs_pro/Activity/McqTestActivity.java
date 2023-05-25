@@ -292,7 +292,8 @@ public class McqTestActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
     // URL to the PHP API
-        String url = "http://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=1";
+        String baseUrl = ApiKeys.API_URL;
+        String url = baseUrl+"api/getData.php?apiKey=abc123&apiNum=1";
 
         String apiWithSql = ApiKeys.API_WITH_SQL;
         String url2 = apiWithSql+"&query=SELECT * FROM question WHERE subjects LIKE 'IA' ORDER BY id DESC LIMIT 10";
