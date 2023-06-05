@@ -18,7 +18,8 @@
             android:src="@drawable/test_profile_image"
             app:riv_corner_radius="30dp"
             android:layout_weight="0.10"
-            android:visibility="gone"
+            android:id="@+id/profileImageID"
+            android:visibility="visible"
             android:layout_marginTop="10dp"
             />
         <LinearLayout
@@ -31,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="MD Emon"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/userNameTv"
@@ -40,7 +41,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="dlkfghjsdlg"
                 android:textSize="14sp"
                 android:id="@+id/userIdTv"
                 />

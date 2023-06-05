@@ -1,20 +1,32 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +53,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class DashBordFragment extends Fragment {
 
@@ -62,13 +79,16 @@ public class DashBordFragment extends Fragment {
 
     LinearLayout showResultList;
 
+    ImageView profileImage;
     int totalExam = 0;
+    Bitmap bitmap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
 
 
+        profileImage = view.findViewById(R.id.profileImageID);
 
         recview=view.findViewById(R.id.recview);
         shimmerFrameLayout = view.findViewById(R.id.shimer);
@@ -85,6 +105,72 @@ public class DashBordFragment extends Fragment {
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new
+                ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK){
+                    Intent data  = result.getData();
+                    Uri uri = data.getData();
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(view.getContext().getContentResolver(),uri);
+                        profileImage.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                };
+            }
+        });
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                activityResultLauncher.launch(intent);
+            }
+        });
+        userNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ByteArrayOutputStream byteArrayOutputStream;
+                byteArrayOutputStream = new ByteArrayOutputStream();
+                if (bitmap !=null){
+
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                    byte[] bytes = byteArrayOutputStream.toByteArray();
+                    final String base64Image = Base64.encodeToString(bytes,Base64.DEFAULT);
+                    RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                    String url = "";
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.equals("success")){
+                                        Toast.makeText(view.getContext(),"Profile Image Updated",Toast.LENGTH_SHORT).show();
+                                    }else Toast.makeText(view.getContext(),"Failed to update Profile Image ",Toast.LENGTH_SHORT).show();
+
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            Toast.makeText(view.getContext(),error.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    ){
+                        protected Map<String,String> getParams(){
+                            Map<String,String> paramV = new HashMap<>();
+                            paramV.put("profileImage",base64Image);
+                            return paramV;
+                        }
+                    };
+                    queue.add(stringRequest);
+
+
+
+                }else Toast.makeText(view.getContext(),"Please select Image first",Toast.LENGTH_SHORT).show();
+            }
+        });
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
