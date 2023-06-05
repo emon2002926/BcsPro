@@ -306,7 +306,7 @@
                                 <LinearLayout
                                     android:id="@+id/l2"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="40dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_below="@id/tv1"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginStart="8dp"
@@ -322,7 +322,7 @@
                                                 android:gravity="center"
                                                 android:text="@string/overall_exams"
                                                 android:id="@+id/tvAllExam"
-                                                android:padding="10dp"
+                                                android:padding="13dp"
                                                 android:layout_weight="1"
                                                 android:layout_marginEnd="10dp"
                                                 android:background="@drawable/lite_round_baground"
@@ -341,7 +341,7 @@
                                             android:id="@+id/CvQuestionBank"
                                             android:layout_weight="1"
                                             android:textColor="@color/LiteBlack2"
-                                            android:padding="10dp"
+                                            android:padding="13dp"
 
                                             />
 
@@ -352,7 +352,7 @@
                                 <LinearLayout
                                     android:id="@+id/l3"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="40dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_below="@id/l2"
                                     android:layout_marginStart="8dp"
                                     android:layout_marginTop="15dp"
@@ -373,7 +373,7 @@
                                             android:textSize="14sp"
                                             android:layout_marginEnd="10dp"
                                             android:textColor="@color/LiteBlack2"
-                                            android:padding="10dp"
+                                            android:padding="13dp"
                                             />
 
 
@@ -385,7 +385,7 @@
                                             android:id="@+id/CvImportantQuestion"
                                             android:layout_weight="1"
                                             android:text="Important Question"
-                                            android:padding="10dp"
+                                            android:padding="13dp"
                                             android:textColor="@color/LiteBlack2"
                                             android:textSize="14sp" />
 

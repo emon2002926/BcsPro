@@ -33,8 +33,7 @@ public class QuizResult extends AppCompatActivity {
 
         reTakeBtn.setOnClickListener(view -> {
 
-            startActivity(new Intent(QuizResult.this,MainActivity.class));
-            finish();
+           onBackPressed();
 
         });
 
@@ -77,16 +76,21 @@ public class QuizResult extends AppCompatActivity {
 
 
 
+//    @Override
+//    public void onBackPressed(){
+//
+//
+//        startActivity(new Intent(QuizResult.this,MainActivity.class));
+//        finish();
+//
+//
+//    }
+
+
     @Override
-    public void onBackPressed(){
-
-
+    public void onBackPressed() {
+        super.onBackPressed();
         startActivity(new Intent(QuizResult.this,MainActivity.class));
         finish();
-
-
     }
-
-
-
 }

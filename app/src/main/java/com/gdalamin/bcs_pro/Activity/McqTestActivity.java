@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 
 import org.json.JSONArray;
@@ -153,63 +154,41 @@ public class McqTestActivity extends AppCompatActivity {
         });
 
 
-
         nextBtn.setOnClickListener(v -> {
 
             if(selectedOption !=0){
 
                 questionslists.get(currenQuestiontPosition).setUserSelecedAnswer(selectedOption);
-
                 int i = selectedOption;
-
-
                 // Showing  User Answer Is Correct Or Not
                 if (getAnswer2 == 1){
-
                     selectedRightOption(option1Layout,option1Icon);
-
                 }
                 if (getAnswer2 == 2){
-
                     selectedRightOption(option2Layout,option2Icon);
-
                 }
                 if (getAnswer2 == 3){
-
                     selectedRightOption(option3Layout,option3Icon);
                 }
                 if (getAnswer2 == 4){
-
-                    selectedRightOption(option4Layout,option4Icon);
-                }
-
-
+                    selectedRightOption(option4Layout,option4Icon);}
 //              for right or worong logic for ui
                 if (i==1  ){
-
                     if (i==getAnswer2){
-
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
                         mp.start();
 //                         selectedRightOption(option1Layout,option1Icon);
                     }
                     else {
-
-
                         selectedWrongOption(option1Layout,option1Icon);
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
                         mp.start();
                     }
-
-
                 }
                 if (i==2){
-
                     if (i==getAnswer2){
-
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
                         mp.start();
-//                            selectedRightOption(option2Layout,option2Icon);
                     }
                     else {
                         selectedWrongOption(option2Layout,option2Icon);
@@ -217,35 +196,21 @@ public class McqTestActivity extends AppCompatActivity {
                         mp.start();
                     }
                 }
-
                 if (i==3){
-
                     if (i==getAnswer2){
-
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
                         mp.start();
-
-//                            selectedRightOption(option3Layout,option3Icon);
-
                     }else {
-
                         selectedWrongOption(option3Layout,option3Icon);
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
                         mp.start();
-
                     }
                 }
-
                 if (i==4){
                     if (i==getAnswer2){
-
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
                         mp.start();
-
-//                            selectedRightOption(option4Layout,option4Icon);
-
                     }else {
-
                         selectedWrongOption(option4Layout,option4Icon);
                         MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
                         mp.start();
@@ -280,11 +245,7 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
 
-        Toast.makeText(McqTestActivity.this,"Please, finish the Quiz",Toast.LENGTH_SHORT).show();
-    }
 
 
     public  void  get(){
@@ -315,7 +276,7 @@ public class McqTestActivity extends AppCompatActivity {
                                 String option4 = row.getString("option4");
                                 int answer = row.getInt("answer");
 
-                                startQuizeTimer(180);
+                                startQuizeTimer(18);
 
                                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
 
@@ -391,7 +352,12 @@ public class McqTestActivity extends AppCompatActivity {
         };
         countDownTimer.start();
     }
+    public void stopTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
 
+        }
+    }
 
 
 
@@ -399,9 +365,6 @@ public class McqTestActivity extends AppCompatActivity {
 
 
         restOption();
-//        Collections.shuffle(questionslists);
-//        gating Question Ditals and set to Textview
-
         questionTv.setText(convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()));
         option1TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption1().trim()));
         option2TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption2().trim()));
@@ -413,9 +376,6 @@ public class McqTestActivity extends AppCompatActivity {
         int i = questionListPositon;
 
         int questionPositon2 = i+1;
-
-        String myString = Integer.toString(questionPositon2);
-
 
         currentQuestion.setText("Question "+questionPositon2);
 
@@ -467,6 +427,13 @@ public class McqTestActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        stopTimer();
+        finish();
+    }
 
 
     }

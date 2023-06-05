@@ -31,10 +31,6 @@ MainActivity extends AppCompatActivity {
         replaceFragement(new HomeFragment());
 
 
-
-
-
-
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
 
