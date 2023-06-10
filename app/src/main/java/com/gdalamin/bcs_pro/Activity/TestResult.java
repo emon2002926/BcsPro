@@ -166,6 +166,9 @@ public class TestResult extends AppCompatActivity {
         });
 
     }
+
+
+
     public  void setResultIntoTextView(TextView totalTV,TextView correctTV,TextView wrongTV,TextView marksTV ,String total,
                                        String correct,String wrong,String marks){
         totalTV.setText(total);

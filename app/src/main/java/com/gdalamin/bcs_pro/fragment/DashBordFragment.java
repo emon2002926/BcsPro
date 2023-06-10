@@ -1,13 +1,14 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import android.app.Activity;
-import android.app.DownloadManager;
+import static android.app.Activity.RESULT_OK;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,14 +20,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +32,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -43,6 +40,7 @@ import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.downloader.ImageUploader;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -55,8 +53,15 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.android.volley.toolbox.StringRequest;
+
+
+
+
 
 
 public class DashBordFragment extends Fragment {
@@ -72,16 +77,18 @@ public class DashBordFragment extends Fragment {
     SharedPreferences sharedPreferences;
     TextView textViewDitels,
             userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
-
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
     SharedPreferences sharedPreferences1;
     SharedPreferences.Editor editor;
-
     LinearLayout showResultList;
-
     ImageView profileImage;
     int totalExam = 0;
-    Bitmap bitmap;
+
+    private static final String UPLOAD_URL = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123";
+
+    private static final int REQUEST_CODE = 1;
+    public String base64Image = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,7 +96,6 @@ public class DashBordFragment extends Fragment {
 
 
         profileImage = view.findViewById(R.id.profileImageID);
-
         recview=view.findViewById(R.id.recview);
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
@@ -105,72 +111,9 @@ public class DashBordFragment extends Fragment {
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new
-                ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == Activity.RESULT_OK){
-                    Intent data  = result.getData();
-                    Uri uri = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(view.getContext().getContentResolver(),uri);
-                        profileImage.setImageBitmap(bitmap);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                };
-            }
-        });
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                activityResultLauncher.launch(intent);
-            }
-        });
-        userNameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ByteArrayOutputStream byteArrayOutputStream;
-                byteArrayOutputStream = new ByteArrayOutputStream();
-                if (bitmap !=null){
-
-                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-                    byte[] bytes = byteArrayOutputStream.toByteArray();
-                    final String base64Image = Base64.encodeToString(bytes,Base64.DEFAULT);
-                    RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                    String url = "";
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    if (response.equals("success")){
-                                        Toast.makeText(view.getContext(),"Profile Image Updated",Toast.LENGTH_SHORT).show();
-                                    }else Toast.makeText(view.getContext(),"Failed to update Profile Image ",Toast.LENGTH_SHORT).show();
-
-                                }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                            Toast.makeText(view.getContext(),error.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    ){
-                        protected Map<String,String> getParams(){
-                            Map<String,String> paramV = new HashMap<>();
-                            paramV.put("profileImage",base64Image);
-                            return paramV;
-                        }
-                    };
-                    queue.add(stringRequest);
 
 
 
-                }else Toast.makeText(view.getContext(),"Please select Image first",Toast.LENGTH_SHORT).show();
-            }
-        });
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,8 +124,6 @@ public class DashBordFragment extends Fragment {
 
 
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-
-
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         if (account != null) {
             String userId = account.getEmail();
@@ -207,11 +148,7 @@ public class DashBordFragment extends Fragment {
             }
         }
 
-
-
-
         String totalQuestions = sharedPreferences1.getString("totalQuestions", "");
-
         if (totalQuestions != null && !totalQuestions.isEmpty()) {
             String totalQuestions2 = sharedPreferences1.getString("totalQuestions", "");
             String wrongAnswer = sharedPreferences1.getString("wrongAnswer", "");
@@ -253,7 +190,26 @@ public class DashBordFragment extends Fragment {
 
         processData();
 
- //https://learnbcs.xyz/Test%20Api's/holder.php?api_key=abc123&query=SELECT name FROM users WHERE phone = '1234'
+
+
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open gallery to select an image
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+
+        userNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showImage();
+            }
+        });
+
 
 
 
@@ -262,15 +218,81 @@ public class DashBordFragment extends Fragment {
     }
 
 
+    public String convertImageToBase64(Uri imageUri) {
+        try {
+            InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+//            profileImage.setImageURI(selectedImage);
+            String imageUrl = String.valueOf(selectedImage);
+
+             base64Image = convertImageToBase64(selectedImage);
+        }
+    }
+
+
+    public Bitmap convertBase64ToBitmap(String base64Image) {
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+    public void showImage(){
+        Log.d("kljgsdfghsat",base64Image);
+        Bitmap bitmap = convertBase64ToBitmap(base64Image);
+        profileImage.setImageBitmap(bitmap);
+        saveBase64Image("1yemon",base64Image);
+    }
+
+    private void saveBase64Image(String userId, String base64Image) {
+
+        StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_URL+"&action=2", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Handle the response from the server
+                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle the error
+                Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userId", userId);
+                params.put("base64Image", base64Image);
+                return params;
+            }
+        };
+
+        // Add the request to the RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
+    }
+
+
 
     private void getUsernameFromAPI(String apiKey, String phoneNumber) {
         // API URL
 
-
-        // Create the full URL with query parameters
-//        String url = apiUrl + "?api_key=" + apiKey + "&query=" + "SELECT%20name%20FROM%20users%20WHERE%20phone%20%3D%20%27" + phoneNumber + "%27";
         String url = "https://emon.searchwizy.com/Test%20Api's/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
-
         // Create a new JSONArrayRequest
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -325,12 +347,7 @@ public class DashBordFragment extends Fragment {
 
                         recview.setAdapter(adapter);
 
-
-
                         totalExam = adapter.getItemCount();
-
-
-
 
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
@@ -394,8 +411,6 @@ public class DashBordFragment extends Fragment {
             }
         }
     };
-
-
 
     @Override
     public void onResume() {

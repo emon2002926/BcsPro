@@ -109,6 +109,7 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata(String API_URL)
     {
 
+        Log.d("hfdl",API_URL);
 
        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
