@@ -340,6 +340,7 @@ public class HomeFragment extends Fragment {
             // Show an error message or perform some other action
             Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
+
         }
 
         // Register a BroadcastReceiver to listen for network connectivity changes
@@ -386,7 +387,6 @@ public class HomeFragment extends Fragment {
 
     public void processdata()
     {
-
 
         Intent intent = new Intent("INTERNET_RESTORED");
         getActivity().sendBroadcast(intent);

@@ -85,6 +85,7 @@ public class DashBordFragment extends Fragment {
     int totalExam = 0;
 
     private static final String UPLOAD_URL = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123";
+    private static final String UPLOAD_URL2 = "https://emon.searchwizy.com/Test%20Api's/holder2.php?api_key=abc123";
 
     private static final int REQUEST_CODE = 1;
     public String base64Image = "";
@@ -191,8 +192,6 @@ public class DashBordFragment extends Fragment {
         processData();
 
 
-
-
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,6 +209,7 @@ public class DashBordFragment extends Fragment {
             }
         });
 
+        getUserImage("fgyoi");
 
 
 
@@ -253,8 +253,8 @@ public class DashBordFragment extends Fragment {
 
     public void showImage(){
         Log.d("kljgsdfghsat",base64Image);
-        Bitmap bitmap = convertBase64ToBitmap(base64Image);
-        profileImage.setImageBitmap(bitmap);
+//        Bitmap bitmap = convertBase64ToBitmap(base64Image);
+//        profileImage.setImageBitmap(bitmap);
         saveBase64Image("1yemon",base64Image);
     }
 
@@ -286,6 +286,45 @@ public class DashBordFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(request);
     }
+
+
+    private void getUserImage(String userId) {
+        String url = "https://your-api-endpoint.com/userimage?userId=" + userId;
+        String url2 = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123&action=3&userId=1yemon";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            if (jsonArray.length() > 0) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                String base64Image = jsonObject.getString("base64Image");
+                                // Use the base64Image string as needed
+                                Bitmap bitmap = convertBase64ToBitmap(base64Image);
+                                profileImage.setImageBitmap(bitmap);
+                                Log.d("UserImage", base64Image);
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        // Add the request to the RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
 
 
 
