@@ -2,6 +2,7 @@ package com.gdalamin.bcs_pro.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +10,18 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -36,6 +41,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gdalamin.bcs_pro.Activity.MainActivity;
 import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
@@ -44,6 +50,7 @@ import com.gdalamin.bcs_pro.downloader.ImageUploader;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -90,6 +97,8 @@ public class DashBordFragment extends Fragment {
     private static final int REQUEST_CODE = 1;
     public String base64Image = "";
 
+    public String userId = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,25 +133,43 @@ public class DashBordFragment extends Fragment {
         });
 
 
+
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        base64Image = sharedPreferences1.getString("profileImage","");
+
+        if (!base64Image.isEmpty()){
+            Bitmap bitmap = convertBase64ToBitmap(base64Image);
+            profileImage.setImageBitmap(bitmap);
+        }
         if (account != null) {
-            String userId = account.getEmail();
+            userId = account.getEmail();
             String userName = account.getDisplayName();
 
             userIdTv.setText("ID: "+userId);
+
+
+            if (base64Image.isEmpty()){
+                getUserProfileImage(userId);
+            }
+
+
 
             userNameTextView.setText(userName);
 
             // Use the email for further processing
         } else {
             // User is not signed in
-            String userId = sharedPreferences1.getString("key_phone", "");
+            userId = sharedPreferences1.getString("key_phone", "");
             String userName = sharedPreferences1.getString("name", "");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
+            getUserProfileImage(userId);
 
-            getUsernameFromAPI("abc123",userId);
+            if (base64Image.isEmpty()){
+                getUserProfileImage(userId);
+            }
+
 
             if (userId !=null && userName!=null){
                 getUsernameFromAPI("abc123",userId);
@@ -196,8 +223,9 @@ public class DashBordFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Open gallery to select an image
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_CODE);
+//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, REQUEST_CODE);
+                openCustomDialog();
             }
         });
 
@@ -205,16 +233,53 @@ public class DashBordFragment extends Fragment {
         userNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showImage();
+                saveBase64ProfileImage(userId,base64Image);
             }
         });
 
-        getUserImage("fgyoi");
 
 
+
+        showImage();
 
         return view;
 
+    }
+
+
+
+    private void openCustomDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.update_profile_layout);
+
+        // Set dialog window attributes for full-screen
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView profileImageUpdate = dialog.findViewById(R.id.profileImageID);
+        Bitmap bitmap = convertBase64ToBitmap(base64Image);
+        profileImageUpdate.setImageBitmap(bitmap);
+
+
+        TextInputEditText textInputEditTextName = dialog.findViewById(R.id.fullName);
+        textInputEditTextName.setEnabled(false);
+//
+//        buttonChooseImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle choose image action
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        buttonCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+
+        dialog.show();
     }
 
 
@@ -238,7 +303,7 @@ public class DashBordFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-//            profileImage.setImageURI(selectedImage);
+            profileImage.setImageURI(selectedImage);
             String imageUrl = String.valueOf(selectedImage);
 
              base64Image = convertImageToBase64(selectedImage);
@@ -251,16 +316,10 @@ public class DashBordFragment extends Fragment {
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
-    public void showImage(){
-        Log.d("kljgsdfghsat",base64Image);
-//        Bitmap bitmap = convertBase64ToBitmap(base64Image);
-//        profileImage.setImageBitmap(bitmap);
-        saveBase64Image("1yemon",base64Image);
-    }
 
-    private void saveBase64Image(String userId, String base64Image) {
+    private void saveBase64ProfileImage(String userId, String base64Image) {
 
-        StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_URL+"&action=2", new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_URL+"&action=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Handle the response from the server
@@ -288,9 +347,10 @@ public class DashBordFragment extends Fragment {
     }
 
 
-    private void getUserImage(String userId) {
-        String url = "https://your-api-endpoint.com/userimage?userId=" + userId;
-        String url2 = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123&action=3&userId=1yemon";
+    private void getUserProfileImage(String userId ) {
+        String url2 = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123&action="+"3"+"&userId="+userId;
+        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences1.edit();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
                 new Response.Listener<String>() {
@@ -300,14 +360,14 @@ public class DashBordFragment extends Fragment {
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() > 0) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                String base64Image = jsonObject.getString("base64Image");
+                                base64Image = jsonObject.getString("base64Image");
                                 // Use the base64Image string as needed
+
+                                editor.putString("profileImage",base64Image);
+                                editor.apply();
                                 Bitmap bitmap = convertBase64ToBitmap(base64Image);
                                 profileImage.setImageBitmap(bitmap);
-                                Log.d("UserImage", base64Image);
-
-
-
+                                Log.d("UserImage36", base64Image);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -325,6 +385,13 @@ public class DashBordFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+
+    public void showImage(){
+        Log.d("kljgsdfghsat",base64Image);
+        Bitmap bitmap = convertBase64ToBitmap(base64Image);
+//        profileImage.setImageBitmap(bitmap);
+
+    }
 
 
 

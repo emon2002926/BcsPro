@@ -12,15 +12,16 @@
         android:weightSum="1"
         android:orientation="horizontal">
 
+
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/test_profile_image"
-            app:riv_corner_radius="30dp"
-            android:layout_weight="0.10"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:id="@+id/profileImageID"
-            android:visibility="visible"
-            android:layout_marginTop="10dp"
+            android:src="@drawable/black_dot"
+            android:scaleType="centerCrop"
+            android:padding="3dp"
+            app:riv_corner_radius="50dp"
+            android:layout_marginEnd="10dp"
             />
         <LinearLayout
             android:layout_width="0dp"
