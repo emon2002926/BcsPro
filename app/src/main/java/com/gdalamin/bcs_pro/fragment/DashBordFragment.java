@@ -88,7 +88,7 @@ public class DashBordFragment extends Fragment {
     SharedPreferences sharedPreferences1;
     SharedPreferences.Editor editor;
     LinearLayout showResultList;
-    ImageView profileImage;
+    ImageView profileImage,profileImageUpdate;
     int totalExam = 0;
 
     private static final String UPLOAD_URL = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123";
@@ -98,6 +98,8 @@ public class DashBordFragment extends Fragment {
     public String base64Image = "";
 
     public String userId = "";
+    public String userName = "";
+    public String base64LocalImage = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,7 +146,7 @@ public class DashBordFragment extends Fragment {
         }
         if (account != null) {
             userId = account.getEmail();
-            String userName = account.getDisplayName();
+             userName = account.getDisplayName();
 
             userIdTv.setText("ID: "+userId);
 
@@ -161,7 +163,7 @@ public class DashBordFragment extends Fragment {
         } else {
             // User is not signed in
             userId = sharedPreferences1.getString("key_phone", "");
-            String userName = sharedPreferences1.getString("name", "");
+             userName = sharedPreferences1.getString("name", "");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
             getUserProfileImage(userId);
@@ -225,7 +227,7 @@ public class DashBordFragment extends Fragment {
                 // Open gallery to select an image
 //                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                startActivityForResult(intent, REQUEST_CODE);
-                openCustomDialog();
+                openUpdateProfileDialog();
             }
         });
 
@@ -238,17 +240,13 @@ public class DashBordFragment extends Fragment {
         });
 
 
-
-
-        showImage();
-
         return view;
 
     }
 
 
 
-    private void openCustomDialog() {
+    private void openUpdateProfileDialog() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
 
@@ -256,29 +254,31 @@ public class DashBordFragment extends Fragment {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        ImageView profileImageUpdate = dialog.findViewById(R.id.profileImageID);
+        profileImageUpdate = dialog.findViewById(R.id.profileImageID);
         Bitmap bitmap = convertBase64ToBitmap(base64Image);
         profileImageUpdate.setImageBitmap(bitmap);
+        profileImageUpdate.setOnClickListener(view -> {
+             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+             startActivityForResult(intent, REQUEST_CODE);
+             showImage();
+        });
 
 
         TextInputEditText textInputEditTextName = dialog.findViewById(R.id.fullName);
         textInputEditTextName.setEnabled(false);
-//
-//        buttonChooseImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Handle choose image action
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        buttonCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
+        textInputEditTextName.setText(userName);
 
+        TextInputEditText textInputEditTextUserId = dialog.findViewById(R.id.userId);
+        textInputEditTextUserId.setText(userId);
+        textInputEditTextUserId.setEnabled(false);
+
+
+
+
+        ImageView closeButton = dialog.findViewById(R.id.closeUpdateLayout);
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
         dialog.show();
     }
 
@@ -303,10 +303,9 @@ public class DashBordFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-            profileImage.setImageURI(selectedImage);
+            profileImageUpdate.setImageURI(selectedImage);
             String imageUrl = String.valueOf(selectedImage);
-
-             base64Image = convertImageToBase64(selectedImage);
+            base64Image = convertImageToBase64(selectedImage);
         }
     }
 
@@ -389,7 +388,7 @@ public class DashBordFragment extends Fragment {
     public void showImage(){
         Log.d("kljgsdfghsat",base64Image);
         Bitmap bitmap = convertBase64ToBitmap(base64Image);
-//        profileImage.setImageBitmap(bitmap);
+        profileImage.setImageBitmap(bitmap);
 
     }
 
