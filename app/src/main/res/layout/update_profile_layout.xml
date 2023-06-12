@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
+    android:id="@+id/updateLayout"
     android:orientation="vertical"
     >
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAF7F7"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -38,8 +40,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
                 android:textSize="23sp"
                 android:textStyle="bold"
                 android:text="Update Profile"
@@ -154,5 +156,14 @@
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"/>
+
+    <ProgressBar android:id="@+id/progressBar4"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>
