@@ -78,6 +78,12 @@ public class DashBordFragment extends Fragment {
     private int totalQuestions;
 
 
+
+
+
+
+
+
     RecyclerView recview;
 
     ShimmerFrameLayout shimmerFrameLayout;
@@ -107,10 +113,12 @@ public class DashBordFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState ) {
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
 
-
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.update_profile_layout);
+        profileImageUpdate = dialog.findViewById(R.id.profileImageID);
 
 
 
@@ -133,6 +141,7 @@ public class DashBordFragment extends Fragment {
 
 
 
+
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +159,7 @@ public class DashBordFragment extends Fragment {
         if (!base64LocalImage.isEmpty()){
             Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
             profileImage.setImageBitmap(bitmap);
+            profileImageUpdate.setImageBitmap(bitmap);
         }else {
             profileImage.setImageResource(R.drawable.test_profile_image);
         }
@@ -229,23 +239,12 @@ public class DashBordFragment extends Fragment {
         processData();
 
 
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Open gallery to select an image
-//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, REQUEST_CODE);
-                openUpdateProfileDialog();
-            }
-        });
+        profileImage.setOnClickListener(view1 -> {
+
+            openUpdateProfileDialog();
+        } );
 
 
-        userNameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 
         return view;
@@ -268,7 +267,7 @@ public class DashBordFragment extends Fragment {
             InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             return Base64.encodeToString(byteArray, Base64.DEFAULT);
         } catch (IOException e) {
@@ -279,20 +278,27 @@ public class DashBordFragment extends Fragment {
 
 
 
-    private void openUpdateProfileDialog() {
+    private void openUpdateProfileDialog( ) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
+        profileImageUpdate = dialog.findViewById(R.id.profileImageID);
 
         // Set dialog window attributes for full-screen
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        profileImageUpdate = dialog.findViewById(R.id.profileImageID);
-        if (!base64LocalImage.isEmpty()){
+
+        if (!base64Image.isEmpty()){
+            Bitmap bitmap = convertBase64ToBitmap(base64Image);
+            profileImageUpdate.setImageBitmap(bitmap);
+
+        }else if (!base64LocalImage.isEmpty()){
             Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
             profileImageUpdate.setImageBitmap(bitmap);
+
         }else {
             profileImageUpdate.setImageResource(R.drawable.test_profile_image);
+
         }
 
 
@@ -319,6 +325,8 @@ public class DashBordFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
             profileImageUpdate.setEnabled(false);
             updateButton.setEnabled(false);
+
+
             saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
                 @Override
                 public void onImageSaved(int layoutState) {
@@ -333,6 +341,7 @@ public class DashBordFragment extends Fragment {
 
                         progressBar.setVisibility(View.GONE);
                         profileImageUpdate.setEnabled(true);
+
                         updateButton.setEnabled(true);
                         dialog.dismiss();
                     }
@@ -367,12 +376,15 @@ public class DashBordFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 // Handle the response from the server
-                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
                 sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
 
                 Bitmap bitmap = convertBase64ToBitmap(base64Image);
                 profileImage.setImageBitmap(bitmap);
+
+                profileImageUpdate.setImageBitmap(bitmap);
+
                 int DAILOG_LAYOUT_STATE = 200;
 
                 callback.onImageSaved(DAILOG_LAYOUT_STATE);

@@ -90,7 +90,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
                                     if (task.isSuccessful()){
 
-                                        Toast.makeText(getApplicationContext(),"Otp verified",Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getApplicationContext(),"Otp verified",Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.INVISIBLE);
                                         signUp(name,number,password);
 
