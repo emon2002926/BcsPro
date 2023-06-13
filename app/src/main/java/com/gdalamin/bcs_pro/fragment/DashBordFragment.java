@@ -282,11 +282,14 @@ public class DashBordFragment extends Fragment {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
-
         // Set dialog window attributes for full-screen
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        ImageView closeButton = dialog.findViewById(R.id.closeUpdateLayout);
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
 
         if (!base64Image.isEmpty()){
             Bitmap bitmap = convertBase64ToBitmap(base64Image);
@@ -325,36 +328,43 @@ public class DashBordFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
             profileImageUpdate.setEnabled(false);
             updateButton.setEnabled(false);
+            closeButton.setEnabled(false);
 
+            if (!base64Image.isEmpty()){
+                saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
+                    @Override
+                    public void onImageSaved(int layoutState) {
 
-            saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
-                @Override
-                public void onImageSaved(int layoutState) {
+                        int DAILOG_LAYOUT_STATE = layoutState;
+                        if (DAILOG_LAYOUT_STATE == 200){
 
-                    int DAILOG_LAYOUT_STATE = layoutState;
-                    if (DAILOG_LAYOUT_STATE == 200){
+                            sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences1.edit();
+                            editor.putString("profileImage",base64Image);
+                            editor.apply();
 
-                        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences1.edit();
-                        editor.putString("profileImage",base64Image);
-                        editor.apply();
-
-                        progressBar.setVisibility(View.GONE);
-                        profileImageUpdate.setEnabled(true);
-
-                        updateButton.setEnabled(true);
-                        dialog.dismiss();
+                            progressBar.setVisibility(View.GONE);
+                            profileImageUpdate.setEnabled(true);
+                            closeButton.setEnabled(true);
+                            updateButton.setEnabled(true);
+                            dialog.dismiss();
+                        }
                     }
-                }
-            });
+                });
+
+            }else {
+                closeButton.setEnabled(true);
+                progressBar.setVisibility(View.GONE);
+                profileImageUpdate.setEnabled(true);
+                updateButton.setEnabled(true);
+                Toast.makeText(getContext(),"Please select a image ",Toast.LENGTH_SHORT).show();
+            }
+
 
         });
 
 
-        ImageView closeButton = dialog.findViewById(R.id.closeUpdateLayout);
-        closeButton.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
+
         dialog.show();
     }
 
