@@ -73,21 +73,8 @@ import com.android.volley.toolbox.StringRequest;
 
 
 public class DashBordFragment extends Fragment {
-
-
-    private int totalQuestions;
-
-
-
-
-
-
-
-
     RecyclerView recview;
-
     ShimmerFrameLayout shimmerFrameLayout;
-
     SharedPreferences sharedPreferences;
     TextView textViewDitels,
             userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
@@ -97,18 +84,13 @@ public class DashBordFragment extends Fragment {
     LinearLayout showResultList;
     ImageView profileImage,profileImageUpdate;
     int totalExam = 0;
-
     private static final String UPLOAD_URL = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123";
-    private static final String UPLOAD_URL2 = "https://emon.searchwizy.com/Test%20Api's/holder2.php?api_key=abc123";
-
     private static final int REQUEST_CODE = 1;
     public String base64Image = "";
 
     public String userId = "";
     public String userName = "";
     public String base64LocalImage = "";
-
-
 
 
     @Override
@@ -119,8 +101,6 @@ public class DashBordFragment extends Fragment {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
-
-
 
         profileImage = view.findViewById(R.id.profileImageID);
         recview=view.findViewById(R.id.recview);
@@ -138,10 +118,6 @@ public class DashBordFragment extends Fragment {
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
-
-
-
-
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +125,6 @@ public class DashBordFragment extends Fragment {
                 startActivity(new Intent(view.getContext(), ResultListActivity.class));
             }
         });
-
-
 
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
@@ -169,12 +143,9 @@ public class DashBordFragment extends Fragment {
              userName = account.getDisplayName();
 
             userIdTv.setText("ID: "+userId);
-
-
             if (base64LocalImage.isEmpty()){
                 getUserProfileImage(userId);
             }
-
             userNameTextView.setText(userName);
 
             // Use the email for further processing
@@ -189,8 +160,6 @@ public class DashBordFragment extends Fragment {
             if (base64LocalImage.isEmpty()){
                 getUserProfileImage(userId);
             }
-
-
             if (userId !=null && userName!=null){
                 getUsernameFromAPI("abc123",userId);
             }
@@ -234,24 +203,15 @@ public class DashBordFragment extends Fragment {
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
             progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
         }
-
-
-        processData();
-
-
         profileImage.setOnClickListener(view1 -> {
 
             openUpdateProfileDialog();
         } );
 
-
-
-
+        processData();
         return view;
 
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -275,8 +235,6 @@ public class DashBordFragment extends Fragment {
         }
         return null;
     }
-
-
 
     private void openUpdateProfileDialog( ) {
         Dialog dialog = new Dialog(getContext());
@@ -367,13 +325,6 @@ public class DashBordFragment extends Fragment {
 
         dialog.show();
     }
-
-
-
-
-
-
-
     public Bitmap convertBase64ToBitmap(String base64Image) {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -385,22 +336,15 @@ public class DashBordFragment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_URL+"&action=1", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Handle the response from the server
-//                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+
                 sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
 
                 Bitmap bitmap = convertBase64ToBitmap(base64Image);
                 profileImage.setImageBitmap(bitmap);
-
                 profileImageUpdate.setImageBitmap(bitmap);
-
                 int DAILOG_LAYOUT_STATE = 200;
-
                 callback.onImageSaved(DAILOG_LAYOUT_STATE);
-
-
-
                 editor.putString("profileImage",base64Image);
                 editor.apply();
 
@@ -408,9 +352,7 @@ public class DashBordFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Handle the error
-//                Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                Log.d("sjkgytr6t5",error.getMessage());
+
             }
         }) {
             @Override
@@ -493,7 +435,6 @@ public class DashBordFragment extends Fragment {
                             editor.putString("name",username);
                             editor.apply();
 
-//                            userNameTextView.setText(username);
                             // TODO: Process the username as desired
                         } catch (JSONException e) {
                             e.printStackTrace();

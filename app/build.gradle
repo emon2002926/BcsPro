@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace 'com.gdalamin.bcs_pro'
-    compileSdk 32
+    compileSdk 33
     defaultConfig {
         applicationId "com.gdalamin.bcs_pro"
         minSdk 23
-        targetSdk 32
-        versionCode 13
-        versionName '2.6.5'
+        targetSdk 33
+        versionCode 14
+        versionName '2.7.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

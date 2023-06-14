@@ -11,6 +11,7 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.databinding.ActivityMainBinding;
 import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
+import com.gdalamin.bcs_pro.fragment.LeaderboardFragment;
 import com.gdalamin.bcs_pro.fragment.SettingFragment;
 
 public class
@@ -44,6 +45,10 @@ MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_setting:
                     replaceFragement(new SettingFragment());
+                    break;
+
+                case R.id.navigation_leaderBord:
+                    replaceFragement(new LeaderboardFragment());
                     break;
 
             }
