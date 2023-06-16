@@ -33,10 +33,10 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        int i = 1;
-        if (i == 1){
-
-        }
+//        int i = 1;
+//        if (i == 1){
+//
+//        }
 
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_slide,parent,false);
 

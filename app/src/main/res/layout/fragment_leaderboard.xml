@@ -6,9 +6,21 @@
     tools:context=".fragment.LeaderboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recview"
+        android:layout_below="@id/card"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="leader Bord"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="30dp"/>
 
 </FrameLayout>

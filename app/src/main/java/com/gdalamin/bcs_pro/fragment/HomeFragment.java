@@ -117,9 +117,6 @@ public class HomeFragment extends Fragment {
 
 
 
-//        getDataFromFirebase();
-
-
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();

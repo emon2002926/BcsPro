@@ -136,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="12dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -166,8 +166,8 @@
 
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="7dp"
+            android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/bg_for_progressbar"
@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="12dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -209,8 +209,8 @@
 
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="7dp"
+            android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/bg_for_progressbar"
@@ -223,7 +223,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="12dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -254,8 +254,8 @@
 
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="7dp"
+            android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/bg_for_progressbar"

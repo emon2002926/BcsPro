@@ -390,7 +390,7 @@ public class DashBordFragment extends Fragment {
                                 editor.apply();
                                 Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
                                 profileImage.setImageBitmap(bitmap);
-                                Log.d("UserImage36", base64LocalImage);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -406,14 +406,6 @@ public class DashBordFragment extends Fragment {
         // Add the request to the RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-    }
-
-
-    public void showImage(){
-        Log.d("kljgsdfghsat",base64Image);
-        Bitmap bitmap = convertBase64ToBitmap(base64Image);
-        profileImage.setImageBitmap(bitmap);
-
     }
 
 
@@ -538,6 +530,8 @@ public class DashBordFragment extends Fragment {
             }
         }
     };
+
+
 
     public interface SaveImageCallback {
         void onImageSaved(int layoutState);

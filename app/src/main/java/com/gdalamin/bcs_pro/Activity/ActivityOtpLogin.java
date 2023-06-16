@@ -50,6 +50,9 @@ public class ActivityOtpLogin extends AppCompatActivity {
         setContentView(R.layout.activity_otp_login);
 
 
+
+
+
         btnVerifyOTP = findViewById(R.id.chackOtp);
         inputNumber1 = findViewById(R.id.inputOtp1);
         inputNumber2 = findViewById(R.id.inputOtp2);
@@ -92,7 +95,10 @@ public class ActivityOtpLogin extends AppCompatActivity {
 
 //                                        Toast.makeText(getApplicationContext(),"Otp verified",Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.INVISIBLE);
+
+
                                         signUp(name,number,password);
+
 
                                     }else {
                                         progressBar.setVisibility(View.INVISIBLE);
@@ -153,12 +159,12 @@ public class ActivityOtpLogin extends AppCompatActivity {
     }
 
 
-    private void signUp(final String name, final String phone ,final String password ) {
-        StringRequest request=new StringRequest(Request.Method.POST, API_URL+"api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
+    private void signUp(final String name, final String phone, final String password) {
+        StringRequest request = new StringRequest(Request.Method.POST, API_URL + "api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.toString().equals("exists")) {
-                    Toast.makeText(ActivityOtpLogin.this, "This Number Already Exists", Toast.LENGTH_SHORT).show();
+                if (response.toString().equals("Invalid API key")) {
+//                    Toast.makeText(ActivityOtpLogin.this, "Invalid API key", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ActivityOtpLogin.this, "Sign Up Complete", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ActivityOtpLogin.this, ActivityLogin.class));
@@ -174,7 +180,7 @@ public class ActivityOtpLogin extends AppCompatActivity {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
                 params.put("phone", phone);
                 params.put("password", password);

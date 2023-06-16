@@ -47,7 +47,7 @@ public class ExamResultSaver {
                 param.put("mark", examResult.getMark());
                 param.put("notAnswred",examResult.getNotAnswred());
                 param.put("date", examResult.getDate());
-                param.put("userId", examResult.getUserId());
+                param.put("userId", examResult.getUserId().trim());
 
                 param.put("totalIA",examResult.getTotalIA());
                 param.put("correctIA",examResult.getCorrectIA());

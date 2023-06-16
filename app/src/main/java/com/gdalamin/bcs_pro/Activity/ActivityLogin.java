@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,6 +59,8 @@ public class ActivityLogin extends AppCompatActivity {
     TextView contunueBtnS, contunueBtnL;
 
     private RequestQueue queue;
+
+    private static final String API_URL= ApiKeys.API_URL;
 
 
 
@@ -199,15 +202,18 @@ public class ActivityLogin extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             int status = jsonObject.getInt("status");
-                            String message = jsonObject.getString("message");
+//                            String message = jsonObject.getString("message");
                             if (status == 1) {
                                 // Login successful, handle success case
                                 SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("key_phone", phone);
-                                editor.commit();
+                                editor.apply();
                                 progressBar.setVisibility(View.GONE);
-                                navigateToSecondActivity();
+
+                                Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
 
 
                             } else {
@@ -308,22 +314,58 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     @Override
-  @Keep  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Keep    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
-                task.getResult(ApiException.class);
-                navigateToSecondActivity();
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                String name = account.getDisplayName();
+                String email = account.getEmail();
+                signUp(name, email,"");
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
-    void navigateToSecondActivity() {
+
+
+    private void signUp(final String name, final String phone, final String password) {
+        StringRequest request = new StringRequest(Request.Method.POST, API_URL + "api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.toString().equals("Invalid API key")) {
+//                    Toast.makeText(ActivityOtpLogin.this, "Invalid API key", Toast.LENGTH_SHORT).show();
+                } else {
+//                    Toast.makeText(ActivityLogin.this, "Sign Up Complete", Toast.LENGTH_SHORT).show();
+                    navigateToMainActivity();
+//                    startActivity(new Intent(ActivityLogin.this, ActivityLogin.class));
+//                    finish();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                params.put("phone", phone);
+                params.put("password", password);
+                return params;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+    }
+
+    void navigateToMainActivity() {
+
         Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
         startActivity(intent);
         finish();
