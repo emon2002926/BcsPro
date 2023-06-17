@@ -16,7 +16,7 @@
     <item
         android:id="@+id/navigation_leaderBord"
         android:icon="@drawable/baseline_leaderboard_24"
-        android:title="Leader board " />
+        android:title="Ranking" />
 
     <item
         android:id="@+id/navigation_setting"

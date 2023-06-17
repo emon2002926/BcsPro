@@ -226,9 +226,30 @@ public class DashBordFragment extends Fragment {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Calculate the new dimensions while preserving the aspect ratio
+            int maxWidth = 900;
+            int maxHeight = 900;
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float ratio = (float) width / height;
+            if (width > maxWidth || height > maxHeight) {
+                if (ratio > 1.0f) {
+                    width = maxWidth;
+                    height = (int) (maxWidth / ratio);
+                } else {
+                    width = (int) (maxHeight * ratio);
+                    height = maxHeight;
+                }
+            }
+
+            // Resize the bitmap to the desired resolution
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
+
             return Base64.encodeToString(byteArray, Base64.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();

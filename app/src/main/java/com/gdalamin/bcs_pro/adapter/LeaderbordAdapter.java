@@ -10,15 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
-
 import java.util.List;
-
 public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.ViewHolder> {
     private List<LeaderbordModel> userMarksList;
     private Context context;
@@ -31,25 +27,30 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.leader_bord_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.leader_bord_test_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LeaderbordModel leaderbordModel = userMarksList.get(position);
-        holder.txtUserId.setText(leaderbordModel.getUserId());
+        String count = String.valueOf(position+1);
+
+//        holder.txtUserId.setText(leaderbordModel.getUserId());
         holder.txtUserName.setText(leaderbordModel.getUserName());
-        holder.txtAverageMark.setText(String.valueOf(leaderbordModel.getAverageMark()));
-        holder.txtTotalCorrect.setText(String.valueOf(leaderbordModel.getTotalCorrect()));
-        holder.txtTotalWrong.setText(String.valueOf(leaderbordModel.getTotalWrong()));
-        holder.txtTotalNotAnswered.setText(String.valueOf(leaderbordModel.getTotalNotAnswered()));
-        holder.txtTotalExamsTaken.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
+        holder.txtCounter.setText(count);
+//        holder.txtAverageMark.setText(String.valueOf(leaderbordModel.getAverageMark()));
+//        holder.txtTotalCorrect.setText(String.valueOf(leaderbordModel.getTotalCorrect()));
+//        holder.txtTotalWrong.setText(String.valueOf(leaderbordModel.getTotalWrong()));
+//        holder.txtTotalNotAnswered.setText(String.valueOf(leaderbordModel.getTotalNotAnswered()));
+//        holder.txtTotalExamsTaken.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
+
 
 
         String base64ImageString = leaderbordModel.getBase64ImageString();
         Bitmap bitmap = convertBase64ToBitmap(base64ImageString);
         holder.imgProfile.setImageBitmap(bitmap);
+
 
         Log.d("lkhsfttr7",base64ImageString);
 
@@ -61,25 +62,28 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtUserId;
+        //        private TextView txtUserId;
         private TextView txtUserName;
-        private TextView txtAverageMark;
-        private TextView txtTotalCorrect;
-        private TextView txtTotalWrong;
-        private TextView txtTotalNotAnswered;
-        private TextView txtTotalExamsTaken;
+        //        private TextView txtAverageMark;
+//        private TextView txtTotalCorrect;
+//        private TextView txtTotalWrong;
+//        private TextView txtTotalNotAnswered;
+//        private TextView txtTotalExamsTaken;
+        private TextView txtCounter;
         private ImageView imgProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtUserId = itemView.findViewById(R.id.txtUserId);
-            txtUserName = itemView.findViewById(R.id.txtUserName);
-            txtAverageMark = itemView.findViewById(R.id.txtAverageMark);
-            txtTotalCorrect = itemView.findViewById(R.id.txtTotalCorrect);
-            txtTotalWrong = itemView.findViewById(R.id.txtTotalWrong);
-            txtTotalNotAnswered = itemView.findViewById(R.id.txtTotalNotAnswered);
-            txtTotalExamsTaken = itemView.findViewById(R.id.txtTotalExamsTaken);
-            imgProfile = itemView.findViewById(R.id.imgUser);
+//            txtUserId = itemView.findViewById(R.id.txtUserId);
+            txtUserName = itemView.findViewById(R.id.userNameTv);
+            txtCounter = itemView.findViewById(R.id.tvCount);
+//            txtAverageMark = itemView.findViewById(R.id.txtAverageMark);
+//            txtTotalCorrect = itemView.findViewById(R.id.txtTotalCorrect);
+//            txtTotalWrong = itemView.findViewById(R.id.txtTotalWrong);
+//            txtTotalNotAnswered = itemView.findViewById(R.id.txtTotalNotAnswered);
+//            txtTotalExamsTaken = itemView.findViewById(R.id.txtTotalExamsTaken);
+            imgProfile = itemView.findViewById(R.id.profileImageID);
+
         }
     }
     public Bitmap convertBase64ToBitmap(String base64Image) {
