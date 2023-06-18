@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.LeaderbordAdapter;
+import com.gdalamin.bcs_pro.adapter.LeaderbordAdapterTest;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
 
 import org.json.JSONArray;
@@ -40,7 +41,7 @@ public class LeaderboardFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    private LeaderbordAdapter adapter;
+    private LeaderbordAdapterTest adapter;
     private List<LeaderbordModel> userMarksList;
 
     @Override
@@ -55,7 +56,7 @@ public class LeaderboardFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         userMarksList = new ArrayList<>();
-        adapter = new LeaderbordAdapter(userMarksList, getContext());
+        adapter = new LeaderbordAdapterTest(userMarksList, getContext());
         recyclerView.setAdapter(adapter);
 
         fetchDataFromServer();

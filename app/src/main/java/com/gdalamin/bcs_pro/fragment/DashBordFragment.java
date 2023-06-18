@@ -152,7 +152,7 @@ public class DashBordFragment extends Fragment {
         } else {
             // User is not signed in
             userId = sharedPreferences1.getString("key_phone", "");
-             userName = sharedPreferences1.getString("name", "");
+            userName = sharedPreferences1.getString("name", "");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
             getUserProfileImage(userId);

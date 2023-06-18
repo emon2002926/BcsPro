@@ -12,35 +12,47 @@
         android:weightSum="1"
         android:orientation="horizontal">
 
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:text="1."
             android:id="@+id/tvCount"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/profileImageID"
-            android:src="@drawable/test_profile_image"
-            android:scaleType="centerCrop"
-            android:padding="5dp"
-            app:riv_corner_radius="100dp"
-            android:layout_marginEnd="10dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/profile_img_bg"
+            >
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/profileImageID"
+                android:src="@drawable/test_profile_image"
+                android:scaleType="centerCrop"
+                android:padding="2dp"
+                app:riv_corner_radius="100dp"
+                />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MD Emon"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginStart="15dp"
+            android:textSize="16sp"
             android:layout_gravity="center_vertical"
             android:id="@+id/userNameTv"
             android:textColor="@color/white"/>
