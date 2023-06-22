@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -84,7 +85,6 @@ public class DashBordFragment extends Fragment {
     LinearLayout showResultList;
     ImageView profileImage,profileImageUpdate;
     int totalExam = 0;
-    private static final String UPLOAD_URL = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123";
     private static final int REQUEST_CODE = 1;
     public String base64Image = "";
 
@@ -97,6 +97,7 @@ public class DashBordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState ) {
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
+
 
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
@@ -113,7 +114,7 @@ public class DashBordFragment extends Fragment {
         correctAnswerTextView = view.findViewById(R.id.correctAnswerTv);
         notAnswredTextView = view.findViewById(R.id.notAnswredTv);
         userIdTv = view.findViewById(R.id.userIdTv);
-        userNameTextView = view.findViewById(R.id.userNameTv);
+        userNameTextView = view.findViewById(R.id.userNameTvD);
         progressBarCorrect = view.findViewById(R.id.percentageProgressBarCorrect);
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
@@ -164,6 +165,7 @@ public class DashBordFragment extends Fragment {
                 getUsernameFromAPI("abc123",userId);
             }
         }
+
 
         String totalQuestions = sharedPreferences1.getString("totalQuestions", "");
         if (totalQuestions != null && !totalQuestions.isEmpty()) {
@@ -222,104 +224,74 @@ public class DashBordFragment extends Fragment {
             base64Image = convertImageToBase64(selectedImage);
         }
     }
-    public String convertImageToBase64(Uri imageUri) {
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-            // Calculate the new dimensions while preserving the aspect ratio
-            int maxWidth = 900;
-            int maxHeight = 900;
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            float ratio = (float) width / height;
-            if (width > maxWidth || height > maxHeight) {
-                if (ratio > 1.0f) {
-                    width = maxWidth;
-                    height = (int) (maxWidth / ratio);
-                } else {
-                    width = (int) (maxHeight * ratio);
-                    height = maxHeight;
-                }
-            }
-
-            // Resize the bitmap to the desired resolution
-            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            return Base64.encodeToString(byteArray, Base64.DEFAULT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void openUpdateProfileDialog( ) {
+    private void openUpdateProfileDialog() {
+        // Create a dialog
         Dialog dialog = new Dialog(getContext());
+
+        // Set the layout for the dialog
         dialog.setContentView(R.layout.update_profile_layout);
+
+        // Find views in the dialog layout
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
-        // Set dialog window attributes for full-screen
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         ImageView closeButton = dialog.findViewById(R.id.closeUpdateLayout);
-        closeButton.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
+        TextInputEditText textInputEditTextName = dialog.findViewById(R.id.fullName);
+        TextInputEditText textInputEditTextUserId = dialog.findViewById(R.id.userId);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar4);
+        TextView updateButton = dialog.findViewById(R.id.btnUpdate);
 
-        if (!base64Image.isEmpty()){
+        // Set dialog window attributes for full-screen
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        // Set initial values for views
+        if (!base64Image.isEmpty()) {
             Bitmap bitmap = convertBase64ToBitmap(base64Image);
             profileImageUpdate.setImageBitmap(bitmap);
-
-        }else if (!base64LocalImage.isEmpty()){
+        } else if (!base64LocalImage.isEmpty()) {
             Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
             profileImageUpdate.setImageBitmap(bitmap);
-
-        }else {
+        } else {
             profileImageUpdate.setImageResource(R.drawable.test_profile_image);
-
         }
 
-
-        TextInputEditText textInputEditTextName = dialog.findViewById(R.id.fullName);
         textInputEditTextName.setEnabled(false);
         textInputEditTextName.setText(userName);
-
-        TextInputEditText textInputEditTextUserId = dialog.findViewById(R.id.userId);
         textInputEditTextUserId.setText(userId);
         textInputEditTextUserId.setEnabled(false);
 
-
+        // Set click listener for profile image update
         profileImageUpdate.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, REQUEST_CODE);
         });
 
+        // Set click listener for close button
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
 
-        ProgressBar progressBar =dialog.findViewById(R.id.progressBar4);
-        TextView updateButton = dialog.findViewById(R.id.btnUpdate);
-
+        // Set click listener for update button
         updateButton.setOnClickListener(view -> {
-
             progressBar.setVisibility(View.VISIBLE);
             profileImageUpdate.setEnabled(false);
             updateButton.setEnabled(false);
             closeButton.setEnabled(false);
 
-            if (!base64Image.isEmpty()){
+            if (!base64Image.isEmpty()) {
+                // Save the base64 profile image
                 saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
                     @Override
                     public void onImageSaved(int layoutState) {
-
                         int DAILOG_LAYOUT_STATE = layoutState;
-                        if (DAILOG_LAYOUT_STATE == 200){
-
+                        if (DAILOG_LAYOUT_STATE == 200) {
+                            // Update profile image in SharedPreferences
                             sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences1.edit();
-                            editor.putString("profileImage",base64Image);
+                            editor.putString("profileImage", base64Image);
                             editor.apply();
 
                             progressBar.setVisibility(View.GONE);
@@ -330,31 +302,24 @@ public class DashBordFragment extends Fragment {
                         }
                     }
                 });
-
-            }else {
+            } else {
                 closeButton.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
                 profileImageUpdate.setEnabled(true);
                 updateButton.setEnabled(true);
-                Toast.makeText(getContext(),"Please select a image ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
             }
-
-
         });
 
-
-
+        // Show the dialog
         dialog.show();
-    }
-    public Bitmap convertBase64ToBitmap(String base64Image) {
-        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
 
     private void saveBase64ProfileImage(String userId, String base64Image,SaveImageCallback callback) {
 
-        StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_URL+"&action=1", new Response.Listener<String>() {
+         String UPLOAD_UR2L = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action=1";
+        StringRequest request = new StringRequest(Request.Method.POST, UPLOAD_UR2L, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -392,7 +357,7 @@ public class DashBordFragment extends Fragment {
 
 
     private void getUserProfileImage(String userId ) {
-        String url = "https://emon.searchwizy.com/saveImage2.php?apiKey=abc123&action="+"3"+"&userId="+userId;
+        String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action="+"3"+"&userId="+userId;
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences1.edit();
 
@@ -433,8 +398,10 @@ public class DashBordFragment extends Fragment {
     private void getUsernameFromAPI(String apiKey, String phoneNumber) {
         // API URL
 
-        String url = "https://emon.searchwizy.com/Test%20Api's/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
+        String url = "https://emon.searchwizy.com/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
         // Create a new JSONArrayRequest
+        Log.d("kjduisydzsgv",url);
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -551,6 +518,49 @@ public class DashBordFragment extends Fragment {
             }
         }
     };
+
+
+
+    public String convertImageToBase64(Uri imageUri) {
+        try {
+            InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Calculate the new dimensions while preserving the aspect ratio
+            int maxWidth = 900;
+            int maxHeight = 900;
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float ratio = (float) width / height;
+            if (width > maxWidth || height > maxHeight) {
+                if (ratio > 1.0f) {
+                    width = maxWidth;
+                    height = (int) (maxWidth / ratio);
+                } else {
+                    width = (int) (maxHeight * ratio);
+                    height = maxHeight;
+                }
+            }
+
+            // Resize the bitmap to the desired resolution
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public Bitmap convertBase64ToBitmap(String base64Image) {
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
 
 
 

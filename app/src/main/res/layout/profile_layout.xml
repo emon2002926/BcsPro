@@ -36,7 +36,7 @@
                 android:text="MD Emon"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:id="@+id/userNameTv"
+                android:id="@+id/userNameTvD"
                 android:textColor="@color/darkTangerine"/>
 
             <TextView

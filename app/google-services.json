@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "838612717637-aje1fmn3sf1cbe706deelebgklfeqg0m.apps.googleusercontent.com",
+          "client_id": "838612717637-2v47e0uhih9fchbl0kud1sumlf4gob4i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gdalamin.bcs_pro",
+            "certificate_hash": "4551d09591cf0dc03d5022e81288ce1556f19214"
+          }
+        },
+        {
+          "client_id": "838612717637-fip8lnks2fj3dki7i4jlt9r9rv5bqvku.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gdalamin.bcs_pro",
@@ -23,7 +31,7 @@
           }
         },
         {
-          "client_id": "838612717637-f7jklquu1cs052av1js7arkag3otr0p2.apps.googleusercontent.com",
+          "client_id": "838612717637-urc5cmjo1aolfh4psrnqkr1lf2k0902n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gdalamin.bcs_pro",
@@ -31,10 +39,47 @@
           }
         },
         {
-          "client_id": "838612717637-uhgkkhni6khe2bb9j2pcuesindkm4bmg.apps.googleusercontent.com",
+          "client_id": "838612717637-dh5ageh77an268881p3p0rqj4lpt5bvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOpuBfwxyMQbfKTadd27ntpdtdE5UGE6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114507184745683561995",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838612717637:android:841cb0d0e72fea7e4d932c",
+        "android_client_info": {
+          "package_name": "com.learnbcs.xyz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838612717637-435kjmj6daefpomtl237gskjldcumik4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gdalamin.bcs_pro",
+            "package_name": "com.learnbcs.xyz",
+            "certificate_hash": "5403435110d9c2dc2ba3bb0587f9606b264a4563"
+          }
+        },
+        {
+          "client_id": "838612717637-de561o9a8nf5iucqvtie02basenm9bl9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.learnbcs.xyz",
             "certificate_hash": "895c366c88dd4e9978a541a2a5f9adbdc18c436f"
           }
         },
@@ -52,7 +97,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "838612717637-06g5v92tvehe08o8jjo3itnlfk2g8ua4.apps.googleusercontent.com",
+              "client_id": "114507184745683561995",
               "client_type": 3
             }
           ]

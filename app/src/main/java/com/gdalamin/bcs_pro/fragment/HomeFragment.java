@@ -50,11 +50,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -62,8 +57,6 @@ import com.google.gson.GsonBuilder;
 public class HomeFragment extends Fragment {
 
 
-    private  final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = database.getReference();
 
     RecyclerView recyclerView;
     TextView tvPractice,showAllCourse,CvQuestionBank,CvImportantQuestion;
