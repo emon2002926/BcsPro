@@ -18,9 +18,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
-import com.gdalamin.bcs_pro.fragment.DashBordFragment;
-import com.gdalamin.bcs_pro.fragment.HomeFragment;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +54,7 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         titleTv = findViewById(R.id.titleTv);
 
 
-        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(imageBackButton.getContext());
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(imageBackButton.getContext());
         int OPENING_LOGIC = preferencesManager.getInt("logic");
 
 

@@ -3,11 +3,11 @@ package com.gdalamin.bcs_pro.api;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPreferencesManager {
+public class SharedPreferencesManagerAppLogic {
 
     private SharedPreferences preferences;
 
-    public SharedPreferencesManager(Context context) {
+    public SharedPreferencesManagerAppLogic(Context context) {
         preferences = context.getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);
     }
 

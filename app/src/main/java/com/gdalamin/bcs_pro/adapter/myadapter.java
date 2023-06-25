@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.bumptech.glide.Glide;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
@@ -103,7 +102,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
-        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.explainTv.getContext());
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.explainTv.getContext());
         int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 

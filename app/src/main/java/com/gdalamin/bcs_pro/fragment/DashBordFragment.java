@@ -40,6 +40,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -48,6 +49,7 @@ import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.SharedPreferencesLoginInfo;
 import com.gdalamin.bcs_pro.downloader.ImageUploader;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -82,7 +84,7 @@ public class DashBordFragment extends Fragment {
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
     SharedPreferences sharedPreferences1;
     SharedPreferences.Editor editor;
-    LinearLayout showResultList;
+    LinearLayout showResultList,fullProfileLayout;
     ImageView profileImage,profileImageUpdate;
     int totalExam = 0;
     private static final int REQUEST_CODE = 1;
@@ -91,6 +93,8 @@ public class DashBordFragment extends Fragment {
     public String userId = "";
     public String userName = "";
     public String base64LocalImage = "";
+
+    SharedPreferencesLoginInfo preferencesLoginInfo;
 
 
     @Override
@@ -103,6 +107,12 @@ public class DashBordFragment extends Fragment {
         dialog.setContentView(R.layout.update_profile_layout);
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
 
+
+
+
+        fetchDataFromAPI("jkg");
+
+        fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
         profileImage = view.findViewById(R.id.profileImageID);
         recview=view.findViewById(R.id.recview);
         shimmerFrameLayout = view.findViewById(R.id.shimer);
@@ -119,6 +129,9 @@ public class DashBordFragment extends Fragment {
         progressBarWrong = view.findViewById(R.id.percentageProgressBarWrong);
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
+
+        preferencesLoginInfo = new SharedPreferencesLoginInfo(progressBarWrong.getContext());
+
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +143,7 @@ public class DashBordFragment extends Fragment {
         sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         base64LocalImage = sharedPreferences1.getString("profileImage","");
+
 
         if (!base64LocalImage.isEmpty()){
             Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
@@ -153,6 +167,7 @@ public class DashBordFragment extends Fragment {
         } else {
             // User is not signed in
             userId = sharedPreferences1.getString("key_phone", "");
+            Log.d("kgsdyutsxk",userId);
             userName = sharedPreferences1.getString("name", "");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
@@ -205,7 +220,7 @@ public class DashBordFragment extends Fragment {
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
             progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
         }
-        profileImage.setOnClickListener(view1 -> {
+        fullProfileLayout.setOnClickListener(view1 -> {
 
             openUpdateProfileDialog();
         } );
@@ -560,6 +575,54 @@ public class DashBordFragment extends Fragment {
     public Bitmap convertBase64ToBitmap(String base64Image) {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+
+
+    public void fetchDataFromAPI(String userId) {
+        // API endpoint URL
+        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=emon79605@gmail.com";
+
+        // Instantiate the RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        // Create a JSON request to fetch the data
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse the JSON response
+                            int status = response.getInt("status");
+                            int totalCorrect = response.getInt("totalCorrect");
+                            int totalQuestions = response.getInt("totalQuestions");
+                            int totalWrong = response.getInt("totalWrong");
+                            int totalNotAnswered = response.getInt("totalNotAnswered");
+                            String userName = response.getString("userName");
+
+                            preferencesLoginInfo.saveString("name",userName);
+
+                            Log.d("ksdgsukyr", String.valueOf(totalCorrect));
+                            Log.d("userName", userName);
+
+                            // Handle the fetched data as needed
+                            // For example, you can update UI elements with the retrieved data
+                            // updateUI(totalCorrect, totalQuestions, totalWrong, totalNotAnswered, userName);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error response
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
     }
 
 

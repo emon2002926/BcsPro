@@ -1,11 +1,9 @@
 package com.gdalamin.bcs_pro.adapter;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
 import java.io.UnsupportedEncodingException;
@@ -47,7 +45,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
 
-        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(holder.cardView.getContext());
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.cardView.getContext());
 
         String examDitals = data[position].getDailyExam();
         String getDetails = data[position].getDetails();

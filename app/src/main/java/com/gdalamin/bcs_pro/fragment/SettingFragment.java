@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.gdalamin.bcs_pro.Activity.ActivityLogin;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -140,7 +140,7 @@ public class SettingFragment extends Fragment {
 
         SharedPreferences.Editor editor = loginPreferences.edit();
 
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+        SharedPreferencesManagerAppLogic sharedPreferencesManager = new SharedPreferencesManagerAppLogic(context);
 
         // Build the GoogleSignInOptions for signing in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

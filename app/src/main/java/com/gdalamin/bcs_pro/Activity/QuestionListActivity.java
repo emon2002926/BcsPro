@@ -20,7 +20,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -59,7 +59,7 @@ public class QuestionListActivity extends AppCompatActivity {
         });
 
 
-        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(QuestionListActivity.this);
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
         int subCode = preferencesManager.getInt("subCode");
 
 

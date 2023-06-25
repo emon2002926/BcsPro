@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManager;
+import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
@@ -53,7 +53,7 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
 
     ShimmerFrameLayout shimmerFrameLayout;
-    SharedPreferencesManager preferencesManager;
+    SharedPreferencesManagerAppLogic preferencesManager;
 
      public static int REQ_CODE = 0;
 
@@ -90,7 +90,7 @@ public class ActivityExam extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
-        preferencesManager = new SharedPreferencesManager(this);
+        preferencesManager = new SharedPreferencesManagerAppLogic(this);
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
 
 
@@ -236,7 +236,7 @@ public class ActivityExam extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthName = new DateFormatSymbols().getMonths()[month];
-        preferencesManager = new SharedPreferencesManager(this);
+        preferencesManager = new SharedPreferencesManagerAppLogic(this);
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
 
