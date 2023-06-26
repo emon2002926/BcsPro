@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -22,11 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +41,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.Activity.MainActivity;
 import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.resultAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesLoginInfo;
-import com.gdalamin.bcs_pro.downloader.ImageUploader;
+import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -68,12 +63,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.android.volley.toolbox.StringRequest;
-
-
-
-
-
 
 public class DashBordFragment extends Fragment {
     RecyclerView recview;
@@ -82,8 +71,8 @@ public class DashBordFragment extends Fragment {
     TextView textViewDitels,
             userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
-    SharedPreferences sharedPreferences1;
-    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences12;
+    SharedPreferences.Editor editore;
     LinearLayout showResultList,fullProfileLayout;
     ImageView profileImage,profileImageUpdate;
     int totalExam = 0;
@@ -94,7 +83,7 @@ public class DashBordFragment extends Fragment {
     public String userName = "";
     public String base64LocalImage = "";
 
-    SharedPreferencesLoginInfo preferencesLoginInfo;
+    PreferencesUserInfo preferencesUserInfo;
 
 
     @Override
@@ -130,7 +119,7 @@ public class DashBordFragment extends Fragment {
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
 
-        preferencesLoginInfo = new SharedPreferencesLoginInfo(progressBarWrong.getContext());
+        preferencesUserInfo = new PreferencesUserInfo(progressBarWrong.getContext());
 
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +129,9 @@ public class DashBordFragment extends Fragment {
             }
         });
 
-        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+//        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-        base64LocalImage = sharedPreferences1.getString("profileImage","");
+        base64LocalImage = preferencesUserInfo.getString("profileImage");
 
 
         if (!base64LocalImage.isEmpty()){
@@ -166,9 +155,9 @@ public class DashBordFragment extends Fragment {
             // Use the email for further processing
         } else {
             // User is not signed in
-            userId = sharedPreferences1.getString("key_phone", "");
-            Log.d("kgsdyutsxk",userId);
-            userName = sharedPreferences1.getString("name", "");
+            userId = preferencesUserInfo.getString("key_phone");
+
+            userName = preferencesUserInfo.getString("name");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
             getUserProfileImage(userId);
@@ -182,13 +171,13 @@ public class DashBordFragment extends Fragment {
         }
 
 
-        String totalQuestions = sharedPreferences1.getString("totalQuestions", "");
+        String totalQuestions = preferencesUserInfo.getString("totalQuestions");
         if (totalQuestions != null && !totalQuestions.isEmpty()) {
-            String totalQuestions2 = sharedPreferences1.getString("totalQuestions", "");
-            String wrongAnswer = sharedPreferences1.getString("wrongAnswer", "");
-            String correctAnswer = sharedPreferences1.getString("correctAnswer", "").trim();
-            String notAnswered = sharedPreferences1.getString("notAnswred", "");
-            String totalExam = sharedPreferences1.getString("totalExam", "");
+            String totalQuestions2 = preferencesUserInfo.getString("totalQuestions");
+            String wrongAnswer = preferencesUserInfo.getString("wrongAnswer");
+            String correctAnswer = preferencesUserInfo.getString("correctAnswer").trim();
+            String notAnswered = preferencesUserInfo.getString("notAnswred");
+            String totalExam = preferencesUserInfo.getString("totalExam");
 
             int correctAnswer1 = 0;
             int wrongAnswer1 = 0;
@@ -304,10 +293,9 @@ public class DashBordFragment extends Fragment {
                         int DAILOG_LAYOUT_STATE = layoutState;
                         if (DAILOG_LAYOUT_STATE == 200) {
                             // Update profile image in SharedPreferences
-                            sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences1.edit();
-                            editor.putString("profileImage", base64Image);
-                            editor.apply();
+//                            sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = sharedPreferences1.edit();
+                            preferencesUserInfo.saveString("profileImage", base64Image);
 
                             progressBar.setVisibility(View.GONE);
                             profileImageUpdate.setEnabled(true);
@@ -338,16 +326,13 @@ public class DashBordFragment extends Fragment {
             @Override
             public void onResponse(String response) {
 
-                sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-
                 Bitmap bitmap = convertBase64ToBitmap(base64Image);
                 profileImage.setImageBitmap(bitmap);
                 profileImageUpdate.setImageBitmap(bitmap);
                 int DAILOG_LAYOUT_STATE = 200;
                 callback.onImageSaved(DAILOG_LAYOUT_STATE);
-                editor.putString("profileImage",base64Image);
-                editor.apply();
+                preferencesUserInfo.saveString("profileImage",base64Image);
+
 
             }
         }, new Response.ErrorListener() {
@@ -373,8 +358,6 @@ public class DashBordFragment extends Fragment {
 
     private void getUserProfileImage(String userId ) {
         String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action="+"3"+"&userId="+userId;
-        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences1.edit();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -387,8 +370,7 @@ public class DashBordFragment extends Fragment {
                                 base64LocalImage = jsonObject.getString("base64Image");
                                 // Use the base64Image string as needed
 
-                                editor.putString("profileImage",base64LocalImage);
-                                editor.apply();
+                                preferencesUserInfo.saveString("profileImage",base64LocalImage);
                                 Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
                                 profileImage.setImageBitmap(bitmap);
 
@@ -415,7 +397,6 @@ public class DashBordFragment extends Fragment {
 
         String url = "https://emon.searchwizy.com/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
         // Create a new JSONArrayRequest
-        Log.d("kjduisydzsgv",url);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -426,9 +407,9 @@ public class DashBordFragment extends Fragment {
                             JSONObject jsonObject = response.getJSONObject(0);
                             String username = jsonObject.getString("name");
                             userNameTextView.setText(username);
-                            editor = sharedPreferences1.edit();
-                            editor.putString("name",username);
-                            editor.apply();
+//                            editor = sharedPreferences1.edit();
+                            preferencesUserInfo.saveString("name",username);
+//                            editor.apply();
 
                             // TODO: Process the username as desired
                         } catch (JSONException e) {
@@ -506,30 +487,26 @@ public class DashBordFragment extends Fragment {
                 float totalPercentageWrong  =((float) wrongAnswer/totalQuestions)*100;
                 float totalPercentageNotAnswred =((float) notAnswered/totalQuestions)*100;
 
-                sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-
-                editor = sharedPreferences1.edit();
-                editor.putString("totalQuestions",String.valueOf(totalQuestions));
-                editor.putString("wrongAnswer",String.valueOf(wrongAnswer));
-                editor.putString("correctAnswer",String.valueOf(correctAnswer));
-                editor.putString("notAnswred",String.valueOf(notAnswered));
-                editor.putString("totalExam",String.valueOf(totalExam));
-                editor.apply();
-                editor.commit();
-
 //
-                totalQuestionTextView.setText(String.valueOf(totalQuestions));
-                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
-                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
-                notAnswredTextView.setText(String.valueOf(notAnswered)+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswred))+"%)");
-
-                totalExamTextView.setText(String.valueOf(totalExam));
-
-
-                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
-                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
-                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswred));
-                // Handle the updated totalQuestions value here
+//                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
+//                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(wrongAnswer));
+//                preferencesUserInfo.saveString("correctAnswer",String.valueOf(correctAnswer));
+//                preferencesUserInfo.saveString("notAnswred",String.valueOf(notAnswered));
+//                preferencesUserInfo.saveString("totalExam",String.valueOf(totalExam));
+//
+//
+//                totalQuestionTextView.setText(String.valueOf(totalQuestions));
+//                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
+//                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
+//                notAnswredTextView.setText(String.valueOf(notAnswered)+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswred))+"%)");
+//
+//                totalExamTextView.setText(String.valueOf(totalExam));
+//
+//
+//                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
+//                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
+//                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswred));
+//                // Handle the updated totalQuestions value here
             }
         }
     };
@@ -600,7 +577,7 @@ public class DashBordFragment extends Fragment {
                             int totalNotAnswered = response.getInt("totalNotAnswered");
                             String userName = response.getString("userName");
 
-                            preferencesLoginInfo.saveString("name",userName);
+                            preferencesUserInfo.saveString("name",userName);
 
                             Log.d("ksdgsukyr", String.valueOf(totalCorrect));
                             Log.d("userName", userName);

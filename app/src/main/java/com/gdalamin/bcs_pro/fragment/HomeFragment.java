@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -40,6 +43,7 @@ import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -49,6 +53,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class HomeFragment extends Fragment {
@@ -79,7 +86,7 @@ public class HomeFragment extends Fragment {
     private boolean isDataProcessed = false; // Declare a boolean flag
 
 
-
+    PreferencesUserInfo preferencesUserInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +99,7 @@ public class HomeFragment extends Fragment {
         preferencesManager.remove("examQuestionNum");
 
 
+        preferencesUserInfo = new PreferencesUserInfo(getContext());
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(view.getContext(), googleSignInOptions);
@@ -311,10 +319,7 @@ public class HomeFragment extends Fragment {
 
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        ////////////////////////////////////////////////////
 
-
-///////////////////////////////////////////////////////////////////////////
         if (activeNetwork != null && activeNetwork.isConnected()) {
             // The device is connected to the internet
             if (!isDataProcessed) {
@@ -352,9 +357,68 @@ public class HomeFragment extends Fragment {
         // Check the initial network connectivity status
         isConnected = isConnected();
 
+
+        String userId = preferencesUserInfo.getString("key_phone").trim();
+        Log.d("dffiyaubvbv",userId);
+
+
+
+
+        fetchDataFromAPI("kldfh");
+
         return view;
 
     }
+
+
+
+
+    public void fetchDataFromAPI(String userId) {
+        // API endpoint URL
+        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=emon79605@gmail.com";
+
+        // Instantiate the RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        // Create a JSON request to fetch the data
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse the JSON response
+                            int status = response.getInt("status");
+                            int totalCorrect = response.getInt("totalCorrect");
+                            int totalQuestions = response.getInt("totalQuestions");
+                            int totalWrong = response.getInt("totalWrong");
+                            int totalNotAnswered = response.getInt("totalNotAnswered");
+                            String userName = response.getString("userName");
+
+                            preferencesUserInfo.saveString("name",userName);
+
+                            Log.d("ksdgsukyrksudyf", String.valueOf(totalCorrect));
+                            Log.d("userName", userName);
+
+                            // Handle the fetched data as needed
+                            // For example, you can update UI elements with the retrieved data
+                            // updateUI(totalCorrect, totalQuestions, totalWrong, totalNotAnswered, userName);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error response
+                        error.printStackTrace();
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
+    }
+
 
 
     @Override

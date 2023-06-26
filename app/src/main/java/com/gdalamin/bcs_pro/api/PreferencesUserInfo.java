@@ -3,11 +3,11 @@ package com.gdalamin.bcs_pro.api;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPreferencesLoginInfo {
+public class PreferencesUserInfo {
 
     private SharedPreferences preferences;
 
-    public SharedPreferencesLoginInfo(Context context) {
+    public PreferencesUserInfo(Context context) {
         preferences = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
     }
 
