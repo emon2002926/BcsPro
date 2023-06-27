@@ -42,6 +42,7 @@ import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
+import com.gdalamin.bcs_pro.api.GetLocalUserData;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -274,8 +275,9 @@ public class HomeFragment extends Fragment {
 
 
         String userId = preferencesUserInfo.getString("key_phone").trim();
+        getUserProfileData(userId);
 
-        fetchDataFromAPI(userId);
+//        fetchDataFromAPI(userId);
 
         return view;
 
@@ -352,6 +354,33 @@ public class HomeFragment extends Fragment {
 
 
 
+
+    public void getUserProfileData(String userId){
+        GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
+        apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
+            @Override
+            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
+                                       int totalNotAnswered, String userName, String totalExamCount) {
+                // Use the fetched values here
+                // Example: Log the values
+                preferencesUserInfo.saveString("name",userName);
+                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
+                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
+                preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
+                preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
+                preferencesUserInfo.saveString("totalExam",totalExamCount);
+
+            }
+
+            @Override
+            public void onFetchFailure(String errorMessage) {
+                // Handle the error message here
+                Log.e("APIFetcher", "API fetch failed: " + errorMessage);
+            }
+        });
+    }
+/*
+
     public void fetchDataFromAPI(String userId) {
         // API endpoint URL
         String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId="+userId;
@@ -402,6 +431,13 @@ public class HomeFragment extends Fragment {
         // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
+
+
+
+ */
+
+
+
 
 
 

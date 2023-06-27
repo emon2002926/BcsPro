@@ -1,15 +1,20 @@
 package com.gdalamin.bcs_pro.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,6 +78,35 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             String base64ImageString = leaderbordModel.getBase64ImageString();
             Bitmap bitmap = convertBase64ToBitmap(base64ImageString);
             holder.imgProfile.setImageBitmap(bitmap);
+
+            holder.leaderBordLayer.setOnClickListener(v -> {
+
+                Dialog dialog = new Dialog(holder.leaderBordLayer.getContext());
+                // Set the layout for the dialog
+                dialog.setContentView(R.layout.ranking_profile);
+
+                Window window = dialog.getWindow();
+                if (window != null) {
+                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                }
+
+                TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTvD);
+                txtUserNamePopUp.setText(leaderbordModel.getUserName());
+
+                ImageView imgCloseButton = dialog.findViewById(R.id.closeUpdateLayout);
+                imgCloseButton.setOnClickListener(v1 -> dialog.dismiss());
+
+
+                Bitmap bitmapImage = convertBase64ToBitmap(leaderbordModel.getBase64ImageString());
+                ImageView imgRankingProfile = dialog.findViewById(R.id.profileImageID1);
+                imgRankingProfile.setImageBitmap(bitmapImage);
+
+                TextView txtTotalExam = dialog.findViewById(R.id.totalExamTv);
+                txtTotalExam.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
+
+                dialog.show();
+            });
         }
     }
 
@@ -91,6 +125,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
         private TextView txtCounter;
         private ImageView imgProfile;
         private ImageView imgLocalUserProfile;
+        private LinearLayout leaderBordLayer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +134,9 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             imgProfile = itemView.findViewById(R.id.profileImageID);
             imgLocalUserProfile = itemView.findViewById(R.id.profileImageID1);
             txtLocalUsername = itemView.findViewById(R.id.userNameTv1);
+            leaderBordLayer = itemView.findViewById(R.id.leaderBordLayout);
+
+
 
         }
     }
