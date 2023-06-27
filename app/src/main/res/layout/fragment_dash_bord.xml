@@ -159,13 +159,7 @@
                     android:layout_weight=".30"
                     android:src="@drawable/show_result"/>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recview"
-                android:layout_below="@id/card"
-                android:visibility="gone"
-                tools:ignore="MissingConstraints" />
+
         </LinearLayout>
 
         

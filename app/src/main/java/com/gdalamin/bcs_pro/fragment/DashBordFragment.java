@@ -65,7 +65,6 @@ import java.util.Map;
 
 
 public class DashBordFragment extends Fragment {
-    RecyclerView recview;
     ShimmerFrameLayout shimmerFrameLayout;
     TextView textViewDitels,
             userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
@@ -96,7 +95,7 @@ public class DashBordFragment extends Fragment {
 
         fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
         profileImage = view.findViewById(R.id.profileImageID);
-        recview=view.findViewById(R.id.recview);
+
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         textViewDitels = view.findViewById(R.id.ditels);
