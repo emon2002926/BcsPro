@@ -67,39 +67,32 @@ import java.util.Map;
 public class DashBordFragment extends Fragment {
     RecyclerView recview;
     ShimmerFrameLayout shimmerFrameLayout;
-    SharedPreferences sharedPreferences;
     TextView textViewDitels,
             userIdTv,totalExamTextView,totalQuestionTextView,wrongAnswerTextView,correctAnswerTextView,notAnswredTextView,userNameTextView;
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
-    SharedPreferences sharedPreferences12;
-    SharedPreferences.Editor editore;
     LinearLayout showResultList,fullProfileLayout;
     ImageView profileImage,profileImageUpdate;
-    int totalExam = 0;
     private static final int REQUEST_CODE = 1;
     public String base64Image = "";
 
     public String userId = "";
     public String userName = "";
     public String base64LocalImage = "";
-
     PreferencesUserInfo preferencesUserInfo;
+    TextView updateButton;
+    ImageView closeButton;
 
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState ) {
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
 
-
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
 
-
-
-
-        fetchDataFromAPI("jkg");
 
         fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
         profileImage = view.findViewById(R.id.profileImageID);
@@ -129,7 +122,6 @@ public class DashBordFragment extends Fragment {
             }
         });
 
-//        sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         base64LocalImage = preferencesUserInfo.getString("profileImage");
 
@@ -166,7 +158,8 @@ public class DashBordFragment extends Fragment {
                 getUserProfileImage(userId);
             }
             if (userId !=null && userName!=null){
-                getUsernameFromAPI("abc123",userId);
+
+
             }
         }
 
@@ -214,7 +207,6 @@ public class DashBordFragment extends Fragment {
             openUpdateProfileDialog();
         } );
 
-        processData();
         return view;
 
     }
@@ -238,11 +230,11 @@ public class DashBordFragment extends Fragment {
 
         // Find views in the dialog layout
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
-        ImageView closeButton = dialog.findViewById(R.id.closeUpdateLayout);
+        closeButton = dialog.findViewById(R.id.closeUpdateLayout);
         TextInputEditText textInputEditTextName = dialog.findViewById(R.id.fullName);
         TextInputEditText textInputEditTextUserId = dialog.findViewById(R.id.userId);
-        ProgressBar progressBar = dialog.findViewById(R.id.progressBar4);
-        TextView updateButton = dialog.findViewById(R.id.btnUpdate);
+        progressBar = dialog.findViewById(R.id.progressBar4);
+        updateButton = dialog.findViewById(R.id.btnUpdate);
 
         // Set dialog window attributes for full-screen
         Window window = dialog.getWindow();
@@ -255,11 +247,11 @@ public class DashBordFragment extends Fragment {
         if (!base64Image.isEmpty()) {
             Bitmap bitmap = convertBase64ToBitmap(base64Image);
             profileImageUpdate.setImageBitmap(bitmap);
-        } else if (!base64LocalImage.isEmpty()) {
-            Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
-            profileImageUpdate.setImageBitmap(bitmap);
-        } else {
-            profileImageUpdate.setImageResource(R.drawable.test_profile_image);
+            } else if (!base64LocalImage.isEmpty()) {
+                Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
+                 profileImageUpdate.setImageBitmap(bitmap);
+                 } else {
+                    profileImageUpdate.setImageResource(R.drawable.test_profile_image);
         }
 
         textInputEditTextName.setEnabled(false);
@@ -267,54 +259,57 @@ public class DashBordFragment extends Fragment {
         textInputEditTextUserId.setText(userId);
         textInputEditTextUserId.setEnabled(false);
 
-        // Set click listener for profile image update
-        profileImageUpdate.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, REQUEST_CODE);
-        });
+        View.OnClickListener buttonClickListener = v -> {
 
-        // Set click listener for close button
-        closeButton.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
+            switch (v.getId()){
+                case R.id.profileImageID:
+                    // select profile image
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, REQUEST_CODE);
+                    break;
 
-        // Set click listener for update button
-        updateButton.setOnClickListener(view -> {
-            progressBar.setVisibility(View.VISIBLE);
-            profileImageUpdate.setEnabled(false);
-            updateButton.setEnabled(false);
-            closeButton.setEnabled(false);
-
-            if (!base64Image.isEmpty()) {
-                // Save the base64 profile image
-                saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
-                    @Override
-                    public void onImageSaved(int layoutState) {
-                        int DAILOG_LAYOUT_STATE = layoutState;
-                        if (DAILOG_LAYOUT_STATE == 200) {
-                            // Update profile image in SharedPreferences
-//                            sharedPreferences1 = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sharedPreferences1.edit();
-                            preferencesUserInfo.saveString("profileImage", base64Image);
-
+                    case R.id.btnUpdate:
+                    // for update button
+                        progressBar.setVisibility(View.VISIBLE);
+                        profileImageUpdate.setEnabled(false);
+                        updateButton.setEnabled(false);
+                        closeButton.setEnabled(false);
+                        if (!base64Image.isEmpty()) {
+                            // Save the base64 profile image
+                            saveBase64ProfileImage(userId, base64Image, new SaveImageCallback() {
+                                @Override
+                                public void onImageSaved(int layoutState) {
+                                    int DAILOG_LAYOUT_STATE = layoutState;
+                                    if (DAILOG_LAYOUT_STATE == 200) {
+                                        preferencesUserInfo.saveString("profileImage", base64Image);
+                                        progressBar.setVisibility(View.GONE);
+                                        profileImageUpdate.setEnabled(true);
+                                        closeButton.setEnabled(true);
+                                        updateButton.setEnabled(true);
+                                        dialog.dismiss();
+                                    }
+                                }
+                            });
+                        } else {
+                            closeButton.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
                             profileImageUpdate.setEnabled(true);
-                            closeButton.setEnabled(true);
                             updateButton.setEnabled(true);
-                            dialog.dismiss();
+                            Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
-            } else {
-                closeButton.setEnabled(true);
-                progressBar.setVisibility(View.GONE);
-                profileImageUpdate.setEnabled(true);
-                updateButton.setEnabled(true);
-                Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
-            }
-        });
+                        break;
 
-        // Show the dialog
+                        case R.id.closeUpdateLayout:
+                            dialog.dismiss();
+                            break;
+
+            }
+
+        } ;
+        profileImageUpdate.setOnClickListener(buttonClickListener);
+        updateButton.setOnClickListener(buttonClickListener);
+        closeButton.setOnClickListener(buttonClickListener);
+
         dialog.show();
     }
 
@@ -338,6 +333,12 @@ public class DashBordFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                closeButton.setEnabled(true);
+                progressBar.setVisibility(View.GONE);
+                profileImageUpdate.setEnabled(true);
+                updateButton.setEnabled(true);
+                Toast.makeText(getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
             }
         }) {
@@ -392,127 +393,6 @@ public class DashBordFragment extends Fragment {
     }
 
 
-    private void getUsernameFromAPI(String apiKey, String phoneNumber) {
-        // API URL
-
-        String url = "https://emon.searchwizy.com/holder2.php?api_key=abc123&query=SELECT name FROM users WHERE phone = "+"'"+phoneNumber+"'";
-        // Create a new JSONArrayRequest
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            // Handle the JSON response
-                            JSONObject jsonObject = response.getJSONObject(0);
-                            String username = jsonObject.getString("name");
-                            userNameTextView.setText(username);
-//                            editor = sharedPreferences1.edit();
-                            preferencesUserInfo.saveString("name",username);
-//                            editor.apply();
-
-                            // TODO: Process the username as desired
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Handle JSON parsing error
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error response
-                    }
-                });
-
-        // Add the request to the Volley request queue
-        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
-    }
-
-
-    public void processData() {
-        // Create a new StringRequest to retrieve data from the API
-        sharedPreferences = getActivity().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("key_phone", "");
-
-        String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=6&userId=";
-
-        StringRequest request = new StringRequest(API_URL+userId,
-                response -> {
-                    try {
-                        Gson gson = new Gson();
-                        ExamResult[] examResults = gson.fromJson(response, ExamResult[].class);
-
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                        recview.setLayoutManager(linearLayoutManager);
-
-                        resultAdapter adapter = new resultAdapter(examResults);
-
-                        recview.setAdapter(adapter);
-
-                        totalExam = adapter.getItemCount();
-
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.INVISIBLE);
-                        textViewDitels.setVisibility(View.GONE);
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
-                        textViewDitels.setVisibility(View.VISIBLE);
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-
-                    }
-                },
-                error -> {
-
-                });
-
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(request);
-    }
-
-
-
-    private BroadcastReceiver totalQuestionsReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED)) {
-                int totalQuestions = intent.getIntExtra("totalQuestions", 0);
-                int wrongAnswer = intent.getIntExtra("wrongAnswer", 0);
-                int correctAnswer = intent.getIntExtra("correctAnswer",0);
-                int notAnswered= intent.getIntExtra("notAnswred",0);
-
-                float totalPercentageCorrect  =((float) correctAnswer/totalQuestions)*100;
-                float totalPercentageWrong  =((float) wrongAnswer/totalQuestions)*100;
-                float totalPercentageNotAnswred =((float) notAnswered/totalQuestions)*100;
-
-//
-//                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
-//                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(wrongAnswer));
-//                preferencesUserInfo.saveString("correctAnswer",String.valueOf(correctAnswer));
-//                preferencesUserInfo.saveString("notAnswred",String.valueOf(notAnswered));
-//                preferencesUserInfo.saveString("totalExam",String.valueOf(totalExam));
-//
-//
-//                totalQuestionTextView.setText(String.valueOf(totalQuestions));
-//                wrongAnswerTextView.setText(String.valueOf(wrongAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageWrong))+"%)");
-//                correctAnswerTextView.setText(String.valueOf(correctAnswer)+" ("+String.valueOf(String.format("%.2f", totalPercentageCorrect))+"%)");
-//                notAnswredTextView.setText(String.valueOf(notAnswered)+" ("+String.valueOf(String.format("%.2f", totalPercentageNotAnswred))+"%)");
-//
-//                totalExamTextView.setText(String.valueOf(totalExam));
-//
-//
-//                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
-//                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
-//                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswred));
-//                // Handle the updated totalQuestions value here
-            }
-        }
-    };
-
-
-
     public String convertImageToBase64(Uri imageUri) {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -554,71 +434,9 @@ public class DashBordFragment extends Fragment {
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
-
-
-    public void fetchDataFromAPI(String userId) {
-        // API endpoint URL
-        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=emon79605@gmail.com";
-
-        // Instantiate the RequestQueue
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
-        // Create a JSON request to fetch the data
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // Parse the JSON response
-                            int status = response.getInt("status");
-                            int totalCorrect = response.getInt("totalCorrect");
-                            int totalQuestions = response.getInt("totalQuestions");
-                            int totalWrong = response.getInt("totalWrong");
-                            int totalNotAnswered = response.getInt("totalNotAnswered");
-                            String userName = response.getString("userName");
-
-                            preferencesUserInfo.saveString("name",userName);
-
-                            Log.d("ksdgsukyr", String.valueOf(totalCorrect));
-                            Log.d("userName", userName);
-
-                            // Handle the fetched data as needed
-                            // For example, you can update UI elements with the retrieved data
-                            // updateUI(totalCorrect, totalQuestions, totalWrong, totalNotAnswered, userName);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error response
-                        error.printStackTrace();
-                    }
-                });
-
-        // Add the request to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
-    }
-
-
-
     public interface SaveImageCallback {
         void onImageSaved(int layoutState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter intentFilter = new IntentFilter(resultAdapter.ACTION_TOTAL_QUESTIONS_CHANGED);
-        requireContext().registerReceiver(totalQuestionsReceiver, intentFilter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireContext().unregisterReceiver(totalQuestionsReceiver);
-    }
 
 }

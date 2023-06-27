@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
 
 
     PreferencesUserInfo preferencesUserInfo;
+    SharedPreferencesManagerAppLogic preferencesManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(getActivity());
+        preferencesManager = new SharedPreferencesManagerAppLogic(getActivity());
         preferencesManager.remove("examQuestionNum");
 
 
@@ -115,196 +116,6 @@ public class HomeFragment extends Fragment {
 
 
 
-
-        shimmerFrameLayout = view.findViewById(R.id.shimer);
-        shimmerFrameLayout.startShimmer();
-        scrollView = view.findViewById(R.id.homeLayout);
-        imageView1 = view.findViewById(R.id.imageView1);
-        imageView2 = view.findViewById(R.id.imageView2);
-        imageView3 = view.findViewById(R.id.imageView3);
-
-
-
-        imageView1.setOnClickListener(view1 -> {
-            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-        });
-        imageView2.setOnClickListener(view1 -> {
-            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-        });
-        imageView3.setOnClickListener(view1 -> {
-            startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-        });
-
-
-        showAllCourse = view.findViewById(R.id.showAllCourse);
-        showAllCourse.setOnClickListener(view1 -> {
-
-            startActivity(new Intent(view.getContext(), ActivityAllCourse.class));
-        });
-
-
-
-        //For quiz activity
-        recyclerView = view.findViewById(R.id.recview2);
-        CvQuizLayout = view.findViewById(R.id.l7);
-        CvQuizLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Intent intent = new Intent(view.getContext(), McqTestActivity.class);
-                intent.putExtra("selectedOption",10);
-                view.getContext().startActivity(intent);
-            }
-        });
-
-
-        CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
-        CvImportantQuestion.setOnClickListener(view12 -> {
-
-            int subCode = 5;
-            int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
-            preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-            preferencesManager.saveInt("subCode",subCode);
-
-            Intent intent = new Intent(getActivity(), QuestionListActivity.class);
-
-            titleText = "Important Question";
-            intent.putExtra("titleText",titleText);
-
-            view12.getContext().startActivity(intent);
-        });
-
-
-        letcureLayout = view.findViewById(R.id.l4);
-        letcureLayout.setOnClickListener(view1 -> {
-
-            startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
-        });
-
-      /* his code sets up a BottomSheetDialog to display options for an exam, with three time options: 25 minutes, 50 minutes, and 100 minutes.
-         When an option is selected, the selectedOption method is called to update the UI, and the number of questions for the exam is set accordingly.
-         When the user clicks the "Start Exam" button, an Intent is created to start the ActivityExam activity, with the number of questions passed as an extra.
-         The selected number of questions is also saved in SharedPreferences, and the BottomSheetDialog is dismissed.
-         If the user clicks the "Cancel" button, the BottomSheetDialog is dismissed without starting the exam.
-
-      */
-
-        tvAllExam = view.findViewById(R.id.tvAllExam);
-        tvAllExam.setOnClickListener(view14 -> {
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
-            View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
-
-            final RelativeLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
-            final RelativeLayout option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
-            final RelativeLayout option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
-            final ImageView icon1 = bottomSheetView.findViewById(R.id.option25Icon);
-            final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
-            final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
-
-
-            option1Layout.setOnClickListener(view15 -> {
-                selectedOption(option1Layout, icon1);
-                option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                icon2.setImageResource(R.drawable.round_back_white50_100);
-                icon3.setImageResource(R.drawable.round_back_white50_100);
-                tolatExamQuestion = 50;
-                LOGIC_FOR_ALL_SUBJECT_EXAM =50;
-            });
-
-            option2Layout.setOnClickListener(view1 -> {
-                selectedOption(option2Layout, icon2);
-                option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                icon1.setImageResource(R.drawable.round_back_white50_100);
-                icon3.setImageResource(R.drawable.round_back_white50_100);
-                tolatExamQuestion = 100;
-                LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
-            });
-
-            option3Layout.setOnClickListener(view1 -> {
-                selectedOption(option3Layout, icon3);
-                option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                icon1.setImageResource(R.drawable.round_back_white50_100);
-                icon2.setImageResource(R.drawable.round_back_white50_100);
-                tolatExamQuestion = 200;
-                LOGIC_FOR_ALL_SUBJECT_EXAM = 200;
-            });
-
-            bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1 -> {
-                if (tolatExamQuestion != 0) {
-
-
-                    Intent intent = new Intent(view1.getContext(), ActivityExam.class);
-                    titleText = "Overall Exam";
-                    intent.putExtra("titleText",titleText);
-                    view1.getContext().startActivity(intent);
-
-                    preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
-                    preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-
-                    bottomSheetDialog.dismiss();
-                } else {
-                    Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> bottomSheetDialog.dismiss());
-
-            bottomSheetDialog.setContentView(bottomSheetView);
-            bottomSheetDialog.show();
-        });
-
-
-        subjectBasedExam =view.findViewById(R.id.subject_based_exam);
-        subjectBasedExam.setOnClickListener(view1 -> {
-
-            int LOGIC = 2;
-            int subCode = 2;
-            titleText = "Subject Based Exam";
-
-            preferencesManager.saveInt("logic",LOGIC);
-            preferencesManager.saveInt("subCode",subCode);
-
-
-            Intent intent = new Intent(getContext(),AllBcsQuestionActivity.class);
-            intent.putExtra("titleText",titleText);
-            startActivity(intent);
-
-        });
-        tvPractice = view.findViewById(R.id.tvPractice);
-        tvPractice.setOnClickListener(view13 -> {
-
-            int subCode = 3;
-            int LOGIC = 2;
-            titleText = "Practise MCQ";
-
-            preferencesManager.saveInt("subCode",subCode);
-            preferencesManager.saveInt("logic",LOGIC);
-
-
-            Intent intent = new Intent(view13.getContext(), AllBcsQuestionActivity.class);
-            intent.putExtra("titleText",titleText);
-            view13.getContext().startActivity(intent);
-
-        });
-
-
-        CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
-        CvQuestionBank.setOnClickListener(view15 -> {
-
-            int LOGIC = 1;
-            titleText = "Question Bank";
-
-            preferencesManager.saveInt("logic",LOGIC);
-            Intent intent = new Intent(getContext(), AllBcsQuestionActivity.class);
-            intent.putExtra("titleText",titleText);
-            startActivity(intent);
-
-        });
-
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -313,6 +124,110 @@ public class HomeFragment extends Fragment {
                 processdata();
             }
         });
+
+
+        shimmerFrameLayout = view.findViewById(R.id.shimer);
+        shimmerFrameLayout.startShimmer();
+        scrollView = view.findViewById(R.id.homeLayout);
+
+
+        imageView3 = view.findViewById(R.id.imageView3);
+        imageView2 = view.findViewById(R.id.imageView2);
+        imageView1 = view.findViewById(R.id.imageView1);
+        showAllCourse = view.findViewById(R.id.showAllCourse);
+        recyclerView = view.findViewById(R.id.recview2);
+        CvQuizLayout = view.findViewById(R.id.CvQuizLayout);
+        CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
+        letcureLayout = view.findViewById(R.id.l4);
+        tvAllExam = view.findViewById(R.id.tvAllExam);
+        subjectBasedExam =view.findViewById(R.id.subject_based_exam);
+        tvPractice = view.findViewById(R.id.tvPractice);
+        CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
+
+        View.OnClickListener buttonClickListener = v -> {
+            Intent intent;
+            int subCode =0;
+            int LOGIC =0;
+            switch (v.getId()) {
+                case R.id.CvQuizLayout:
+                    // Handle button1 click
+                    intent = new Intent(view.getContext(), McqTestActivity.class);
+                    intent.putExtra("selectedOption",10);
+                    view.getContext().startActivity(intent);
+                    break;
+                case R.id.CvImportantQuestion:
+                    // This gos  ImportantQuestion (Activity)
+                     subCode = 5;
+                    int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+                    preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+                    preferencesManager.saveInt("subCode",subCode);
+                    intent = new Intent(getActivity(), QuestionListActivity.class);
+                    titleText = "Important Question";
+                    intent.putExtra("titleText",titleText);
+                    v.getContext().startActivity(intent);
+                    break;
+                case R.id.l4:
+                    startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
+                    break;
+                case R.id.tvAllExam:
+                    // this code sets up a BottomSheetDialog to display options for an exam
+                    showExamChoser();
+                    break;
+                case R.id.subject_based_exam:
+                    // This gos  SubjectBasedExam (Activity)
+                    LOGIC = 2;
+                    subCode = 2;
+                    titleText = "Subject Based Exam";
+                    preferencesManager.saveInt("logic",LOGIC);
+                    preferencesManager.saveInt("subCode",subCode);
+                    intent = new Intent(getContext(),AllBcsQuestionActivity.class);
+                    intent.putExtra("titleText",titleText);
+                    startActivity(intent);
+                    break;
+                case R.id.tvPractice:
+                    subCode = 3;
+                    LOGIC = 2;
+                    titleText = "Practise MCQ";
+                    preferencesManager.saveInt("subCode",subCode);
+                    preferencesManager.saveInt("logic",LOGIC);
+                    intent = new Intent(v.getContext(), AllBcsQuestionActivity.class);
+                    intent.putExtra("titleText",titleText);
+                    v.getContext().startActivity(intent);
+                    break;
+                case R.id.CvQuestionBank:
+                    LOGIC = 1;
+                    titleText = "Question Bank";
+                    preferencesManager.saveInt("logic",LOGIC);
+                    intent = new Intent(getContext(), AllBcsQuestionActivity.class);
+                    intent.putExtra("titleText",titleText);
+                    startActivity(intent);
+                    break;
+                case R.id.showAllCourse:
+                    startActivity(new Intent(view.getContext(), ActivityAllCourse.class));
+                    break;
+                case R.id.imageView1:
+                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+                    break;
+                case R.id.imageView2:
+                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+                    break;
+                case R.id.imageView3:
+                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+                    break;
+            }
+        };
+
+        CvQuizLayout.setOnClickListener(buttonClickListener);
+        CvImportantQuestion.setOnClickListener(buttonClickListener);
+        letcureLayout.setOnClickListener(buttonClickListener);
+        tvAllExam.setOnClickListener(buttonClickListener);
+        subjectBasedExam.setOnClickListener(buttonClickListener);
+        tvPractice.setOnClickListener(buttonClickListener);
+        CvQuestionBank.setOnClickListener(buttonClickListener);
+        showAllCourse.setOnClickListener(buttonClickListener);
+        imageView1.setOnClickListener(buttonClickListener);
+        imageView2.setOnClickListener(buttonClickListener);
+        imageView3.setOnClickListener(buttonClickListener);
 
 
 
@@ -359,15 +274,79 @@ public class HomeFragment extends Fragment {
 
 
         String userId = preferencesUserInfo.getString("key_phone").trim();
-        Log.d("dffiyaubvbv",userId);
 
-
-
-
-        fetchDataFromAPI("kldfh");
+        fetchDataFromAPI(userId);
 
         return view;
 
+    }
+
+
+    public void showExamChoser(){
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
+        View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
+
+        final RelativeLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
+        final RelativeLayout option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
+        final RelativeLayout option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
+        final ImageView icon1 = bottomSheetView.findViewById(R.id.option25Icon);
+        final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
+        final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
+
+
+        option1Layout.setOnClickListener(view15 -> {
+            selectedOption(option1Layout, icon1);
+            option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            icon2.setImageResource(R.drawable.round_back_white50_100);
+            icon3.setImageResource(R.drawable.round_back_white50_100);
+            tolatExamQuestion = 50;
+            LOGIC_FOR_ALL_SUBJECT_EXAM =50;
+        });
+
+        option2Layout.setOnClickListener(view1 -> {
+            selectedOption(option2Layout, icon2);
+            option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            icon1.setImageResource(R.drawable.round_back_white50_100);
+            icon3.setImageResource(R.drawable.round_back_white50_100);
+            tolatExamQuestion = 100;
+            LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
+        });
+
+        option3Layout.setOnClickListener(view1 -> {
+            selectedOption(option3Layout, icon3);
+            option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+            icon1.setImageResource(R.drawable.round_back_white50_100);
+            icon2.setImageResource(R.drawable.round_back_white50_100);
+            tolatExamQuestion = 200;
+            LOGIC_FOR_ALL_SUBJECT_EXAM = 200;
+        });
+
+        bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1 -> {
+            if (tolatExamQuestion != 0) {
+
+
+                Intent intent = new Intent(view1.getContext(), ActivityExam.class);
+                titleText = "Overall Exam";
+                intent.putExtra("titleText",titleText);
+                view1.getContext().startActivity(intent);
+
+                preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
+                preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+
+                bottomSheetDialog.dismiss();
+            } else {
+                Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> bottomSheetDialog.dismiss());
+
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
 
 
@@ -375,8 +354,9 @@ public class HomeFragment extends Fragment {
 
     public void fetchDataFromAPI(String userId) {
         // API endpoint URL
-        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=emon79605@gmail.com";
+        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId="+userId;
 
+        Log.d("jdfgukyaa",apiUrl);
         // Instantiate the RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
@@ -393,15 +373,19 @@ public class HomeFragment extends Fragment {
                             int totalWrong = response.getInt("totalWrong");
                             int totalNotAnswered = response.getInt("totalNotAnswered");
                             String userName = response.getString("userName");
+                            String totalExamCount = response.getString("examCount");
 
                             preferencesUserInfo.saveString("name",userName);
 
-                            Log.d("ksdgsukyrksudyf", String.valueOf(totalCorrect));
-                            Log.d("userName", userName);
+                            Log.d("sjkd dkbbbd",totalExamCount);
 
-                            // Handle the fetched data as needed
-                            // For example, you can update UI elements with the retrieved data
-                            // updateUI(totalCorrect, totalQuestions, totalWrong, totalNotAnswered, userName);
+                            preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
+                            preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
+                            preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
+                            preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
+                            preferencesUserInfo.saveString("totalExam",totalExamCount);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
