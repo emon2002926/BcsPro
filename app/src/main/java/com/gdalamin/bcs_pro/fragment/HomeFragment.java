@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -277,7 +278,6 @@ public class HomeFragment extends Fragment {
         String userId = preferencesUserInfo.getString("key_phone").trim();
         getUserProfileData(userId);
 
-//        fetchDataFromAPI(userId);
 
         return view;
 
@@ -295,65 +295,67 @@ public class HomeFragment extends Fragment {
         final ImageView icon1 = bottomSheetView.findViewById(R.id.option25Icon);
         final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
         final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
+        final TextView startButton = bottomSheetView.findViewById(R.id.btnExamStart);
+        final TextView closeButton = bottomSheetView.findViewById(R.id.btnCancal);
 
 
-        option1Layout.setOnClickListener(view15 -> {
-            selectedOption(option1Layout, icon1);
-            option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            icon2.setImageResource(R.drawable.round_back_white50_100);
-            icon3.setImageResource(R.drawable.round_back_white50_100);
-            tolatExamQuestion = 50;
-            LOGIC_FOR_ALL_SUBJECT_EXAM =50;
-        });
+        View.OnClickListener onClickListener = v -> {
+            switch (v.getId()){
 
-        option2Layout.setOnClickListener(view1 -> {
-            selectedOption(option2Layout, icon2);
-            option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            icon1.setImageResource(R.drawable.round_back_white50_100);
-            icon3.setImageResource(R.drawable.round_back_white50_100);
-            tolatExamQuestion = 100;
-            LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
-        });
-
-        option3Layout.setOnClickListener(view1 -> {
-            selectedOption(option3Layout, icon3);
-            option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-            icon1.setImageResource(R.drawable.round_back_white50_100);
-            icon2.setImageResource(R.drawable.round_back_white50_100);
-            tolatExamQuestion = 200;
-            LOGIC_FOR_ALL_SUBJECT_EXAM = 200;
-        });
-
-        bottomSheetView.findViewById(R.id.btnExamStart).setOnClickListener(view1 -> {
-            if (tolatExamQuestion != 0) {
-
-
-                Intent intent = new Intent(view1.getContext(), ActivityExam.class);
-                titleText = "Overall Exam";
-                intent.putExtra("titleText",titleText);
-                view1.getContext().startActivity(intent);
-
-                preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
-                preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-
-                bottomSheetDialog.dismiss();
-            } else {
-                Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
+                case R.id.layout25Min:
+                    selectedOption(option1Layout, icon1);
+                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    icon2.setImageResource(R.drawable.round_back_white50_100);
+                    icon3.setImageResource(R.drawable.round_back_white50_100);
+                    tolatExamQuestion = 50;
+                    LOGIC_FOR_ALL_SUBJECT_EXAM =50;
+                    break;
+                case R.id.layout50Min:
+                    selectedOption(option2Layout, icon2);
+                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    icon1.setImageResource(R.drawable.round_back_white50_100);
+                    icon3.setImageResource(R.drawable.round_back_white50_100);
+                    tolatExamQuestion = 100;
+                    LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
+                    break;
+                case R.id.layout100Min:
+                    selectedOption(option3Layout, icon3);
+                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+                    icon1.setImageResource(R.drawable.round_back_white50_100);
+                    icon2.setImageResource(R.drawable.round_back_white50_100);
+                    tolatExamQuestion = 200;
+                    LOGIC_FOR_ALL_SUBJECT_EXAM = 200;
+                    break;
+                case R.id.btnExamStart:
+                    if (tolatExamQuestion != 0) {
+                        Intent intent = new Intent(v.getContext(), ActivityExam.class);
+                        titleText = "Overall Exam";
+                        intent.putExtra("titleText",titleText);
+                        v.getContext().startActivity(intent);
+                        preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);
+                        preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+                        bottomSheetDialog.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "Please select an option", Toast.LENGTH_SHORT).show();
+                    }
+                case R.id.btnCancal:
+                    bottomSheetDialog.dismiss();
+                    break;
             }
-        });
+        };
 
-        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(view1 -> bottomSheetDialog.dismiss());
+        option1Layout.setOnClickListener(onClickListener);
+        option2Layout.setOnClickListener(onClickListener);
+        option3Layout.setOnClickListener(onClickListener);
+        startButton.setOnClickListener(onClickListener);
+        closeButton.setOnClickListener(onClickListener);
 
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }
-
-
-
-
 
     public void getUserProfileData(String userId){
         GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
@@ -362,16 +364,13 @@ public class HomeFragment extends Fragment {
             public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
                                        int totalNotAnswered, String userName, String totalExamCount) {
                 // Use the fetched values here
-                // Example: Log the values
                 preferencesUserInfo.saveString("name",userName);
                 preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
                 preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
                 preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
                 preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
                 preferencesUserInfo.saveString("totalExam",totalExamCount);
-
             }
-
             @Override
             public void onFetchFailure(String errorMessage) {
                 // Handle the error message here
@@ -379,68 +378,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-/*
-
-    public void fetchDataFromAPI(String userId) {
-        // API endpoint URL
-        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId="+userId;
-
-        Log.d("jdfgukyaa",apiUrl);
-        // Instantiate the RequestQueue
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
-        // Create a JSON request to fetch the data
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // Parse the JSON response
-                            int status = response.getInt("status");
-                            int totalCorrect = response.getInt("totalCorrect");
-                            int totalQuestions = response.getInt("totalQuestions");
-                            int totalWrong = response.getInt("totalWrong");
-                            int totalNotAnswered = response.getInt("totalNotAnswered");
-                            String userName = response.getString("userName");
-                            String totalExamCount = response.getString("examCount");
-
-                            preferencesUserInfo.saveString("name",userName);
-
-                            Log.d("sjkd dkbbbd",totalExamCount);
-
-                            preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
-                            preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
-                            preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
-                            preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
-                            preferencesUserInfo.saveString("totalExam",totalExamCount);
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error response
-                        error.printStackTrace();
-                    }
-                });
-
-        // Add the request to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
-    }
-
-
-
- */
-
-
-
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -454,21 +391,15 @@ public class HomeFragment extends Fragment {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-
-
     public void processdata()
     {
 
         Intent intent = new Intent("INTERNET_RESTORED");
         getActivity().sendBroadcast(intent);
-
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
-
-
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
@@ -480,11 +411,8 @@ public class HomeFragment extends Fragment {
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         ,LinearLayoutManager.HORIZONTAL,false);
-
                 recyclerView.setLayoutManager(linearLayoutManager);
                 myadapter2 adapter=new myadapter2(data2);
-
-
                 recyclerView.setAdapter(adapter);
 
             }
@@ -497,19 +425,14 @@ public class HomeFragment extends Fragment {
             }
         }
         );
-
-
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
-
     }
-
 
     private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
 
         selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
         selectedOptionLayout.setBackgroundResource(R.drawable
                 .round_back_selected_option);
-
     }
 }

@@ -4,13 +4,10 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.Request;
@@ -21,20 +18,15 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.LeaderbordAdapter;
 import com.gdalamin.bcs_pro.adapter.LeaderbordAdapterTest;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class LeaderboardFragment extends Fragment {
 

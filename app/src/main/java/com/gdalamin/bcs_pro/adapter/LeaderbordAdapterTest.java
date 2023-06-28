@@ -91,17 +91,19 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
                     window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 }
 
-                TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTvD);
-                txtUserNamePopUp.setText(leaderbordModel.getUserName());
 
                 ImageView imgCloseButton = dialog.findViewById(R.id.closeUpdateLayout);
                 imgCloseButton.setOnClickListener(v1 -> dialog.dismiss());
+
+                int g = position;
 
 
                 Bitmap bitmapImage = convertBase64ToBitmap(leaderbordModel.getBase64ImageString());
                 ImageView imgRankingProfile = dialog.findViewById(R.id.profileImageID1);
                 imgRankingProfile.setImageBitmap(bitmapImage);
 
+                TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTvD);
+                txtUserNamePopUp.setText(leaderbordModel.getUserName());
                 TextView txtTotalExam = dialog.findViewById(R.id.totalExamTv);
                 txtTotalExam.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
 

@@ -147,7 +147,6 @@ public class DashBordFragment extends Fragment {
         } else {
             // User is not signed in
             userId = preferencesUserInfo.getString("key_phone");
-
             userName = preferencesUserInfo.getString("name");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
