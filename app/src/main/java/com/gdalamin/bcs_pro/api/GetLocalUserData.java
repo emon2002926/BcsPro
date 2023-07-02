@@ -43,9 +43,12 @@ public class GetLocalUserData {
                             int totalNotAnswered = response.getInt("totalNotAnswered");
                             String userName = response.getString("userName");
                             String totalExamCount = response.getString("examCount");
+                            String localUserRank = response.getString("rank");
+                            double localUserMark = response.getDouble("averageMark");
 
                             // Invoke the callback with the fetched values
-                            callback.onFetchSuccess(totalCorrect, totalQuestions, totalWrong, totalNotAnswered, userName, totalExamCount);
+                            callback.onFetchSuccess(totalCorrect, totalQuestions, totalWrong, totalNotAnswered,
+                                    userName, totalExamCount,localUserRank,localUserMark);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Invoke the callback with an error message
@@ -70,7 +73,8 @@ public class GetLocalUserData {
     // Callback interface to handle API fetch results
     public interface APICallback {
         void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
-                            int totalNotAnswered, String userName, String totalExamCount);
+                            int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
+                            double localUserMark);
 
         void onFetchFailure(String errorMessage);
     }

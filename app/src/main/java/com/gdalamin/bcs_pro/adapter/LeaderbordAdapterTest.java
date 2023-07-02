@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -52,17 +53,23 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             // Bind data for the profile layout at the top
             // Example: holder.profileImageView.setImageResource(R.drawable.profile_image);
             // You can access the views in your profile_layout using the 'holder' object
+            PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(holder.txtLocalUsername.getContext());
 
-            SharedPreferences sharedPreferences1 = holder.txtLocalUsername.getContext().getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-            String base64LocalImage = sharedPreferences1.getString("profileImage","");
+
+
+            String base64LocalImage = preferencesUserInfo.getString("profileImage");
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(holder.txtLocalUsername.getContext());
             if (account !=null){
                String userName = account.getDisplayName();
                 holder.txtLocalUsername.setText(userName);
             }else {
-              String  userName = sharedPreferences1.getString("name", "");
+                String userName = preferencesUserInfo.getString("name");
+//              String  userName = sharedPreferences1.getString("", "");
+
                 holder.txtLocalUsername.setText(userName);
             }
+
+            holder.txtUserPosition.setText(preferencesUserInfo.getString("localUserRank"));
 
             Bitmap bitmapLocalImage = convertBase64ToBitmap(base64LocalImage);
             holder.imgLocalUserProfile.setImageBitmap(bitmapLocalImage);
@@ -70,14 +77,17 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
         } else {
             // Bind data for regular items
             LeaderbordModel leaderbordModel = userMarksList.get(position - 1);  // Subtract 1 to account for the profile layout
-            String count = String.valueOf(position);
+
+            int userPoint = ((int) leaderbordModel.getAverageMark())*10;
 
             holder.txtUserName.setText(leaderbordModel.getUserName());
-            holder.txtCounter.setText(count+".");
+            holder.txtCounter.setText(String.valueOf(position)+".");
 
             String base64ImageString = leaderbordModel.getBase64ImageString();
             Bitmap bitmap = convertBase64ToBitmap(base64ImageString);
             holder.imgProfile.setImageBitmap(bitmap);
+
+            holder.txtPoints.setText(String.valueOf(userPoint));
 
             holder.leaderBordLayer.setOnClickListener(v -> {
 
@@ -113,7 +123,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
                 txtUserPosition.setText(String.valueOf(userRnak));
 
 
-                int userPoint = ((int) leaderbordModel.getAverageMark())*10;
+
                 Log.d("sjgkz",String.valueOf(userPoint));
 
                 TextView txtUserPoint = dialog.findViewById(R.id.txtPoint);
@@ -140,7 +150,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtUserName,txtLocalUsername;
+        private TextView txtUserName,txtLocalUsername,txtUserPosition,txtPoints,txtLocalUserPoint;
         private TextView txtCounter;
         private ImageView imgProfile;
         private ImageView imgLocalUserProfile;
@@ -154,6 +164,9 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             imgLocalUserProfile = itemView.findViewById(R.id.profileImageID1);
             txtLocalUsername = itemView.findViewById(R.id.userNameTv1);
             leaderBordLayer = itemView.findViewById(R.id.leaderBordLayout);
+            txtUserPosition = itemView.findViewById(R.id.txtPosition);
+            txtPoints  = itemView.findViewById(R.id.points);
+            txtLocalUserPoint  = itemView.findViewById(R.id.txtPoint);
 
 
 
