@@ -95,15 +95,32 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
                 ImageView imgCloseButton = dialog.findViewById(R.id.closeUpdateLayout);
                 imgCloseButton.setOnClickListener(v1 -> dialog.dismiss());
 
-                int g = position;
+                int userRnak = position;
 
 
                 Bitmap bitmapImage = convertBase64ToBitmap(leaderbordModel.getBase64ImageString());
                 ImageView imgRankingProfile = dialog.findViewById(R.id.profileImageID1);
                 imgRankingProfile.setImageBitmap(bitmapImage);
 
-                TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTvD);
+                TextView txtUserRank = dialog.findViewById(R.id.navRank);
+                txtUserRank.setText("Rank  "+String.valueOf(userRnak));
+
+
+                TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTv1);
                 txtUserNamePopUp.setText(leaderbordModel.getUserName());
+
+                TextView txtUserPosition = dialog.findViewById(R.id.txtPosition);
+                txtUserPosition.setText(String.valueOf(userRnak));
+
+
+                int userPoint = ((int) leaderbordModel.getAverageMark())*10;
+                Log.d("sjgkz",String.valueOf(userPoint));
+
+                TextView txtUserPoint = dialog.findViewById(R.id.txtPoint);
+                txtUserPoint.setText(String.valueOf(userPoint));
+
+
+
                 TextView txtTotalExam = dialog.findViewById(R.id.totalExamTv);
                 txtTotalExam.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
 

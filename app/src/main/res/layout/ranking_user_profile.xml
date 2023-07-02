@@ -58,6 +58,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:textSize="20sp"
+                    android:id="@+id/txtPosition"
                     android:gravity="center"
                     android:textColor="@color/white"/>
             </LinearLayout>
@@ -117,6 +118,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:paddingTop="2dp"
+                    android:id="@+id/txtPoint"
                     android:paddingBottom="2dp"
                     android:gravity="center"
                     android:textColor="@color/white"/>

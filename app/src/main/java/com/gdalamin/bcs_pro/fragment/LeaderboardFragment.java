@@ -90,6 +90,7 @@ public class LeaderboardFragment extends Fragment {
                                     String userName = marksObj.getString("userName");
                                     String userBase64ImageString = marksObj.getString("userImage");
 
+
                                     LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken, userName, userBase64ImageString);
                                     userMarksList.add(userMarks);
                                 }

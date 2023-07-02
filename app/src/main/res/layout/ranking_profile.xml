@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="13dp"
                 android:textSize="23sp"
-                android:id="@+id/userNameTvD"
+                android:id="@+id/navRank"
                 android:textStyle="bold"
                 android:text="  Rank  20"
                 />
