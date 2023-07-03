@@ -122,7 +122,7 @@ public class DashBordFragment extends Fragment {
         });
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-        base64LocalImage = preferencesUserInfo.getString("profileImage");
+        base64LocalImage = preferencesUserInfo.getString("userImage");
 
 
         if (!base64LocalImage.isEmpty()){
@@ -139,7 +139,7 @@ public class DashBordFragment extends Fragment {
 
             userIdTv.setText("ID: "+userId);
             if (base64LocalImage.isEmpty()){
-                getUserProfileImage(userId);
+//                getUserProfileImage(userId);
             }
             userNameTextView.setText(userName);
 
@@ -150,10 +150,10 @@ public class DashBordFragment extends Fragment {
             userName = preferencesUserInfo.getString("name");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
-            getUserProfileImage(userId);
+//            getUserProfileImage(userId);
 
             if (base64LocalImage.isEmpty()){
-                getUserProfileImage(userId);
+//                getUserProfileImage(userId);
             }
             if (userId !=null && userName!=null){
 
@@ -354,7 +354,7 @@ public class DashBordFragment extends Fragment {
         requestQueue.add(request);
     }
 
-
+/*
     private void getUserProfileImage(String userId ) {
         String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action="+"3"+"&userId="+userId;
 
@@ -391,6 +391,8 @@ public class DashBordFragment extends Fragment {
     }
 
 
+
+ */
     public String convertImageToBase64(Uri imageUri) {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -425,6 +427,8 @@ public class DashBordFragment extends Fragment {
         }
         return null;
     }
+
+
 
 
     public Bitmap convertBase64ToBitmap(String base64Image) {

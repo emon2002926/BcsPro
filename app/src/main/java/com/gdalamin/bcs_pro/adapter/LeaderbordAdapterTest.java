@@ -57,19 +57,20 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
 
 
 
-            String base64LocalImage = preferencesUserInfo.getString("profileImage");
+            String base64LocalImage = preferencesUserInfo.getString("userImage");
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(holder.txtLocalUsername.getContext());
             if (account !=null){
                String userName = account.getDisplayName();
                 holder.txtLocalUsername.setText(userName);
             }else {
                 String userName = preferencesUserInfo.getString("name");
-//              String  userName = sharedPreferences1.getString("", "");
 
                 holder.txtLocalUsername.setText(userName);
             }
 
-            holder.txtUserPosition.setText(preferencesUserInfo.getString("localUserRank"));
+            holder.txtLocalUserPoint.setText(String.valueOf(preferencesUserInfo.getInt("localUserPoint")));
+            holder.txtLocalUserRank.setText(preferencesUserInfo.getString("localUserRank"));
+
 
             Bitmap bitmapLocalImage = convertBase64ToBitmap(base64LocalImage);
             holder.imgLocalUserProfile.setImageBitmap(bitmapLocalImage);
@@ -78,7 +79,9 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             // Bind data for regular items
             LeaderbordModel leaderbordModel = userMarksList.get(position - 1);  // Subtract 1 to account for the profile layout
 
-            int userPoint = ((int) leaderbordModel.getAverageMark())*10;
+
+            int userPoint = (int) Math.floor(leaderbordModel.getAverageMark() * 10);
+
 
             holder.txtUserName.setText(leaderbordModel.getUserName());
             holder.txtCounter.setText(String.valueOf(position)+".");
@@ -105,7 +108,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
                 ImageView imgCloseButton = dialog.findViewById(R.id.closeUpdateLayout);
                 imgCloseButton.setOnClickListener(v1 -> dialog.dismiss());
 
-                int userRnak = position;
+                int userRank = position;
 
 
                 Bitmap bitmapImage = convertBase64ToBitmap(leaderbordModel.getBase64ImageString());
@@ -113,18 +116,16 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
                 imgRankingProfile.setImageBitmap(bitmapImage);
 
                 TextView txtUserRank = dialog.findViewById(R.id.navRank);
-                txtUserRank.setText("Rank  "+String.valueOf(userRnak));
+                txtUserRank.setText("Rank  "+String.valueOf(userRank));
 
 
                 TextView txtUserNamePopUp = dialog.findViewById(R.id.userNameTv1);
                 txtUserNamePopUp.setText(leaderbordModel.getUserName());
 
                 TextView txtUserPosition = dialog.findViewById(R.id.txtPosition);
-                txtUserPosition.setText(String.valueOf(userRnak));
+                txtUserPosition.setText(String.valueOf(userRank));
 
 
-
-                Log.d("sjgkz",String.valueOf(userPoint));
 
                 TextView txtUserPoint = dialog.findViewById(R.id.txtPoint);
                 txtUserPoint.setText(String.valueOf(userPoint));
@@ -150,7 +151,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtUserName,txtLocalUsername,txtUserPosition,txtPoints,txtLocalUserPoint;
+        private TextView txtUserName,txtLocalUsername,txtLocalUserRank,txtPoints,txtLocalUserPoint;
         private TextView txtCounter;
         private ImageView imgProfile;
         private ImageView imgLocalUserProfile;
@@ -164,7 +165,7 @@ public class LeaderbordAdapterTest extends RecyclerView.Adapter<LeaderbordAdapte
             imgLocalUserProfile = itemView.findViewById(R.id.profileImageID1);
             txtLocalUsername = itemView.findViewById(R.id.userNameTv1);
             leaderBordLayer = itemView.findViewById(R.id.leaderBordLayout);
-            txtUserPosition = itemView.findViewById(R.id.txtPosition);
+            txtLocalUserRank = itemView.findViewById(R.id.txtPosition);
             txtPoints  = itemView.findViewById(R.id.points);
             txtLocalUserPoint  = itemView.findViewById(R.id.txtPoint);
 

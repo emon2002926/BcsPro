@@ -44,11 +44,15 @@ public class GetLocalUserData {
                             String userName = response.getString("userName");
                             String totalExamCount = response.getString("examCount");
                             String localUserRank = response.getString("rank");
-                            double localUserMark = response.getDouble("averageMark");
+                            double mark = response.getDouble("averageMark") * 10;
+                            int localUserMark = (int) Math.floor(mark);
+                            String userImgString = response.getString("userImage");
+
+
 
                             // Invoke the callback with the fetched values
                             callback.onFetchSuccess(totalCorrect, totalQuestions, totalWrong, totalNotAnswered,
-                                    userName, totalExamCount,localUserRank,localUserMark);
+                                    userName, totalExamCount,localUserRank,localUserMark,userImgString);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Invoke the callback with an error message
@@ -74,7 +78,7 @@ public class GetLocalUserData {
     public interface APICallback {
         void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
                             int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
-                            double localUserMark);
+                            int localUserMark,String userImageString);
 
         void onFetchFailure(String errorMessage);
     }

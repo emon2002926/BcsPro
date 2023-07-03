@@ -362,7 +362,8 @@ public class HomeFragment extends Fragment {
         apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
             @Override
             public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
-                                       int totalNotAnswered, String userName, String totalExamCount,String localUserRank,double localUserMark) {
+                                       int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
+                                       int localUserMark, String userImgString) {
                 // Use the fetched values here
                 preferencesUserInfo.saveString("name",userName);
                 preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
@@ -371,8 +372,10 @@ public class HomeFragment extends Fragment {
                 preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
                 preferencesUserInfo.saveString("totalExam",totalExamCount);
                 preferencesUserInfo.saveString("localUserRank",localUserRank);
-//                preferencesUserInfo.saveInt("localUserPoint",localUserMark);
-                Log.d("jjdyftuy1",String.valueOf(localUserMark));
+                preferencesUserInfo.saveInt("localUserPoint",localUserMark);
+                preferencesUserInfo.saveString("userImage",userImgString);
+                Log.d("imgStringgg",localUserRank);
+
 
             }
             @Override
