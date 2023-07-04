@@ -19,7 +19,7 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.LeaderbordAdapterTest;
+import com.gdalamin.bcs_pro.adapter.LeaderbordAdapter;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ public class LeaderboardFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    private LeaderbordAdapterTest adapter;
+    private LeaderbordAdapter adapter;
     private List<LeaderbordModel> userMarksList;
 
     @Override
@@ -48,10 +48,10 @@ public class LeaderboardFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         userMarksList = new ArrayList<>();
-        adapter = new LeaderbordAdapterTest(userMarksList, getContext());
+        adapter = new LeaderbordAdapter(userMarksList, getContext());
         recyclerView.setAdapter(adapter);
 
-        fetchDataFromServer();
+//        fetchDataFromServer();
 
         return view;
 
