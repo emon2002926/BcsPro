@@ -276,7 +276,7 @@ public class HomeFragment extends Fragment {
 
 
         String userId = preferencesUserInfo.getString("key_phone").trim();
-//        getUserProfileData(userId);
+        getUserProfileData(userId);
 
 
         return view;

@@ -156,8 +156,6 @@ public class SettingFragment extends Fragment {
             mGoogleSignInClient.signOut().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     // Sign out successful
-
-
                     // Clear the login information from SharedPreferences
                     sharedPreferencesManager.clear();
                     editor.clear();

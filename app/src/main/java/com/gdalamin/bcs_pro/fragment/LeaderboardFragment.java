@@ -51,7 +51,7 @@ public class LeaderboardFragment extends Fragment {
         adapter = new LeaderbordAdapter(userMarksList, getContext());
         recyclerView.setAdapter(adapter);
 
-//        fetchDataFromServer();
+        fetchDataFromServer();
 
         return view;
 
