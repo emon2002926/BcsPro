@@ -7,12 +7,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -104,7 +106,6 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
                 imgCloseButton.setOnClickListener(v1 -> dialog.dismiss());
 
 
-
                 Bitmap bitmapImage = convertBase64ToBitmap(leaderbordModel.getBase64ImageString());
                 ImageView imgRankingProfile = dialog.findViewById(R.id.profileImageID1);
                 imgRankingProfile.setImageBitmap(bitmapImage);
@@ -121,8 +122,43 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
                 TextView txtUserPoint = dialog.findViewById(R.id.txtPoint);
                 txtUserPoint.setText(String.valueOf(userPoint));
 
+
+                ///statistics_layout ditales
+
                 TextView txtTotalExam = dialog.findViewById(R.id.totalExamTv);
                 txtTotalExam.setText(String.valueOf(leaderbordModel.getTotalExamsTaken()));
+
+                int totalQuestions = leaderbordModel.getTotalQuestions();
+
+
+                float totalPercentageCorrect = ((float)leaderbordModel.getTotalCorrect()/totalQuestions)*100;
+                float totalPercentageWrong =((float) leaderbordModel.getTotalWrong()/totalQuestions) * 100;
+                float totalPercentageNotAnswered = ((float) leaderbordModel.getTotalNotAnswered()/totalQuestions) *100;
+
+                TextView correctAnswerTextView = dialog.findViewById(R.id.correctAnswerTv);
+                correctAnswerTextView.setText(String.valueOf(
+                        leaderbordModel.getTotalCorrect()+" (" + String.valueOf(String.format("%.2f", totalPercentageCorrect)) + "%)"));
+
+                TextView wrongAnswerTextView = dialog.findViewById(R.id.wrongAnswerTv);
+                wrongAnswerTextView.setText(String.valueOf(
+                        leaderbordModel.getTotalWrong()+ " (" + String.valueOf(String.format("%.2f", totalPercentageWrong)) + "%)"));
+
+                TextView notAnswredTextView = dialog.findViewById(R.id.notAnswredTv);
+                notAnswredTextView.setText(String.valueOf(
+                        leaderbordModel.getTotalNotAnswered()+" (" + String.valueOf(String.format("%.2f", totalPercentageNotAnswered)) + "%)"));
+
+
+                ProgressBar progressBarCorrect = dialog.findViewById(R.id.percentageProgressBarCorrect);
+                ProgressBar progressBarWrong = dialog.findViewById(R.id.percentageProgressBarWrong);
+                ProgressBar progressBarNotAnswered = dialog.findViewById(R.id.percentageProgressBarNotAnswred);
+
+                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
+                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
+                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
+
+
+//                Log.d("kjgjhyusdvf",String.valueOf(totalPercentageCorrect));
+
 
                 dialog.show();
             });

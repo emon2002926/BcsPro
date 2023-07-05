@@ -13,6 +13,8 @@ import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.fragment.LeaderboardFragment;
 import com.gdalamin.bcs_pro.fragment.SettingFragment;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class
 MainActivity extends AppCompatActivity {
@@ -29,48 +31,42 @@ MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragement(new HomeFragment());
 
+        // Set the title text for each menu item
+        binding.bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+
+        // Set the title text for each menu item
+        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle("Home");
+        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_dashboard).setTitle("Profile");
+        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
+        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_setting).setTitle("Settings");
+
+        replaceFragment(new HomeFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-
+            switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    replaceFragement(new HomeFragment());
+                    replaceFragment(new HomeFragment());
                     break;
-
                 case R.id.navigation_dashboard:
-                    replaceFragement(new DashBordFragment());
+                    replaceFragment(new DashBordFragment());
                     break;
-
                 case R.id.navigation_setting:
-                    replaceFragement(new SettingFragment());
+                    replaceFragment(new SettingFragment());
                     break;
-
                 case R.id.navigation_leaderBord:
-                    replaceFragement(new LeaderboardFragment());
+                    replaceFragment(new LeaderboardFragment());
                     break;
-
             }
-
-
             return true;
         });
-
     }
-//////////////////////////////////////
 
-
-
-    public void replaceFragement(Fragment fragment){
-
+    public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
 
-
-
-//
 }

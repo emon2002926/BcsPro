@@ -84,6 +84,7 @@ public class LeaderboardFragment extends Fragment {
                                     String userId = marksObj.getString("userId");
                                     double averageMark = marksObj.getDouble("averageMark");
                                     int totalCorrect = marksObj.getInt("totalCorrect");
+                                    int totalQuestions = marksObj.getInt("totalQuestions");
                                     int totalWrong = marksObj.getInt("totalWrong");
                                     int totalNotAnswered = marksObj.getInt("totalNotAnswered");
                                     int totalExamsTaken = marksObj.getInt("totalExamsTaken");
@@ -91,7 +92,9 @@ public class LeaderboardFragment extends Fragment {
                                     String userBase64ImageString = marksObj.getString("userImage");
 
 
-                                    LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken, userName, userBase64ImageString);
+
+                                    LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken,
+                                            userName, userBase64ImageString,totalQuestions);
                                     userMarksList.add(userMarks);
                                 }
                                 adapter.notifyDataSetChanged();

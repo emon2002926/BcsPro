@@ -7,6 +7,7 @@ public class LeaderbordModel {
     private int totalWrong;
     private int totalNotAnswered;
     private int totalExamsTaken;
+    private int totalQuestions;
     private String userName;
 
     private String base64ImageString;
@@ -14,7 +15,8 @@ public class LeaderbordModel {
     public LeaderbordModel(){
 
     }
-    public LeaderbordModel(String userId, double averageMark, int totalCorrect, int totalWrong, int totalNotAnswered, int totalExamsTaken, String userName,String base64ImageString) {
+    public LeaderbordModel(String userId, double averageMark, int totalCorrect, int totalWrong, int totalNotAnswered, int totalExamsTaken
+            , String userName,String base64ImageString,int totalQuestions) {
         this.userId = userId;
         this.averageMark = averageMark;
         this.totalCorrect = totalCorrect;
@@ -23,6 +25,7 @@ public class LeaderbordModel {
         this.totalExamsTaken = totalExamsTaken;
         this.userName = userName;
         this.base64ImageString = base64ImageString;
+        this.totalQuestions = totalQuestions;
     }
 
     public String getUserId() {
@@ -87,5 +90,13 @@ public class LeaderbordModel {
 
     public void setBase64ImageString(String base64ImageString) {
         this.base64ImageString = base64ImageString;
+    }
+
+    public int getTotalQuestions() {
+        return totalQuestions;
+    }
+
+    public void setTotalQuestions(int totalQuestions) {
+        this.totalQuestions = totalQuestions;
     }
 }

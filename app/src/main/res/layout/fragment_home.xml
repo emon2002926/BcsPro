@@ -122,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/r1"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="17dp"
                             android:layout_below="@id/l40"
                             >
 
@@ -308,7 +308,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/tv1"
-                                    android:layout_marginTop="20dp"
+                                    android:layout_marginTop="18dp"
                                     android:layout_marginStart="8dp"
                                     android:layout_marginEnd="8dp"
                                     android:weightSum="2"
