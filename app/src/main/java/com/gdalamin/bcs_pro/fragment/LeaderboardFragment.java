@@ -4,10 +4,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.Request;
@@ -35,6 +40,7 @@ public class LeaderboardFragment extends Fragment {
 
     private LeaderbordAdapter adapter;
     private List<LeaderbordModel> userMarksList;
+    private  LottieAnimationView animationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +49,12 @@ public class LeaderboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         recyclerView = view.findViewById(R.id.recview);
+         animationView = view.findViewById(R.id.animationView);
+        animationView.setRepeatCount(LottieDrawable.INFINITE);
+        animationView.playAnimation();
+
+
+
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -60,6 +72,7 @@ public class LeaderboardFragment extends Fragment {
     private void fetchDataFromServer() {
         String url = "https://emon.searchwizy.com/getLeaderbord.php"; // Replace with your API endpoint URL
 
+        animationView.playAnimation();
         // Create a cache directory for caching the response
         File cacheDir = new File(requireContext().getCacheDir(), "volley_cache");
         Cache cache = new DiskBasedCache(cacheDir, 10 * 1024 * 1024); // 10MB cache size
@@ -92,6 +105,8 @@ public class LeaderboardFragment extends Fragment {
                                     String userBase64ImageString = marksObj.getString("userImage");
 
 
+                                    animationView.cancelAnimation();
+                                    animationView.setVisibility(View.GONE);
 
                                     LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken,
                                             userName, userBase64ImageString,totalQuestions);
@@ -100,7 +115,20 @@ public class LeaderboardFragment extends Fragment {
                                 adapter.notifyDataSetChanged();
                             } else {
                                 String message = response.getString("message");
-//                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+
+                                // Create a Handler object
+                                Handler handler = new Handler();
+                                Runnable runnable = new Runnable() {
+                                    @Override
+                                    public void run() {
+//                                        animationView.setVisibility(View.GONE);
+                                    }
+                                };
+                                long delayMillis = 5000; // 2 seconds
+                                handler.postDelayed(runnable, delayMillis);
+
+
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -110,7 +138,20 @@ public class LeaderboardFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(requireContext(), "Error fetching data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(requireContext(), "Error fetching data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        Handler handler = new Handler();
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                animationView.cancelAnimation();
+                                animationView.setVisibility(View.GONE);
+                            }
+                        };
+                        long delayMillis = 5000;
+                        handler.postDelayed(runnable, delayMillis);
+
+
                     }
                 });
 
