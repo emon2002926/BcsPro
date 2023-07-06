@@ -147,6 +147,9 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
                 notAnswredTextView.setText(String.valueOf(
                         leaderbordModel.getTotalNotAnswered()+" (" + String.valueOf(String.format("%.2f", totalPercentageNotAnswered)) + "%)"));
 
+                TextView txtTotalQuestion = dialog.findViewById(R.id.totalQuestionTv);
+                txtTotalQuestion.setText(String.valueOf(totalQuestions));
+
 
                 ProgressBar progressBarCorrect = dialog.findViewById(R.id.percentageProgressBarCorrect);
                 ProgressBar progressBarWrong = dialog.findViewById(R.id.percentageProgressBarWrong);
@@ -193,8 +196,6 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
             txtLocalUserRank = itemView.findViewById(R.id.txtPosition);
             txtPoints  = itemView.findViewById(R.id.points);
             txtLocalUserPoint  = itemView.findViewById(R.id.txtPoint);
-
-
 
         }
     }

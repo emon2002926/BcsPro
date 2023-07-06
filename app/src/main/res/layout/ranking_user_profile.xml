@@ -17,8 +17,8 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/profileImageID1"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_profile_image"
                 app:riv_corner_radius="100dp"
@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             >
             <TextView
@@ -38,59 +39,81 @@
                 android:gravity="start"
                 android:text="MD "
                 android:textColor="@color/darkTangerine"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
 
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:gravity="center"
-                    android:text="position:"
-                    android:textSize="16sp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:text="Position:"
+                        android:textSize="16sp"
+                        />
+                    <TextView
+                        android:id="@+id/txtPosition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="33"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     />
-                <TextView
-                    android:id="@+id/txtPosition"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="33"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    />
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:text="Points:"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtPoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="73"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:gravity="center"
-                    android:text="point:"
-                    android:textSize="16sp"
-                    />
 
-                <TextView
-                    android:id="@+id/txtPoint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="73"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    />
-            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

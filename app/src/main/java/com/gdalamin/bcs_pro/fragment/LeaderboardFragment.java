@@ -100,7 +100,7 @@ public class LeaderboardFragment extends Fragment {
                                 adapter.notifyDataSetChanged();
                             } else {
                                 String message = response.getString("message");
-                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
