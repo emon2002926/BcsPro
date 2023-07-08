@@ -54,9 +54,6 @@ public class LeaderboardFragment extends Fragment {
         animationView.playAnimation();
 
 
-
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         userMarksList = new ArrayList<>();
@@ -70,7 +67,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void fetchDataFromServer() {
-        String url = "https://emon.searchwizy.com/getLeaderbord.php"; // Replace with your API endpoint URL
+        String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=10"; // Replace with your API endpoint URL
 
         animationView.playAnimation();
         // Create a cache directory for caching the response

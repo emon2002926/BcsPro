@@ -3,7 +3,11 @@ package com.gdalamin.bcs_pro.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +105,21 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         RelativeLayout option4Layout = holder.option4Layout;
 
 
+        String option1ImageString = data[position].getOption1Image().trim();
+        String option2ImageString = data[position].getOption2Image().trim();
+        String option3ImageString = data[position].getOption3Image().trim();
+        String option4ImageString = data[position].getOption4Image().trim();
+        String explainImageString = data[position].getExplanationImage();
+
+
+        String question = data[position].getQuestion().trim();
+        String option1 = data[position].getOption1().trim();
+        String option2 = data[position].getOption2().trim();
+        String option3 = data[position].getOption3().trim();
+        String option4 = data[position].getOption4().trim();
+        int answer = Integer.parseInt(data[position].getAnswer());
+
+
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.explainTv.getContext());
         int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
@@ -119,18 +138,25 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 // Get the question and options data from the data array at the given position
 
-                String question = data[position].getQuestion().trim();
-                String option1 = data[position].getOption1().trim();
-                String option2 = data[position].getOption2().trim();
-                String option3 = data[position].getOption3().trim();
-                String option4 = data[position].getOption4().trim();
-                int answer = Integer.parseInt(data[position].getAnswer());
+//                String question = data[position].getQuestion().trim();
+//                String option1 = data[position].getOption1().trim();
+//                String option2 = data[position].getOption2().trim();
+//                String option3 = data[position].getOption3().trim();
+//                String option4 = data[position].getOption4().trim();
+//                int answer = Integer.parseInt(data[position].getAnswer());
                 String questionPosition = String.valueOf(position+1);
 
+               /*
                 String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
                 String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
                 String option3ImageURL = BASE_URL+"image/option3/"+data[position].getOption3Image().trim();
                 String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
+
+                */
+//                String option1ImageURL = data[position].getOption1Image().trim();
+//                String option2ImageURL = data[position].getOption2Image().trim();
+//                String option3ImageURL = data[position].getOption3Image().trim();
+//                String option4ImageURL = data[position].getOption4Image().trim();
 
 
                 // Create a new QuestionList object with the obtained data
@@ -163,10 +189,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 }
 
                 //Showing Image or text with there respective logic
-                showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
-                showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
-                showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
-                showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
+                showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageString);
+                showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);
+                showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageString);
+                showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageString);
 
                 if (questionslists.get(position).getUserSelecedAnswer() > 0) {
 //                        holder.fullLayout.setEnabled(false);
@@ -265,11 +291,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.option3Layout.setEnabled(false);
                     holder.option4Layout.setEnabled(false);
 
-                    //Broadcasting Data to ExamActivity
-//                    Intent intent = new Intent("my_list_action");
-//                    intent.putExtra("my_list_key", (Serializable) questionslists);
-//                    intent.putExtra("totalQuestion", NUM_OF_QUESTION);
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
 
                     Intent intent = new Intent(ctx, ActivityExam.class);
                     intent.setAction("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
@@ -292,20 +315,32 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         {
             // Get the question and options data from the data array at the given position
 
-            String question = data[position].getQuestion().trim();
-            String option1 = data[position].getOption1().trim();
-            String option2 = data[position].getOption2().trim();
-            String option3 = data[position].getOption3().trim();
-            String  option4 = data[position].getOption4().trim();
+//            String question = data[position].getQuestion().trim();
+//            String option1 = data[position].getOption1().trim();
+//            String option2 = data[position].getOption2().trim();
+//            String option3 = data[position].getOption3().trim();
+//            String  option4 = data[position].getOption4().trim();
+//            int answer = Integer.parseInt(data[position].getAnswer().trim());
             String explain = data[position].getExplanation().trim();
-            int answer = Integer.parseInt(data[position].getAnswer().trim());
+
             String questionPosition = String.valueOf(position+1);
 
-            String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
+           /* String option1ImageURL = BASE_URL+"image/option1/"+data[position].getOption1Image().trim();
             String option2ImageURL = BASE_URL+"image/option2/"+data[position].getOption2Image().trim();
             String option3ImageURL = BASE_URL+"image/option3/"+data[position].getOption3Image().trim();
             String option4ImageURL = BASE_URL+"image/option4/"+data[position].getOption4Image().trim();
             String explainImageURL = BASE_URL+ "image/explainImage/"+data[position].getExplanationImage();
+
+            */
+
+//            String option1ImageURL = data[position].getOption1Image().trim();
+//            String option2ImageURL = data[position].getOption2Image().trim();
+//            String option3ImageURL = data[position].getOption3Image().trim();
+//            String option4ImageURL = data[position].getOption4Image().trim();
+
+
+//            String base64 = data[position].getOption4Image();
+//            Log.d("jhhhhhhf",base64);
 
 
             holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
@@ -357,10 +392,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             //Todo  work from hare
 
             //Showing Image or text with there respective logic
-            showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageURL);
-            showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageURL);
-            showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageURL);
-            showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageURL);
+            showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageString);
+            showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);
+            showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageString);
+            showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageString);
 
             QuestionList questionList = new QuestionList(question, option1, option2, option3, option4, answer);
             questionslists.add(questionList);
@@ -406,7 +441,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
                 }
 
-                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageString);
+
+
+
 
                 int userSelecedAnswer = questionList.getUserSelecedAnswer();
                 switch (questionslists.get(position).getUserSelecedAnswer()) {
@@ -435,11 +473,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
             }
 
-            //Todo work from hare May 6 4.45AM
 
             if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                 // If the question has a selected option, highlight the corresponding option
-                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageString);
 
                 if (answer == 1)
                 {
@@ -465,16 +502,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 } else if (answer == 3)
                 {
-
                     holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg3.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg3.setVisibility(View.VISIBLE);
-//                    holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
                     highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV);
                     makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
-
-
                 }
                 else if (answer == 4) {
 
@@ -484,9 +517,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     highLightClickedOption2(option4Layout,option2Layout,option3Layout,option1Layout,holder.option4TV);
                     makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
-
                 }
-
 
                 int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
                 if (userSelectedAnswer == 1){
@@ -517,7 +548,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     if (answer==3){
                         holder.iconBackground3.setBackgroundResource(R.drawable.green_background);
                         highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV);
-//                        holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
                         holder.img3.setImageResource(R.drawable.green_dot);
                     }else {
                         holder.img3.setImageResource(R.drawable.red_dot);
@@ -526,8 +556,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 } else if (userSelectedAnswer == 4) {
                     if (answer==4){
                         holder.iconBackground4.setBackgroundResource(R.drawable.green_background);
-//                        highLightClickedOption(holder.option4Layout, holder.img4);
-//                        holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+
                         highLightClickedOption2(option4Layout,option2Layout,option1Layout,option3Layout,holder.option4TV);
                         holder.img4.setImageResource(R.drawable.green_dot);
                     }else {
@@ -544,7 +573,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             /// it activative  when user clicked
             View.OnClickListener optionClickListener = view -> {
 
-                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageURL);
+                showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageString);
 
                 if (answer == 1){
                     holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.green));
@@ -740,11 +769,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             IvQuestionOrAnyOption.setVisibility(View.GONE);
         }else {
             //When questionOrAnyOption is Empty
+
             TvQuestionOrAnyOption.setVisibility(View.GONE);
             IvQuestionOrAnyOption.setVisibility(View.VISIBLE);
-            Glide.with(IvQuestionOrAnyOption.getContext())
-                    .load(ImageURL)
-                    .into(IvQuestionOrAnyOption);
+            Bitmap bitmap = convertBase64ToBitmap(ImageURL);
+            IvQuestionOrAnyOption.setImageBitmap(bitmap);
+
+//            Glide.with(IvQuestionOrAnyOption.getContext())
+//                    .load(ImageURL)
+//                    .into(IvQuestionOrAnyOption);
         }
     }
 
@@ -816,6 +849,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         Bundle bundle = new Bundle();
         bundle.putSerializable("qutions",(Serializable) questionslists);
         intent.putExtras(bundle);
+    }
+
+    public Bitmap convertBase64ToBitmap(String base64Image) {
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
 

@@ -26,7 +26,6 @@ public class GetLocalUserData {
         // API endpoint URL
         String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=" + userId;
 
-        Log.d("jdfgukyaa", apiUrl);
         // Instantiate the RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
