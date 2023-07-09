@@ -76,10 +76,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         String BASE_URL = ApiKeys.API_URL+"api/";
         Context ctx = holder.fullLayout.getContext();
 
-
-
-
-
         holder.option1Layout.setBackgroundResource(0);
         holder.img1.setImageResource(R.drawable.round_back_white50_100);
         holder.option2Layout.setBackgroundResource(0);
@@ -181,8 +177,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.textViewPosition2.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.GONE);
                     holder.questionImageLayout.setVisibility(View.VISIBLE);
-                    Glide.with(holder.questionImg.getContext())
-                            .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
+                    Bitmap bitmap = convertBase64ToBitmap(data[position].getImage());
+                    holder.questionImg.setImageBitmap(bitmap);
+//                    Glide.with(holder.questionImg.getContext())
+//                            .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
                     holder.questionImg.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setText(questionPosition+")");
@@ -380,8 +378,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.textViewPosition2.setVisibility(View.GONE);
                 holder.questionTv.setVisibility(View.GONE);
                 holder.questionImageLayout.setVisibility(View.VISIBLE);
-                Glide.with(holder.questionImg.getContext())
-                        .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
+                Bitmap bitmap = convertBase64ToBitmap(data[position].getImage());
+                holder.questionImg.setImageBitmap(bitmap);
+//                Glide.with(holder.questionImg.getContext())
+//                        .load(BASE_URL+"image/" + data[position].getImage()).into(holder.questionImg);
                 holder.questionImg.setVisibility(View.VISIBLE);
                 holder.textViewPosition.setVisibility(View.VISIBLE);
                 holder.textViewPosition.setText(questionPosition+")");
