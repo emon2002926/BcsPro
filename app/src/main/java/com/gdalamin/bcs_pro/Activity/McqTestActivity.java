@@ -1,10 +1,14 @@
 package com.gdalamin.bcs_pro.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -25,7 +29,6 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 
 import org.json.JSONArray;
@@ -48,7 +51,7 @@ public class McqTestActivity extends AppCompatActivity {
     private TextView quizTimer;
     private RelativeLayout option1Layout , option2Layout , option3Layout , option4Layout ,layout;
     private TextView option1TV , option2TV , option3TV , option4TV ;
-    private ImageView option1Icon , option2Icon , option3Icon , option4Icon ;
+    private ImageView option1Icon , option2Icon , option3Icon , option4Icon, questionImage ;
 
     private TextView questionTv;
 
@@ -77,14 +80,18 @@ public class McqTestActivity extends AppCompatActivity {
         quizTimer = findViewById (R.id.quizeTimer) ;
 
         shimmerFrameLayout = findViewById(R.id.shimer);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
         layout = findViewById(R.id.layout);
+        layout.setVisibility(View.GONE);
 
 
         option1Layout = findViewById (R.id.option1Layout ) ;
         option2Layout  = findViewById (R.id.option2Layout ) ;
         option3Layout  = findViewById (R.id.option3Layout ) ;
         option4Layout = findViewById (R.id.opton4Layout ) ;
+
+        questionImage = findViewById(R.id.questionIv);
 
 
         option1TV = findViewById(R.id.option1Tv);
@@ -111,11 +118,10 @@ public class McqTestActivity extends AppCompatActivity {
 
 
 
-//
-        progressBar =findViewById(R.id.progressBar4);
-//        progressBar.setVisibility(View.VISIBLE);
 
-//        progressBar.setVisibility(View.VISIBLE);
+
+
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -152,6 +158,7 @@ public class McqTestActivity extends AppCompatActivity {
             selectedOption(option4Layout,option4Icon);
 
         });
+
 
 
         nextBtn.setOnClickListener(v -> {
@@ -257,10 +264,10 @@ public class McqTestActivity extends AppCompatActivity {
         String url = baseUrl+"api/getData.php?apiKey=abc123&apiNum=1";
 
         String apiWithSql = ApiKeys.API_WITH_SQL;
-        String url2 = apiWithSql+"&query=SELECT * FROM question WHERE subjects LIKE 'IA' ORDER BY id DESC LIMIT 10";
+        String url2 = apiWithSql+"&query=SELECT * FROM question WHERE question <> '' ORDER BY id DESC LIMIT 10;";
 
     // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -270,15 +277,23 @@ public class McqTestActivity extends AppCompatActivity {
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject row = data.getJSONObject(i);
                                 String question = row.getString("question");
+                                String questionImageString = row.getString("image");
                                 String option1 = row.getString("option1");
+                                String option1ImageString = row.getString("option1Image");
                                 String option2 = row.getString("option2");
+                                String option2ImageString = row.getString("option2Image");
                                 String option3 = row.getString("option3");
+                                String option3ImageString = row.getString("option3Image");
                                 String option4 = row.getString("option4");
+                                String option4ImageString = row.getString("option4Image");
+                                String batch = row.getString("batch");
+                                Log.d("jksdg",batch);
                                 int answer = row.getInt("answer");
 
-                                startQuizeTimer(18);
+                                startQuizeTimer(180);
 
-                                QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,answer);
+                                QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,questionImageString,option1ImageString
+                                        ,option2ImageString,option3ImageString,option4ImageString, answer);
 
                                 questionslists.add(questionList);
                                 Collections.shuffle(questionslists);
@@ -287,9 +302,6 @@ public class McqTestActivity extends AppCompatActivity {
                                 layout.setVisibility(View.VISIBLE);
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-
-                                // Display the data in a TextView
-//                                textView.setText(name + " - " + email + " - " + age);
                             }
                             selectQuestion(currenQuestiontPosition);
                         } catch (JSONException e) {
@@ -365,7 +377,18 @@ public class McqTestActivity extends AppCompatActivity {
 
 
         restOption();
-        questionTv.setText(convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()));
+
+        if (convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()).isEmpty()){
+
+            Bitmap bitmap = convertBase64ToBitmap(questionslists.get(questionListPositon).getQuestionImageString());
+            questionImage.setImageBitmap(bitmap);
+            questionImage.setVisibility(View.VISIBLE);
+            questionTv.setVisibility(View.GONE);
+        }else {
+            questionTv.setText(convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()));
+            questionTv.setVisibility(View.VISIBLE);
+            questionImage.setVisibility(View.GONE);
+        }
         option1TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption1().trim()));
         option2TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption2().trim()));
         option3TV.setText(convertToUTF8(questionslists.get(questionListPositon).getOption3().trim()));
@@ -426,6 +449,11 @@ public class McqTestActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
+    public Bitmap convertBase64ToBitmap(String base64Image) {
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
 
 
     @Override

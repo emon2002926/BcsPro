@@ -48,37 +48,58 @@
 
         </androidx.cardview.widget.CardView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FAF7F7"
-                android:orientation="vertical"
-                >
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/recview"
-                    android:layout_below="@id/card"
-                    android:visibility="visible"
-                    tools:ignore="MissingConstraints" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FAF7F7"
+                    android:orientation="vertical"
+                    >
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animationView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                app:lottie_rawRes="@raw/loading_ring_medium"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/recview"
+                        android:layout_below="@id/card"
+                        android:visibility="visible"
+                        tools:ignore="MissingConstraints" />
 
-                android:layout_centerInParent="true"
-                />
+                </LinearLayout>
 
-        </RelativeLayout>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    app:lottie_rawRes="@raw/loading_ring_medium"
+
+                    android:layout_centerInParent="true"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/indicator"
+                        android:textSize="16dp"
+                        android:text="please check your internet connection and try again "/>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
 
 
     </LinearLayout>

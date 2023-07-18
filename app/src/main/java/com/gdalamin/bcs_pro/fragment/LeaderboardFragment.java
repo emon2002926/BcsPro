@@ -4,11 +4,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -41,6 +43,8 @@ public class LeaderboardFragment extends Fragment {
     private LeaderbordAdapter adapter;
     private List<LeaderbordModel> userMarksList;
     private  LottieAnimationView animationView;
+    private TextView indicatorTv;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +56,8 @@ public class LeaderboardFragment extends Fragment {
          animationView = view.findViewById(R.id.animationView);
         animationView.setRepeatCount(LottieDrawable.INFINITE);
         animationView.playAnimation();
+        indicatorTv = view.findViewById(R.id.indicator);
+        indicatorTv.setVisibility(View.GONE);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -59,6 +65,7 @@ public class LeaderboardFragment extends Fragment {
         userMarksList = new ArrayList<>();
         adapter = new LeaderbordAdapter(userMarksList, getContext());
         recyclerView.setAdapter(adapter);
+
 
         fetchDataFromServer();
 
@@ -105,6 +112,7 @@ public class LeaderboardFragment extends Fragment {
                                     animationView.cancelAnimation();
                                     animationView.setVisibility(View.GONE);
 
+
                                     LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken,
                                             userName, userBase64ImageString,totalQuestions);
                                     userMarksList.add(userMarks);
@@ -143,6 +151,8 @@ public class LeaderboardFragment extends Fragment {
                             public void run() {
                                 animationView.cancelAnimation();
                                 animationView.setVisibility(View.GONE);
+                                indicatorTv.setVisibility(View.VISIBLE);
+
                             }
                         };
                         long delayMillis = 5000;

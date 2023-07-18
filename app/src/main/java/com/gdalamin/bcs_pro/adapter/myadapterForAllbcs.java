@@ -110,9 +110,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
 
-
-
-
                                 String time = edTime.getText().toString().trim();
                                 String NUM_OF_QUESTION= edNumOfQuestion.getText().toString().trim();
 

@@ -95,14 +95,6 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
 
-//        boolean currentValue = preferencesManager.getBoolean("showOrHide");
-//
-//        if (currentValue == true){
-//            Log.d("showOrHide","true");
-//        } else if (currentValue==false) {
-//            Log.d("showOrHide","false");
-//        }
-
 
     }
 
