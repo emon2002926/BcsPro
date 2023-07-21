@@ -169,7 +169,7 @@
             android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/bg_for_progressbar"
+            android:progressDrawable="@drawable/bg_for_green_progressbar"
             android:id="@+id/percentageProgressBarCorrect"
             style="@android:style/Widget.ProgressBar.Horizontal"
             />
@@ -257,7 +257,7 @@
             android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/bg_for_progressbar"
+            android:progressDrawable="@drawable/bg_for_lite_progressbar"
             android:id="@+id/percentageProgressBarNotAnswred"
             style="@android:style/Widget.ProgressBar.Horizontal"
             />

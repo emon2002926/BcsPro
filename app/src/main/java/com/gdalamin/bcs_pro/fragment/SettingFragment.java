@@ -48,10 +48,10 @@ public class SettingFragment extends Fragment {
                     openMessenger();
                     break;
                 case R.id.facebookGroup:
-                    String groupId = "887679785774255"; //   Messenger group ID
-                    String groupName = "BCS Pro"; //  name of the Messenger group
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://group/" + groupId));
-                    intent.putExtra("title", groupName);
+                    String pageId = "100094890072982"; //   Facebook page ID
+                    String pageName = "BCS PRO"; //  name of the Messenger group
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + pageId));
+                    intent.putExtra("title", pageName);
                     try {
                         startActivity(intent);
                     } catch (ActivityNotFoundException ex) {
@@ -96,7 +96,7 @@ public class SettingFragment extends Fragment {
 
 
     private void openMessenger(){
-        String userIdOrGroupId = "100009066774848";
+        String userIdOrGroupId = "100094890072982";
 
 // Launch Messenger chat with the specified user or group ID
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb-messenger://user/" + userIdOrGroupId));

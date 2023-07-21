@@ -46,11 +46,22 @@
 
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Course will be available soon !! "
+        android:textSize="28sp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/shimer"
+        android:visibility="gone"
         android:layout_below="@id/card">
 
         <LinearLayout

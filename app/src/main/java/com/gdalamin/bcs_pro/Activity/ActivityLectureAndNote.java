@@ -59,7 +59,7 @@ public class ActivityLectureAndNote extends AppCompatActivity {
 
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();

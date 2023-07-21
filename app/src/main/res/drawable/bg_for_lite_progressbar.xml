@@ -10,7 +10,7 @@
         <clip>
             <shape android:shape="rectangle">
                 <corners android:radius="10dp" /> <!-- Adjust the radius value as desired -->
-                <solid android:color="@color/darkTangerine" /> <!-- Change color value as desired -->
+                <solid android:color="@color/liteTangerine" /> <!-- Change color value as desired -->
             </shape>
         </clip>
     </item>
