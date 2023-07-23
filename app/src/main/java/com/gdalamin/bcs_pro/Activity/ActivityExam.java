@@ -18,6 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
@@ -28,6 +34,9 @@ import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -58,6 +67,9 @@ public class ActivityExam extends AppCompatActivity {
      public static int REQ_CODE = 0;
 
      ShowMcq showMcq;
+
+    private RequestQueue requestQueue;
+    ExamResult examResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +129,13 @@ public class ActivityExam extends AppCompatActivity {
             }
 
         };
+
+
+
+        requestQueue = Volley.newRequestQueue(this);
+        examResult = new ExamResult();
+//        saveData();
+
 
         /*
             Subject and Question Distribution
@@ -310,7 +329,10 @@ public class ActivityExam extends AppCompatActivity {
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
         ExamResult saveResult = new ExamResult();
-        ExamResultSaver resultSaver = new ExamResultSaver(this, API_URL+"api/saveResult.php", saveResult);
+        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://emon.searchwizy.com/api/saveTest2.php", saveResult);
+
+//        resultSaver.saveResult();
+
 
 
         if (questionLists != null) {

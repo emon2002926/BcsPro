@@ -1,6 +1,8 @@
 package com.gdalamin.bcs_pro.modelClass;
 
-public class LeaderbordModel {
+import androidx.annotation.Keep;
+
+@Keep public class LeaderbordModel {
     private String userId;
     private double averageMark;
     private int totalCorrect;

@@ -9,13 +9,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-
 public class ExamResultSaver {
     private Context context;
     private String saveResultUrl;
@@ -28,85 +31,107 @@ public class ExamResultSaver {
     }
 
     public void saveResult() {
-        StringRequest request = new StringRequest(Request.Method.POST, saveResultUrl, new Response.Listener<String>() {
+        // Create a RequestQueue using Volley
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        // Convert the examResult object to JSON format
+        JSONObject jsonParams = new JSONObject();
+        try {
+
+            jsonParams.put("total", examResult.getTotal());
+            jsonParams.put("correct", examResult.getCorrect());
+            jsonParams.put("wrong", examResult.getWrong());
+            jsonParams.put("mark", examResult.getMark());
+            jsonParams.put("notAnswred", examResult.getNotAnswred());
+            jsonParams.put("date", examResult.getDate());
+            jsonParams.put("userId", examResult.getUserId().trim());
+
+            jsonParams.put("totalIA", examResult.getTotalIA());
+            jsonParams.put("correctIA", examResult.getCorrectIA());
+            jsonParams.put("wrongIA", examResult.getWrongIA());
+            jsonParams.put("marksIA", examResult.getMarksIA());
+
+            jsonParams.put("totalBA", examResult.getTotalBA());
+            jsonParams.put("correctBA", examResult.getCorrectBA());
+            jsonParams.put("wrongBA", examResult.getWrongBA());
+            jsonParams.put("marksBA", examResult.getMarksBA());
+
+            jsonParams.put("totalB", examResult.getTotalB());
+            jsonParams.put("correctB", examResult.getCorrectB());
+            jsonParams.put("wrongB", examResult.getWrongB());
+            jsonParams.put("marksB", examResult.getMarksB());
+
+            jsonParams.put("totalMAV", examResult.getTotalMAV());
+            jsonParams.put("correctMAV", examResult.getCorrectMAV());
+            jsonParams.put("wrongMAV", examResult.getWrongMAV());
+            jsonParams.put("marksMAV", examResult.getMarksMAV());
+
+            jsonParams.put("totalML", examResult.getTotalML());
+            jsonParams.put("correctML", examResult.getCorrectML());
+            jsonParams.put("wrongML", examResult.getWrongML());
+            jsonParams.put("marksML", examResult.getMarksML());
+
+            jsonParams.put("totalEL", examResult.getTotalEL());
+            jsonParams.put("correctEL", examResult.getCorrectEL());
+            jsonParams.put("wrongEL", examResult.getWrongEL());
+            jsonParams.put("marksEL", examResult.getMarksEL());
+
+            jsonParams.put("totalG", examResult.getTotalG());
+            jsonParams.put("correctG", examResult.getCorrectG());
+            jsonParams.put("wrongG", examResult.getWrongG());
+            jsonParams.put("marksG", examResult.getMarksG());
+
+            jsonParams.put("totalMS", examResult.getTotalMS());
+            jsonParams.put("correctMS", examResult.getCorrectMS());
+            jsonParams.put("wrongMS", examResult.getWrongMS());
+            jsonParams.put("marksMS", examResult.getMarksMS());
+
+            jsonParams.put("totalGS", examResult.getTotalGS());
+            jsonParams.put("correctGS", examResult.getCorrectGS());
+            jsonParams.put("wrongGS", examResult.getWrongGS());
+            jsonParams.put("marksGS", examResult.getMarksGS());
+
+            jsonParams.put("totalICT", examResult.getTotalICT());
+            jsonParams.put("correctICT", examResult.getCorrectICT());
+            jsonParams.put("wrongICT", examResult.getWrongICT());
+            jsonParams.put("marksICT", examResult.getMarksICT());
+
+
+            Log.d("ExamResultDebug", "ExamResult data: " + jsonParams.toString());
+        } catch (JSONException e) {
+
+            Log.d("jjjjjjjjjcjtr",String.valueOf(e));
+            e.printStackTrace();
+        }
+
+        // Create a new StringRequest for the HTTP POST request
+        StringRequest request = new StringRequest(Request.Method.POST, saveResultUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Handle the server response if needed
+                        Log.d("ExamResultDebug", "Server Response: " + response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error responses
+                        Log.e("ExamResultDebug", "Error: " + error.toString());
+                    }
+                }) {
             @Override
-            public void onResponse(String response) {
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> param = new HashMap<String, String>();
-                param.put("total", examResult.getTotal());
-                param.put("correct", examResult.getCorrect());
-                param.put("wrong", examResult.getWrong());
-                param.put("mark", examResult.getMark());
-                param.put("notAnswred",examResult.getNotAnswred());
-                param.put("date", examResult.getDate());
-                param.put("userId", examResult.getUserId().trim());
-
-                param.put("totalIA",examResult.getTotalIA());
-                param.put("correctIA",examResult.getCorrectIA());
-                param.put("wrongIA",examResult.getWrongIA());
-                param.put("marksIA",examResult.getMarksIA());
-
-                param.put("totalBA",examResult.getTotalBA());
-                param.put("correctBA",examResult.getCorrectBA());
-                param.put("wrongBA",examResult.getWrongBA());
-                param.put("marksBA",examResult.getMarksBA());
-
-                param.put("totalB",examResult.getTotalB());
-                param.put("correctB",examResult.getCorrectB());
-                param.put("wrongB",examResult.getWrongB());
-                param.put("marksB",examResult.getMarksB());
-
-                param.put("totalMAV",examResult.getTotalMAV());
-                param.put("correctMAV",examResult.getCorrectMAV());
-                param.put("wrongMAV",examResult.getWrongMAV());
-                param.put("marksMAV",examResult.getMarksMAV());
-
-                param.put("totalML",examResult.getTotalML());
-                param.put("correctML",examResult.getCorrectML());
-                param.put("wrongML",examResult.getWrongML());
-                param.put("marksML",examResult.getTotalML());
-
-                param.put("totalEL",examResult.getTotalEL());
-                param.put("correctEL",examResult.getCorrectEL());
-                param.put("wrongEL",examResult.getWrongEL());
-                param.put("marksEL",examResult.getMarksEL());
-
-                param.put("totalG",examResult.getTotalG());
-                param.put("correctG",examResult.getCorrectG());
-                param.put("wrongG",examResult.getWrongG());
-                param.put("marksG",examResult.getMarksG());
-
-                param.put("totalMS",examResult.getTotalMS());
-                param.put("correctMS",examResult.getCorrectMS());
-                param.put("wrongMS",examResult.getWrongMS());
-                param.put("marksMS",examResult.getMarksMS());
-
-                param.put("totalGS",examResult.getTotalGS());
-                param.put("correctGS",examResult.getCorrectGS());
-                param.put("wrongGS",examResult.getWrongGS());
-                param.put("marksGS",examResult.getMarksMS());
-
-                param.put("totalICT",examResult.getTotalICT());
-                param.put("correctICT",examResult.getCorrectICT());
-                param.put("wrongICT",examResult.getWrongICT());
-                param.put("marksICT",examResult.getMarksICT());
-
-
-                Log.d("notAnswred44",examResult.getNotAnswred());
-
-
-                return param;
+            public byte[] getBody() {
+                return jsonParams.toString().getBytes();
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(context);
-        queue.add(request);
+
+        // Add the request to the RequestQueue to send the data to the server
+        requestQueue.add(request);
     }
 }

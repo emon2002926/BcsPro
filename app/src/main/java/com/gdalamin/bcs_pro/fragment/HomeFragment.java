@@ -360,24 +360,32 @@ public class HomeFragment extends Fragment {
     public void getUserProfileData(String userId){
         GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
         apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
+//            @Override
+//            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
+//                                       int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
+//                                       int localUserMark, String userImgString) {
+//                // Use the fetched values here
+//
+//
+//
+//            }
+
             @Override
-            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
-                                       int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
-                                       int localUserMark, String userImgString) {
-                // Use the fetched values here
+            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
+
+
                 preferencesUserInfo.saveString("name",userName);
                 preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
                 preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
                 preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
                 preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
-                preferencesUserInfo.saveString("totalExam",totalExamCount);
-                preferencesUserInfo.saveString("localUserRank",localUserRank);
+                preferencesUserInfo.saveString("totalExam",String.valueOf(examCount));
+                preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
                 preferencesUserInfo.saveInt("localUserPoint",localUserMark);
-                preferencesUserInfo.saveString("userImage",userImgString);
-                Log.d("imgStringgg",localUserRank);
-
-
+                preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
+                Log.d("imgStringgg",userImageString);
             }
+
             @Override
             public void onFetchFailure(String errorMessage) {
                 // Handle the error message here

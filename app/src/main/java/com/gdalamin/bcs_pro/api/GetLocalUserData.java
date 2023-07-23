@@ -20,41 +20,37 @@ public class GetLocalUserData {
     public GetLocalUserData(Context context) {
         this.context = context;
     }
-//    PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(context);
 
     public void fetchDataFromAPI(String userId, final APICallback callback) {
-        // API endpoint URL
         String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=" + userId;
 
-        // Instantiate the RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        // Create a JSON request to fetch the data
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Parse the JSON response
-                            int totalCorrect = response.getInt("totalCorrect");
-                            int totalQuestions = response.getInt("totalQuestions");
-                            int totalWrong = response.getInt("totalWrong");
-                            int totalNotAnswered = response.getInt("totalNotAnswered");
-                            String userName = response.getString("userName");
-                            String totalExamCount = response.getString("examCount");
-                            String localUserRank = response.getString("rank");
-                            double mark = response.getDouble("averageMark") * 10;
-                            int localUserMark = (int) Math.floor(mark);
-                            String userImgString = response.getString("userImage");
+                            // Handle null values for integers
+                            int totalCorrect = response.isNull("totalCorrect") ? 0 : response.getInt("totalCorrect");
+                            int totalQuestions = response.isNull("totalQuestions") ? 0 : response.getInt("totalQuestions");
+                            int totalWrong = response.isNull("totalWrong") ? 0 : response.getInt("totalWrong");
+                            int totalNotAnswered = response.isNull("totalNotAnswered") ? 0 : response.getInt("totalNotAnswered");
+                            int examCount = response.isNull("examCount") ? 0 : response.getInt("examCount");
+                            int rank = response.isNull("rank") ? 0 : response.getInt("rank");
 
+                            // Handle null value for double (averageMark)
+                            double averageMark = response.isNull("averageMark") ? 0.0 : response.getDouble("averageMark") * 10;
+                            int localUserMark = (int) Math.floor(averageMark);
 
+                            // Handle null values for strings
+                            String userName = response.isNull("userName") ? "" : response.getString("userName");
+                            String userImgString = response.isNull("userImage") ? "" : response.getString("userImage");
 
-                            // Invoke the callback with the fetched values
                             callback.onFetchSuccess(totalCorrect, totalQuestions, totalWrong, totalNotAnswered,
-                                    userName, totalExamCount,localUserRank,localUserMark,userImgString);
+                                    userName, examCount, rank, localUserMark, userImgString);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            // Invoke the callback with an error message
                             callback.onFetchFailure("Error parsing JSON response");
                         }
                     }
@@ -62,22 +58,18 @@ public class GetLocalUserData {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Handle error response
                         error.printStackTrace();
-                        // Invoke the callback with an error message
                         callback.onFetchFailure("API request failed");
                     }
                 });
 
-        // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
 
-    // Callback interface to handle API fetch results
     public interface APICallback {
         void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
-                            int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
-                            int localUserMark,String userImageString);
+                            int totalNotAnswered, String userName, int examCount, int rank,
+                            int localUserMark, String userImageString);
 
         void onFetchFailure(String errorMessage);
     }
