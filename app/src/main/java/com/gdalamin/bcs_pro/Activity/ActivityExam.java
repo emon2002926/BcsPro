@@ -331,7 +331,6 @@ public class ActivityExam extends AppCompatActivity {
         ExamResult saveResult = new ExamResult();
         ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://emon.searchwizy.com/api/saveTest2.php", saveResult);
 
-//        resultSaver.saveResult();
 
 
 

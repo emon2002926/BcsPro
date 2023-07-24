@@ -104,20 +104,6 @@ public class HomeFragment extends Fragment {
 
         preferencesUserInfo = new PreferencesUserInfo(getContext());
 
-        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        googleSignInClient = GoogleSignIn.getClient(view.getContext(), googleSignInOptions);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
-        if (account !=null){
-            String email = account.getEmail();
-            SharedPreferences sharedPreferences1= getActivity().getSharedPreferences("LoginInfo", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences1.edit();
-            editor.putString("key_phone", email);
-            editor.commit();
-        }
-
-
-
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

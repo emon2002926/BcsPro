@@ -121,7 +121,6 @@ public class DashBordFragment extends Fragment {
             }
         });
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         base64LocalImage = preferencesUserInfo.getString("userImage");
 
 
@@ -133,33 +132,14 @@ public class DashBordFragment extends Fragment {
             profileImage.setImageResource(R.drawable.test_profile_image);
         }
 
-        if (account != null) {
-            userId = account.getEmail();
-             userName = account.getDisplayName();
 
-            userIdTv.setText("ID: "+userId);
-            if (base64LocalImage.isEmpty()){
-//                getUserProfileImage(userId);
-            }
-            userNameTextView.setText(userName);
-
-            // Use the email for further processing
-        } else {
-            // User is not signed in
-            userId = preferencesUserInfo.getString("key_phone");
+        userId = preferencesUserInfo.getString("key_phone");
+        if (!userId.isEmpty()){
             userName = preferencesUserInfo.getString("name");
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
-//            getUserProfileImage(userId);
-
-            if (base64LocalImage.isEmpty()){
-//                getUserProfileImage(userId);
-            }
-            if (userId !=null && userName!=null){
-
-
-            }
         }
+
 
 
         String totalQuestions = preferencesUserInfo.getString("totalQuestions");

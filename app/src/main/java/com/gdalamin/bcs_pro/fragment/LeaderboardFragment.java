@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,12 +70,15 @@ public class LeaderboardFragment extends Fragment {
 
         fetchDataFromServer();
 
+
+
+
         return view;
 
     }
 
     private void fetchDataFromServer() {
-        String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=10"; // Replace with your API endpoint URL
+        String url = "https://emon.searchwizy.com/getLeaderbord.php"; // Replace with your API endpoint URL
 
         animationView.playAnimation();
         // Create a cache directory for caching the response
@@ -105,6 +109,7 @@ public class LeaderboardFragment extends Fragment {
                                     int totalWrong = marksObj.getInt("totalWrong");
                                     int totalNotAnswered = marksObj.getInt("totalNotAnswered");
                                     int totalExamsTaken = marksObj.getInt("totalExamsTaken");
+                                    String userRank = marksObj.getString("rank");
                                     String userName = marksObj.getString("userName");
                                     String userBase64ImageString = marksObj.getString("userImage");
 
@@ -114,7 +119,7 @@ public class LeaderboardFragment extends Fragment {
 
 
                                     LeaderbordModel userMarks = new LeaderbordModel(userId, averageMark, totalCorrect, totalWrong, totalNotAnswered, totalExamsTaken,
-                                            userName, userBase64ImageString,totalQuestions);
+                                            userName, userBase64ImageString,totalQuestions,userRank);
                                     userMarksList.add(userMarks);
                                 }
                                 adapter.notifyDataSetChanged();
@@ -131,9 +136,6 @@ public class LeaderboardFragment extends Fragment {
                                 };
                                 long delayMillis = 5000; // 2 seconds
                                 handler.postDelayed(runnable, delayMillis);
-
-
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -168,4 +170,6 @@ public class LeaderboardFragment extends Fragment {
         // Add the request to the request queue
         requestQueue.add(request);
     }
+
+
 }

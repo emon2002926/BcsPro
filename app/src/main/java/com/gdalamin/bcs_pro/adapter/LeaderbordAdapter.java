@@ -51,22 +51,33 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_PROFILE) {
             // Bind data for the profile layout at the top
-            // Example: holder.profileImageView.setImageResource(R.drawable.profile_image);
-            // You can access the views in your profile_layout using the 'holder' object
+
             PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(holder.txtLocalUsername.getContext());
             String base64LocalImage = preferencesUserInfo.getString("userImage");
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(holder.txtLocalUsername.getContext());
-            if (account !=null){
-               String userName = account.getDisplayName();
-                holder.txtLocalUsername.setText(userName);
-            }else {
-                String userName = preferencesUserInfo.getString("name");
+            String userName  = preferencesUserInfo.getString("name").trim();
 
-                holder.txtLocalUsername.setText(userName);
+            holder.txtLocalUsername.setText(userName);
+
+            String userId = preferencesUserInfo.getString("key_phone").trim();
+            Log.d("kfdslh",userId);
+
+            LeaderbordModel user = findUserById(userId);
+            if (user != null) {
+                String userRank = user.getUserRank();
+                holder.txtLocalUserRank.setText(userRank);
+
+                int userPoint = (int) Math.floor(user.getAverageMark() * 10);
+                holder.txtLocalUserPoint.setText(String.valueOf(userPoint));
+                Log.d("fglhkggg",userRank);
+            } else {
+                holder.txtLocalUserRank.setText("00");
+                holder.txtLocalUserPoint.setText("00");
             }
 
-            holder.txtLocalUserPoint.setText(String.valueOf(preferencesUserInfo.getInt("localUserPoint")));
-            holder.txtLocalUserRank.setText(preferencesUserInfo.getString("localUserRank"));
+
+
+
+
 
 
             Bitmap bitmapLocalImage = convertBase64ToBitmap(base64LocalImage);
@@ -84,8 +95,13 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
             holder.txtCounter.setText(String.valueOf(position)+".");
 
             String base64ImageString = leaderbordModel.getBase64ImageString();
-            Bitmap bitmap = convertBase64ToBitmap(base64ImageString);
-            holder.imgProfile.setImageBitmap(bitmap);
+            if (!base64ImageString.isEmpty()){
+                Bitmap bitmap = convertBase64ToBitmap(base64ImageString);
+                holder.imgProfile.setImageBitmap(bitmap);
+            }else {
+                holder.imgProfile.setImageResource(R.drawable.test_profile_image);
+            }
+
 
             holder.txtPoints.setText(String.valueOf(userPoint));
 
@@ -203,5 +219,15 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
     public Bitmap convertBase64ToBitmap(String base64Image) {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+    private LeaderbordModel findUserById(String userId) {
+        for (LeaderbordModel userMarks : userMarksList) {
+            if (userMarks.getUserId().equals(userId)) {
+                return userMarks;
+            }
+        }
+        // Return null if the userId is not found in the list
+        return null;
     }
 }

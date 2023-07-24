@@ -12,13 +12,15 @@ import androidx.annotation.Keep;
     private int totalQuestions;
     private String userName;
 
+    private String userRank;
+
     private String base64ImageString;
 
     public LeaderbordModel(){
 
     }
     public LeaderbordModel(String userId, double averageMark, int totalCorrect, int totalWrong, int totalNotAnswered, int totalExamsTaken
-            , String userName,String base64ImageString,int totalQuestions) {
+            , String userName,String base64ImageString,int totalQuestions,String userRank) {
         this.userId = userId;
         this.averageMark = averageMark;
         this.totalCorrect = totalCorrect;
@@ -28,6 +30,7 @@ import androidx.annotation.Keep;
         this.userName = userName;
         this.base64ImageString = base64ImageString;
         this.totalQuestions = totalQuestions;
+        this.userRank = userRank;
     }
 
     public String getUserId() {
@@ -100,5 +103,13 @@ import androidx.annotation.Keep;
 
     public void setTotalQuestions(int totalQuestions) {
         this.totalQuestions = totalQuestions;
+    }
+
+    public String getUserRank() {
+        return userRank;
+    }
+
+    public void setUserRank(String userRank) {
+        this.userRank = userRank;
     }
 }

@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -62,6 +63,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private static final String API_URL= ApiKeys.API_URL;
 
+    PreferencesUserInfo preferencesUserInfo;
 
 
     ProgressBar progressBar;
@@ -72,6 +74,7 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+        preferencesUserInfo = new PreferencesUserInfo(ActivityLogin.this);
 
         signInTv = findViewById(R.id.signInTv);
         signUpTv = findViewById(R.id.signUpTv);
@@ -323,6 +326,7 @@ public class ActivityLogin extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 String name = account.getDisplayName();
                 String email = account.getEmail();
+                preferencesUserInfo.saveString("key_phone",email);
                 signUp(name, email,"");
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
