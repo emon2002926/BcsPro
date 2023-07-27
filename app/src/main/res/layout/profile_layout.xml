@@ -49,7 +49,14 @@
                 android:id="@+id/userIdTv"
                 />
 
+
         </LinearLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:paddingTop="10dp"
+            android:src="@drawable/baseline_create_24"/>
 
     </LinearLayout>
 

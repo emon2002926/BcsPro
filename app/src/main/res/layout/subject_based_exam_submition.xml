@@ -18,10 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Geography (Bangladesh and the World), Environment and Disaster Management"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:id="@+id/tvSubjectName"
             android:gravity="center"
             android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:textStyle="bold"
             android:textColor="@color/LiteBlack"
 
@@ -41,23 +43,42 @@
                 android:orientation="vertical">
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:textColor="@color/LiteBlack2"
-                    android:text="Time (MAX minutes 18) "/>
+                    android:layout_marginStart="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:maxLines="1"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingStart="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/LiteBlack2"
+                        android:text="Time  "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(MAX minutes 18)"
+                        android:textSize="15sp"
+
+                        />
+
+                </LinearLayout>
+
 
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/dull_baground"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:padding="5dp"
                     android:layout_marginTop="10dp"
                     android:inputType="number"
@@ -75,24 +96,38 @@
                 android:orientation="vertical">
 
 
-
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="10dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/LiteBlack2"
-                    android:text="Time (Max question 50) "/>
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="start"
+                        android:textStyle="bold"
+                        android:textColor="@color/LiteBlack2"
+                        android:text="Question "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="  (Max  50) "/>
+
+
+                </LinearLayout>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:background="@drawable/round_back_white50_10"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/dull_baground"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp"
                     android:padding="5dp"
                     android:inputType="number"
                     android:textAlignment="center"
@@ -116,13 +151,13 @@
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:text="Start Exam"
-            android:padding="15dp"
+            android:padding="12dp"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
             android:gravity="center"
             android:id="@+id/btnSubmit"
             android:background="@drawable/round_sceondery_button_100"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:textColor="@color/white"/>
 
         <TextView
@@ -131,7 +166,7 @@
             android:text="Not Now"
             android:id="@+id/btnCancal"
             android:gravity="center"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="35dp"
             android:textSize="16sp"
             android:layout_marginTop="5dp"
             android:padding="10dp"

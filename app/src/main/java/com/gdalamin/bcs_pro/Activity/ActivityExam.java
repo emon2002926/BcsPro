@@ -90,9 +90,9 @@ public class ActivityExam extends AppCompatActivity {
             onBackPressed();
         });
 
-        String title = getIntent().getStringExtra("titleText");
+        String subjectName = getIntent().getStringExtra("titleText");
 
-        textView.setText(title);
+        textView.setText(subjectName);
 
         floatingActionButton = findViewById(R.id.btnSubmit);
 
@@ -162,8 +162,6 @@ public class ActivityExam extends AppCompatActivity {
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
                 time = 100;
                 questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
-
-
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
                 time = 50;
@@ -185,7 +183,7 @@ public class ActivityExam extends AppCompatActivity {
 
             showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
             showMcq.processdata( API_URL+questionType);
-            Log.d("questionUrl",API_URL+questionType);
+
 
         }
     }

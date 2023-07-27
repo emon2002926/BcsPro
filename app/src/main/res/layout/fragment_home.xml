@@ -245,6 +245,7 @@
                                             android:textSize="18sp"
                                             android:paddingTop="10dp"
                                             android:paddingBottom="10dp"
+                                            android:textStyle="bold"
                                             android:textColor="@color/darkTangerine"
                                             />
                                         <ImageView
@@ -419,6 +420,7 @@
                                     android:layout_weight="1"
                                     android:textColor="@color/darkTangerine"
                                     android:textSize="18sp"
+                                    android:textStyle="bold"
                                     android:layout_gravity="center"
                                     />
 
@@ -469,6 +471,7 @@
                                             android:layout_marginEnd="20dp"
                                             android:layout_weight="1"
                                             android:gravity="fill"
+                                            android:textStyle="bold"
                                             android:text=" Quiz Quiz"
                                             android:textColor="@color/darkTangerine"
                                             android:textSize="18sp" />
@@ -480,23 +483,18 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@id/l5"
-                                        android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
+                                        android:layout_marginStart="15dp"
                                         android:orientation="horizontal">
 
                                         <TextView
-
                                             android:id="@+id/q1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="center"
+                                            android:gravity="start"
                                             android:text="Easy and fun way to Learn "
                                             android:textSize="14sp"
-                                            android:layout_marginStart="5dp"
-                                            android:padding="4dp"
-
                                             />
-
 
                                     </LinearLayout>
 
@@ -507,7 +505,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     android:layout_weight="5"
-                                    android:padding="2dp"
 
                                     >
 
@@ -515,6 +512,8 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:src="@drawable/runing_clock"
+                                        android:padding="15dp"
+
                                         />
                                 </LinearLayout>
 
