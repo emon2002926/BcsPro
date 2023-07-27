@@ -11,113 +11,149 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="All  Exam"
+        android:text="All Exam"
         android:padding="15dp"
-        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
         android:gravity="center"
         android:textColor="@color/darkTangerine"
         />
 
 
-    <RelativeLayout
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+    <LinearLayout
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         android:id="@+id/layout25Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:padding="18dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:background="@drawable/round_back_white50_10"
         >
 
+        <LinearLayout
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/round_back_white50_100"
+            android:id="@+id/iconBackground1">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/option25Icon"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:padding="3dp"
+                app:riv_corner_radius="10dp"
+                />
+        </LinearLayout>
         <TextView
             android:id="@+id/option25Tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:layout_marginTop="15sp"
-            android:layout_marginEnd="15sp"
-            android:layout_marginBottom="15sp"
+            android:layout_marginStart="20dp"
             android:text="50 Question-25 Minutes"
+            android:layout_gravity="center_vertical"
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/round_back_white50_100"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:id="@+id/option25Icon"
-            />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         android:id="@+id/layout50Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
+        android:padding="18dp"
+        android:orientation="horizontal"
         android:background="@drawable/round_back_white50_10"
         >
+
+        <LinearLayout
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/round_back_white50_100"
+            android:id="@+id/iconBackground2">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/option50Icon"
+                android:scaleType="fitXY"
+                android:padding="3dp"
+                android:layout_gravity="center"
+                app:riv_corner_radius="10dp"
+                />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/option50Tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:layout_marginTop="15sp"
-            android:layout_marginEnd="15sp"
-            android:layout_marginBottom="15sp"
+            android:layout_marginStart="20dp"
             android:text="100 Question-50 Minutes"
-            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
             android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+
             />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/round_back_white50_100"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:id="@+id/option50Icon"
-            />
-    </RelativeLayout>
+
+    </LinearLayout>
 
 
-    <RelativeLayout
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+    <LinearLayout
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         android:id="@+id/layout100Min"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:padding="18dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
         android:background="@drawable/round_back_white50_10"
         >
 
+
+
+        <LinearLayout
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/round_back_white50_100"
+            android:id="@+id/iconBackground3">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/option100Icon"
+                android:scaleType="fitXY"
+                android:padding="3dp"
+                android:layout_gravity="center"
+                app:riv_corner_radius="10dp"
+                />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/option100Tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:layout_marginTop="15sp"
-            android:layout_marginEnd="15sp"
-            android:layout_marginBottom="15sp"
+            android:layout_marginStart="20dp"
             android:text="200 Question-100 Minutes"
-            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
             android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/round_back_white50_100"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:id="@+id/option100Icon"
-            />
-    </RelativeLayout>
+    </LinearLayout>
 
 
 
@@ -133,7 +169,7 @@
         android:gravity="center"
         android:id="@+id/btnExamStart"
         android:background="@drawable/round_sceondery_button_100"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/white"/>
 
 
@@ -146,7 +182,7 @@
         android:gravity="center"
         android:layout_marginBottom="30dp"
         android:textSize="18sp"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textColor="@color/tangerine"/>
 
 

@@ -275,9 +275,13 @@ public class HomeFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
 
-        final RelativeLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
-        final RelativeLayout option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
-        final RelativeLayout option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
+        final LinearLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
+        final LinearLayout option2Layout = bottomSheetView.findViewById(R.id.layout50Min);
+        final LinearLayout option3Layout = bottomSheetView.findViewById(R.id.layout100Min);
+        option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+        option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+        option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
+
         final ImageView icon1 = bottomSheetView.findViewById(R.id.option25Icon);
         final ImageView icon2 = bottomSheetView.findViewById(R.id.option50Icon);
         final ImageView icon3 = bottomSheetView.findViewById(R.id.option100Icon);
@@ -290,8 +294,7 @@ public class HomeFragment extends Fragment {
 
                 case R.id.layout25Min:
                     selectedOption(option1Layout, icon1);
-                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
+
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 50;
@@ -299,8 +302,6 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.layout50Min:
                     selectedOption(option2Layout, icon2);
-                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option3Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 100;
@@ -308,8 +309,6 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.layout100Min:
                     selectedOption(option3Layout, icon3);
-                    option1Layout.setBackgroundResource(R.drawable.round_back_white50_10);
-                    option2Layout.setBackgroundResource(R.drawable.round_back_white50_10);
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 200;
@@ -430,10 +429,10 @@ public class HomeFragment extends Fragment {
         queue.add(request);
     }
 
-    private void selectedOption(RelativeLayout selectedOptionLayout , ImageView selectedOptionIcon) {
+    private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
-        selectedOptionIcon.setImageResource(R.drawable.baseline_check_24);
-        selectedOptionLayout.setBackgroundResource(R.drawable
-                .round_back_selected_option);
+        selectedOptionIcon.setImageResource(R.drawable.black_dot);
+//        selectedOptionLayout.setBackgroundResource(R.drawable
+//                .round_back_selected_option);
     }
 }

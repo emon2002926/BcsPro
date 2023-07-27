@@ -88,7 +88,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                         @Override
                         public void onClick(View view) {
 
-                            //  Show a bottom sheet dialog to allow the user to submit the answers
+                            //  Show a bottom sheet dialog to allow the user to submit the num of question  and time
                             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
                             View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
