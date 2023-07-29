@@ -44,7 +44,7 @@
                 android:id="@+id/profileImageID"
                 android:src="@drawable/test_profile_image"
                 android:scaleType="centerCrop"
-                android:padding="2dp"
+                android:padding="5dp"
                 app:riv_corner_radius="100dp"
                 />
 

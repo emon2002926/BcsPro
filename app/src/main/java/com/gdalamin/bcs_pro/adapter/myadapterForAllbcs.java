@@ -60,7 +60,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
             String SUBJECT_CODE = String.valueOf(position+1);
 
-
+            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
 
 
             if (LOGIC == 2){
@@ -71,6 +71,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                 holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.cardView2.setVisibility(View.VISIBLE);
+
 
 
                 if (subCode ==3){
@@ -213,15 +214,16 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
     static class myviewholder extends RecyclerView.ViewHolder {
-        TextView t1, t2,tvSubject,tvPosition;
+        TextView t1, numOfQuestion,tvSubject,tvPosition;
         LinearLayout cardView1,cardView2;
+
 
 
         public myviewholder(@NonNull View itemView) {
             super(itemView);
 
             t1 = itemView.findViewById(R.id.questionBatch);
-            t2 = itemView.findViewById(R.id.numOFQuestion);
+            numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
             cardView1 = itemView.findViewById(R.id.layout1);
             cardView2 = itemView.findViewById(R.id.layout2);
             tvSubject = itemView.findViewById(R.id.tvSubject);

@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:visibility="gone"
+            android:padding="12dp"
+            android:visibility="visible"
             android:id="@+id/layout1"
             android:background="@drawable/lite_round_baground"
 
@@ -41,6 +41,7 @@
                     android:textColor="@color/LiteBlack2"
                     android:layout_weight="1"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:id="@+id/questionBatch"
                     android:text="44th Batch BCS Question"/>
 
@@ -67,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/green"
                     android:id="@+id/numOFQuestion"
                     android:text="Total"/>
 

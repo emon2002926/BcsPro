@@ -4,13 +4,13 @@ import androidx.annotation.Keep;
 
 @Keep public class ModelForLectureAndAllQuestion {
 
-    String lectureDetails,pdfLink,pdfDate,course,text,subjects,subjectCode;
+    String lectureDetails,pdfLink,pdfDate,course,text,subjects,subjectCode,totalQuestion;
 
     public ModelForLectureAndAllQuestion(){
 
     }
     public ModelForLectureAndAllQuestion(String lectureDetails, String pdfLink, String pdfDate
-            ,String course,String text,String subjects,String subjectCode){
+            ,String course,String text,String subjects,String subjectCode,String totalQuestion){
 
         this.lectureDetails = lectureDetails;
         this.pdfLink = pdfLink;
@@ -19,6 +19,7 @@ import androidx.annotation.Keep;
         this.text = text;
         this.subjects= subjects;
         this.subjectCode = subjectCode;
+        this.totalQuestion = totalQuestion;
     }
 
     public String getSubjects() {
@@ -67,6 +68,14 @@ import androidx.annotation.Keep;
 
     public String getPdfLink() {
         return pdfLink;
+    }
+
+    public String getTotalQuestion() {
+        return totalQuestion;
+    }
+
+    public void setTotalQuestion(String totalQuestion) {
+        this.totalQuestion = totalQuestion;
     }
 
     public void setPdfLink(String pdfLink) {
