@@ -132,6 +132,10 @@ public class HomeFragment extends Fragment {
         tvPractice = view.findViewById(R.id.tvPractice);
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
 
+
+
+
+
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
             int subCode =0;

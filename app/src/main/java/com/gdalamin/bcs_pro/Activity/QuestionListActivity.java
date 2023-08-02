@@ -1,5 +1,6 @@
 package com.gdalamin.bcs_pro.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,13 +52,24 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
         textView = findViewById(R.id.topTv);
-        textView.setText("Important Question");
+
 
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> {
             onBackPressed();
         });
 
+
+
+        Intent intent = getIntent();
+        String titleText=intent.getStringExtra("titleText");
+
+        if (!titleText.isEmpty()){
+            textView.setText(titleText);
+
+        }else {
+            textView.setText("Important Question");
+        }
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
         int subCode = preferencesManager.getInt("subCode");
@@ -77,6 +89,7 @@ public class QuestionListActivity extends AppCompatActivity {
             String subjectName = preferencesManager.getString("bcsYearName");
             String apiWithSql = ApiKeys.API_WITH_SQL;
 
+            Log.d("fdkghfj",subjectName);
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             processdata(url2);

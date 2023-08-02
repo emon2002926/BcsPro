@@ -69,6 +69,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
                     android:textSize="14dp"
+                    android:textStyle="italic"
                     android:textColor="@color/green"
                     android:id="@+id/numOFQuestion"
                     android:text="Total"/>
@@ -95,7 +96,9 @@
                 android:text="1)"
                 android:id="@+id/tvPosition"
                 android:textStyle="bold"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 />
             <TextView
@@ -103,11 +106,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:id="@+id/tvSubject"
+                android:layout_marginStart="10dp"
                 android:padding="10dp"
                 android:text="International Affairs"
                 android:layout_weight="1"
                 android:textColor="@color/LiteBlack2"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:layout_gravity="center"
                 />
 

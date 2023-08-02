@@ -6,6 +6,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +48,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
 
-            SharedPreferences sharedPreferences = holder.t1.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
+//            SharedPreferences sharedPreferences = holder.bcsYearName.getContext().getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
-            SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.t1.getContext());
+            SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
             int subCode = preferencesManager.getInt("subCode");
@@ -80,19 +81,21 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                         preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                         preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
-                        view.getContext().startActivity(new Intent(view.getContext(),QuestionListActivity.class));
+                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                        intent.putExtra("titleText",subjectName);
+                        view.getContext().startActivity(intent);
                     });
 
 
                 }else if (subCode == 2){
+
+                    ///This will open Subject based Exam
                     holder.cardView2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
                             //  Show a bottom sheet dialog to allow the user to submit the num of question  and time
                             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
                             View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
 
                             bottomSheetDialog.setContentView(bottomSheetView);
                             bottomSheetDialog.show();
@@ -102,10 +105,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                             EditText edTime = bottomSheetView.findViewById(R.id.edTime);
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
-
-
-                            preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
-
 
 
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
@@ -138,14 +137,16 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 }
                                 else {
 
-                                    preferencesManager.saveInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
-//                                    editor.putInt("examQuestionNum", Integer.valueOf(NUM_OF_QUESTION));
+                                    preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
+                                    preferencesManager.saveInt("examQuestionNum", Integer.parseInt(NUM_OF_QUESTION));
 
-                                    preferencesManager.saveInt("time",Integer.valueOf(time));
+                                    preferencesManager.saveInt("time",Integer.parseInt(time));
                                     preferencesManager.saveInt("LogicForExam",2);
+
 
                                     Intent intent = new Intent(view.getContext(),ActivityExam.class);
                                     intent.putExtra("titleText",subjectName);
+
 
                                     view.getContext().startActivity(intent);
 
@@ -170,8 +171,8 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             }
             else if (LOGIC ==1) {
 
-
-                holder.t1.setText(data[position].getText());
+/////////  This will open Older Bcs Question
+                holder.bcsYearName.setText(data[position].getText());
                 holder.cardView1.setVisibility(View.VISIBLE);
                 holder.cardView2.setVisibility(View.GONE);
                 holder.cardView1.setOnClickListener(new View.OnClickListener() {
@@ -179,14 +180,13 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                     public void onClick(View view) {
 
                         String subjectName = data[position].getText();
-//                        Toast.makeText(view.getContext(),subjectName,Toast.LENGTH_SHORT).show();
-//                        sharedPreferences.getString("bcsYearName",subjectName);
 
                         preferencesManager.saveString("bcsYearName",subjectName);
 
                         preferencesManager.saveInt("subCode",4);
 
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                        intent.putExtra("titleText",subjectName);
                         view.getContext().startActivity(intent);
                     }
                 });
@@ -214,7 +214,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
 
     static class myviewholder extends RecyclerView.ViewHolder {
-        TextView t1, numOfQuestion,tvSubject,tvPosition;
+        TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
         LinearLayout cardView1,cardView2;
 
 
@@ -222,7 +222,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
         public myviewholder(@NonNull View itemView) {
             super(itemView);
 
-            t1 = itemView.findViewById(R.id.questionBatch);
+            bcsYearName = itemView.findViewById(R.id.questionBatch);
             numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
             cardView1 = itemView.findViewById(R.id.layout1);
             cardView2 = itemView.findViewById(R.id.layout2);

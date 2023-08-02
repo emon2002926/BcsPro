@@ -100,7 +100,6 @@ public class ExamResultSaver {
             Log.d("ExamResultDebug", "ExamResult data: " + jsonParams.toString());
         } catch (JSONException e) {
 
-            Log.d("jjjjjjjjjcjtr",String.valueOf(e));
             e.printStackTrace();
         }
 
@@ -110,14 +109,12 @@ public class ExamResultSaver {
                     @Override
                     public void onResponse(String response) {
                         // Handle the server response if needed
-                        Log.d("ExamResultDebug", "Server Response: " + response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error responses
-                        Log.e("ExamResultDebug", "Error: " + error.toString());
                     }
                 }) {
             @Override
