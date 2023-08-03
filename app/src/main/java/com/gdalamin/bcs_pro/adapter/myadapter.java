@@ -141,7 +141,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 questionslists.add(questionList);
 
                 // Set the text of the options to their respective text views
-                holder.textViewPosition2.setText(position+") ");
+                holder.textViewPosition2.setText((position+1)+") ");
                 holder.questionTv.setText(convertToUTF8(question));
                 holder.option1TV.setText(convertToUTF8(option1));
                 holder.option2TV.setText(convertToUTF8(option2));
@@ -162,7 +162,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.questionImg.setImageBitmap(bitmap);
                     holder.questionImg.setVisibility(View.VISIBLE);
                     holder.textViewPosition.setVisibility(View.VISIBLE);
-                    holder.textViewPosition.setText(position+")");
+                    holder.textViewPosition.setText((position+1)+")");
                 }
 
                 //Showing Image or text with there respective logic

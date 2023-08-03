@@ -343,7 +343,7 @@ public class ActivityExam extends AppCompatActivity {
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
 
             int subCode2 = Integer.parseInt(subCode);
-            if(subCode2 == 1){
+            if(subCode2 >= 1){
                 if (questionLists != null){
 
                     int correctAnswer = 0;
@@ -382,6 +382,12 @@ public class ActivityExam extends AppCompatActivity {
                     String overallTotalMark = String.valueOf(overallMark);
 
 
+                    ///////////
+//
+                    saveResult.setTotalIA("0");
+                    saveResult.setCorrectIA("0");
+                    saveResult.setWrongIA("0");
+                    saveResult.setMarksIA("0");
                     ///////////
                     saveResult.setTotalBA("0");
                     saveResult.setCorrectBA("0");
@@ -429,6 +435,261 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setMarksICT("0");
 
 
+
+                    saveResult.setTotal(String.valueOf(totalQuestion));
+                    saveResult.setCorrect(overallCorrectAnswer);
+                    saveResult.setWrong(overallWrongAnswer);
+                    saveResult.setMark(overallTotalMark);
+                    saveResult.setUserId(userId);
+                    saveResult.setDate(examDateTime);
+                    saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
+
+                    resultSaver.saveResult();
+
+
+
+
+                    showMcq.stopTimer();
+                    LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+                    floatingActionButton.setVisibility(View.GONE);
+                    sharedPreferences.edit().clear().apply();
+
+
+
+                }
+
+            }
+/*
+            else if (subCode2 == 2){
+                if (questionLists != null){
+
+                    int correctAnswer = 0;
+                    int totalAnswered = 0;
+                    int totalWrong = 0;
+
+
+                    for (int i =0; i < questionLists.size(); i++){
+                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
+                        int getQuestionAnswer = questionLists.get(i).getAnswer();
+
+//                Check UserSelected Answer is correct Answer
+                        if (getQuestionAnswer == getUserSelectedOption){
+                            correctAnswer++;
+                        }
+                        //Check amount total answred
+                        if (getUserSelectedOption != 0) {
+                            totalAnswered++;
+                        }
+                        //check amount of wrong answred
+                        if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
+                            totalWrong++;
+                        }
+
+                        Toast.makeText(ActivityExam.this,"Result Savedytew "+String.valueOf(totalAnswered),Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+                    double overallCutMarks = (double) totalWrong / 2;
+                    double overallMark = (double) correctAnswer - overallCutMarks;
+                    String overallAnswered = String.valueOf(totalAnswered);
+                    int overallNotAnswered = totalQuestion - totalAnswered;
+                    String overallCorrectAnswer = String.valueOf(correctAnswer);
+                    String overallWrongAnswer = String.valueOf(totalWrong);
+                    String overallTotalMark = String.valueOf(overallMark);
+
+
+
+                    ////////////////////////////
+//
+//                    saveResult.setTotalIA("0");
+//                    saveResult.setCorrectIA("0");
+//                    saveResult.setWrongIA("0");
+//                    saveResult.setMarksIA("0");
+                    ///////////
+                    saveResult.setTotalBA("0");
+                    saveResult.setCorrectBA("0");
+                    saveResult.setWrongBA("0");
+                    saveResult.setMarksBA("0");
+                    //////////////
+                    saveResult.setTotalB("0");
+                    saveResult.setCorrectB("0");
+                    saveResult.setWrongB("0");
+                    saveResult.setMarksB("0");
+                    ///////////////////////
+                    saveResult.setTotalMAV("0");
+                    saveResult.setCorrectMAV("0");
+                    saveResult.setWrongMAV("0");
+                    saveResult.setMarksMAV("0");
+                    ///////////////////////
+                    saveResult.setTotalG("0");
+                    saveResult.setCorrectG("0");
+                    saveResult.setWrongG("0");
+                    saveResult.setMarksG("0");
+                    //////////////////////
+                    saveResult.setTotalML("0");
+                    saveResult.setCorrectML("0");
+                    saveResult.setWrongML("0");
+                    saveResult.setMarksML("0");
+                    /////////////////////////////////
+                    saveResult.setTotalEL("0");
+                    saveResult.setCorrectEL("0");
+                    saveResult.setWrongEL("0");
+                    saveResult.setMarksEL("0");
+                    /////////////////////
+                    saveResult.setTotalMS("0");
+                    saveResult.setCorrectMS("0");
+                    saveResult.setWrongMS("0");
+                    saveResult.setMarksMS("0");
+                    //////////////////////////
+                    saveResult.setTotalGS("0");
+                    saveResult.setCorrectGS("0");
+                    saveResult.setWrongGS("0");
+                    saveResult.setMarksGS("0");
+                    //////////////
+                    saveResult.setTotalICT("0");
+                    saveResult.setCorrectICT("0");
+                    saveResult.setWrongICT("0");
+                    saveResult.setMarksICT("0");
+
+
+                    saveResult.setTotalIA(String.valueOf(totalQuestion));
+                    saveResult.setCorrectIA(overallCorrectAnswer);
+                    saveResult.setWrongIA(overallWrongAnswer);
+                    saveResult.setMarksIA(overallTotalMark);
+
+
+                    saveResult.setTotal(String.valueOf(totalQuestion));
+                    saveResult.setCorrect(overallCorrectAnswer);
+                    saveResult.setWrong(overallWrongAnswer);
+                    saveResult.setMark(overallTotalMark);
+                    saveResult.setUserId(userId);
+                    saveResult.setDate(examDateTime);
+                    saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
+
+                    resultSaver.saveResult();
+
+
+                    Log.d("dgkhfdg", "userId: " + userId);
+                    Log.d("dgkhfdg", "examDateTime: " + examDateTime);
+
+                    Log.d("dgkhfdg", "totalQuestion: " + totalQuestion);
+                    Log.d("dgkhfdg", "overallAnswered: " + overallAnswered);
+                    Log.d("dgkhfdg", "overallCorrectAnswer: " + overallCorrectAnswer);
+                    Log.d("dgkhfdg", "overallWrongAnswer: " + overallWrongAnswer);
+                    Log.d("dgkhfdg", "overallTotalMark: " + overallTotalMark);
+                    Log.d("dgkhfdg", "overallNotAnswered: " + String.valueOf(overallNotAnswered));
+
+
+                    showMcq.stopTimer();
+                    LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+                    floatingActionButton.setVisibility(View.GONE);
+                    sharedPreferences.edit().clear().apply();
+
+
+
+                }
+
+            }
+            else if (subCode2 == 3){
+                if (questionLists != null){
+
+                    int correctAnswer = 0;
+                    int totalAnswered = 0;
+                    int totalWrong = 0;
+
+
+                    for (int i =0; i < questionLists.size(); i++){
+                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
+                        int getQuestionAnswer = questionLists.get(i).getAnswer();
+
+//                Check UserSelected Answer is correct Answer
+                        if (getQuestionAnswer == getUserSelectedOption){
+                            correctAnswer++;
+                        }
+                        //Check amount total answred
+                        if (getUserSelectedOption != 0) {
+                            totalAnswered++;
+                        }
+                        //check amount of wrong answred
+                        if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
+                            totalWrong++;
+                        }
+
+                        Toast.makeText(ActivityExam.this,"Result Savedytew "+String.valueOf(totalAnswered),Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+                    double overallCutMarks = (double) totalWrong / 2;
+                    double overallMark = (double) correctAnswer - overallCutMarks;
+                    String overallAnswered = String.valueOf(totalAnswered);
+                    int overallNotAnswered = totalQuestion - totalAnswered;
+                    String overallCorrectAnswer = String.valueOf(correctAnswer);
+                    String overallWrongAnswer = String.valueOf(totalWrong);
+                    String overallTotalMark = String.valueOf(overallMark);
+
+
+
+                    ////////////////////////////
+//
+                    saveResult.setTotalIA("0");
+                    saveResult.setCorrectIA("0");
+                    saveResult.setWrongIA("0");
+                    saveResult.setMarksIA("0");
+                    ///////////
+//                    saveResult.setTotalBA("0");
+//                    saveResult.setCorrectBA("0");
+//                    saveResult.setWrongBA("0");
+//                    saveResult.setMarksBA("0");
+                    //////////////
+                    saveResult.setTotalB("0");
+                    saveResult.setCorrectB("0");
+                    saveResult.setWrongB("0");
+                    saveResult.setMarksB("0");
+                    ///////////////////////
+                    saveResult.setTotalMAV("0");
+                    saveResult.setCorrectMAV("0");
+                    saveResult.setWrongMAV("0");
+                    saveResult.setMarksMAV("0");
+                    ///////////////////////
+                    saveResult.setTotalG("0");
+                    saveResult.setCorrectG("0");
+                    saveResult.setWrongG("0");
+                    saveResult.setMarksG("0");
+                    //////////////////////
+                    saveResult.setTotalML("0");
+                    saveResult.setCorrectML("0");
+                    saveResult.setWrongML("0");
+                    saveResult.setMarksML("0");
+                    /////////////////////////////////
+                    saveResult.setTotalEL("0");
+                    saveResult.setCorrectEL("0");
+                    saveResult.setWrongEL("0");
+                    saveResult.setMarksEL("0");
+                    /////////////////////
+                    saveResult.setTotalMS("0");
+                    saveResult.setCorrectMS("0");
+                    saveResult.setWrongMS("0");
+                    saveResult.setMarksMS("0");
+                    //////////////////////////
+                    saveResult.setTotalGS("0");
+                    saveResult.setCorrectGS("0");
+                    saveResult.setWrongGS("0");
+                    saveResult.setMarksGS("0");
+                    //////////////
+                    saveResult.setTotalICT("0");
+                    saveResult.setCorrectICT("0");
+                    saveResult.setWrongICT("0");
+                    saveResult.setMarksICT("0");
+
+
+                    saveResult.setTotalBA(String.valueOf(totalQuestion));
+                    saveResult.setCorrectBA(overallCorrectAnswer);
+                    saveResult.setWrongBA(overallWrongAnswer);
+                    saveResult.setMarksBA(overallTotalMark);
+
+
                     saveResult.setTotal(String.valueOf(totalQuestion));
                     saveResult.setCorrect(overallCorrectAnswer);
                     saveResult.setWrong(overallWrongAnswer);
@@ -462,6 +723,8 @@ public class ActivityExam extends AppCompatActivity {
 
             }
 
+
+ */
 
         }
         else {
