@@ -147,6 +147,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                     Intent intent = new Intent(view.getContext(),ActivityExam.class);
                                     intent.putExtra("titleText",subjectName);
 
+                                    bottomSheetDialog.dismiss();
 
                                     view.getContext().startActivity(intent);
 
@@ -171,7 +172,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             }
             else if (LOGIC ==1) {
 
-/////////  This will open Older Bcs Question
+/////////       This will open Older Bcs Question
                 holder.bcsYearName.setText(data[position].getText());
                 holder.cardView1.setVisibility(View.VISIBLE);
                 holder.cardView2.setVisibility(View.GONE);

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,34 +16,39 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
+import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.StringReader;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
 
@@ -52,7 +57,7 @@ public class ActivityExam extends AppCompatActivity {
 
     String API_URL= ApiKeys.API_URL;
     RecyclerView recview;
-    TextView textView,textViewTimer,btnBackTohome;
+    TextView textView,textViewTimer;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<>();
     SharedPreferences sharedPreferences;
@@ -71,6 +76,18 @@ public class ActivityExam extends AppCompatActivity {
     private RequestQueue requestQueue;
     ExamResult examResult;
 
+    private boolean mBooleanValue = false;
+
+
+    private ShowMcq.TimerCallback timerCallback;
+    private CountDownTimer countDownTimer;
+
+    public static int REQ_CODE2 = 0;
+
+    private BottomSheetDialog bottomSheetDialog;
+    private View bottomSheetView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +100,7 @@ public class ActivityExam extends AppCompatActivity {
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
 
-        btnBackTohome = findViewById(R.id.btnBackToHome);
-        btnBackTohome.setOnClickListener(view -> {
-//            startActivity(new Intent(ActivityExam.this,MainActivity.class));
-//            finish();
-            onBackPressed();
-        });
+
 
         String subjectName = getIntent().getStringExtra("titleText");
 
@@ -181,12 +193,139 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
 
-            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
-            showMcq.processdata( API_URL+questionType);
+//            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
+//            showMcq.processdata( API_URL+questionType);
 
 
+            processdata( API_URL+questionType);
         }
     }
+
+
+
+
+    public void processdata(String url) {
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        recview.setVisibility(View.VISIBLE);
+
+                        startTimer(NUM_OF_QUESTION * 30, textViewTimer);
+
+                        floatingActionButton.setVisibility(View.VISIBLE);
+
+                        GsonBuilder builder = new GsonBuilder().setLenient();
+                        Gson gson = builder.create();
+
+                        JsonReader reader = new JsonReader(new StringReader(response));
+                        reader.setLenient(true);
+
+                        model data[] = gson.fromJson(reader, model[].class);
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityExam.this,
+                                LinearLayoutManager.VERTICAL, false);
+
+                        recview.setLayoutManager(linearLayoutManager);
+                        myadapter adapter = new myadapter(data);
+                        recview.setAdapter(adapter);
+
+                        floatingActionButton.setOnClickListener(view -> {
+                            // Initialize counters for answered questions, correct answers, and wrong answers
+
+                            int answeredQuestions = 0;
+
+                            for (QuestionList question : questionLists) {
+                                int getUserSelectedOption = question.getUserSelecedAnswer();
+                                if (getUserSelectedOption != 0) {
+                                    answeredQuestions++;
+                                }
+                            }
+                            String answered = String.valueOf(answeredQuestions);
+
+
+                            if (REQ_CODE2 == 0){
+
+                                showSubmissionOption(answered, new SubmissionCallback() {
+                                    @Override
+                                    public void onSubmitClicked() {
+                                        mBooleanValue = !mBooleanValue;
+                                        adapter.setBooleanValue(mBooleanValue);
+
+                                    }
+                                });
+
+                            }else if (REQ_CODE2 ==2){
+
+                                if (bottomSheetDialog.isShowing()) {
+                                    // If showing, dismiss it to minimize
+                                    bottomSheetDialog.dismiss();
+                                } else {
+                                    // If not showing, show it to expand
+                                    bottomSheetDialog.setContentView(bottomSheetView);
+                                    bottomSheetDialog.show();
+                                }
+                            }
+
+
+
+
+                        });
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+        RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
+        queue.add(request);
+
+    }
+
+    private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
+        countDownTimer = new CountDownTimer(maxTimerSeconds * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long getHour = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
+                long getMinutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                long getSecond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+
+                String generateTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", getHour,
+                        getMinutes - TimeUnit.HOURS.toMinutes(getHour),
+                        getSecond - TimeUnit.MINUTES.toSeconds(getMinutes));
+
+                textViewTimer.setText(generateTime);
+
+            }
+
+            @Override
+            public void onFinish() {
+                if (timerCallback != null) {
+                    timerCallback.onTimerFinish();
+                }
+            }
+        };
+        countDownTimer.start();
+    }
+
+    public void stopTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            textViewTimer.setVisibility(View.GONE);
+        }
+    }
+
+
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -197,25 +336,6 @@ public class ActivityExam extends AppCompatActivity {
                  questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
 
 
-
-//                 Log.d("lkfdgjlk",String.valueOf(preferencesManager.getInt("SubjectCode")));
-                // Get the total number of questions from the intent
-
-                // Set a click listener for the floating action button
-                floatingActionButton.setOnClickListener(view -> {
-                    // Initialize counters for answered questions, correct answers, and wrong answers
-
-                    int answeredQuestions = 0;
-
-                    for (QuestionList question : questionLists) {
-                        int getUserSelectedOption = question.getUserSelecedAnswer();
-                        if (getUserSelectedOption != 0) {
-                            answeredQuestions++;
-                        }
-                    }
-                    String answered = String.valueOf(answeredQuestions);
-                    showSubmissionOption(answered);
-                });
             }
 
         }
@@ -247,7 +367,6 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-
     public void  finishExam(){
 
         //gating date
@@ -271,8 +390,10 @@ public class ActivityExam extends AppCompatActivity {
         String userId = sharedPreferences1.getString("key_phone", "");
 
 
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-        View bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
+         bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
+
 
         TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
         TextView correctTv = bottomSheetView.findViewById(R.id.correctTv);
@@ -337,19 +458,16 @@ public class ActivityExam extends AppCompatActivity {
 
 
 
-        if (!subCode.isEmpty())
-        {
+        if (!subCode.isEmpty()) {
 
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
 
             int subCode2 = Integer.parseInt(subCode);
             if(subCode2 >= 1){
                 if (questionLists != null){
-
                     int correctAnswer = 0;
                     int totalAnswered = 0;
                     int totalWrong = 0;
-
 
                     for (int i =0; i < questionLists.size(); i++){
                         int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
@@ -367,21 +485,15 @@ public class ActivityExam extends AppCompatActivity {
                         if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
                             totalWrong++;
                         }
-
-                        Toast.makeText(ActivityExam.this,"Result Savedytew "+String.valueOf(totalAnswered),Toast.LENGTH_SHORT).show();
-
                     }
 
 
                     double overallCutMarks = (double) totalWrong / 2;
                     double overallMark = (double) correctAnswer - overallCutMarks;
-                    String overallAnswered = String.valueOf(totalAnswered);
                     int overallNotAnswered = totalQuestion - totalAnswered;
                     String overallCorrectAnswer = String.valueOf(correctAnswer);
                     String overallWrongAnswer = String.valueOf(totalWrong);
                     String overallTotalMark = String.valueOf(overallMark);
-
-
                     ///////////
 //
                     saveResult.setTotalIA("0");
@@ -434,8 +546,6 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setWrongICT("0");
                     saveResult.setMarksICT("0");
 
-
-
                     saveResult.setTotal(String.valueOf(totalQuestion));
                     saveResult.setCorrect(overallCorrectAnswer);
                     saveResult.setWrong(overallWrongAnswer);
@@ -446,12 +556,10 @@ public class ActivityExam extends AppCompatActivity {
 
                     resultSaver.saveResult();
 
+                    stopTimer();
 
-
-
-                    showMcq.stopTimer();
                     LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-                    floatingActionButton.setVisibility(View.GONE);
+//                    floatingActionButton.setVisibility(View.GONE);
                     sharedPreferences.edit().clear().apply();
 
 
@@ -459,272 +567,6 @@ public class ActivityExam extends AppCompatActivity {
                 }
 
             }
-/*
-            else if (subCode2 == 2){
-                if (questionLists != null){
-
-                    int correctAnswer = 0;
-                    int totalAnswered = 0;
-                    int totalWrong = 0;
-
-
-                    for (int i =0; i < questionLists.size(); i++){
-                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
-                        int getQuestionAnswer = questionLists.get(i).getAnswer();
-
-//                Check UserSelected Answer is correct Answer
-                        if (getQuestionAnswer == getUserSelectedOption){
-                            correctAnswer++;
-                        }
-                        //Check amount total answred
-                        if (getUserSelectedOption != 0) {
-                            totalAnswered++;
-                        }
-                        //check amount of wrong answred
-                        if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
-                            totalWrong++;
-                        }
-
-                        Toast.makeText(ActivityExam.this,"Result Savedytew "+String.valueOf(totalAnswered),Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                    double overallCutMarks = (double) totalWrong / 2;
-                    double overallMark = (double) correctAnswer - overallCutMarks;
-                    String overallAnswered = String.valueOf(totalAnswered);
-                    int overallNotAnswered = totalQuestion - totalAnswered;
-                    String overallCorrectAnswer = String.valueOf(correctAnswer);
-                    String overallWrongAnswer = String.valueOf(totalWrong);
-                    String overallTotalMark = String.valueOf(overallMark);
-
-
-
-                    ////////////////////////////
-//
-//                    saveResult.setTotalIA("0");
-//                    saveResult.setCorrectIA("0");
-//                    saveResult.setWrongIA("0");
-//                    saveResult.setMarksIA("0");
-                    ///////////
-                    saveResult.setTotalBA("0");
-                    saveResult.setCorrectBA("0");
-                    saveResult.setWrongBA("0");
-                    saveResult.setMarksBA("0");
-                    //////////////
-                    saveResult.setTotalB("0");
-                    saveResult.setCorrectB("0");
-                    saveResult.setWrongB("0");
-                    saveResult.setMarksB("0");
-                    ///////////////////////
-                    saveResult.setTotalMAV("0");
-                    saveResult.setCorrectMAV("0");
-                    saveResult.setWrongMAV("0");
-                    saveResult.setMarksMAV("0");
-                    ///////////////////////
-                    saveResult.setTotalG("0");
-                    saveResult.setCorrectG("0");
-                    saveResult.setWrongG("0");
-                    saveResult.setMarksG("0");
-                    //////////////////////
-                    saveResult.setTotalML("0");
-                    saveResult.setCorrectML("0");
-                    saveResult.setWrongML("0");
-                    saveResult.setMarksML("0");
-                    /////////////////////////////////
-                    saveResult.setTotalEL("0");
-                    saveResult.setCorrectEL("0");
-                    saveResult.setWrongEL("0");
-                    saveResult.setMarksEL("0");
-                    /////////////////////
-                    saveResult.setTotalMS("0");
-                    saveResult.setCorrectMS("0");
-                    saveResult.setWrongMS("0");
-                    saveResult.setMarksMS("0");
-                    //////////////////////////
-                    saveResult.setTotalGS("0");
-                    saveResult.setCorrectGS("0");
-                    saveResult.setWrongGS("0");
-                    saveResult.setMarksGS("0");
-                    //////////////
-                    saveResult.setTotalICT("0");
-                    saveResult.setCorrectICT("0");
-                    saveResult.setWrongICT("0");
-                    saveResult.setMarksICT("0");
-
-
-                    saveResult.setTotalIA(String.valueOf(totalQuestion));
-                    saveResult.setCorrectIA(overallCorrectAnswer);
-                    saveResult.setWrongIA(overallWrongAnswer);
-                    saveResult.setMarksIA(overallTotalMark);
-
-
-                    saveResult.setTotal(String.valueOf(totalQuestion));
-                    saveResult.setCorrect(overallCorrectAnswer);
-                    saveResult.setWrong(overallWrongAnswer);
-                    saveResult.setMark(overallTotalMark);
-                    saveResult.setUserId(userId);
-                    saveResult.setDate(examDateTime);
-                    saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
-
-                    resultSaver.saveResult();
-
-
-                    Log.d("dgkhfdg", "userId: " + userId);
-                    Log.d("dgkhfdg", "examDateTime: " + examDateTime);
-
-                    Log.d("dgkhfdg", "totalQuestion: " + totalQuestion);
-                    Log.d("dgkhfdg", "overallAnswered: " + overallAnswered);
-                    Log.d("dgkhfdg", "overallCorrectAnswer: " + overallCorrectAnswer);
-                    Log.d("dgkhfdg", "overallWrongAnswer: " + overallWrongAnswer);
-                    Log.d("dgkhfdg", "overallTotalMark: " + overallTotalMark);
-                    Log.d("dgkhfdg", "overallNotAnswered: " + String.valueOf(overallNotAnswered));
-
-
-                    showMcq.stopTimer();
-                    LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-                    floatingActionButton.setVisibility(View.GONE);
-                    sharedPreferences.edit().clear().apply();
-
-
-
-                }
-
-            }
-            else if (subCode2 == 3){
-                if (questionLists != null){
-
-                    int correctAnswer = 0;
-                    int totalAnswered = 0;
-                    int totalWrong = 0;
-
-
-                    for (int i =0; i < questionLists.size(); i++){
-                        int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
-                        int getQuestionAnswer = questionLists.get(i).getAnswer();
-
-//                Check UserSelected Answer is correct Answer
-                        if (getQuestionAnswer == getUserSelectedOption){
-                            correctAnswer++;
-                        }
-                        //Check amount total answred
-                        if (getUserSelectedOption != 0) {
-                            totalAnswered++;
-                        }
-                        //check amount of wrong answred
-                        if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
-                            totalWrong++;
-                        }
-
-                        Toast.makeText(ActivityExam.this,"Result Savedytew "+String.valueOf(totalAnswered),Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                    double overallCutMarks = (double) totalWrong / 2;
-                    double overallMark = (double) correctAnswer - overallCutMarks;
-                    String overallAnswered = String.valueOf(totalAnswered);
-                    int overallNotAnswered = totalQuestion - totalAnswered;
-                    String overallCorrectAnswer = String.valueOf(correctAnswer);
-                    String overallWrongAnswer = String.valueOf(totalWrong);
-                    String overallTotalMark = String.valueOf(overallMark);
-
-
-
-                    ////////////////////////////
-//
-                    saveResult.setTotalIA("0");
-                    saveResult.setCorrectIA("0");
-                    saveResult.setWrongIA("0");
-                    saveResult.setMarksIA("0");
-                    ///////////
-//                    saveResult.setTotalBA("0");
-//                    saveResult.setCorrectBA("0");
-//                    saveResult.setWrongBA("0");
-//                    saveResult.setMarksBA("0");
-                    //////////////
-                    saveResult.setTotalB("0");
-                    saveResult.setCorrectB("0");
-                    saveResult.setWrongB("0");
-                    saveResult.setMarksB("0");
-                    ///////////////////////
-                    saveResult.setTotalMAV("0");
-                    saveResult.setCorrectMAV("0");
-                    saveResult.setWrongMAV("0");
-                    saveResult.setMarksMAV("0");
-                    ///////////////////////
-                    saveResult.setTotalG("0");
-                    saveResult.setCorrectG("0");
-                    saveResult.setWrongG("0");
-                    saveResult.setMarksG("0");
-                    //////////////////////
-                    saveResult.setTotalML("0");
-                    saveResult.setCorrectML("0");
-                    saveResult.setWrongML("0");
-                    saveResult.setMarksML("0");
-                    /////////////////////////////////
-                    saveResult.setTotalEL("0");
-                    saveResult.setCorrectEL("0");
-                    saveResult.setWrongEL("0");
-                    saveResult.setMarksEL("0");
-                    /////////////////////
-                    saveResult.setTotalMS("0");
-                    saveResult.setCorrectMS("0");
-                    saveResult.setWrongMS("0");
-                    saveResult.setMarksMS("0");
-                    //////////////////////////
-                    saveResult.setTotalGS("0");
-                    saveResult.setCorrectGS("0");
-                    saveResult.setWrongGS("0");
-                    saveResult.setMarksGS("0");
-                    //////////////
-                    saveResult.setTotalICT("0");
-                    saveResult.setCorrectICT("0");
-                    saveResult.setWrongICT("0");
-                    saveResult.setMarksICT("0");
-
-
-                    saveResult.setTotalBA(String.valueOf(totalQuestion));
-                    saveResult.setCorrectBA(overallCorrectAnswer);
-                    saveResult.setWrongBA(overallWrongAnswer);
-                    saveResult.setMarksBA(overallTotalMark);
-
-
-                    saveResult.setTotal(String.valueOf(totalQuestion));
-                    saveResult.setCorrect(overallCorrectAnswer);
-                    saveResult.setWrong(overallWrongAnswer);
-                    saveResult.setMark(overallTotalMark);
-                    saveResult.setUserId(userId);
-                    saveResult.setDate(examDateTime);
-                    saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
-
-                    resultSaver.saveResult();
-
-
-                    Log.d("dgkhfdg", "userId: " + userId);
-                    Log.d("dgkhfdg", "examDateTime: " + examDateTime);
-
-                    Log.d("dgkhfdg", "totalQuestion: " + totalQuestion);
-                    Log.d("dgkhfdg", "overallAnswered: " + overallAnswered);
-                    Log.d("dgkhfdg", "overallCorrectAnswer: " + overallCorrectAnswer);
-                    Log.d("dgkhfdg", "overallWrongAnswer: " + overallWrongAnswer);
-                    Log.d("dgkhfdg", "overallTotalMark: " + overallTotalMark);
-                    Log.d("dgkhfdg", "overallNotAnswered: " + String.valueOf(overallNotAnswered));
-
-
-                    showMcq.stopTimer();
-                    LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-                    floatingActionButton.setVisibility(View.GONE);
-                    sharedPreferences.edit().clear().apply();
-
-
-
-                }
-
-            }
-
-
- */
 
         }
         else {
@@ -901,44 +743,41 @@ public class ActivityExam extends AppCompatActivity {
 
                 resultSaver.saveResult();
 
-                showMcq.stopTimer();
+                stopTimer();
+
                 LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-                floatingActionButton.setVisibility(View.GONE);
+//                floatingActionButton.setVisibility(View.GONE);
                 sharedPreferences.edit().clear().apply();
 
             }
         }
 
-
-
-
-
     }
 
 
-    public void showSubmissionOption (String answered){
 
+    public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                 .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+
+
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
         textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
 
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
-
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
+            submissionCallback.onSubmitClicked();
 
             REQ_CODE = 1;
-            recview.setVisibility(View.GONE);
-            btnBackTohome.setVisibility(View.VISIBLE);
+            recview.setVisibility(View.VISIBLE);
+            REQ_CODE2 = 2;
             finishExam();
             bottomSheetDialog.dismiss();
-            
         });
-
         if (REQ_CODE == 1){
             bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
                 //added for testing
@@ -948,18 +787,15 @@ public class ActivityExam extends AppCompatActivity {
                 REQ_CODE = 0;
             });
         }else {
-
                 bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-                    //added for testing
-
-//            startActivity(new Intent(ActivityExam.this,MainActivity.class));
                     bottomSheetDialog.dismiss();
                 });
         }
-
-
     }
 
+    public interface SubmissionCallback {
+        void onSubmitClicked();
+    }
     @Override
     public void onBackPressed() {
         if (REQ_CODE == 0) {
@@ -971,7 +807,7 @@ public class ActivityExam extends AppCompatActivity {
                 }
             }
             String answered = String.valueOf(answeredQuestions);
-            showSubmissionOption(answered);
+//            showSubmissionOption(answered);
         } else if (REQ_CODE == 1) {
             REQ_CODE = 0;
             super.onBackPressed();

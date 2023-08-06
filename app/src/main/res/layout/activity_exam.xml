@@ -60,17 +60,7 @@
     </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/btnBackToHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Home "
-        android:textSize="20dp"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:background="@drawable/round_sceondery_button_100"
-        android:textColor="@color/white"
-        android:layout_centerInParent="true" />
+
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
@@ -123,19 +113,6 @@
         android:layout_alignParentEnd="true"
         />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/btnShow"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="12dp"-->
-<!--        app:backgroundTint="@color/tangerine"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        app:fabSize="normal"-->
-<!--        android:visibility="visible"-->
-<!--        android:src="@drawable/baseline_check_24"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        />-->
 
 
 

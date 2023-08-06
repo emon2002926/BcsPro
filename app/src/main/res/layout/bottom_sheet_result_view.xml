@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_marginBottom="20dp"
+    android:id="@+id/bottomSheetResultView"
     android:background="@drawable/botton_sheet_baground"
     android:layout_height="match_parent">
     <LinearLayout
@@ -33,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/overall_exams"
+                android:text="Overall Result"
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"
                 android:paddingStart="10dp"

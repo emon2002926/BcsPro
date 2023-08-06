@@ -41,6 +41,7 @@ public class QuestionListActivity extends AppCompatActivity {
     ShimmerFrameLayout shimmerFrameLayout;
     private boolean mBooleanValue = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +90,6 @@ public class QuestionListActivity extends AppCompatActivity {
             String subjectName = preferencesManager.getString("bcsYearName");
             String apiWithSql = ApiKeys.API_WITH_SQL;
 
-            Log.d("fdkghfj",subjectName);
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
 
             processdata(url2);
@@ -114,7 +114,7 @@ public class QuestionListActivity extends AppCompatActivity {
     public void processdata(String API_URL)
     {
 
-        Log.d("hfdl",API_URL);
+
 
        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
@@ -143,7 +143,7 @@ public class QuestionListActivity extends AppCompatActivity {
                         ,LinearLayoutManager.VERTICAL,false);
 
                 recview.setLayoutManager(linearLayoutManager);
-                myadapter adapter=new myadapter(data,mBooleanValue);
+                myadapter adapter=new myadapter(data);
 
 
 
@@ -156,8 +156,6 @@ public class QuestionListActivity extends AppCompatActivity {
                     if (mBooleanValue == false){
 
                         showAnswer.setImageResource(R.drawable.hidden);
-
-
                     }else if (mBooleanValue == true){
                         showAnswer.setImageResource(R.drawable.view);
                     }
