@@ -87,7 +87,7 @@ public class ActivityExam extends AppCompatActivity {
     private BottomSheetDialog bottomSheetDialog;
     private View bottomSheetView;
 
-
+    private static String subjectName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +99,11 @@ public class ActivityExam extends AppCompatActivity {
         imageBackButton = findViewById(R.id.backButton);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
 
 
 
-        String subjectName = getIntent().getStringExtra("titleText");
+        subjectName = getIntent().getStringExtra("titleText");
 
         textView.setText(subjectName);
 
@@ -142,8 +143,6 @@ public class ActivityExam extends AppCompatActivity {
 
         };
 
-
-
         requestQueue = Volley.newRequestQueue(this);
         examResult = new ExamResult();
 //        saveData();
@@ -180,11 +179,9 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
-
                 time = (preferencesManager.getInt("time")*2);
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
                 String SUBJECT_CODE = preferencesManager.getString("subjectPosition");
-
                 questionType = "api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
 
             }
@@ -192,20 +189,14 @@ public class ActivityExam extends AppCompatActivity {
 
                 return;
            }
-
 //            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
 //            showMcq.processdata( API_URL+questionType);
-
 
             processdata( API_URL+questionType);
         }
     }
 
-
-
-
     public void processdata(String url) {
-
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -214,17 +205,13 @@ public class ActivityExam extends AppCompatActivity {
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
                         recview.setVisibility(View.VISIBLE);
-
-                        startTimer(NUM_OF_QUESTION * 30, textViewTimer);
-
                         floatingActionButton.setVisibility(View.VISIBLE);
+                        startTimer(NUM_OF_QUESTION * 30, textViewTimer);
 
                         GsonBuilder builder = new GsonBuilder().setLenient();
                         Gson gson = builder.create();
-
                         JsonReader reader = new JsonReader(new StringReader(response));
                         reader.setLenient(true);
-
                         model data[] = gson.fromJson(reader, model[].class);
 
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityExam.this,
@@ -235,10 +222,8 @@ public class ActivityExam extends AppCompatActivity {
                         recview.setAdapter(adapter);
 
                         floatingActionButton.setOnClickListener(view -> {
-                            // Initialize counters for answered questions, correct answers, and wrong answers
-
+                            // Initialize counters for answered questions,
                             int answeredQuestions = 0;
-
                             for (QuestionList question : questionLists) {
                                 int getUserSelectedOption = question.getUserSelecedAnswer();
                                 if (getUserSelectedOption != 0) {
@@ -246,16 +231,13 @@ public class ActivityExam extends AppCompatActivity {
                                 }
                             }
                             String answered = String.valueOf(answeredQuestions);
-
-
                             if (REQ_CODE2 == 0){
-
                                 showSubmissionOption(answered, new SubmissionCallback() {
                                     @Override
                                     public void onSubmitClicked() {
                                         mBooleanValue = !mBooleanValue;
                                         adapter.setBooleanValue(mBooleanValue);
-
+                                        floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
                                     }
                                 });
 
@@ -264,18 +246,13 @@ public class ActivityExam extends AppCompatActivity {
                                 if (bottomSheetDialog.isShowing()) {
                                     // If showing, dismiss it to minimize
                                     bottomSheetDialog.dismiss();
+
                                 } else {
                                     // If not showing, show it to expand
                                     bottomSheetDialog.setContentView(bottomSheetView);
                                     bottomSheetDialog.show();
-                                }
-                            }
-
-
-
-
+                                }}
                         });
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -302,11 +279,8 @@ public class ActivityExam extends AppCompatActivity {
                 String generateTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", getHour,
                         getMinutes - TimeUnit.HOURS.toMinutes(getHour),
                         getSecond - TimeUnit.MINUTES.toSeconds(getMinutes));
-
                 textViewTimer.setText(generateTime);
-
             }
-
             @Override
             public void onFinish() {
                 if (timerCallback != null) {
@@ -316,7 +290,6 @@ public class ActivityExam extends AppCompatActivity {
         };
         countDownTimer.start();
     }
-
     public void stopTimer() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
@@ -324,46 +297,15 @@ public class ActivityExam extends AppCompatActivity {
         }
     }
 
-
-
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
             if (intent.getAction().equals("xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
-
                 // Get the list of QuestionList objects from the intent
                  questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
-
-
             }
-
-        }
-    };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Register the BroadcastReceiver to receive the "my_list_action" broadcast
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("my_list_action");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // Unregister the BroadcastReceiver when the Activity is paused
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-    }
-
+        }};
 
 
 
@@ -371,28 +313,22 @@ public class ActivityExam extends AppCompatActivity {
 
         //gating date
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthName = new DateFormatSymbols().getMonths()[month];
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
-
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
         String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
-
-
         //gatting User Id
         SharedPreferences sharedPreferences1;
         sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences1.getString("key_phone", "");
 
-
-         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-         bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
+        bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
+        bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
 
         TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
@@ -453,15 +389,10 @@ public class ActivityExam extends AppCompatActivity {
         ExamResult saveResult = new ExamResult();
         ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://emon.searchwizy.com/api/saveTest2.php", saveResult);
 
-
         String subCode = preferencesManager.getString("subjectPosition");
 
-
-
         if (!subCode.isEmpty()) {
-
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
-
             int subCode2 = Integer.parseInt(subCode);
             if(subCode2 >= 1){
                 if (questionLists != null){
@@ -472,7 +403,6 @@ public class ActivityExam extends AppCompatActivity {
                     for (int i =0; i < questionLists.size(); i++){
                         int getUserSelectedOption = questionLists.get(i).getUserSelecedAnswer();//Get User Selected Option
                         int getQuestionAnswer = questionLists.get(i).getAnswer();
-
 //                Check UserSelected Answer is correct Answer
                         if (getQuestionAnswer == getUserSelectedOption){
                             correctAnswer++;
@@ -486,16 +416,28 @@ public class ActivityExam extends AppCompatActivity {
                             totalWrong++;
                         }
                     }
-
-
                     double overallCutMarks = (double) totalWrong / 2;
                     double overallMark = (double) correctAnswer - overallCutMarks;
                     int overallNotAnswered = totalQuestion - totalAnswered;
                     String overallCorrectAnswer = String.valueOf(correctAnswer);
                     String overallWrongAnswer = String.valueOf(totalWrong);
                     String overallTotalMark = String.valueOf(overallMark);
+
+                    LinearLayout halfLayout = bottomSheetView.findViewById(R.id.halfLayout);
+                    halfLayout.setVisibility(View.GONE);
+
+
+                    TextView resultSubName = bottomSheetView.findViewById(R.id.resultSubName);
+                    resultSubName.setText(subjectName);
+
+
+                    totalTV.setText(String.valueOf(totalQuestion));
+                    correctTv.setText(overallCorrectAnswer);
+                    wrongTv.setText(overallWrongAnswer);
+                    marksTv.setText(overallTotalMark);
+
+
                     ///////////
-//
                     saveResult.setTotalIA("0");
                     saveResult.setCorrectIA("0");
                     saveResult.setWrongIA("0");
@@ -561,19 +503,13 @@ public class ActivityExam extends AppCompatActivity {
                     LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 //                    floatingActionButton.setVisibility(View.GONE);
                     sharedPreferences.edit().clear().apply();
-
-
-
                 }
-
             }
-
         }
         else {
             if (questionLists != null) {
                 int totalQuestion = questionLists.size();
                 int startIndex = 0;
-
 
                 int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
 
@@ -724,14 +660,11 @@ public class ActivityExam extends AppCompatActivity {
 
                 int notAnswred = LOGIC_FOR_ALL_SUBJECT_EXAM-Integer.parseInt(overallAnswered);
 
-
                 bottomSheetDialog.setContentView(bottomSheetView);
                 bottomSheetDialog.show();
 
                 setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
                         ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
-
-
 
                 saveResult.setTotal(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
                 saveResult.setCorrect(overallCorrectAnswer);
@@ -742,26 +675,18 @@ public class ActivityExam extends AppCompatActivity {
                 saveResult.setNotAnswred(String.valueOf(notAnswred));
 
                 resultSaver.saveResult();
-
                 stopTimer();
-
                 LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 //                floatingActionButton.setVisibility(View.GONE);
                 sharedPreferences.edit().clear().apply();
-
             }
         }
 
     }
-
-
-
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this)
                 .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
-
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
         textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
@@ -806,7 +731,6 @@ public class ActivityExam extends AppCompatActivity {
                     answeredQuestions++;
                 }
             }
-            String answered = String.valueOf(answeredQuestions);
 //            showSubmissionOption(answered);
         } else if (REQ_CODE == 1) {
             REQ_CODE = 0;
@@ -818,7 +742,6 @@ public class ActivityExam extends AppCompatActivity {
     }
 
     public int[] sectionSizeSelector(int LOGIC_FOR_ALL_SUBJECT_EXAM) {
-
         int[] sectionSize = null;
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
@@ -844,6 +767,25 @@ public class ActivityExam extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register the BroadcastReceiver to receive the "my_list_action" broadcast
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("my_list_action");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the BroadcastReceiver when the Activity is paused
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
 
 
 }
