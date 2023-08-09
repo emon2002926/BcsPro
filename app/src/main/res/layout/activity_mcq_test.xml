@@ -102,7 +102,6 @@
             android:layout_below="@+id/divider"
             android:layout_marginTop="40dp"
             android:id="@+id/linear"
-
             android:orientation="vertical">
 
 
@@ -147,9 +146,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15sp"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="15sp"
                     android:layout_marginEnd="15sp"
-                    android:layout_marginBottom="15sp"
+                    android:layout_marginBottom="15dp"
                     android:text="Option 1"
                     android:textSize="16sp"
                     />

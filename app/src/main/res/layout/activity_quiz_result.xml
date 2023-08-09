@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/winner"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:adjustViewBounds="true"
@@ -42,21 +42,21 @@
             android:text="Congratulation"
             android:letterSpacing=".1"
             android:textStyle="bold"
-            android:textSize="30sp"
-            android:visibility="gone"
-            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:visibility="visible"
+            android:textColor="@color/darkTangerine"
             android:layout_marginTop="10dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:textAlignment="textStart"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="40dp"
             android:text="You Have Succesfuly Complite the Quiz"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:id="@+id/textViewgereting"
             />
 
@@ -177,22 +177,19 @@
             android:orientation="horizontal"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             >
-
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/reTakeQuizBtn"
                 android:layout_width="200dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/round_sceondery_button_100"
                 android:text="Back to Home"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
         </LinearLayout>
     </LinearLayout>
 
