@@ -4,8 +4,8 @@
     android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/transPerent"
     android:id="@+id/fullLayout"
-    android:background="@color/white"
     android:layout_height="wrap_content">
 
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
-            android:background="@drawable/round_back_white50_10"
+            android:background="@color/transPerent"
             android:id="@+id/linear"
             android:orientation="vertical">
 
@@ -96,7 +96,7 @@
                     android:layout_marginEnd="10dp"
                     android:id="@+id/questionIv"
                     android:scaleType="fitXY"
-                    android:src="@drawable/demo_bcs"/>
+                    />
 
             </LinearLayout>
 
@@ -179,7 +179,6 @@
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
-                    android:src="@drawable/answer_test"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15sp"
                     android:layout_marginBottom="5sp"/>
@@ -255,7 +254,6 @@
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
-                    android:src="@drawable/answer_test"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15sp"
                     android:layout_marginBottom="5sp"/>
@@ -330,7 +328,6 @@
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
-                    android:src="@drawable/answer_test"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15sp"
                     android:layout_marginBottom="5sp"/>
@@ -407,7 +404,6 @@
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
-                    android:src="@drawable/answer_test"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15sp"
                     android:layout_marginBottom="5sp"/>
@@ -431,7 +427,6 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:id="@+id/explainIV"
-                android:src="@drawable/demo_bcs"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:scaleType="fitXY"

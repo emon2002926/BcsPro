@@ -139,75 +139,81 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/viewDivider"
+            android:visibility="gone"/>
 
         <LinearLayout
+            android:id="@+id/halfLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/halfLayout"
             android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
                         android:text="International Affairs"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
                         android:textColor="@color/GreyText"
 
-                        android:gravity="center_vertical"
-                        />
+                        android:textSize="16sp" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".70"
-                        android:text=""
                         android:id="@+id/totalTvIA"
-                        android:textSize="18sp"
-                        android:textColor="@color/GreyText"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".80"
+                        android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/correctTvIA"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".75"
+                        android:layout_weight=".80"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvIA"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvIA"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -215,65 +221,65 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
                         android:text="Bangladesh Affairs"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
                         android:textColor="@color/GreyText"
-                        android:gravity="center_vertical"
-                        />
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvBA"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvBA"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvBA"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvBA"
-                        android:textSize="18sp"
                         android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvBA"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvBA"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -281,64 +287,64 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:text="Bangla"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
                         android:gravity="center_vertical"
-                        />
+                        android:paddingStart="10dp"
+                        android:text="Bangla"
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvB"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvB"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvB"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvB"
-                        android:textSize="18sp"
                         android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvB"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvB"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -347,265 +353,133 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
 
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
                         android:text="Morals, values and good governance"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
                         android:textColor="@color/GreyText"
-                        android:gravity="center_vertical"
-                        />
+                        android:textSize="16sp" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".70"
-                        android:text=""
-                        android:textColor="@color/GreyText"
                         android:id="@+id/totalTvMAV"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".80"
+                        android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/correctTvMAV"
-                        android:textSize="18sp"
-                        android:textColor="@color/GreyText"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".75"
+                        android:layout_weight=".80"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvMAV"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvMAV"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:weightSum="5"
-                    android:padding="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:text="Geography"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/GreyText"
-                        android:gravity="center_vertical"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".70"
-                        android:text=""
-                        android:id="@+id/totalTvG"
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvG"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
-                        android:id="@+id/wrongTvG"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/marksTvG"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:weightSum="5"
-                    android:padding="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:text="Math"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/GreyText"
-                        android:gravity="center_vertical"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".70"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvML"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvML"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp"
-                        android:id="@+id/wrongTvML"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/marksTvML"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="10dp"
                 android:layout_marginTop="1dp"
-                >
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:text="English"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/GreyText"
                         android:gravity="center_vertical"
-                        />
+                        android:paddingStart="10dp"
+                        android:text="Geography"
+                        android:textColor="@color/GreyText"
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvG"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
-                        android:text=""
-                        android:id="@+id/totalTvEL"
-                        android:textSize="18sp"
-                        android:textColor="@color/GreyText"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvG"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvEL"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/wrongTvG"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
-                        android:id="@+id/wrongTvEL"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/marksTvG"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/marksTvEL"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -613,132 +487,264 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="1dp"            >
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="Math"
+                        android:textColor="@color/GreyText"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/totalTvML"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".70"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/correctTvML"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".80"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/wrongTvML"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/marksTvML"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="English"
+                        android:textColor="@color/GreyText"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/totalTvEL"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".70"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/correctTvEL"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".80"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/wrongTvEL"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/marksTvEL"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
                         android:text="Mental skils"
                         android:textColor="@color/GreyText"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
-                        android:gravity="center_vertical"
-                        />
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvMS"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvMS"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvMS"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvMS"
-                        android:textSize="18sp"
                         android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvMS"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvMS"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
                 android:layout_marginTop="1dp"
-                >
+                android:elevation="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:text="General science"
-                        android:paddingStart="10dp"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp"
                         android:gravity="center_vertical"
-                        />
+                        android:paddingStart="10dp"
+                        android:text="General science"
+                        android:textColor="@color/GreyText"
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvGS"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvGS"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvGS"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvGS"
-                        android:textSize="18sp"
                         android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvGS"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvGS"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -747,67 +753,67 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
                 android:layout_marginTop="1dp"
+                android:elevation="10dp"
 
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="5"
+                    android:orientation="horizontal"
                     android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:text="Computer and Information Technology"
-                        android:paddingStart="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/GreyText"
                         android:gravity="center_vertical"
-                        />
+                        android:paddingStart="10dp"
+                        android:text="Computer and Information Technology"
+                        android:textColor="@color/GreyText"
+                        android:textSize="16sp" />
+
                     <TextView
+                        android:id="@+id/totalTvICT"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".70"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:id="@+id/totalTvICT"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
+                        android:id="@+id/correctTvICT"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".80"
-                        android:text=""
-                        android:textColor="@color/GreyText"
-                        android:id="@+id/correctTvICT"
-                        android:textSize="18sp"
                         android:gravity="center"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".75"
                         android:text=""
                         android:textColor="@color/GreyText"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/wrongTvICT"
-                        android:gravity="center"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".75"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
+
+                    <TextView
                         android:id="@+id/marksTvICT"
-                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".75"
                         android:gravity="center"
-                        />
+                        android:text=""
+                        android:textColor="@color/GreyText"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

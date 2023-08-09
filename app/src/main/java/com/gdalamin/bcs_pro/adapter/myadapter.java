@@ -586,7 +586,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 }
 
-            // Determine which option was clicked based on the view that was clicked
+                // Determine which option was clicked based on the view that was clicked
                 int selectedOption = 0;
                 ImageView img = null;
                 ImageView imgWrong = null;

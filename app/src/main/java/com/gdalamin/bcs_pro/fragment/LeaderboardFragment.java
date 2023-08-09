@@ -1,18 +1,15 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
@@ -29,9 +26,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.LeaderbordAdapter;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,6 @@ public class LeaderboardFragment extends Fragment {
     private List<LeaderbordModel> userMarksList;
     private  LottieAnimationView animationView;
     private TextView indicatorTv;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,12 +65,7 @@ public class LeaderboardFragment extends Fragment {
         adapter = new LeaderbordAdapter(userMarksList, getContext());
         recyclerView.setAdapter(adapter);
 
-
         fetchDataFromServer();
-
-
-
-
         return view;
 
     }

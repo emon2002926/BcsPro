@@ -44,15 +44,10 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
 
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> {
-
-
             onBackPressed();
-
-
         });
 
         titleTv = findViewById(R.id.titleTv);
-
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(imageBackButton.getContext());
         int OPENING_LOGIC = preferencesManager.getInt("logic");
@@ -72,8 +67,6 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
             String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=8";
             processdata(API_URL);
         }
-
-
     }
 
     public void processdata(String url)

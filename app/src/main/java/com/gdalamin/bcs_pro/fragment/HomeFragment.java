@@ -1,23 +1,17 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -43,22 +35,14 @@ import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
-import com.gdalamin.bcs_pro.api.GetLocalUserData;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.GetLocalUserData;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 public class HomeFragment extends Fragment {
 
@@ -70,26 +54,18 @@ public class HomeFragment extends Fragment {
     TextView tvAllExam;
     int tolatExamQuestion = 0;
     int LOGIC_FOR_ALL_SUBJECT_EXAM = 0;
-
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
-
-
-    GoogleSignInOptions googleSignInOptions;
-    GoogleSignInClient googleSignInClient;
-
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView imageView1,imageView2,imageView3;
-
     String titleText;
-
     private boolean isConnected;
     private BroadcastReceiver networkReceiver;
     private boolean isDataProcessed = false; // Declare a boolean flag
 
-
     PreferencesUserInfo preferencesUserInfo;
     SharedPreferencesManagerAppLogic preferencesManager;
+    Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,12 +73,12 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        context = view.getContext();
+        preferencesManager = new SharedPreferencesManagerAppLogic(context);
+//        preferencesManager.remove("examQuestionNum");
+        preferencesManager.clear();
 
-        preferencesManager = new SharedPreferencesManagerAppLogic(getActivity());
-        preferencesManager.remove("examQuestionNum");
-
-
-        preferencesUserInfo = new PreferencesUserInfo(getContext());
+        preferencesUserInfo = new PreferencesUserInfo(context);
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -143,7 +119,7 @@ public class HomeFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.CvQuizLayout:
                     // Handle button1 click
-                    intent = new Intent(view.getContext(), McqTestActivity.class);
+                    intent = new Intent(context, McqTestActivity.class);
                     intent.putExtra("selectedOption",10);
                     view.getContext().startActivity(intent);
                     break;
@@ -153,13 +129,13 @@ public class HomeFragment extends Fragment {
                     int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
-                    intent = new Intent(getActivity(), QuestionListActivity.class);
+                    intent = new Intent(context, QuestionListActivity.class);
                     titleText = "Important Question";
                     intent.putExtra("titleText",titleText);
                     v.getContext().startActivity(intent);
                     break;
                 case R.id.l4:
-                    startActivity(new Intent(getContext(), ActivityLectureAndNote.class));
+                    startActivity(new Intent(context, ActivityLectureAndNote.class));
                     break;
                 case R.id.tvAllExam:
                     // this code sets up a BottomSheetDialog to display options for an exam
@@ -222,8 +198,6 @@ public class HomeFragment extends Fragment {
         imageView3.setOnClickListener(buttonClickListener);
 
 
-
-
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
@@ -237,7 +211,7 @@ public class HomeFragment extends Fragment {
         } else {
             // The device is not connected to the internet
             // Show an error message or perform some other action
-            Toast.makeText(recyclerView.getContext(),"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
 
 
         }
@@ -255,12 +229,12 @@ public class HomeFragment extends Fragment {
 //                    Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
                 } else if (isConnected && !newIsConnected) {
                     // Internet connection is gone
-                    Toast.makeText(getActivity(), "Internet connection is gone", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Internet connection is gone", Toast.LENGTH_SHORT).show();
                 }
                 isConnected = newIsConnected;
             }
         };
-        getActivity().registerReceiver(networkReceiver, intentFilter);
+        context.registerReceiver(networkReceiver, intentFilter);
         // Check the initial network connectivity status
         isConnected = isConnected();
 
@@ -276,7 +250,7 @@ public class HomeFragment extends Fragment {
 
     public void showExamChoser(){
 
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDailogTheme);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
 
         final LinearLayout option1Layout = bottomSheetView.findViewById(R.id.layout25Min);
@@ -320,7 +294,7 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.btnExamStart:
                     if (tolatExamQuestion != 0) {
-                        Intent intent = new Intent(v.getContext(), ActivityExam.class);
+                        Intent intent = new Intent(context, ActivityExam.class);
                         titleText = "Overall Exam";
                         intent.putExtra("titleText",titleText);
                         v.getContext().startActivity(intent);
@@ -349,15 +323,6 @@ public class HomeFragment extends Fragment {
     public void getUserProfileData(String userId){
         GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
         apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
-//            @Override
-//            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong,
-//                                       int totalNotAnswered, String userName, String totalExamCount,String localUserRank,
-//                                       int localUserMark, String userImgString) {
-//                // Use the fetched values here
-//
-//
-//
-//            }
 
             @Override
             public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
@@ -372,13 +337,13 @@ public class HomeFragment extends Fragment {
                 preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
                 preferencesUserInfo.saveInt("localUserPoint",localUserMark);
                 preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
-                Log.d("imgStringgg",userImageString);
+
             }
 
             @Override
             public void onFetchFailure(String errorMessage) {
                 // Handle the error message here
-                Log.e("APIFetcher", "API fetch failed: " + errorMessage);
+
             }
         });
     }
@@ -436,7 +401,6 @@ public class HomeFragment extends Fragment {
     private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
 
         selectedOptionIcon.setImageResource(R.drawable.black_dot);
-//        selectedOptionLayout.setBackgroundResource(R.drawable
-//                .round_back_selected_option);
+
     }
 }

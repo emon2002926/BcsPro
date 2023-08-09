@@ -127,7 +127,7 @@
                 android:visibility="gone"
                 android:scaleType="fitXY"
                 android:id="@+id/questionIv"
-                android:src="@drawable/demo_bcs"/>
+                />
 
 
             <!--        option 1 layOut-->

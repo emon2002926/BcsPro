@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.modelClass.LeaderbordModel;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.List;
 public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.ViewHolder> {
@@ -59,29 +56,26 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
             holder.txtLocalUsername.setText(userName);
 
             String userId = preferencesUserInfo.getString("key_phone").trim();
-            Log.d("kfdslh",userId);
 
             LeaderbordModel user = findUserById(userId);
             if (user != null) {
                 String userRank = user.getUserRank();
                 holder.txtLocalUserRank.setText(userRank);
-
                 int userPoint = (int) Math.floor(user.getAverageMark() * 10);
                 holder.txtLocalUserPoint.setText(String.valueOf(userPoint));
-                Log.d("fglhkggg",userRank);
             } else {
                 holder.txtLocalUserRank.setText("00");
                 holder.txtLocalUserPoint.setText("00");
             }
 
+            if (!base64LocalImage.isEmpty()){
+                Bitmap bitmapLocalImage = convertBase64ToBitmap(base64LocalImage);
+                holder.imgLocalUserProfile.setImageBitmap(bitmapLocalImage);
+            }else {
+                holder.imgLocalUserProfile.setImageResource(R.drawable.test_profile_image);
+            }
 
 
-
-
-
-
-            Bitmap bitmapLocalImage = convertBase64ToBitmap(base64LocalImage);
-            holder.imgLocalUserProfile.setImageBitmap(bitmapLocalImage);
 
         } else {
             // Bind data for regular items
@@ -174,9 +168,6 @@ public class LeaderbordAdapter extends RecyclerView.Adapter<LeaderbordAdapter.Vi
                 progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
                 progressBarWrong.setProgress(Math.round(totalPercentageWrong));
                 progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
-
-
-//                Log.d("kjgjhyusdvf",String.valueOf(totalPercentageCorrect));
 
 
                 dialog.show();

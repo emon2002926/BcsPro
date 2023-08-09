@@ -87,22 +87,32 @@
 
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/card"
+    android:id="@+id/recviewBackground"
+    android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recview"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        tools:ignore="MissingConstraints" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recview"
-            android:layout_below="@+id/card"
-            android:visibility="gone"
-            android:layout_marginTop="5dp"
-            tools:ignore="MissingConstraints" />
+</LinearLayout>
+
+
+
+
+
 
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSubmit"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         app:backgroundTint="@color/white"
         android:layout_marginBottom="50dp"

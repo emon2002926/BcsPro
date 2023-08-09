@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -29,9 +28,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
-import com.gdalamin.bcs_pro.downloader.ShowMcq;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
@@ -53,41 +52,27 @@ import java.util.concurrent.TimeUnit;
 public class ActivityExam extends AppCompatActivity {
 
     private static final String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
-
-
     String API_URL= ApiKeys.API_URL;
     RecyclerView recview;
     TextView textView,textViewTimer;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<>();
-    SharedPreferences sharedPreferences;
-
     int NUM_OF_QUESTION =0;
-
     ImageView imageBackButton;
-
     ShimmerFrameLayout shimmerFrameLayout;
     SharedPreferencesManagerAppLogic preferencesManager;
-
-     public static int REQ_CODE = 0;
-
-     ShowMcq showMcq;
-
+    public static int REQ_CODE = 0;
     private RequestQueue requestQueue;
     ExamResult examResult;
-
     private boolean mBooleanValue = false;
-
-
-    private ShowMcq.TimerCallback timerCallback;
     private CountDownTimer countDownTimer;
-
     public static int REQ_CODE2 = 0;
-
     private BottomSheetDialog bottomSheetDialog;
     private View bottomSheetView;
-
     private static String subjectName;
+    private TimerCallback timerCallback;
+    int examTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +87,6 @@ public class ActivityExam extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
 
 
-
         subjectName = getIntent().getStringExtra("titleText");
 
         textView.setText(subjectName);
@@ -113,41 +97,29 @@ public class ActivityExam extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("xy@4gfk@9*2cxlds&0k@#hLAnsx!"));
 
-        sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
 
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
-
-
-
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
-
-
+        examTime = preferencesManager.getInt("time");
 
         imageBackButton.setOnClickListener(view -> {
-
-
-            Intent intent = new Intent(ActivityExam.this,MainActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(ActivityExam.this,MainActivity.class);
+//            startActivity(intent);
+//            finish();
+            onBackPressed();
                 });
-
-
-        ShowMcq.TimerCallback timerCallback = new ShowMcq.TimerCallback() {
+         timerCallback = new TimerCallback() {
             @Override
             public void onTimerFinish() {
                 // Handle timer finish event here
                 Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
                 finishExam();
-            }
-
-        };
+            }};
 
         requestQueue = Volley.newRequestQueue(this);
         examResult = new ExamResult();
 //        saveData();
-
-
         /*
             Subject and Question Distribution
         Geography (Bangladesh and the World), Environment and Disaster Management = GEDM =10Qu
@@ -206,7 +178,14 @@ public class ActivityExam extends AppCompatActivity {
                         shimmerFrameLayout.setVisibility(View.GONE);
                         recview.setVisibility(View.VISIBLE);
                         floatingActionButton.setVisibility(View.VISIBLE);
+
+//                        if (examTime >= 1){
+//                            startTimer(examTime*60,textViewTimer);
+//                        }else {
+//                            startTimer(NUM_OF_QUESTION * 30, textViewTimer);
+//                        }
                         startTimer(NUM_OF_QUESTION * 30, textViewTimer);
+
 
                         GsonBuilder builder = new GsonBuilder().setLenient();
                         Gson gson = builder.create();
@@ -236,15 +215,17 @@ public class ActivityExam extends AppCompatActivity {
                                     @Override
                                     public void onSubmitClicked() {
                                         mBooleanValue = !mBooleanValue;
-                                        adapter.setBooleanValue(mBooleanValue);
+                                        adapter.setBooleanValue(true);
+                                        LinearLayout recviewBackground = findViewById(R.id.recviewBackground);
+                                        recviewBackground.setBackgroundResource(R.color.recviewBagColor);
                                         floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
+
                                     }
                                 });
 
                             }else if (REQ_CODE2 ==2){
 
                                 if (bottomSheetDialog.isShowing()) {
-                                    // If showing, dismiss it to minimize
                                     bottomSheetDialog.dismiss();
 
                                 } else {
@@ -262,10 +243,8 @@ public class ActivityExam extends AppCompatActivity {
                     }
                 }
         );
-
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
         queue.add(request);
-
     }
 
     private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
@@ -296,6 +275,9 @@ public class ActivityExam extends AppCompatActivity {
             textViewTimer.setVisibility(View.GONE);
         }
     }
+    public interface TimerCallback {
+        void onTimerFinish();
+    }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -303,14 +285,11 @@ public class ActivityExam extends AppCompatActivity {
             // Get extra data included in the Intent
             if (intent.getAction().equals("xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
                 // Get the list of QuestionList objects from the intent
-                 questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
+                questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
             }
         }};
 
-
-
     public void  finishExam(){
-
         //gating date
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
@@ -322,14 +301,11 @@ public class ActivityExam extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
         String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
-        //gatting User Id
-        SharedPreferences sharedPreferences1;
-        sharedPreferences1 = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences1.getString("key_phone", "");
+        PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(ActivityExam.this);
+        String userId = preferencesUserInfo.getString("key_phone");
 
         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
-
 
         TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
         TextView correctTv = bottomSheetView.findViewById(R.id.correctTv);
@@ -426,16 +402,16 @@ public class ActivityExam extends AppCompatActivity {
                     LinearLayout halfLayout = bottomSheetView.findViewById(R.id.halfLayout);
                     halfLayout.setVisibility(View.GONE);
 
-
                     TextView resultSubName = bottomSheetView.findViewById(R.id.resultSubName);
                     resultSubName.setText(subjectName);
-
 
                     totalTV.setText(String.valueOf(totalQuestion));
                     correctTv.setText(overallCorrectAnswer);
                     wrongTv.setText(overallWrongAnswer);
                     marksTv.setText(overallTotalMark);
 
+                    View viewDevider = bottomSheetView.findViewById(R.id.viewDivider);
+                    viewDevider.setVisibility(View.VISIBLE);
 
                     ///////////
                     saveResult.setTotalIA("0");
@@ -497,20 +473,18 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
 
                     resultSaver.saveResult();
-
                     stopTimer();
-
+                    bottomSheetDialog.setContentView(bottomSheetView);
+                    bottomSheetDialog.show();
+//                    preferencesManager.clear();
                     LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-//                    floatingActionButton.setVisibility(View.GONE);
-                    sharedPreferences.edit().clear().apply();
+
                 }
             }
         }
         else {
             if (questionLists != null) {
-                int totalQuestion = questionLists.size();
                 int startIndex = 0;
-
                 int[] sectionSizeArray = sectionSizeSelector(LOGIC_FOR_ALL_SUBJECT_EXAM);
 
                 String totalIA  = Integer.toString(sectionSizeArray[0]);
@@ -648,6 +622,7 @@ public class ActivityExam extends AppCompatActivity {
                     }
 
                     startIndex = endIndex;
+
                 }
 
                 // Calculate overall exam result
@@ -677,10 +652,10 @@ public class ActivityExam extends AppCompatActivity {
                 resultSaver.saveResult();
                 stopTimer();
                 LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-//                floatingActionButton.setVisibility(View.GONE);
-                sharedPreferences.edit().clear().apply();
+//                preferencesManager.clear();
             }
         }
+        preferencesManager.clear();
 
     }
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
@@ -697,25 +672,18 @@ public class ActivityExam extends AppCompatActivity {
 
             submissionCallback.onSubmitClicked();
 
-            REQ_CODE = 1;
+//            REQ_CODE = 1;
             recview.setVisibility(View.VISIBLE);
             REQ_CODE2 = 2;
             finishExam();
             bottomSheetDialog.dismiss();
         });
-        if (REQ_CODE == 1){
-            bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-                //added for testing
 
-            startActivity(new Intent(ActivityExam.this,MainActivity.class));
-                bottomSheetDialog.dismiss();
-                REQ_CODE = 0;
-            });
-        }else {
-                bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(cancelView -> {
-                    bottomSheetDialog.dismiss();
-                });
-        }
+        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+//            onBackPressed();
+        });
+
     }
 
     public interface SubmissionCallback {
@@ -723,7 +691,7 @@ public class ActivityExam extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (REQ_CODE == 0) {
+        if (REQ_CODE2 == 0) {
             int answeredQuestions = 0;
             for (QuestionList question : questionLists) {
                 int getUserSelectedOption = question.getUserSelecedAnswer();
@@ -731,21 +699,19 @@ public class ActivityExam extends AppCompatActivity {
                     answeredQuestions++;
                 }
             }
-//            showSubmissionOption(answered);
-        } else if (REQ_CODE == 1) {
-            REQ_CODE = 0;
+            showSubmissionOption(String.valueOf(answeredQuestions),() -> {
+
+            });
+        } else if (REQ_CODE2 == 2) {
+            preferencesManager.clear();
             super.onBackPressed();
             finish();
-        } else {
-            super.onBackPressed();
         }
     }
-
     public int[] sectionSizeSelector(int LOGIC_FOR_ALL_SUBJECT_EXAM) {
         int[] sectionSize = null;
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
-
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
                 sectionSize = new int[]{20, 30, 35, 10, 10, 15, 35, 15, 15, 15};
             } else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
@@ -754,7 +720,6 @@ public class ActivityExam extends AppCompatActivity {
                 sectionSize = new int[]{5, 7, 9, 3, 3, 4, 8, 4, 3, 4};
             }
         }
-
         return sectionSize;
     }
 
@@ -764,7 +729,6 @@ public class ActivityExam extends AppCompatActivity {
         correctTV.setText(correct);
         wrongTV.setText(wrong);
         marksTV.setText(marks);
-
     }
 
     @Override
@@ -773,17 +737,20 @@ public class ActivityExam extends AppCompatActivity {
         // Register the BroadcastReceiver to receive the "my_list_action" broadcast
         IntentFilter filter = new IntentFilter();
         filter.addAction("my_list_action");
+//        REQ_CODE2 = 0;
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
     }
     @Override
     protected void onPause() {
         super.onPause();
         // Unregister the BroadcastReceiver when the Activity is paused
+//        REQ_CODE2 = 0;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        REQ_CODE2 = 0;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
