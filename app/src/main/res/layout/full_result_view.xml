@@ -27,10 +27,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="#"
-
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:textStyle="bold"
+
                 android:gravity="center_vertical"
                 />
             <TextView
@@ -74,8 +75,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
             android:layout_marginTop="1dp"
+            app:cardElevation="1dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,20 +90,22 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:text="Result"
-                    android:textColor="@color/GreyText"
+                    android:textColor="@color/LiteBlack"
                     android:paddingStart="10dp"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:id="@+id/resultSubName"
                     android:gravity="center_vertical"
                     />
                 <TextView
-                    android:textColor="@color/GreyText"
+                    android:textColor="@color/LiteBlack"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".70"
                     android:text=""
                     android:id="@+id/totalTv"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:gravity="center"
                     />
                 <TextView
@@ -111,18 +114,20 @@
                     android:layout_weight=".80"
                     android:text=""
                     android:id="@+id/correctTv"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:gravity="center"
-                    android:textColor="@color/GreyText"
+                    android:textStyle="bold"
+                    android:textColor="@color/LiteBlack"
                     />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".75"
                     android:text=""
-                    android:textSize="18sp"
-                    android:textColor="@color/GreyText"
+                    android:textSize="16sp"
+                    android:textColor="@color/LiteBlack"
                     android:id="@+id/wrongTv"
+                    android:textStyle="bold"
                     android:gravity="center"
                     />
                 <TextView
@@ -130,9 +135,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight=".75"
                     android:text=""
-                    android:textColor="@color/GreyText"
+                    android:textColor="@color/LiteBlack"
                     android:id="@+id/marksTv"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:gravity="center"
                     />
 
@@ -159,7 +165,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="5">
@@ -168,12 +174,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="International Affairs"
-                        android:textColor="@color/GreyText"
-
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvIA"
@@ -182,8 +186,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvIA"
@@ -192,8 +196,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvIA"
@@ -202,8 +206,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvIA"
@@ -212,8 +216,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -238,8 +242,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Bangladesh Affairs"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvBA"
@@ -248,8 +252,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvBA"
@@ -258,8 +262,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvBA"
@@ -268,8 +272,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvBA"
@@ -278,8 +282,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -304,7 +308,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Bangla"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvB"
@@ -313,8 +318,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/correctTvB"
@@ -323,8 +328,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/wrongTvB"
@@ -333,8 +338,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/marksTvB"
@@ -343,8 +348,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -361,7 +366,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
-
                     android:weightSum="5">
 
                     <TextView
@@ -371,8 +375,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Morals, values and good governance"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvMAV"
@@ -381,8 +385,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvMAV"
@@ -391,8 +395,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvMAV"
@@ -401,8 +405,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvMAV"
@@ -411,8 +415,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -438,8 +442,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Geography"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvG"
@@ -448,8 +452,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvG"
@@ -458,8 +462,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvG"
@@ -468,8 +472,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvG"
@@ -478,8 +482,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -492,7 +496,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="5">
@@ -504,8 +508,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Math"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvML"
@@ -514,8 +518,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvML"
@@ -524,8 +528,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvML"
@@ -534,8 +538,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvML"
@@ -544,8 +548,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -570,8 +574,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="English"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvEL"
@@ -580,8 +584,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvEL"
@@ -590,8 +594,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvEL"
@@ -600,8 +604,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvEL"
@@ -610,8 +614,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -636,8 +640,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Mental skils"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvMS"
@@ -646,8 +650,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvMS"
@@ -656,8 +660,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvMS"
@@ -666,8 +670,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvMS"
@@ -676,8 +680,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -703,8 +707,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="General science"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvGS"
@@ -713,8 +717,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvGS"
@@ -723,8 +727,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvGS"
@@ -733,8 +737,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvGS"
@@ -743,8 +747,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -772,8 +776,8 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:text="Computer and Information Technology"
-                        android:textColor="@color/GreyText"
-                        android:textSize="16sp" />
+                        android:textColor="@color/LiteBlack"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/totalTvICT"
@@ -782,8 +786,8 @@
                         android:layout_weight=".70"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/correctTvICT"
@@ -792,8 +796,8 @@
                         android:layout_weight=".80"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/wrongTvICT"
@@ -802,8 +806,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/marksTvICT"
@@ -812,8 +816,8 @@
                         android:layout_weight=".75"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/GreyText"
-                        android:textSize="18sp" />
+                        android:textColor="@color/DeepGrey"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

@@ -76,14 +76,21 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <LinearLayout
+        android:layout_below="@id/card"
+        android:layout_width="match_parent"
+        android:background="#fffbfa"
+        android:layout_height="wrap_content">
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recview"
             android:visibility="gone"
-            android:layout_below="@id/card"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             tools:ignore="MissingConstraints" />
+    </LinearLayout>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

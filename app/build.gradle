@@ -10,8 +10,8 @@ android {
         applicationId "com.gdalamin.bcs_pro"
         minSdk 23
         targetSdk 32
-        versionCode 25
-        versionName '2.9.43'
+        versionCode 26
+        versionName '2.9.44'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

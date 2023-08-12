@@ -89,6 +89,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.option3Layout.setEnabled(true);
         holder.option4Layout.setEnabled(true);
 
+
         holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
         holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
         holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
@@ -364,6 +365,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);
             showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageString);
             showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageString);
+//            showTextViewOrImageView(option4,holder.explainTv,holder.explainImage,explainImageString);
 
             QuestionList questionList = new QuestionList(question, option1, option2, option3, option4,questionImageString,option1ImageString
                     ,option2ImageString,option3ImageString,option4ImageString,answer);
@@ -412,9 +414,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 showTextViewOrImageView(explain,holder.explainTv,holder.explainImage,explainImageString);
 
-
-
-
                 int userSelecedAnswer = questionList.getUserSelecedAnswer();
                 switch (questionslists.get(position).getUserSelecedAnswer()) {
                     case 1:
@@ -440,8 +439,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         break;
                 }
 
+            }else {
+                holder.explainImage.setVisibility(View.GONE);
             }
-
 
             if (questionslists.get(position).getUserSelecedAnswer() > 0) {
                 // If the question has a selected option, highlight the corresponding option
@@ -536,6 +536,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
             }
+
+
+
+
+
+
 
 
             /// it activative  when user clicked

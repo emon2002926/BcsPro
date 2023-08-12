@@ -64,9 +64,9 @@
 
             <ImageView
                 android:layout_toStartOf="@+id/quizeTimer"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/timer"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/runing_clock"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="3dp"
                 />
@@ -78,6 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:textSize="16sp"
+                android:layout_marginBottom="2dp"
                 android:id="@+id/quizeTimer"
                 android:textColor="@color/tangerine"
                 android:layout_marginStart="5dp"
@@ -151,6 +152,8 @@
                     android:layout_marginBottom="15dp"
                     android:text="Option 1"
                     android:textSize="16sp"
+                    android:layout_toStartOf="@+id/option1Icon"
+
                     />
                 <ImageView
                     android:layout_width="20dp"
@@ -181,7 +184,6 @@
                     android:layout_marginTop="15sp"
                     android:layout_marginEnd="15sp"
                     android:textSize="16sp"
-
                     android:layout_marginBottom="15sp"
                     android:layout_toStartOf="@+id/option2Icon"
                     android:text="Option 1"
@@ -190,7 +192,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/round_back_white50_100"
-
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
