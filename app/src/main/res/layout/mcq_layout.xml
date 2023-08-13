@@ -166,13 +166,13 @@
                 <ImageView
                     android:id="@+id/option1IV"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15sp"
+                    android:layout_marginEnd="50sp"
                     android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
@@ -241,13 +241,13 @@
                 <ImageView
                     android:id="@+id/option2IV"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15sp"
+                    android:layout_marginEnd="50sp"
                     android:layout_marginBottom="5sp"/>
 
 
@@ -315,13 +315,13 @@
                 <ImageView
                     android:id="@+id/option3IV"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15sp"
+                    android:layout_marginEnd="50sp"
                     android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
@@ -391,13 +391,13 @@
                 <ImageView
                     android:id="@+id/option4IV"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="5sp"
                     android:visibility="gone"
                     android:scaleType="fitXY"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15sp"
+                    android:layout_marginEnd="50sp"
                     android:layout_marginBottom="5sp"/>
 
             </RelativeLayout>
