@@ -2,7 +2,6 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
     ShimmerFrameLayout shimmerFrameLayout;
     private boolean mBooleanValue = false;
-
+    SharedPreferencesManagerAppLogic preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +59,6 @@ public class QuestionListActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-
-
         Intent intent = getIntent();
         String titleText=intent.getStringExtra("titleText");
 
@@ -72,56 +69,39 @@ public class QuestionListActivity extends AppCompatActivity {
             textView.setText("Important Question");
         }
 
-        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
+        preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
         int subCode = preferencesManager.getInt("subCode");
 
-
-
-
         if (subCode == 3){
-
             String SUBJECT_CODE= preferencesManager.getString("subjectPosition");
             String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
-
             processdata(url);
 
         } else if (subCode == 4){
 
             String subjectName = preferencesManager.getString("bcsYearName");
             String apiWithSql = ApiKeys.API_WITH_SQL;
-
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
-
             processdata(url2);
 
-
         }else if (subCode == 5){
-
             API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
             processdata(API_URL);
 
         } else if (subCode == 6) {
 
         }
-
         showAnswer = findViewById(R.id.btnShowAnswer);
-
-
-
 
     }
 
     public void processdata(String API_URL)
     {
-
-
-
        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-//                SharedPreferences sharedPreferences = getSharedPreferences("totalQuestion", MODE_PRIVATE);
-//                sharedPreferences.edit().clear().apply();
+
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
 
@@ -137,8 +117,6 @@ public class QuestionListActivity extends AppCompatActivity {
                 model data[] = gson.fromJson(reader, model[].class);
 
 
-
-
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                         ,LinearLayoutManager.VERTICAL,false);
 
@@ -146,9 +124,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 myadapter adapter=new myadapter(data);
 
 
-
                 recview.setAdapter(adapter);
-
                 showAnswer.setOnClickListener(view -> {
                     mBooleanValue = !mBooleanValue;
                     adapter.setBooleanValue(mBooleanValue);
@@ -160,21 +136,23 @@ public class QuestionListActivity extends AppCompatActivity {
                         showAnswer.setImageResource(R.drawable.view);
                     }
                 });
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(QuestionListActivity.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-
             }
         }
         );
-
-
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        preferencesManager.clear();
     }
 
 }

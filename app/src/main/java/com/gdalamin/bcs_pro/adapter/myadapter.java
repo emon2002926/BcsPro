@@ -538,12 +538,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             }
 
 
-
-
-
-
-
-
             /// it activative  when user clicked
             View.OnClickListener optionClickListener = view -> {
 

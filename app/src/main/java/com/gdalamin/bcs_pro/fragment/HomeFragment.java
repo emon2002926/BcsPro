@@ -94,7 +94,6 @@ public class HomeFragment extends Fragment {
         shimmerFrameLayout.startShimmer();
         scrollView = view.findViewById(R.id.homeLayout);
 
-
         imageView3 = view.findViewById(R.id.imageView3);
         imageView2 = view.findViewById(R.id.imageView2);
         imageView1 = view.findViewById(R.id.imageView1);

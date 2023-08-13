@@ -104,9 +104,6 @@ public class ActivityExam extends AppCompatActivity {
         examTime = preferencesManager.getInt("time");
 
         imageBackButton.setOnClickListener(view -> {
-//            Intent intent = new Intent(ActivityExam.this,MainActivity.class);
-//            startActivity(intent);
-//            finish();
             onBackPressed();
                 });
          timerCallback = new TimerCallback() {
@@ -751,6 +748,7 @@ public class ActivityExam extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         REQ_CODE2 = 0;
+        preferencesManager.clear();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
