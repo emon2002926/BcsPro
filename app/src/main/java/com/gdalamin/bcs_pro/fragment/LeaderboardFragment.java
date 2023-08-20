@@ -69,7 +69,6 @@ public class LeaderboardFragment extends Fragment {
         return view;
 
     }
-
     private void fetchDataFromServer() {
         String url = "https://emon.searchwizy.com/getLeaderbord.php"; // Replace with your API endpoint URL
 
@@ -163,6 +162,8 @@ public class LeaderboardFragment extends Fragment {
         // Add the request to the request queue
         requestQueue.add(request);
     }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -85,8 +86,10 @@ public class QuestionListActivity extends AppCompatActivity {
             processdata(url2);
 
         }else if (subCode == 5){
+            String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
+
             API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
-            processdata(API_URL);
+            processdata( url2);
 
         } else if (subCode == 6) {
 
@@ -97,6 +100,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
     public void processdata(String API_URL)
     {
+        Log.d("examQuestionNum",String.valueOf(API_URL));
        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -155,4 +159,23 @@ public class QuestionListActivity extends AppCompatActivity {
         preferencesManager.clear();
     }
 
+//    @Override
+//    public void onBackPressed() {
+//
+//        Log.d("fdghjcvb",String.valueOf(preferencesManager.getInt("logic")));
+//
+//        startActivity(new Intent(QuestionListActivity.this,MainActivity.class));
+//        finish();
+//        preferencesManager.saveInt("logic",1);
+////        super.onBackPressed();
+//    }
+
+
+    @Override
+    public void onBackPressed() {
+
+//        preferencesManager.clear();
+        preferencesManager.saveInt("logic",1);
+        super.onBackPressed();
+    }
 }

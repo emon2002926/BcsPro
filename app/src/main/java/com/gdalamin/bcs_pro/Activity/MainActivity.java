@@ -11,9 +11,7 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.databinding.ActivityMainBinding;
 import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
-import com.gdalamin.bcs_pro.fragment.LeaderboardFragment;
 import com.gdalamin.bcs_pro.fragment.SettingFragment;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class
@@ -38,7 +36,7 @@ MainActivity extends AppCompatActivity {
         // Set the title text for each menu item
         binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle("Home");
         binding.bottomNavigationView.getMenu().findItem(R.id.navigation_dashboard).setTitle("Profile");
-        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
+//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
         binding.bottomNavigationView.getMenu().findItem(R.id.navigation_setting).setTitle("Settings");
 
         replaceFragment(new HomeFragment());
@@ -54,9 +52,9 @@ MainActivity extends AppCompatActivity {
                 case R.id.navigation_setting:
                     replaceFragment(new SettingFragment());
                     break;
-                case R.id.navigation_leaderBord:
-                    replaceFragment(new LeaderboardFragment());
-                    break;
+//                case R.id.navigation_leaderBord:
+//                    replaceFragment(new LeaderboardFragment());
+//                    break;
             }
             return true;
         });

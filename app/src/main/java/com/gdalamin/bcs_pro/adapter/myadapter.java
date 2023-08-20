@@ -121,6 +121,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.explainTv.getContext());
         int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
+
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
 
 

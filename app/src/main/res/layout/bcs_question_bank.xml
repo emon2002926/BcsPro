@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:id="@+id/layout2"
-
+            android:visibility="visible"
             android:background="@drawable/lite_round_baground"
             android:orientation="horizontal"
             >

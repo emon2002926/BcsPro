@@ -13,10 +13,10 @@
         android:icon="@drawable/baseline_person_outline_24"
         android:title="Profile" />
 
-    <item
-        android:id="@+id/navigation_leaderBord"
-        android:icon="@drawable/baseline_leaderboard_24"
-        android:title="Leaderboard" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_leaderBord"-->
+<!--        android:icon="@drawable/baseline_leaderboard_24"-->
+<!--        android:title="Leaderboard" />-->
 
     <item
         android:id="@+id/navigation_setting"

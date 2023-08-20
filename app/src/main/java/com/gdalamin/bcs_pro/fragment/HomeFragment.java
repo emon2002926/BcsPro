@@ -33,6 +33,7 @@ import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
 import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
+import com.gdalamin.bcs_pro.Activity.TestQuestionBank;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.gdalamin.bcs_pro.api.ApiKeys;
@@ -101,7 +102,7 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recview2);
         CvQuizLayout = view.findViewById(R.id.CvQuizLayout);
         CvImportantQuestion = view.findViewById(R.id.CvImportantQuestion);
-        letcureLayout = view.findViewById(R.id.l4);
+        letcureLayout = view.findViewById(R.id.lectureAndNots);
         tvAllExam = view.findViewById(R.id.tvAllExam);
         subjectBasedExam =view.findViewById(R.id.subject_based_exam);
         tvPractice = view.findViewById(R.id.tvPractice);
@@ -133,7 +134,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("titleText",titleText);
                     v.getContext().startActivity(intent);
                     break;
-                case R.id.l4:
+                case R.id.lectureAndNots:
                     startActivity(new Intent(context, ActivityLectureAndNote.class));
                     break;
                 case R.id.tvAllExam:
@@ -165,7 +166,7 @@ public class HomeFragment extends Fragment {
                     LOGIC = 1;
                     titleText = "Question Bank";
                     preferencesManager.saveInt("logic",LOGIC);
-                    intent = new Intent(getContext(), AllBcsQuestionActivity.class);
+                    intent = new Intent(getContext(), TestQuestionBank.class);
                     intent.putExtra("titleText",titleText);
                     startActivity(intent);
                     break;
