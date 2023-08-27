@@ -11,12 +11,13 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gdalamin.bcs_pro.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 2000;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,13 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
 
+
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
                 SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
                 String valueString = sharedPreferences.getString("key_phone", "");
@@ -46,11 +49,6 @@ public class SplashScreen extends AppCompatActivity {
 
                     return;
 
-                }else if (acct != null){
-
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
                 }
                 else {
                     Intent i = new Intent(SplashScreen.this, ActivityLogin.class);
@@ -62,4 +60,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
     }
+
+
+
 }

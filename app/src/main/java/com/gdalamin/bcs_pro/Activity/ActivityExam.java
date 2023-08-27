@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -137,21 +138,27 @@ public class ActivityExam extends AppCompatActivity {
             int time ;
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
                 time = 200;
-                questionType = APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
+                questionType =API_URL+APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
                 time = 100;
-                questionType = APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
+                questionType = API_URL+APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
                 time = 50;
-                questionType = APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
+                questionType = API_URL+APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
                 time = (preferencesManager.getInt("time")*2);
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
-                String SUBJECT_CODE = preferencesManager.getString("subjectPosition");
-                questionType = "api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA="+NUM_OF_QUESTION;
+                String SUBJECT_CODE = preferencesManager.getString("subjectCode");
+                Log.d("ksdglhug",SUBJECT_CODE);
+                String apiWithSql = ApiKeys.API_WITH_SQL;
+
+//                questionType = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT " +NUM_OF_QUESTION;
+
+
+                questionType = API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum=2&IA="+NUM_OF_QUESTION;
 
             }
             else {
@@ -161,12 +168,13 @@ public class ActivityExam extends AppCompatActivity {
 //            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
 //            showMcq.processdata( API_URL+questionType);
 
-            processdata( API_URL+questionType);
+            processdata( questionType);
         }
     }
 
     public void processdata(String url) {
 
+        Log.d("ksdglhug",url);
 
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -365,6 +373,7 @@ public class ActivityExam extends AppCompatActivity {
         ExamResult saveResult = new ExamResult();
         ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://emon.searchwizy.com/api/saveTest2.php", saveResult);
 
+        /// todo fixthere
         String subCode = preferencesManager.getString("subjectPosition");
 
         if (!subCode.isEmpty()) {

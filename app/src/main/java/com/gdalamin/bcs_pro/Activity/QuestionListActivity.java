@@ -73,15 +73,20 @@ public class QuestionListActivity extends AppCompatActivity {
         preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
         int subCode = preferencesManager.getInt("subCode");
 
+        String apiWithSql = ApiKeys.API_WITH_SQL;
         if (subCode == 3){
-            String SUBJECT_CODE= preferencesManager.getString("subjectPosition");
-            String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
-            processdata(url);
+
+            String SUBJECT_CODE= preferencesManager.getString("subjectCode");
+           // SELECT * FROM `question` WHERE subjects LIKE 'ML' ORDER BY id DESC LIMIT 200
+//            String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
+
+            String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
+            processdata(url2);
 
         } else if (subCode == 4){
 
             String subjectName = preferencesManager.getString("bcsYearName");
-            String apiWithSql = ApiKeys.API_WITH_SQL;
+
             String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
             processdata(url2);
 

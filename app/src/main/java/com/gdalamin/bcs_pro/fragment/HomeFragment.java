@@ -1,9 +1,13 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -16,6 +20,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +51,7 @@ import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onesignal.OneSignal;
 
 public class HomeFragment extends Fragment {
 
@@ -68,18 +76,30 @@ public class HomeFragment extends Fragment {
     SharedPreferencesManagerAppLogic preferencesManager;
     Context context;
 
+    String[] permissions = new String[]{
+            Manifest.permission.POST_NOTIFICATIONS
+    };
+    boolean permissions_post_notification = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-
         context = view.getContext();
         preferencesManager = new SharedPreferencesManagerAppLogic(context);
-//        preferencesManager.remove("examQuestionNum");
         preferencesManager.clear();
-
         preferencesUserInfo = new PreferencesUserInfo(context);
+
+
+        OneSignal.promptForPushNotifications();
+
+
+
+
+
+
+
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -109,9 +129,6 @@ public class HomeFragment extends Fragment {
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
 
 
-
-
-
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
             int subCode =0;
@@ -127,10 +144,11 @@ public class HomeFragment extends Fragment {
                     // This gos  ImportantQuestion (Activity)
                      subCode = 5;
                     int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+                    titleText = getResources().getString(R.string.importantQuestion);
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
                     intent = new Intent(context, QuestionListActivity.class);
-                    titleText = "Important Question";
+
                     intent.putExtra("titleText",titleText);
                     v.getContext().startActivity(intent);
                     break;
@@ -142,11 +160,8 @@ public class HomeFragment extends Fragment {
                     showExamChoser();
                     break;
                 case R.id.subject_based_exam:
-                    // This gos  SubjectBasedExam (Activity)
-                    LOGIC = 2;
                     subCode = 2;
-                    titleText = "Subject Based Exam";
-                    preferencesManager.saveInt("logic",LOGIC);
+                    titleText = getResources().getString(R.string.subjectBasedExam) ;
                     preferencesManager.saveInt("subCode",subCode);
                     intent = new Intent(getContext(),AllBcsQuestionActivity.class);
                     intent.putExtra("titleText",titleText);
@@ -154,34 +169,37 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.tvPractice:
                     subCode = 3;
-                    LOGIC = 2;
-                    titleText = "Practise MCQ";
+                    titleText = getResources().getString(R.string.practice);
                     preferencesManager.saveInt("subCode",subCode);
-                    preferencesManager.saveInt("logic",LOGIC);
                     intent = new Intent(v.getContext(), AllBcsQuestionActivity.class);
                     intent.putExtra("titleText",titleText);
                     v.getContext().startActivity(intent);
                     break;
                 case R.id.CvQuestionBank:
-                    LOGIC = 1;
-                    titleText = "Question Bank";
-                    preferencesManager.saveInt("logic",LOGIC);
+                    titleText = getResources().getString(R.string.questionBank);
                     intent = new Intent(getContext(), TestQuestionBank.class);
                     intent.putExtra("titleText",titleText);
                     startActivity(intent);
                     break;
-                case R.id.showAllCourse:
-                    startActivity(new Intent(view.getContext(), ActivityAllCourse.class));
-                    break;
                 case R.id.imageView1:
-                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-                    break;
                 case R.id.imageView2:
-                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-                    break;
                 case R.id.imageView3:
+                case R.id.showAllCourse:
                     startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
-                    break;
+
+                    /*
+
+                      This code for gatting notification permission
+
+                    if (!permissions_post_notification){
+
+                        requestPermissionsNotification();
+                    }
+                    else {
+                        Toast.makeText(context,"Granted ",Toast.LENGTH_SHORT).show();
+                    }
+
+                 */
             }
         };
 
@@ -246,6 +264,58 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+
+public void requestPermissionsNotification(){
+
+        if (ContextCompat.checkSelfPermission(context,permissions[0]) == PackageManager.PERMISSION_GRANTED){
+            permissions_post_notification = true;
+        }else {
+//            if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)){
+//                Log.d("Permission","inside the 1st don't allow");
+//            }else {
+//                Log.d("Permission","inside the 1st don't allow");
+//
+//            }
+            requestPermissionLauncherNotification.launch(permissions[0]);
+        }
+
+}
+
+private ActivityResultLauncher<String> requestPermissionLauncherNotification = 
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(),isGranted ->  {
+
+            if (isGranted){
+                permissions_post_notification = true;
+            }else {
+                permissions_post_notification = false;
+                showPermissionDailog("Notification Permission");
+            }
+
+        });
+
+public void  showPermissionDailog(String permission_dsc){
+
+    new AlertDialog.Builder(getContext() ).setTitle("Alert for permission").setPositiveButton("Stting", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+    }).setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            })
+
+
+
+            .show();
+
+}
+
+
+
+
 
 
     public void showExamChoser(){

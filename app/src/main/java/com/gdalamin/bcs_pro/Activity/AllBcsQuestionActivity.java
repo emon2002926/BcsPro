@@ -55,19 +55,21 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
         titleTv = findViewById(R.id.titleTv);
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(imageBackButton.getContext());
-        int OPENING_LOGIC = preferencesManager.getInt("logic");
 
+
+        int OPENING_LOGIC = preferencesManager.getInt("logic");
 
         Intent intent = getIntent();
         String titleText=intent.getStringExtra("titleText");
         titleTv.setText(titleText);
 
 
+        /*
+
         if (OPENING_LOGIC ==1){
             //thats will open  older BCS Question
 
             String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
-
 
             String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=7";
             processdata(url2);
@@ -75,8 +77,14 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
             //thats will open  subject based Exam
             String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
             String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=8";
-            processdata(url2);
+
         }
+
+         */
+
+        String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
+        processdata(url2);
+
     }
 
     public void processdata(String url)

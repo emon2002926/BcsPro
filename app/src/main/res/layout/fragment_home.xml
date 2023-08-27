@@ -76,10 +76,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Live exam"
+                                android:text="@string/allExam"
                                 android:textColor="@color/darkTangerine"
                                 android:textStyle="bold"
-                                android:textSize="20sp"
+                                android:textSize="17sp"
                                 />
 
 
@@ -137,10 +137,10 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="All  Course"
+                                    android:text="@string/corses"
                                     android:textColor="@color/darkTangerine"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="20sp"
+                                    android:textSize="17sp"
                                     android:textStyle="bold"
                                     android:layout_weight="1"
 
@@ -149,9 +149,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Show All"
+                                    android:text="@string/showAll"
                                     android:textColor="@color/tangerine"                                    android:layout_marginStart="20dp"
-                                    android:textSize="16sp"
+                                    android:textSize="15sp"
                                     android:id="@+id/showAllCourse"
                                     android:layout_marginEnd="20dp"
 
@@ -241,8 +241,8 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Subject-Based Exam"
-                                            android:textSize="18sp"
+                                            android:text="@string/subjectBasedExam"
+                                            android:textSize="19sp"
                                             android:paddingTop="10dp"
                                             android:paddingBottom="10dp"
                                             android:textStyle="bold"
@@ -263,7 +263,7 @@
                                         android:layout_height="wrap_content"
                                         android:paddingStart="15dp"
                                         android:paddingBottom="5dp"
-                                        android:text="Give an unlimited subject-based exam. Set your own time and number!"
+                                        android:text="@string/subjectExamDsc"
                                         android:textSize="12sp"/>
 
                                 </LinearLayout>
@@ -297,12 +297,12 @@
                                     android:id="@+id/tv1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Practices"
+                                    android:text="@string/practice"
                                     android:textColor="@color/darkTangerine"
                                     android:textStyle="bold"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginStart="5dp"
-                                    android:textSize="20sp" />
+                                    android:textSize="17sp" />
 
                                 <LinearLayout
                                     android:id="@+id/l2"
@@ -321,7 +321,7 @@
                                                 android:layout_width="0dp"
                                                 android:layout_height="fill_parent"
                                                 android:gravity="center"
-                                                android:text="@string/overall_exams"
+                                                android:text="@string/overAllExam"
                                                 android:id="@+id/tvAllExam"
                                                 android:padding="13dp"
                                                 android:layout_weight="1"
@@ -337,7 +337,7 @@
                                             android:layout_height="fill_parent"
                                             android:background="@drawable/lite_round_baground"
                                             android:gravity="center"
-                                            android:text="Question Bank"
+                                            android:text="@string/questionBank"
                                             android:textSize="14sp"
                                             android:id="@+id/CvQuestionBank"
                                             android:layout_weight="1"
@@ -369,7 +369,7 @@
                                             android:layout_weight="1"
                                             android:background="@drawable/lite_round_baground"
                                             android:gravity="center"
-                                            android:text="Practice"
+                                            android:text="@string/practice"
                                             android:id="@+id/tvPractice"
                                             android:textSize="14sp"
                                             android:layout_marginEnd="10dp"
@@ -385,7 +385,7 @@
                                             android:gravity="center"
                                             android:id="@+id/CvImportantQuestion"
                                             android:layout_weight="1"
-                                            android:text="Important Question"
+                                            android:text="@string/importantQuestion"
                                             android:padding="13dp"
                                             android:textColor="@color/LiteBlack2"
                                             android:textSize="14sp" />
@@ -416,10 +416,10 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="Lecture and Notes"
+                                    android:text="@string/lectureAndNots"
                                     android:layout_weight="1"
                                     android:textColor="@color/darkTangerine"
-                                    android:textSize="18sp"
+                                    android:textSize="17sp"
                                     android:textStyle="bold"
                                     android:layout_gravity="center"
                                     />
@@ -460,21 +460,22 @@
                                         android:id="@+id/l5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="40dp"
-                                        android:padding="10dp"
+                                        android:padding="5dp"
                                         android:layout_marginTop="10dp"
                                         android:orientation="horizontal">
 
                                         <TextView
                                             android:id="@+id/exam"
                                             android:layout_width="0dp"
-                                            android:layout_height="fill_parent"
+                                            android:layout_height="wrap_content"
                                             android:layout_marginEnd="20dp"
                                             android:layout_weight="1"
+                                            android:layout_marginStart="5dp"
                                             android:gravity="fill"
                                             android:textStyle="bold"
-                                            android:text=" Quiz Quiz"
+                                            android:text="@string/quiz"
                                             android:textColor="@color/darkTangerine"
-                                            android:textSize="18sp" />
+                                            android:textSize="17sp" />
 
                                     </LinearLayout>
 
@@ -492,7 +493,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:gravity="start"
-                                            android:text="Easy and fun way to Learn "
+                                            android:text="@string/quizDisc"
                                             android:textSize="14sp"
                                             />
 

@@ -11,5 +11,21 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">56789</string>
 
+    <string name="subjectBasedExam">বিষয়ভিত্তিক পরীক্ষা</string>
+    <string name="practice">অনুশীলন</string>
+    <string name="lectureAndNots">লেকচার এন্ড নোটস</string>
+    <string name="quiz">কুইজ কুইজ</string>
+    <string name="quizDisc">সহজ এবং মজার উপায়ে শেখা</string>
+    <string name="subjectExamDsc">যত খুশি বিষয়ভিত্তিক পরীক্ষা দিন। নিজেই সেট করুন পরীক্ষার সময় এবং নম্বর!</string>
+    <string name="overAllExam">সামগ্রিক পরীক্ষা</string>
+    <string name="questionBank">প্রশ্ন ব্যাংক</string>
+    <string name="importantQuestion">গুরুত্বপূর্ণ প্রশ্ন</string>
+    <string name="corses">কোর্স সমূহ</string>
+    <string name="showAll">সবগুলো</string>
+    <string name="allExam">লাইভ এক্সাম</string>
+    <string name="question50">প্রশ্ন ৫০ টি - ২৫ মিনিট</string>
+    <string name="question100">প্রশ্ন ১০০ টি-৫০ মিনিট</string>
+    <string name="question200">প্রশ্ন ২০০ টি - ১০০ মিনিট</string>
+
 
 </resources>

@@ -47,10 +47,11 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             int subCode = preferencesManager.getInt("subCode");
             int LOGIC = preferencesManager.getInt("logic");
 
-            String SUBJECT_CODE = String.valueOf(position+1);
-            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
 
-            if (LOGIC == 2){
+
+
+//            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
+
                 String subjectName = convertToUTF8(data[position].getSubjects());
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
                 holder.tvSubject.setText(subjectName);
@@ -61,7 +62,9 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                         int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
 
                         preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-                        preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
+                        preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
+
+
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
                         intent.putExtra("titleText",subjectName);
                         view.getContext().startActivity(intent);
@@ -115,13 +118,14 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                                 }
                                 else {
 
-                                    preferencesManager.saveString("subjectPosition",SUBJECT_CODE);
+                                    preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
                                     preferencesManager.saveInt("examQuestionNum", Integer.parseInt(NUM_OF_QUESTION));
 
                                     preferencesManager.saveInt("time",Integer.parseInt(time));
                                     preferencesManager.saveInt("LogicForExam",2);
 
 
+                                    preferencesManager.saveString("subjectPosition","2");
                                     Intent intent = new Intent(view.getContext(),ActivityExam.class);
                                     intent.putExtra("titleText",subjectName);
 
@@ -143,7 +147,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                     });
                 }
 
-            }
+
             /*
             /////////       This will open Older Bcs Question
             else if (LOGIC ==1) {

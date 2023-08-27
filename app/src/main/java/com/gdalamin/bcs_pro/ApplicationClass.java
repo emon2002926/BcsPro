@@ -3,7 +3,6 @@ package com.gdalamin.bcs_pro;
 import android.app.Application;
 
 import com.onesignal.OneSignal;
-import com.onesignal.OneSignal;
 
 
 
@@ -15,7 +14,12 @@ public class ApplicationClass extends Application {
     public void onCreate() {
         super.onCreate();
         // Enable verbose OneSignal logging to debug issues if needed.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // Set the OneSignal log level
+
+
+
+//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
         // OneSignal Initialization
         OneSignal.initWithContext(this);
@@ -23,6 +27,6 @@ public class ApplicationClass extends Application {
 
         // promptForPushNotifications will show the native Android notification permission prompt.
         // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
-        OneSignal.promptForPushNotifications();
+//        OneSignal.promptForPushNotifications();
     }
 }
