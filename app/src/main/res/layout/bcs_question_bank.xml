@@ -69,10 +69,9 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="25dp"
                     android:textSize="14dp"
-                    android:textStyle="italic"
                     android:textColor="@color/green"
                     android:id="@+id/numOFQuestion"
-                    android:text="Total"/>
+                    android:text="@string/amountOfQuestion"/>
 
 
             </LinearLayout>

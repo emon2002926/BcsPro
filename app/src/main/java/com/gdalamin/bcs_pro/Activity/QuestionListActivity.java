@@ -30,9 +30,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.StringReader;
 public class QuestionListActivity extends AppCompatActivity {
-
     RecyclerView recview;
-
     TextView textView;
     ImageView imageBackButton;
     FloatingActionButton showAnswer;

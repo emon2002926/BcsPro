@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,43 +40,45 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
-            SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
-            int subCode = preferencesManager.getInt("subCode");
-            int LOGIC = preferencesManager.getInt("logic");
+        /////////       This will open Older Bcs Question
 
-            String SUBJECT_CODE = String.valueOf(position+1);
-            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
-                String subjectName = convertToUTF8(data[position].getSubjects());
-                holder.tvPosition.setText(String.valueOf(position+1)+")");
-                holder.tvSubject.setText(subjectName);
-                holder.cardView1.setVisibility(View.GONE);
-                holder.subjectLayout.setVisibility(View.VISIBLE);
-
-            /////////       This will open Older Bcs Question
-
-                holder.bcsYearName.setText(data[position].getText());
-                holder.cardView1.setVisibility(View.VISIBLE);
-                holder.subjectLayout.setVisibility(View.GONE);
-                holder.cardView1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        String subjectName = data[position].getText();
-
-                        preferencesManager.saveString("bcsYearName",subjectName);
-
-                        preferencesManager.saveInt("subCode",4);
-
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                        intent.putExtra("titleText",subjectName);
-                        view.getContext().startActivity(intent);
-
-                    }
-                });
+        Resources resources = holder.tvSubject.getContext().getResources();
+        String amount = resources.getText(R.string.amountOfQuestion)+" :"+data[position].getTotalQuestion();
+        holder.numOfQuestion.setText(amount);
 
 
+//        Log.d("nkgsdyrt",data[position].getTotalQuestion());
+
+        String subjectName = convertToUTF8(data[position].getSubjects());
+        holder.tvPosition.setText(String.valueOf(position+1)+")");
+        holder.tvSubject.setText(subjectName);
+        holder.cardView1.setVisibility(View.GONE);
+        holder.subjectLayout.setVisibility(View.VISIBLE);
+
+
+        holder.bcsYearName.setText(data[position].getText());
+
+        holder.cardView1.setVisibility(View.VISIBLE);
+        holder.subjectLayout.setVisibility(View.GONE);
+        holder.cardView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String subjectName = data[position].getText();
+
+                preferencesManager.saveString("bcsYearName",subjectName);
+
+                preferencesManager.saveInt("subCode",4);
+
+                Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                intent.putExtra("titleText",subjectName);
+                view.getContext().startActivity(intent);
+
+            }
+        });
 
     }
     private String convertToUTF8(String inputString) {

@@ -26,6 +26,7 @@
     <string name="question50">প্রশ্ন ৫০ টি - ২৫ মিনিট</string>
     <string name="question100">প্রশ্ন ১০০ টি-৫০ মিনিট</string>
     <string name="question200">প্রশ্ন ২০০ টি - ১০০ মিনিট</string>
+    <string name="amountOfQuestion">প্রশ্নের পরিমাণ</string>
 
 
 </resources>

@@ -176,6 +176,7 @@ public class HomeFragment extends Fragment {
                     v.getContext().startActivity(intent);
                     break;
                 case R.id.CvQuestionBank:
+
                     titleText = getResources().getString(R.string.questionBank);
                     intent = new Intent(getContext(), TestQuestionBank.class);
                     intent.putExtra("titleText",titleText);
@@ -306,18 +307,9 @@ public void  showPermissionDailog(String permission_dsc){
                     dialog.dismiss();
                 }
             })
-
-
-
             .show();
 
 }
-
-
-
-
-
-
     public void showExamChoser(){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);

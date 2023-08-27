@@ -42,7 +42,7 @@
                 android:textSize="23sp"
                 android:id="@+id/titleTv"
                 android:textStyle="bold"
-                android:text="Question Bank"
+                android:text="@string/questionBank"
                 />
 
         </LinearLayout>
