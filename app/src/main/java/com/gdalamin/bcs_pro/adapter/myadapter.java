@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
@@ -73,7 +72,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
-        String BASE_URL = ApiKeys.API_URL+"api/";
         Context ctx = holder.fullLayout.getContext();
 
         holder.option1Layout.setBackgroundResource(0);

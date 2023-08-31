@@ -50,7 +50,6 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
         holder.numOfQuestion.setText(amount);
 
 
-//        Log.d("nkgsdyrt",data[position].getTotalQuestion());
 
         String subjectName = convertToUTF8(data[position].getSubjects());
         holder.tvPosition.setText(String.valueOf(position+1)+")");

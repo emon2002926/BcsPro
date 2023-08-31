@@ -162,22 +162,10 @@ public class QuestionListActivity extends AppCompatActivity {
         preferencesManager.clear();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//        Log.d("fdghjcvb",String.valueOf(preferencesManager.getInt("logic")));
-//
-//        startActivity(new Intent(QuestionListActivity.this,MainActivity.class));
-//        finish();
-//        preferencesManager.saveInt("logic",1);
-////        super.onBackPressed();
-//    }
-
 
     @Override
     public void onBackPressed() {
 
-//        preferencesManager.clear();
         preferencesManager.saveInt("logic",1);
         super.onBackPressed();
     }
