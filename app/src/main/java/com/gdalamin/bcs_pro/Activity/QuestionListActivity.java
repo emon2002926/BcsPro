@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,6 +23,7 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
+import com.gdalamin.bcs_pro.dataClass.AppDatabase;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -29,6 +31,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.StringReader;
+import java.util.Arrays;
+import java.util.List;
+
 public class QuestionListActivity extends AppCompatActivity {
     RecyclerView recview;
     TextView textView;
@@ -40,6 +45,12 @@ public class QuestionListActivity extends AppCompatActivity {
     private boolean mBooleanValue = false;
     SharedPreferencesManagerAppLogic preferencesManager;
 
+    model data[];
+    int subCode;
+    String Older_Bcs_Question = "";
+    AppDatabase db;
+    String subjectName;
+    String apiWithSql = ApiKeys.API_WITH_SQL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +62,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
         textView = findViewById(R.id.topTv);
+        showAnswer = findViewById(R.id.btnShowAnswer);
 
 
         imageBackButton = findViewById(R.id.backButton);
@@ -68,8 +80,23 @@ public class QuestionListActivity extends AppCompatActivity {
             textView.setText("Important Question");
         }
 
+
+
+        db = Room.databaseBuilder(
+                getApplicationContext(),
+                AppDatabase.class, "questionTable"
+        ).build();
+
+
+
         preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
-        int subCode = preferencesManager.getInt("subCode");
+        subCode = preferencesManager.getInt("subCode");
+        Older_Bcs_Question =preferencesManager.getString("oldBcs");
+        subjectName = preferencesManager.getString("bcsYearName");
+
+
+
+        /*   version 1
 
         String apiWithSql = ApiKeys.API_WITH_SQL;
         if (subCode == 3){
@@ -97,12 +124,20 @@ public class QuestionListActivity extends AppCompatActivity {
         } else if (subCode == 6) {
 
         }
-        showAnswer = findViewById(R.id.btnShowAnswer);
+
+
+         */
+
+
+        new bgThreat().start();
+
+
 
     }
 
-    public void processdata(String API_URL)
-    {
+
+    /*  processdata version 1
+    public void processdata(String API_URL) {
         Log.d("examQuestionNum",String.valueOf(API_URL));
        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
@@ -155,6 +190,138 @@ public class QuestionListActivity extends AppCompatActivity {
         queue.add(request);
 
     }
+*/
+
+
+    class bgThreat extends Thread {
+        public void run() {
+            super.run();
+
+
+            // Initialize the database instance
+            List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
+            int lenth = dataList.size();
+            Log.d("jrusdfskj","array Lenth is"+String.valueOf(lenth));
+
+
+            if (Older_Bcs_Question.equals("Older_Bcs_Question")){
+
+                if (dataList != null && dataList.size() > 100) {
+
+//                    Log.d("jrusdfskj"," have data");
+
+                    // Convert the list to an array
+                    model[] data = dataList.toArray(new model[0]);
+                    // Update UI on the main thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateUi(data);
+                        }
+                    });
+                }
+                else {
+
+                    Log.d("jrusdfskj","dont have data");
+                    String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
+                    processdata(url2);
+
+                }
+
+            }else if (Older_Bcs_Question.equals("")){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String apiWithSql = ApiKeys.API_WITH_SQL;
+                        if (subCode == 3){
+
+                            Log.d("jrusdfskj"," subCode 3 excuted");
+                            String SUBJECT_CODE= preferencesManager.getString("subjectCode");
+
+                            String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
+                            processdata(url2);
+                        } else if (subCode == 5){
+
+                            String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
+                            processdata(url2);
+
+                        } else if (subCode == 6) {
+
+                        }
+
+                    }
+                });
+            }
+
+
+        }
+    }
+
+
+    private void processdata(String API_URL) {
+        Log.d("examQuestionNum", String.valueOf(API_URL));
+        StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                GsonBuilder builder = new GsonBuilder().setLenient();
+                Gson gson = builder.create();
+
+                JsonReader reader = new JsonReader(new StringReader(response));
+                reader.setLenient(true);
+                model[] data = gson.fromJson(reader, model[].class);
+
+                updateUi(data);
+                class bgThreat1 extends Thread {
+                    public void run() {
+                        super.run();
+                        db.modelDao().insertModels(Arrays.asList(data));
+                    }
+                }
+                new bgThreat1().start();
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", String.valueOf(error));
+                Toast.makeText(QuestionListActivity.this, "Please check your internet connection and try again", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+    }
+
+
+
+    private void updateUi(model[] model1){
+        shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        recview.setVisibility(View.VISIBLE);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
+                ,LinearLayoutManager.VERTICAL,false);
+
+        recview.setLayoutManager(linearLayoutManager);
+        myadapter adapter = new myadapter(model1);
+        recview.setAdapter(adapter);
+
+        showAnswer.setOnClickListener(view -> {
+            mBooleanValue = !mBooleanValue;
+            adapter.setBooleanValue(mBooleanValue);
+
+            if (mBooleanValue == false){
+
+                showAnswer.setImageResource(R.drawable.hidden);
+            }else if (mBooleanValue == true){
+                showAnswer.setImageResource(R.drawable.view);
+            }
+        });
+
+
+    }
+
+
+
 
     @Override
     protected void onDestroy() {

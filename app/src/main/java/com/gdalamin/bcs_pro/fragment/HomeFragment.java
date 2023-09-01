@@ -147,8 +147,8 @@ public class HomeFragment extends Fragment {
                     titleText = getResources().getString(R.string.importantQuestion);
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
-                    intent = new Intent(context, QuestionListActivity.class);
 
+                    intent = new Intent(context, QuestionListActivity.class);
                     intent.putExtra("titleText",titleText);
                     v.getContext().startActivity(intent);
                     break;

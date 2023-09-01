@@ -68,8 +68,10 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
 
                 String subjectName = data[position].getText();
 
-                preferencesManager.saveString("bcsYearName",subjectName);
+                String  oldBcs = "Older_Bcs_Question";
+                preferencesManager.saveString("oldBcs",oldBcs);
 
+                preferencesManager.saveString("bcsYearName",subjectName);
                 preferencesManager.saveInt("subCode",4);
 
                 Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
