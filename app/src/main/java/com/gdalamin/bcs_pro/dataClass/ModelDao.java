@@ -1,5 +1,6 @@
 package com.gdalamin.bcs_pro.dataClass;
 
+import androidx.annotation.Keep;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -11,6 +12,7 @@ import com.gdalamin.bcs_pro.modelClass.model;
 import java.util.List;
 
 @Dao
+@Keep
 public interface ModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertModels(List<model> models);

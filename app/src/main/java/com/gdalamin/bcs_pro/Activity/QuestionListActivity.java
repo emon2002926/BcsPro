@@ -136,61 +136,6 @@ public class QuestionListActivity extends AppCompatActivity {
     }
 
 
-    /*  processdata version 1
-    public void processdata(String API_URL) {
-        Log.d("examQuestionNum",String.valueOf(API_URL));
-       StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-
-                recview.setVisibility(View.VISIBLE);
-
-                GsonBuilder builder = new GsonBuilder().setLenient();
-                Gson gson = builder.create();
-
-                JsonReader reader = new JsonReader(new StringReader(response));
-                reader.setLenient(true);
-
-
-                model data[] = gson.fromJson(reader, model[].class);
-
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
-                        ,LinearLayoutManager.VERTICAL,false);
-
-                recview.setLayoutManager(linearLayoutManager);
-                myadapter adapter=new myadapter(data);
-
-
-                recview.setAdapter(adapter);
-                showAnswer.setOnClickListener(view -> {
-                    mBooleanValue = !mBooleanValue;
-                    adapter.setBooleanValue(mBooleanValue);
-
-                    if (mBooleanValue == false){
-
-                        showAnswer.setImageResource(R.drawable.hidden);
-                    }else if (mBooleanValue == true){
-                        showAnswer.setImageResource(R.drawable.view);
-                    }
-                });
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(QuestionListActivity.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-            }
-        }
-        );
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
-
-    }
-*/
 
 
     class bgThreat extends Thread {
@@ -201,7 +146,7 @@ public class QuestionListActivity extends AppCompatActivity {
             // Initialize the database instance
             List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
             int lenth = dataList.size();
-            Log.d("jrusdfskj","array Lenth is"+String.valueOf(lenth));
+//            Log.d("jrusdfskj","array Lenth is"+String.valueOf(lenth));
 
 
             if (Older_Bcs_Question.equals("Older_Bcs_Question")){
@@ -222,7 +167,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 }
                 else {
 
-                    Log.d("jrusdfskj","dont have data");
+//                    Log.d("jrusdfskj","dont have data");
                     String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
                     processdata(url2);
 
@@ -235,7 +180,7 @@ public class QuestionListActivity extends AppCompatActivity {
                         String apiWithSql = ApiKeys.API_WITH_SQL;
                         if (subCode == 3){
 
-                            Log.d("jrusdfskj"," subCode 3 excuted");
+//                            Log.d("jrusdfskj"," subCode 3 excuted");
                             String SUBJECT_CODE= preferencesManager.getString("subjectCode");
 
                             String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
@@ -283,7 +228,7 @@ public class QuestionListActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("VolleyError", String.valueOf(error));
+//                Log.e("VolleyError", String.valueOf(error));
                 Toast.makeText(QuestionListActivity.this, "Please check your internet connection and try again", Toast.LENGTH_LONG).show();
             }
         });

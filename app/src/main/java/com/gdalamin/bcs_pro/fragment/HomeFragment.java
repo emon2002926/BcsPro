@@ -1,16 +1,13 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +17,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,7 +45,6 @@ import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.onesignal.OneSignal;
 
 public class HomeFragment extends Fragment {
 
@@ -76,10 +69,10 @@ public class HomeFragment extends Fragment {
     SharedPreferencesManagerAppLogic preferencesManager;
     Context context;
 
-    String[] permissions = new String[]{
-            Manifest.permission.POST_NOTIFICATIONS
-    };
-    boolean permissions_post_notification = false;
+//    String[] permissions = new String[]{
+//            Manifest.permission.POST_NOTIFICATIONS
+//    };
+//    boolean permissions_post_notification = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,12 +85,7 @@ public class HomeFragment extends Fragment {
         preferencesUserInfo = new PreferencesUserInfo(context);
 
 
-        OneSignal.promptForPushNotifications();
-
-
-
-
-
+//        OneSignal.promptForPushNotifications();
 
 
 
@@ -188,19 +176,7 @@ public class HomeFragment extends Fragment {
                 case R.id.showAllCourse:
                     startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
 
-                    /*
 
-                      This code for gatting notification permission
-
-                    if (!permissions_post_notification){
-
-                        requestPermissionsNotification();
-                    }
-                    else {
-                        Toast.makeText(context,"Granted ",Toast.LENGTH_SHORT).show();
-                    }
-
-                 */
             }
         };
 
@@ -235,6 +211,7 @@ public class HomeFragment extends Fragment {
 
         }
 
+
         // Register a BroadcastReceiver to listen for network connectivity changes
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -259,6 +236,9 @@ public class HomeFragment extends Fragment {
 
 
         String userId = preferencesUserInfo.getString("key_phone").trim();
+
+
+        processdata();
         getUserProfileData(userId);
 
 
@@ -266,6 +246,9 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    //Notification code
+    /*
 public void requestPermissionsNotification(){
 
         if (ContextCompat.checkSelfPermission(context,permissions[0]) == PackageManager.PERMISSION_GRANTED){
@@ -310,6 +293,8 @@ public void  showPermissionDailog(String permission_dsc){
             .show();
 
 }
+
+ */
     public void showExamChoser(){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);
@@ -428,6 +413,7 @@ public void  showPermissionDailog(String permission_dsc){
         Intent intent = new Intent("INTERNET_RESTORED");
         getActivity().sendBroadcast(intent);
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
+        Log.d("khxfug",API_URL);
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -438,7 +424,7 @@ public void  showPermissionDailog(String permission_dsc){
                 recyclerView.setVisibility(View.VISIBLE);
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                modelForExam data2[]=gson.fromJson(response,modelForExam[].class);
+                modelForExam[] data2 =gson.fromJson(response,modelForExam[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         ,LinearLayoutManager.HORIZONTAL,false);

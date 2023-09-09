@@ -70,7 +70,7 @@ public class LeaderboardFragment extends Fragment {
 
     }
     private void fetchDataFromServer() {
-        String url = "https://emon.searchwizy.com/getLeaderbord.php"; // Replace with your API endpoint URL
+        String url = "http://www.emon.pixatone.com/getLeaderbord.php"; // Replace with your API endpoint URL
 
         animationView.playAnimation();
         // Create a cache directory for caching the response

@@ -2,7 +2,6 @@ package com.gdalamin.bcs_pro.api;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,7 +21,7 @@ public class GetLocalUserData {
     }
 
     public void fetchDataFromAPI(String userId, final APICallback callback) {
-        String apiUrl = "https://emon.searchwizy.com/test2/testUserResult.php?apiKey=abc123&userId=" + userId;
+        String apiUrl = "https://www.emon.pixatone.com/test2/testUserResult.php?apiKey=abc123&userId=" + userId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
