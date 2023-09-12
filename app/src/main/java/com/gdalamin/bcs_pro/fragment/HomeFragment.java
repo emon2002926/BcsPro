@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,8 +35,8 @@ import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
 import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
-import com.gdalamin.bcs_pro.Activity.TestQuestionBank;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.GetLocalUserData;
@@ -121,6 +122,7 @@ public class HomeFragment extends Fragment {
             Intent intent;
             int subCode =0;
             int LOGIC =0;
+            SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
             switch (v.getId()) {
                 case R.id.CvQuizLayout:
                     // Handle button1 click
@@ -165,16 +167,21 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.CvQuestionBank:
 
+//                    titleText = getResources().getString(R.string.questionBank);
+//                    intent = new Intent(getContext(), TestQuestionBank.class);
+//                    intent.putExtra("titleText",titleText);
+//                    startActivity(intent);
                     titleText = getResources().getString(R.string.questionBank);
-                    intent = new Intent(getContext(), TestQuestionBank.class);
-                    intent.putExtra("titleText",titleText);
-                    startActivity(intent);
+                    viewModel.setTitleText(titleText);
+                    replaceFragment(new QuestionBankFragment());
                     break;
-                case R.id.imageView1:
                 case R.id.imageView2:
                 case R.id.imageView3:
+                case  R.id.imageView1:
                 case R.id.showAllCourse:
                     startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+                    break;
+
 
 
             }
@@ -245,6 +252,14 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+    public void replaceFragment(Fragment fragment) {
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
+        transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+        transaction.commit();
+    }
+
 
 
     //Notification code
@@ -374,7 +389,6 @@ public void  showPermissionDailog(String permission_dsc){
             @Override
             public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
 
-
                 preferencesUserInfo.saveString("name",userName);
                 preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
                 preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
@@ -413,7 +427,6 @@ public void  showPermissionDailog(String permission_dsc){
         Intent intent = new Intent("INTERNET_RESTORED");
         getActivity().sendBroadcast(intent);
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
-        Log.d("khxfug",API_URL);
         StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
