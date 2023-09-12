@@ -36,7 +36,7 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:text="Your Profile"
+                    android:text="@string/yourProfile"
                     />
 
             </LinearLayout>
@@ -136,7 +136,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:gravity="fill"
-                        android:text="Show Results"
+                        android:text="@string/showResult"
                         android:textStyle="bold"
                         android:textColor="@color/LiteBlack"
                         android:textSize="16sp" />
@@ -146,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Please click here to view your individual exam results. "
+                        android:text="আপনার ব্যক্তিগত পরীক্ষার ফলাফল গুলো দেখতে এখানে ক্লিক করুন।. "
                         android:textSize="14sp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"

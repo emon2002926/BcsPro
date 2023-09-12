@@ -3,11 +3,7 @@ package com.gdalamin.bcs_pro.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,39 +23,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.resultAdapter;
-import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.gdalamin.bcs_pro.modelClass.ExamResult;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -166,15 +147,20 @@ public class DashBordFragment extends Fragment {
             }
 
             float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
+            String totalPercentageCorrect2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageCorrect)));
+
             float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
+            String totalPercentageWrong2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageWrong)));
+
             float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
+            String totalPercentageNotAnswered2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageNotAnswered)));
 
-            totalQuestionTextView.setText(totalQuestions2);
-            correctAnswerTextView.setText(correctAnswer + " (" + String.valueOf(String.format("%.2f", totalPercentageCorrect)) + "%)");
-            wrongAnswerTextView.setText(wrongAnswer + " (" + String.valueOf(String.format("%.2f", totalPercentageWrong)) + "%)");
-            notAnswredTextView.setText(notAnswered + " (" + String.valueOf(String.format("%.2f", totalPercentageNotAnswered)) + "%)");
+            totalQuestionTextView.setText(convertToBengaliString(totalQuestions2));
+            correctAnswerTextView.setText(convertToBengaliString(correctAnswer) + " (" + totalPercentageCorrect2 + "%)");
+            wrongAnswerTextView.setText(convertToBengaliString(wrongAnswer) + " (" + totalPercentageWrong2 + "%)");
+            notAnswredTextView.setText(convertToBengaliString(notAnswered) + " (" + totalPercentageNotAnswered2 + "%)");
 
-            totalExamTextView.setText(totalExam);
+            totalExamTextView.setText(convertToBengaliString(totalExam));
 
             progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
@@ -188,6 +174,31 @@ public class DashBordFragment extends Fragment {
         return view;
 
     }
+
+    public String convertToBengaliString(String numberStr) {
+        try {
+            // Parse the input string into a double (you can use int if it's an integer)
+            double number = Double.parseDouble(numberStr);
+
+            // Create a Bengali locale
+            Locale bengaliLocale = new Locale("bn", "BD");
+
+            // Create a NumberFormat instance for Bengali
+            NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+
+            // Format the number as a Bengali string
+            return bengaliNumberFormat.format(number);
+        } catch (NumberFormatException e) {
+            // Handle the case where the input string cannot be parsed as a number
+            e.printStackTrace(); // You can log or handle the error here
+            return numberStr; // Return the original string as-is
+        }
+    }
+
+
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -27,6 +27,29 @@
     <string name="question100">প্রশ্ন ১০০ টি-৫০ মিনিট</string>
     <string name="question200">প্রশ্ন ২০০ টি - ১০০ মিনিট</string>
     <string name="amountOfQuestion">প্রশ্নের পরিমাণ</string>
+    <string name="home">হোম</string>
+    <string name="profile">প্রোফাইল</string>
+    <string name="more">আরও</string>
+    <string name="daily_model_test">ডেইলি মডেল টেস্ট</string>
+    <string name="statics">পরিসংখ্যান</string>
+    <string name="Exam_Statistic">পরীক্ষার পরিসংখ্যান</string>
+    <string name="totalExam">মোট পরীক্ষা</string>
+    <string name="totalQuestion">মোট প্রশ্ন</string>
+    <string name="correct">সঠিক</string>
+    <string name="notAnswred">অনুত্তরিত</string>
+    <string name="showResult">পরীক্ষার ফলাফল গুলো</string>
+    <string name="messangerChat">মেসেঞ্জার চ্যাট</string>
+    <string name="facebookPage">ফেসবুক পেজ</string>
+    <string name="appRating">অ্যাপ রেটিং</string>
+    <string name="about_us">আমাদের সম্পর্কে</string>
+    <string name="privircy_policy">প্রাইভেসি পলিসি</string>
+    <string name="trems">টার্মস এন্ড কন্ডিশন</string>
+    <string name="lig_unt">সাইন আউট</string>
+    <string name="Bcs">বিসিএস প্রো</string>
+    <string name="yourProfile">আপনার প্রোফাইল</string>
+    <string name="start_exam">শুরু করুন</string>
+    <string name="not_now">বাতিল করুন</string>
+    <string name="time">মিনিট</string>
 
 
 </resources>

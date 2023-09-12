@@ -37,7 +37,7 @@
                 android:paddingStart="20dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="Daily model test"
+                android:text="@string/daily_model_test"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>

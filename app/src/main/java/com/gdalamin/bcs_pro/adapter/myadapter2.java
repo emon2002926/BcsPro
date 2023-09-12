@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-//        int i = 1;
-//        if (i == 1){
-//
-//        }
-
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_slide,parent,false);
 
          return new myviewholder(view);
@@ -50,9 +46,11 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
         String examDitals = data[position].getDailyExam();
         String getDetails = data[position].getDetails();
 
+        Log.d("dkhsudfg",getDetails);
 
 
-        holder.TvExamDate.setText(examDitals);
+
+        holder.TvExamDate.setText(convertToUTF8(examDitals));
 
 
 
@@ -105,6 +103,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
             throw new RuntimeException(e);
         }
     }
+
 
 
 

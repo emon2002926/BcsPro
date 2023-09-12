@@ -26,6 +26,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class SettingFragment extends Fragment {
     LinearLayout messengerChatBtn,facebookGroup,logOutButton,shareButton,privacyPolicyBtn,termsConditionsBtn;
     @Override
@@ -40,6 +43,20 @@ public class SettingFragment extends Fragment {
         privacyPolicyBtn = view.findViewById(R.id.privacy);
         termsConditionsBtn = view.findViewById(R.id.termsOfUse);
         logOutButton = view.findViewById(R.id.logOutButton);
+
+
+
+
+
+
+        double number = 1234567.89;
+
+        // Create a Locale for Bengali (Bangladesh)
+
+
+        // Create a NumberFormat instance with the Bengali locale
+
+        convertToBengali((int) number);
 
         View.OnClickListener clickListener = v -> {
             Intent intent;
@@ -94,6 +111,13 @@ public class SettingFragment extends Fragment {
         return view;
     }
 
+    public String convertToBengali(int number){
+
+        Locale bengaliLocale = new Locale("bn", "BD");
+        NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+        return bengaliNumberFormat.format(number);
+
+    }
 
     private void openMessenger(){
         String userIdOrGroupId = "100094890072982";

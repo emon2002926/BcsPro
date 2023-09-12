@@ -35,7 +35,7 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:text="Setting"
+                    android:text="@string/more"
                     />
 
             </LinearLayout>
@@ -63,12 +63,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/btnMessengerChat"
-                android:text="Messenger Chat"
+                android:text="@string/messangerChat"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 />
 
         </LinearLayout>
@@ -92,12 +92,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Facebook Page "
+                android:text="@string/facebookPage"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 />
 
         </LinearLayout>
@@ -119,11 +119,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Rate This App"
+                android:text="@string/appRating"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 />
 
@@ -146,11 +146,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Share"
+                android:text="অ্যাপ শেয়ার"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="2dp"
 
@@ -176,11 +176,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="About Us"
+                android:text="@string/about_us"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 />
 
@@ -203,11 +203,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Privacy Policy"
+                android:text="@string/privircy_policy"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/black"
                 />
@@ -231,11 +231,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Terms and Conditions"
+                android:text="@string/trems"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 />
 
@@ -259,11 +259,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Log Out"
+                android:text="@string/lig_unt"
+
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 />
 

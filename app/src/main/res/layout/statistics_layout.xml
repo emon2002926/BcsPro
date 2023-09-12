@@ -16,7 +16,7 @@
             android:textSize="16sp"
             android:textColor="@color/LiteBlack"
             android:textStyle="bold"
-            android:text="Statistic"/>
+            android:text="@string/statics"/>
 
 
 
@@ -41,7 +41,8 @@
                 android:textSize="16sp"
                 android:textColor="@color/LiteBlack"
                 android:textStyle="bold"
-                android:text="Exam Statistic"/>
+                android:text="@string/Exam_Statistic"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,7 +52,7 @@
                 android:textColor="@color/darkTangerine"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
-                android:text="(Live)"/>
+                android:text="(লাইভ)"/>
 
         </LinearLayout>
 
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
-                android:text="Total Exam"/>
+                android:text="@string/totalExam"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Total Question"
+                android:text="@string/totalQuestion"
                 android:layout_gravity="center_vertical"
                 />
             <TextView
@@ -146,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Correct" />
+                    android:text="@string/correct" />
 
             </LinearLayout>
 
@@ -189,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Wrong" />
+                    android:text="ভুল" />
 
             </LinearLayout>
 
@@ -233,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Not answered " />
+                    android:text="@string/notAnswred" />
 
             </LinearLayout>
 

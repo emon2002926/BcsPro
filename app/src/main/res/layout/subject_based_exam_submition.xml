@@ -59,11 +59,11 @@
                         android:paddingStart="10dp"
                         android:textStyle="bold"
                         android:textColor="@color/LiteBlack2"
-                        android:text="Time  "/>
+                        android:text="@string/time"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(MAX minutes 18)"
+                        android:text="   (মিন 10, ম্যাক্স 50)"
                         android:textSize="15sp"
 
                         />
@@ -111,12 +111,12 @@
                         android:gravity="start"
                         android:textStyle="bold"
                         android:textColor="@color/LiteBlack2"
-                        android:text="Question "/>
+                        android:text="প্রশ্ন "/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
-                        android:text="  (Max  50) "/>
+                        android:text="  ( ম্যাক্স 50 ) "/>
 
 
                 </LinearLayout>
@@ -150,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
-            android:text="Start Exam"
+            android:text="@string/start_exam"
             android:padding="12dp"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
@@ -163,7 +163,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Not Now"
+            android:text="@string/not_now"
             android:id="@+id/btnCancal"
             android:gravity="center"
             android:layout_marginBottom="35dp"

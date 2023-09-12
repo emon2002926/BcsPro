@@ -164,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18dp"
-        android:text="Start Exam"
+        android:text="@string/start_exam"
         android:padding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -179,7 +179,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not Now"
+        android:text="@string/not_now"
         android:id="@+id/btnCancal"
         android:gravity="center"
         android:layout_marginTop="10dp"
