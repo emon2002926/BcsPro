@@ -32,7 +32,6 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.Activity.ActivityAllCourse;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
 import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
-import com.gdalamin.bcs_pro.Activity.AllBcsQuestionActivity;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
@@ -46,6 +45,7 @@ import com.gdalamin.bcs_pro.modelClass.modelForExam;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onesignal.OneSignal;
 
 public class HomeFragment extends Fragment {
 
@@ -85,9 +85,7 @@ public class HomeFragment extends Fragment {
         preferencesManager.clear();
         preferencesUserInfo = new PreferencesUserInfo(context);
 
-
-//        OneSignal.promptForPushNotifications();
-
+        OneSignal.promptForPushNotifications();
 
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
@@ -153,24 +151,26 @@ public class HomeFragment extends Fragment {
                     subCode = 2;
                     titleText = getResources().getString(R.string.subjectBasedExam) ;
                     preferencesManager.saveInt("subCode",subCode);
-                    intent = new Intent(getContext(),AllBcsQuestionActivity.class);
-                    intent.putExtra("titleText",titleText);
-                    startActivity(intent);
+//                    intent = new Intent(getContext(),AllBcsQuestionActivity.class);
+//                    intent.putExtra("titleText",titleText);
+//                    startActivity(intent);
+//
+                    viewModel.setTitleText(titleText);
+                    replaceFragment(new SubjectFragment());
                     break;
                 case R.id.tvPractice:
                     subCode = 3;
                     titleText = getResources().getString(R.string.practice);
                     preferencesManager.saveInt("subCode",subCode);
-                    intent = new Intent(v.getContext(), AllBcsQuestionActivity.class);
-                    intent.putExtra("titleText",titleText);
-                    v.getContext().startActivity(intent);
+                    viewModel.setTitleText(titleText);
+//                    intent = new Intent(v.getContext(), AllBcsQuestionActivity.class);
+//                    intent.putExtra("titleText",titleText);
+//                    v.getContext().startActivity(intent);
+//                    viewModel.setTitleText(titleText);
+                    replaceFragment(new  SubjectFragment());
+
                     break;
                 case R.id.CvQuestionBank:
-
-//                    titleText = getResources().getString(R.string.questionBank);
-//                    intent = new Intent(getContext(), TestQuestionBank.class);
-//                    intent.putExtra("titleText",titleText);
-//                    startActivity(intent);
                     titleText = getResources().getString(R.string.questionBank);
                     viewModel.setTitleText(titleText);
                     replaceFragment(new QuestionBankFragment());
@@ -253,7 +253,6 @@ public class HomeFragment extends Fragment {
 
     }
     public void replaceFragment(Fragment fragment) {
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
         transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
@@ -357,7 +356,7 @@ public void  showPermissionDailog(String permission_dsc){
                 case R.id.btnExamStart:
                     if (tolatExamQuestion != 0) {
                         Intent intent = new Intent(context, ActivityExam.class);
-                        titleText = "Overall Exam";
+                        titleText = getResources().getString(R.string.overAllExam);
                         intent.putExtra("titleText",titleText);
                         v.getContext().startActivity(intent);
                         preferencesManager.saveInt("examQuestionNum",tolatExamQuestion);

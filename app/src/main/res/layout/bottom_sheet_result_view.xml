@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Overall Result"
+                android:text="@string/overall_result"
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"
                 android:paddingStart="10dp"

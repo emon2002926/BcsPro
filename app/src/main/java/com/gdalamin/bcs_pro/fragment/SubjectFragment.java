@@ -1,12 +1,15 @@
-package com.gdalamin.bcs_pro.Activity;
+package com.gdalamin.bcs_pro.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,15 +20,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.myadapterForAllbcs;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class AllBcsQuestionActivity extends AppCompatActivity {
 
+public class SubjectFragment extends Fragment {
 
     RecyclerView recyclerView;
     ImageView imageBackButton;
@@ -34,61 +37,45 @@ public class AllBcsQuestionActivity extends AppCompatActivity {
     TextView titleTv;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_bcs_question);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_subject, container, false);
 
 
-        recyclerView = findViewById(R.id.recview3);
-        shimmerFrameLayout = findViewById(R.id.shimer);
+
+        recyclerView = view.findViewById(R.id.recview3);
+        shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
 
 
-        imageBackButton = findViewById(R.id.backButton);
-        imageBackButton.setOnClickListener(view -> {
-            onBackPressed();
+        imageBackButton = view.findViewById(R.id.backButton);
+        imageBackButton.setOnClickListener(view1 -> {
+            getActivity().onBackPressed();
+        });
+        titleTv = view.findViewById(R.id.titleTv);
+
+        SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        viewModel.getTitleText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String titleText) {
+
+                titleTv.setText(titleText);
+
+            }
         });
 
-        titleTv = findViewById(R.id.titleTv);
-
-        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(imageBackButton.getContext());
 
 
-        int OPENING_LOGIC = preferencesManager.getInt("logic");
-
-        Intent intent = getIntent();
-        String titleText=intent.getStringExtra("titleText");
-        titleTv.setText(titleText);
-
-
-        /*
-
-        if (OPENING_LOGIC ==1){
-            //thats will open  older BCS Question
-
-            String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
-
-            String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=7";
-            processdata(url2);
-        } else if (OPENING_LOGIC ==2) {
-            //thats will open  subject based Exam
-            String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
-            String API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=8";
-
-        }
-
-         */
-
-        String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
+        String url2 = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
         processdata(url2);
 
+        return view;
     }
 
-    public void processdata(String url)
-    {
+    public void processdata(String url) {
 
         StringRequest request=new StringRequest(url, new Response.Listener<String>() {
             @Override

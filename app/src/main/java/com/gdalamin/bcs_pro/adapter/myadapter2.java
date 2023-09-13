@@ -66,7 +66,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
 
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
-            intent.putExtra("titleText","Daily Model Test");
+            intent.putExtra("titleText","ডেইলি মডেল টেস্ট");
             view.getContext().startActivity(intent);
 
         });

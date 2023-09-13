@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,6 +42,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.StringReader;
 import java.text.DateFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,7 +55,7 @@ public class ActivityExam extends AppCompatActivity {
     private static final String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
     String API_URL= ApiKeys.API_URL;
     RecyclerView recview;
-    TextView textView,textViewTimer;
+    TextView titleView,textViewTimer;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<>();
     int NUM_OF_QUESTION =0;
@@ -80,7 +80,7 @@ public class ActivityExam extends AppCompatActivity {
         setContentView(R.layout.activity_exam);
 
         recview=findViewById(R.id.recview);
-        textView = findViewById(R.id.topTv);
+        titleView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
         shimmerFrameLayout = findViewById(R.id.shimer);
@@ -90,7 +90,7 @@ public class ActivityExam extends AppCompatActivity {
 
         subjectName = getIntent().getStringExtra("titleText");
 
-        textView.setText(subjectName);
+        titleView.setText(subjectName);
 
         floatingActionButton = findViewById(R.id.btnSubmit);
 
@@ -152,7 +152,7 @@ public class ActivityExam extends AppCompatActivity {
                 time = (preferencesManager.getInt("time")*2);
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
                 String SUBJECT_CODE = preferencesManager.getString("subjectCode");
-                Log.d("ksdglhug",SUBJECT_CODE);
+
                 String apiWithSql = ApiKeys.API_WITH_SQL;
 
 //                questionType = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT " +NUM_OF_QUESTION;
@@ -165,17 +165,11 @@ public class ActivityExam extends AppCompatActivity {
 
                 return;
            }
-//            showMcq = new ShowMcq(this, shimmerFrameLayout, recview, floatingActionButton, textViewTimer, time, timerCallback);
-//            showMcq.processdata( API_URL+questionType);
-
             processdata( questionType);
         }
     }
 
     public void processdata(String url) {
-
-        Log.d("ksdglhug",url);
-
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -187,11 +181,7 @@ public class ActivityExam extends AppCompatActivity {
                         recview.setVisibility(View.VISIBLE);
                         floatingActionButton.setVisibility(View.VISIBLE);
 
-//                        if (examTime >= 1){
-//                            startTimer(examTime*60,textViewTimer);
-//                        }else {
-//                            startTimer(NUM_OF_QUESTION * 30, textViewTimer);
-//                        }
+
                         startTimer(NUM_OF_QUESTION * 30, textViewTimer);
 
 
@@ -266,7 +256,7 @@ public class ActivityExam extends AppCompatActivity {
                 String generateTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", getHour,
                         getMinutes - TimeUnit.HOURS.toMinutes(getHour),
                         getSecond - TimeUnit.MINUTES.toSeconds(getMinutes));
-                textViewTimer.setText(generateTime);
+                textViewTimer.setText(convertToBengaliString(generateTime));
             }
             @Override
             public void onFinish() {
@@ -673,24 +663,20 @@ public class ActivityExam extends AppCompatActivity {
                 .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-        textView.setText("You have answered " + answered + " Question out of "+NUM_OF_QUESTION);
+        textView.setText("আপনি " + NUM_OF_QUESTION + " প্রশ্নের মধ্যে  "+answered+" টি প্রশ্নের উত্তর দিয়েছেন");
 
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
             submissionCallback.onSubmitClicked();
-
-//            REQ_CODE = 1;
             recview.setVisibility(View.VISIBLE);
             REQ_CODE2 = 2;
             finishExam();
             bottomSheetDialog.dismiss();
         });
-
         bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
-//            onBackPressed();
         });
 
     }
@@ -734,11 +720,23 @@ public class ActivityExam extends AppCompatActivity {
 
     public  void setResultIntoTextView(TextView totalTV,TextView correctTV,TextView wrongTV,TextView marksTV ,String total,
                                        String correct,String wrong,String marks){
-        totalTV.setText(total);
-        correctTV.setText(correct);
-        wrongTV.setText(wrong);
-        marksTV.setText(marks);
+        totalTV.setText(convertToBengaliString(total));
+        correctTV.setText(convertToBengaliString(correct));
+        wrongTV.setText(convertToBengaliString(wrong));
+        marksTV.setText(convertToBengaliString(marks));
     }
+    public String convertToBengaliString(String numberStr) {
+        try {
+            double number = Double.parseDouble(numberStr);
+            Locale bengaliLocale = new Locale("bn", "BD");
+            NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+            return bengaliNumberFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // You can log or handle the error here
+            return numberStr; // Return the original string as-is
+        }
+    }
+
 
     @Override
     protected void onResume() {

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gdalamin.bcs_pro.R;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class TestResult extends AppCompatActivity {
 
     ImageView imageBackButton;
@@ -171,10 +174,21 @@ public class TestResult extends AppCompatActivity {
 
     public  void setResultIntoTextView(TextView totalTV,TextView correctTV,TextView wrongTV,TextView marksTV ,String total,
                                        String correct,String wrong,String marks){
-        totalTV.setText(total);
-        correctTV.setText(correct);
-        wrongTV.setText(wrong);
-        marksTV.setText(marks);
+        totalTV.setText(convertToBengaliString(total));
+        correctTV.setText(convertToBengaliString(correct));
+        wrongTV.setText(convertToBengaliString(wrong));
+        marksTV.setText(convertToBengaliString(marks));
 
+    }
+    public String convertToBengaliString(String numberStr) {
+        try {
+            double number = Double.parseDouble(numberStr);
+            Locale bengaliLocale = new Locale("bn", "BD");
+            NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+            return bengaliNumberFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // You can log or handle the error here
+            return numberStr; // Return the original string as-is
+        }
     }
 }

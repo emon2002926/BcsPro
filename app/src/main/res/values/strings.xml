@@ -50,6 +50,21 @@
     <string name="start_exam">শুরু করুন</string>
     <string name="not_now">বাতিল করুন</string>
     <string name="time">মিনিট</string>
+    <string name="overall_result">সমগ্রিক ফলাফল</string>
+    <string name="total">মোট</string>
+    <string name="wrong">ভুল</string>
+    <string name="marks">মার্কস</string>
+    <string name="result">ফলাফল</string>
+    <string name="International_afirs">আন্তর্জাতিক বিষয়াবলি</string>
+    <string name="Bangladeshi_affirs">বাংলাদেশ বিষয়াবলি</string>
+    <string name="bangla">বাংলা</string>
+    <string name="MVG">নৈতিকতা মুল্যবোধ ও সুশাসন</string>
+    <string name="math">গণিত</string>
+    <string name="english">ইংরেজি</string>
+    <string name="mental_skils">মানসিক দক্ষতা</string>
+    <string name="genaral_sceince">সাধারণ বিজ্ঞান</string>
+    <string name="ICT">কম্পিউটার ও তথ্য প্রযুক্তি</string>
+    <string name="submit">জমা দিন</string>
 
 
 </resources>

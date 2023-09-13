@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +32,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.Activity.ResultListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.google.android.material.textfield.TextInputEditText;
@@ -98,7 +98,8 @@ public class DashBordFragment extends Fragment {
         showResultList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ResultListActivity.class));
+//                startActivity(new Intent(view.getContext(), ResultListActivity.class));
+                replaceFragment(new ResultListFragment());
             }
         });
 
@@ -175,21 +176,20 @@ public class DashBordFragment extends Fragment {
 
     }
 
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
+        transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+        transaction.commit();
+    }
+
     public String convertToBengaliString(String numberStr) {
         try {
-            // Parse the input string into a double (you can use int if it's an integer)
             double number = Double.parseDouble(numberStr);
-
-            // Create a Bengali locale
             Locale bengaliLocale = new Locale("bn", "BD");
-
-            // Create a NumberFormat instance for Bengali
             NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
-
-            // Format the number as a Bengali string
             return bengaliNumberFormat.format(number);
         } catch (NumberFormatException e) {
-            // Handle the case where the input string cannot be parsed as a number
             e.printStackTrace(); // You can log or handle the error here
             return numberStr; // Return the original string as-is
         }
