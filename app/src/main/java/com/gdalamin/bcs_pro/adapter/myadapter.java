@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,10 @@ import com.gdalamin.bcs_pro.modelClass.model;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
@@ -117,6 +118,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.explainTv.getContext());
         int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
 
@@ -138,7 +140,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 if (mBooleanValue == true){
                     Toast.makeText( holder.questionTv.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-                    Log.d("kghdu","Clicked");
                 }
 //                else if (mBooleanValue == false){
 //                    Toast.makeText( holder.questionTv.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
@@ -151,7 +152,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 questionslists.add(questionList);
 
                 // Set the text of the options to their respective text views
-                holder.textViewPosition2.setText((position+1)+") ");
+                String position2 = convertToBengaliString(String.valueOf(position+1));
+                holder.textViewPosition2.setText(position2+") ");
+
                 holder.questionTv.setText(convertToUTF8(question));
                 holder.option1TV.setText(convertToUTF8(option1));
                 holder.option2TV.setText(convertToUTF8(option2));
@@ -162,17 +165,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 if (!question.isEmpty()) {
                     holder.questionImg.setVisibility(View.GONE);
                     holder.questionTv.setVisibility(View.VISIBLE);
-                    holder.textViewPosition.setVisibility(View.GONE);
                     holder.textViewPosition2.setVisibility(View.VISIBLE);
                 } else {
-                    holder.textViewPosition2.setVisibility(View.GONE);
+                    holder.textViewPosition2.setVisibility(View.VISIBLE);
                     holder.questionTv.setVisibility(View.GONE);
-                    holder.questionImageLayout.setVisibility(View.VISIBLE);
+
                     Bitmap bitmap = convertBase64ToBitmap(questionImageString);
+
                     holder.questionImg.setImageBitmap(bitmap);
                     holder.questionImg.setVisibility(View.VISIBLE);
-                    holder.textViewPosition.setVisibility(View.VISIBLE);
-                    holder.textViewPosition.setText((position+1)+")");
                 }
 
                 //Showing Image or text with there respective logic
@@ -325,8 +326,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.iconBackground3.setBackgroundResource(R.drawable.round_back_white50_100);
             holder.iconBackground4.setBackgroundResource(R.drawable.round_back_white50_100);
 
-
-            holder.textViewPosition2.setText(questionPosition+") ");
+            String position2 = convertToBengaliString(String.valueOf(questionPosition));
+            holder.textViewPosition2.setText(position2+") ");
             holder.questionTv.setText(convertToUTF8(question));
 
 
@@ -341,18 +342,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.questionImg.setVisibility(View.GONE);
                 holder.questionTv.setVisibility(View.VISIBLE);
                 holder.questionTv.setText(convertToUTF8(question));
-                holder.textViewPosition.setVisibility(View.GONE);
                 holder.textViewPosition2.setVisibility(View.VISIBLE);
             }
             else {
-                holder.textViewPosition2.setVisibility(View.GONE);
+                holder.textViewPosition2.setVisibility(View.VISIBLE);
                 holder.questionTv.setVisibility(View.GONE);
-                holder.questionImageLayout.setVisibility(View.VISIBLE);
                 Bitmap bitmap = convertBase64ToBitmap(questionImageString);
                 holder.questionImg.setImageBitmap(bitmap);
                 holder.questionImg.setVisibility(View.VISIBLE);
-                holder.textViewPosition.setVisibility(View.VISIBLE);
-                holder.textViewPosition.setText(questionPosition+")");
+
             }
 
 
@@ -364,13 +362,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);
             showTextViewOrImageView(option3,holder.option3TV,holder.option3Image,option3ImageString);
             showTextViewOrImageView(option4,holder.option4TV,holder.option4Image,option4ImageString);
-//            showTextViewOrImageView(option4,holder.explainTv,holder.explainImage,explainImageString);
 
             QuestionList questionList = new QuestionList(question, option1, option2, option3, option4,questionImageString,option1ImageString
                     ,option2ImageString,option3ImageString,option4ImageString,answer);
             questionslists.add(questionList);
-
-
 
 
             // When hide or  unHide button was clicked this if else function will activate
@@ -489,7 +484,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 int userSelectedAnswer = questionslists.get(position).getUserSelecedAnswer();
                 if (userSelectedAnswer == 1){
                     if (answer ==1 ){
-//                        holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
                         holder.iconBackground1.setBackgroundResource(R.drawable.green_background);
                         highLightClickedOption2(option1Layout,option2Layout,option3Layout,option4Layout,holder.option1TV);
                         holder.img1.setImageResource(R.drawable.green_dot);
@@ -502,7 +496,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 } else if (userSelectedAnswer == 2) {
 
                     if (answer == 2){
-//                        holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
                         holder.iconBackground2.setBackgroundResource(R.drawable.green_background);
                         highLightClickedOption2(option2Layout,option1Layout,option3Layout,option4Layout,holder.option2TV);
                         holder.img2.setImageResource(R.drawable.green_dot);
@@ -535,6 +528,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
             }
+
 
 
             /// it activative  when user clicked
@@ -667,17 +661,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 rightOrWrongImg1,rightOrWrongImg2,rightOrWrongImg3,rightOrWrongImg4;
 
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
-        LinearLayout fullLayout,questionImageLayout,iconBackground1,iconBackground2,iconBackground3,iconBackground4;
+        LinearLayout fullLayout,iconBackground1,iconBackground2,iconBackground3,iconBackground4;
 
-        TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition,textViewPosition2;
+        TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition2;
 
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
 
-            textViewPosition = itemView.findViewById(R.id.textViewPosition);
+
             textViewPosition2 = itemView.findViewById(R.id.textViewPosition2);
-            questionImageLayout = itemView.findViewById(R.id.questionIvLayout);
 
             iconBackground1 = itemView.findViewById(R.id.iconBackground1);
             iconBackground2 = itemView.findViewById(R.id.iconBackground2);
@@ -697,8 +690,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option3Image = itemView.findViewById(R.id.option3IV);
             option4Image = itemView.findViewById(R.id.option4IV);
             explainImage = itemView.findViewById(R.id.explainIV);
-
-
 
             img1 = itemView.findViewById(R.id.option1Icon);
             img2 = itemView.findViewById(R.id.option2Icon);
@@ -736,15 +727,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             IvQuestionOrAnyOption.setVisibility(View.GONE);
         }else {
             //When questionOrAnyOption is Empty
-
             TvQuestionOrAnyOption.setVisibility(View.GONE);
             IvQuestionOrAnyOption.setVisibility(View.VISIBLE);
             Bitmap bitmap = convertBase64ToBitmap(ImageURL);
             IvQuestionOrAnyOption.setImageBitmap(bitmap);
-
-//            Glide.with(IvQuestionOrAnyOption.getContext())
-//                    .load(ImageURL)
-//                    .into(IvQuestionOrAnyOption);
         }
     }
 
@@ -759,17 +745,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     private void highLightClickedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
-
         selectedOptionIcon.setImageResource(R.drawable.black_dot);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
         selectedOptionLayout.setEnabled(false);
-
     }
-
-
     private  void makeGrayTextView(Context ctx,TextView grayText1
             ,TextView grayText2, TextView grayText3 ) {
-
         grayText1.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
         grayText2.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
         grayText3.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
@@ -810,6 +791,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     }
 
+
     public void intent(){
 
         Intent intent = new Intent();
@@ -823,5 +805,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
+    public String convertToBengaliString(String numberStr) {
+        try {
+            double number = Double.parseDouble(numberStr);
+            Locale bengaliLocale = new Locale("bn", "BD");
+            NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+            return bengaliNumberFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // You can log or handle the error here
+            return numberStr; // Return the original string as-is
+        }
+    }
 
 }

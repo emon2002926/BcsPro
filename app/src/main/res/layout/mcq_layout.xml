@@ -51,35 +51,10 @@
                     android:textStyle="bold"
                     android:padding="2dp"
                     android:text=""
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:textAlignment="inherit"
                     android:id="@+id/questionTv"
                     />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:id="@+id/questionIvLayout"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:text="1)"
-                    android:textStyle="bold"
-                    android:padding="5dp"
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/textViewPosition"
-                    android:textColor="@color/DeepGrey"
-                    android:textSize="18sp"
-                    android:visibility="visible"
-                    />
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,7 +64,9 @@
                     android:scaleType="fitXY"
                     />
 
+
             </LinearLayout>
+
 
 
 

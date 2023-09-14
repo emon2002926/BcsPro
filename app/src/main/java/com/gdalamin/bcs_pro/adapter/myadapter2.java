@@ -68,21 +68,14 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
             intent.putExtra("titleText","ডেইলি মডেল টেস্ট");
             view.getContext().startActivity(intent);
-
         });
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return data.length;
     }
-    class myviewholder extends RecyclerView.ViewHolder
-    {
-
-        TextView TvExamDate,TvExamDetails;
+    class myviewholder extends RecyclerView.ViewHolder { TextView TvExamDate,TvExamDetails;
         CardView cardView;
 
 
