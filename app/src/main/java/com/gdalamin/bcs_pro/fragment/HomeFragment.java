@@ -29,9 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gdalamin.bcs_pro.Activity.ActivityAllCourse;
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
-import com.gdalamin.bcs_pro.Activity.ActivityLectureAndNote;
 import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
@@ -141,7 +139,10 @@ public class HomeFragment extends Fragment {
                     v.getContext().startActivity(intent);
                     break;
                 case R.id.lectureAndNots:
-                    startActivity(new Intent(context, ActivityLectureAndNote.class));
+//                    startActivity(new Intent(context, ActivityLectureAndNote.class));
+                    titleText = getResources().getString(R.string.lectureAndNots);
+                    viewModel.setTitleText(titleText);
+                    replaceFragment(new CoursesFragment());
                     break;
                 case R.id.tvAllExam:
                     // this code sets up a BottomSheetDialog to display options for an exam
@@ -151,10 +152,6 @@ public class HomeFragment extends Fragment {
                     subCode = 2;
                     titleText = getResources().getString(R.string.subjectBasedExam) ;
                     preferencesManager.saveInt("subCode",subCode);
-//                    intent = new Intent(getContext(),AllBcsQuestionActivity.class);
-//                    intent.putExtra("titleText",titleText);
-//                    startActivity(intent);
-//
                     viewModel.setTitleText(titleText);
                     replaceFragment(new SubjectFragment());
                     break;
@@ -163,12 +160,7 @@ public class HomeFragment extends Fragment {
                     titleText = getResources().getString(R.string.practice);
                     preferencesManager.saveInt("subCode",subCode);
                     viewModel.setTitleText(titleText);
-//                    intent = new Intent(v.getContext(), AllBcsQuestionActivity.class);
-//                    intent.putExtra("titleText",titleText);
-//                    v.getContext().startActivity(intent);
-//                    viewModel.setTitleText(titleText);
                     replaceFragment(new  SubjectFragment());
-
                     break;
                 case R.id.CvQuestionBank:
                     titleText = getResources().getString(R.string.questionBank);
@@ -179,7 +171,9 @@ public class HomeFragment extends Fragment {
                 case R.id.imageView3:
                 case  R.id.imageView1:
                 case R.id.showAllCourse:
-                    startActivity(new Intent(view.getContext(),ActivityAllCourse.class));
+                    titleText = getResources().getString(R.string.corses);
+                    viewModel.setTitleText(titleText);
+                    replaceFragment(new CoursesFragment());
                     break;
 
 
@@ -247,7 +241,6 @@ public class HomeFragment extends Fragment {
 
         processdata();
         getUserProfileData(userId);
-
 
         return view;
 

@@ -71,6 +71,7 @@ public class QuestionBankFragment extends Fragment {
 
     }
 
+
     public void processdata(String url)
     {
 
@@ -93,8 +94,7 @@ public class QuestionBankFragment extends Fragment {
                 recyclerView.setLayoutManager(linearLayoutManager);
                 TestmyadapterForAllbcs adapter=new TestmyadapterForAllbcs(data);
                 recyclerView.setAdapter(adapter);
-
-
+                recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
             }
         }, new Response.ErrorListener() {
             @Override
@@ -108,7 +108,7 @@ public class QuestionBankFragment extends Fragment {
         queue.add(request);
 
     }
-
+    
 
 
 }

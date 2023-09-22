@@ -26,11 +26,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 public class SettingFragment extends Fragment {
-    LinearLayout messengerChatBtn,facebookGroup,logOutButton,shareButton,privacyPolicyBtn,termsConditionsBtn;
+    LinearLayout messengerChatBtn,facebookGroup,logOutButton,shareButton,privacyPolicyBtn,termsConditionsBtn,aboutUsBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,20 +40,15 @@ public class SettingFragment extends Fragment {
         privacyPolicyBtn = view.findViewById(R.id.privacy);
         termsConditionsBtn = view.findViewById(R.id.termsOfUse);
         logOutButton = view.findViewById(R.id.logOutButton);
+        aboutUsBtn = view.findViewById(R.id.about_us);
 
 
-
-
-
-
-        double number = 1234567.89;
 
         // Create a Locale for Bengali (Bangladesh)
 
 
         // Create a NumberFormat instance with the Bengali locale
 
-        convertToBengali((int) number);
 
         View.OnClickListener clickListener = v -> {
             Intent intent;
@@ -82,6 +74,13 @@ public class SettingFragment extends Fragment {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, playStoreLink);
                     startActivity(Intent.createChooser(shareIntent, "Share via"));
                     break;
+                case R.id.about_us:
+                    String pixatoneUrl = "http://pixatone.com/";
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(pixatoneUrl));
+                    startActivity(intent);
+                    break;
+
                 case R.id.privacy:
                     String privacyPolicyUrl = "https://doc-hosting.flycricket.io/bcs-pro-privacy-policy/5c7da9fa-9a36-49af-915c-27bb7a5483df/privacy";
                     intent = new Intent(Intent.ACTION_VIEW);
@@ -106,17 +105,10 @@ public class SettingFragment extends Fragment {
         privacyPolicyBtn.setOnClickListener(clickListener);
         termsConditionsBtn.setOnClickListener(clickListener);
         logOutButton.setOnClickListener(clickListener);
+        aboutUsBtn.setOnClickListener(clickListener);
 
 
         return view;
-    }
-
-    public String convertToBengali(int number){
-
-        Locale bengaliLocale = new Locale("bn", "BD");
-        NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
-        return bengaliNumberFormat.format(number);
-
     }
 
     private void openMessenger(){

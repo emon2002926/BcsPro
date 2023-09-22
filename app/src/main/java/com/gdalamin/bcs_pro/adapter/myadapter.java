@@ -89,10 +89,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         holder.option4Layout.setEnabled(true);
 
 
-        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+        holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+        holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+        holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+        holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
         holder.explainTv.setVisibility(View.GONE);
 
         RelativeLayout option1Layout = holder.option1Layout;
@@ -192,7 +192,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                         highLightClickedOption(holder.option1Layout,holder.img1);
 
-                        makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                        makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV,holder.tVIndication2,holder.tVIndication3,holder.tVIndication4);
                         makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
                     }
                     else if (userSelectedAnswer ==2) {
@@ -201,7 +201,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                         holder.option4Layout.setEnabled(false);
                         highLightClickedOption(holder.option2Layout,holder.img2);
 
-                        makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                        makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV,holder.tVIndication1,holder.tVIndication3,holder.tVIndication4);
                         makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
                     }
                     else if (userSelectedAnswer == 3) {
@@ -211,7 +211,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                         highLightClickedOption(holder.option3Layout,holder.img3);
 
-                        makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
+                        makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication4);
                         makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
 
                     }
@@ -222,7 +222,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                         highLightClickedOption(holder.option4Layout,holder.img4);
 
-                        makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
+                        makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication3);
                         makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
 
                     }
@@ -248,8 +248,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
                     // Change text color of all options to default
-                    holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.GreyText));
-                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
+                    holder.tVIndication1.setTextColor(ContextCompat.getColor(ctx,R.color.t2));
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV,holder.tVIndication2,holder.tVIndication3,holder.tVIndication4);
 
                     holder.iconBackground1.setBackgroundResource(R.drawable.gray_baground);
 
@@ -310,10 +311,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             String questionPosition = String.valueOf(position+1);
 
 
-            holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-            holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-            holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
-            holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.black));
+            holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+
+            holder.tVIndication1.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.tVIndication2.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.tVIndication3.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+            holder.tVIndication4.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
 
 
             holder.rightOrWrongImg1.setImageResource(0);
@@ -352,11 +358,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.questionImg.setVisibility(View.VISIBLE);
 
             }
-
-
-
             //Todo  work from hare
-
             //Showing Image or text with there respective logic
             showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageString);
             showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);
@@ -374,34 +376,33 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 if (answer == 1){
                     highLightClickedOption2(holder.option1Layout,holder.option2Layout,holder.option3Layout
-                            ,holder.option4Layout,holder.option1TV);
+                            ,holder.option4Layout,holder.option1TV,holder.tVIndication1);
 
-                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV,holder.tVIndication2,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
                     holder.iconBackground1.setBackgroundResource(R.drawable.gray_baground);
                 }
                 else if (answer ==2) {
 
                     highLightClickedOption2(holder.option2Layout,holder.option1Layout
-                            ,holder.option3Layout,holder.option4Layout,holder.option2TV);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                            ,holder.option3Layout,holder.option4Layout,holder.option2TV,holder.tVIndication2);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV,holder.tVIndication1,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
                     holder.iconBackground2.setBackgroundResource(R.drawable.gray_baground);
                 }
                 else if (answer == 3) {
 
                     highLightClickedOption2(holder.option3Layout,holder.option1Layout
-                            ,holder.option2Layout,holder.option4Layout,holder.option3TV);
-                    makeGrayTextView(ctx,holder.option2TV,holder.option1TV,holder.option4TV);
+                            ,holder.option2Layout,holder.option4Layout,holder.option3TV,holder.tVIndication3);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option1TV,holder.option4TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
                     holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
                 }
-
                 else if (answer == 4) {
                     highLightClickedOption2(holder.option4Layout,holder.option1Layout
-                            ,holder.option3Layout,holder.option2Layout,holder.option4TV);
+                            ,holder.option3Layout,holder.option2Layout,holder.option4TV,holder.tVIndication4);
 
-                    makeGrayTextView(ctx,holder.option2TV,holder.option1TV,holder.option3TV);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option1TV,holder.option3TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication3);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
                     holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
                 }
@@ -447,19 +448,20 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.rightOrWrongImg1.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg1.setVisibility(View.VISIBLE);
 
-                    highLightClickedOption2(option1Layout,option2Layout,option3Layout,option4Layout,holder.option1TV);
-                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    highLightClickedOption2(option1Layout,option2Layout,option3Layout,option4Layout,
+                            holder.option1TV,holder.tVIndication1);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV,holder.tVIndication2,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
 
                 } else if (answer ==2)
                 {
-
                     holder.iconBackground2.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg2.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg2.setVisibility(View.VISIBLE);
 
-                    highLightClickedOption2(option2Layout,option1Layout,option3Layout,option4Layout,holder.option2TV);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                    highLightClickedOption2(option2Layout,option1Layout,option3Layout,option4Layout,holder.option2TV,
+                            holder.tVIndication2);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV,holder.tVIndication1,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
 
                 } else if (answer == 3)
@@ -467,8 +469,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg3.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg3.setVisibility(View.VISIBLE);
-                    highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
+                    highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV
+                            ,holder.tVIndication3);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
                 }
                 else if (answer == 4) {
@@ -476,8 +479,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg4.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg4.setVisibility(View.VISIBLE);
-                    highLightClickedOption2(option4Layout,option2Layout,option3Layout,option1Layout,holder.option4TV);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
+                    highLightClickedOption2(option4Layout,option2Layout,option3Layout,option1Layout,holder.option4TV
+                            ,holder.tVIndication4);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication3);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
                 }
 
@@ -485,51 +489,56 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 if (userSelectedAnswer == 1){
                     if (answer ==1 ){
                         holder.iconBackground1.setBackgroundResource(R.drawable.green_background);
-                        highLightClickedOption2(option1Layout,option2Layout,option3Layout,option4Layout,holder.option1TV);
+                        highLightClickedOption2(option1Layout,option2Layout,option3Layout,option4Layout,holder.option1TV,
+                                holder.tVIndication1);
                         holder.img1.setImageResource(R.drawable.green_dot);
                     }else {
                         holder.img1.setImageResource(R.drawable.red_dot);
-                        selectedOption2(holder.option1Layout,holder.iconBackground1, holder.rightOrWrongImg1,holder.option1TV,ctx);
-
+                        holder.iconBackground1.setBackgroundResource(R.drawable.red_background);
+                        selectedOption2(holder.option1Layout,holder.iconBackground1, holder.rightOrWrongImg1,holder.option1TV,ctx
+                                ,holder.tVIndication1);
                     }
-
                 } else if (userSelectedAnswer == 2) {
 
                     if (answer == 2){
                         holder.iconBackground2.setBackgroundResource(R.drawable.green_background);
-                        highLightClickedOption2(option2Layout,option1Layout,option3Layout,option4Layout,holder.option2TV);
+                        highLightClickedOption2(option2Layout,option1Layout,option3Layout,option4Layout,holder.option2TV,
+                                holder.tVIndication2);
                         holder.img2.setImageResource(R.drawable.green_dot);
                     }else {
 
                         holder.img2.setImageResource(R.drawable.red_dot);
-                        selectedOption2(holder.option2Layout,holder.iconBackground2, holder.rightOrWrongImg2,holder.option2TV,ctx);
+                        holder.iconBackground2.setBackgroundResource(R.drawable.red_background);
+                        selectedOption2(holder.option2Layout,holder.iconBackground2, holder.rightOrWrongImg2,holder.option2TV,ctx
+                                ,holder.tVIndication2);
                     }
                 } else if (userSelectedAnswer == 3) {
                     if (answer==3){
                         holder.iconBackground3.setBackgroundResource(R.drawable.green_background);
-                        highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV);
+                        highLightClickedOption2(option3Layout,option2Layout,option1Layout,option4Layout,holder.option3TV,
+                                holder.tVIndication3);
                         holder.img3.setImageResource(R.drawable.green_dot);
                     }else {
                         holder.img3.setImageResource(R.drawable.red_dot);
-                        selectedOption2(holder.option3Layout,holder.iconBackground3, holder.rightOrWrongImg3,holder.option3TV,ctx);
+                        holder.iconBackground3.setBackgroundResource(R.drawable.red_background);
+                        selectedOption2(holder.option3Layout,holder.iconBackground3, holder.rightOrWrongImg3,holder.option3TV,ctx
+                                ,holder.tVIndication3);
                     }
                 } else if (userSelectedAnswer == 4) {
                     if (answer==4){
                         holder.iconBackground4.setBackgroundResource(R.drawable.green_background);
 
-                        highLightClickedOption2(option4Layout,option2Layout,option1Layout,option3Layout,holder.option4TV);
+                        highLightClickedOption2(option4Layout,option2Layout,option1Layout,option3Layout,holder.option4TV,
+                                holder.tVIndication4);
                         holder.img4.setImageResource(R.drawable.green_dot);
                     }else {
                         holder.img4.setImageResource(R.drawable.red_dot);
-                        selectedOption2(holder.option4Layout,holder.iconBackground4, holder.rightOrWrongImg4,holder.option4TV,ctx);
+                        holder.iconBackground4.setBackgroundResource(R.drawable.red_background);
+                        selectedOption2(holder.option4Layout,holder.iconBackground4, holder.rightOrWrongImg4,holder.option4TV,ctx
+                                ,holder.tVIndication4);
                     }
-
                 }
-
-
             }
-
-
 
             /// it activative  when user clicked
             View.OnClickListener optionClickListener = view -> {
@@ -538,43 +547,47 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
                 if (answer == 1){
                     holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.green));
+                    holder.tVIndication1.setTextColor(ContextCompat.getColor(ctx,R.color.green));
                     holder.iconBackground1.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg1.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg1.setVisibility(View.VISIBLE);
                     holder.option1Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV);
+                    makeGrayTextView(ctx,holder.option2TV,holder.option3TV,holder.option4TV,holder.tVIndication2,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground2,holder.iconBackground3,holder.iconBackground4);
 
 
                 } else if (answer ==2) {
 
                     holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.green));
+                    holder.tVIndication2.setTextColor(ContextCompat.getColor(ctx,R.color.green));
                     holder.iconBackground2.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg2.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg2.setVisibility(View.VISIBLE);
 
                     holder.option2Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option3TV,holder.option4TV,holder.tVIndication1,holder.tVIndication3,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground3,holder.iconBackground4);
 
 
                 } else if (answer == 3) {
                     holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.green));
+                    holder.tVIndication3.setTextColor(ContextCompat.getColor(ctx,R.color.green));
                     holder.iconBackground3.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg3.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg3.setVisibility(View.VISIBLE);
                     holder.option3Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option4TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication4);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground4);
 
 
                 } else if (answer == 4) {
                     holder.option4TV.setTextColor(ContextCompat.getColor(ctx, R.color.green));
+                    holder.tVIndication4.setTextColor(ContextCompat.getColor(ctx,R.color.green));
                     holder.iconBackground4.setBackgroundResource(R.drawable.gray_baground);
                     holder.rightOrWrongImg4.setImageResource(R.drawable.baseline_check_24);
                     holder.rightOrWrongImg4.setVisibility(View.VISIBLE);
                     holder.option4Layout.setBackgroundResource(R.drawable.round_back_selected_option);
-                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV);
+                    makeGrayTextView(ctx,holder.option1TV,holder.option2TV,holder.option3TV,holder.tVIndication1,holder.tVIndication2,holder.tVIndication3);
                     makeGrayBackground(holder.iconBackground1,holder.iconBackground2,holder.iconBackground3);
 
                 }
@@ -584,10 +597,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 ImageView img = null;
                 ImageView imgWrong = null;
                 TextView  option = null;
+                TextView tVIndication = null;
                 LinearLayout iconBackground= null;
                 if (view == holder.option1Layout) {
                     selectedOption = 1;
                     img = holder.img1;
+                    tVIndication = holder.tVIndication1;
                     imgWrong = holder.rightOrWrongImg1;
                     option = holder.option1TV;
                     iconBackground = holder.iconBackground1;
@@ -596,11 +611,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     img = holder.img2;
                     imgWrong = holder.rightOrWrongImg2;
                     option = holder.option2TV;
+                    tVIndication = holder.tVIndication2;
                     iconBackground = holder.iconBackground2;
                 } else if (view == holder.option3Layout) {
                     selectedOption = 3;
                     img = holder.img3;
                     imgWrong = holder.rightOrWrongImg3;
+                    tVIndication = holder.tVIndication3;
                     option = holder.option3TV;
                     iconBackground = holder.iconBackground3;
                 } else if (view == holder.option4Layout) {
@@ -608,6 +625,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     img = holder.img4;
                     imgWrong = holder.rightOrWrongImg4;
                     option = holder.option4TV;
+                    tVIndication = holder.tVIndication4;
                     iconBackground = holder.iconBackground4;
                 }
                 questionslists.get(position).setUserSelecedAnswer(selectedOption);
@@ -620,9 +638,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                     img.setImageResource(R.drawable.green_dot);
                     imgWrong.setImageResource(R.drawable.baseline_check_24);
                     imgWrong.setVisibility(View.VISIBLE);
+                    tVIndication.setTextColor(ContextCompat.getColor(ctx, R.color.green));
                 }else {
+                    iconBackground.setBackgroundResource(R.drawable.red_background);
                     img.setImageResource(R.drawable.red_dot);
-                    selectedOption2(view,iconBackground,imgWrong,option,ctx);
+                    tVIndication.setTextColor(ContextCompat.getColor(ctx,R.color.liteRed));
+                    selectedOption2(view,iconBackground,imgWrong,option,ctx,tVIndication );
                 }
 
 
@@ -640,10 +661,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             holder.option4Layout.setOnClickListener(optionClickListener);
         }
 
-
         //for Exam Activity
-
-
     }
 
     @Override
@@ -663,7 +681,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         RelativeLayout option1Layout,option2Layout,option3Layout,option4Layout;
         LinearLayout fullLayout,iconBackground1,iconBackground2,iconBackground3,iconBackground4;
 
-        TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition2;
+        TextView option1TV , option2TV , option3TV , option4TV,questionTv,explainTv,textViewPosition2,tVIndication1,tVIndication2,tVIndication3,tVIndication4;
 
         public myviewholder(@NonNull View itemView)
         {
@@ -683,6 +701,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             option3TV=itemView.findViewById(R.id.option3Tv);
             option4TV=itemView.findViewById(R.id.option4Tv);
             explainTv = itemView.findViewById(R.id.tvExplain);
+
+            tVIndication1 = itemView.findViewById(R.id.tVIndication1);
+            tVIndication2 = itemView.findViewById(R.id.tVIndication2);
+            tVIndication3 = itemView.findViewById(R.id.tVIndication3);
+            tVIndication4 = itemView.findViewById(R.id.tVIndication4);
+
+
 
             questionImg = itemView.findViewById(R.id.questionIv);
             option1Image = itemView.findViewById(R.id.option1IV);
@@ -716,8 +741,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     }
 
-
-
     public  void showTextViewOrImageView(String questionOrAnyOption,TextView TvQuestionOrAnyOption,ImageView IvQuestionOrAnyOption,
                                          String ImageURL){
 
@@ -750,10 +773,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         selectedOptionLayout.setEnabled(false);
     }
     private  void makeGrayTextView(Context ctx,TextView grayText1
-            ,TextView grayText2, TextView grayText3 ) {
+            ,TextView grayText2, TextView grayText3 ,TextView tVIndication1,TextView tVIndication2,TextView tVIndication3) {
         grayText1.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
         grayText2.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
         grayText3.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
+        tVIndication1.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
+        tVIndication2.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
+        tVIndication3.setTextColor(ContextCompat.getColor(ctx, R.color.t2));
 
     }
 
@@ -768,11 +794,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     private void highLightClickedOption2( View highlightedOptionLayout ,View disableOptionLayout1,
-                                          View disableOptionLayout2,View disableOptionLayout3,TextView rightTextView) {
+                                          View disableOptionLayout2,View disableOptionLayout3,TextView rightTextView,
+                                          TextView tVIndication) {
 
 
         highlightedOptionLayout.setBackgroundResource(R.drawable.round_back_selected_option);
         rightTextView.setTextColor(ContextCompat.getColor(rightTextView.getContext(), R.color.green));
+        tVIndication.setTextColor(ContextCompat.getColor(rightTextView.getContext(), R.color.green));
+
         highlightedOptionLayout.setEnabled(false);
         disableOptionLayout1.setEnabled(false);
         disableOptionLayout2.setEnabled(false);
@@ -780,7 +809,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
     }
-    private void selectedOption2(View selectedOptionLayout ,View OptionIconBackground, ImageView selectedOptionIcon, TextView wrongAnswer,Context ctx) {
+    private void selectedOption2(View selectedOptionLayout ,View OptionIconBackground, ImageView selectedOptionIcon, TextView wrongAnswer,Context ctx,
+                                 TextView tVIndication) {
 
 
         OptionIconBackground.setBackgroundResource(R.drawable.red_background);
@@ -788,6 +818,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
         selectedOptionIcon.setImageResource(R.drawable.baseline_close_24);
         selectedOptionLayout.setBackgroundResource(R.drawable.round_back_red50_10);
         wrongAnswer.setTextColor(ContextCompat.getColor(ctx, R.color.liteRed));
+
+        tVIndication.setTextColor(ContextCompat.getColor(wrongAnswer.getContext(), R.color.liteRed));
+
 
     }
 

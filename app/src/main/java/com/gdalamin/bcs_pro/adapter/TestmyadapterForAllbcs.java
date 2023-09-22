@@ -19,6 +19,8 @@ import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterForAllbcs.myviewholder> {
     ModelForLectureAndAllQuestion data[];
@@ -52,7 +54,10 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
 
 
         String subjectName = convertToUTF8(data[position].getSubjects());
-        holder.tvPosition.setText(String.valueOf(position+1)+")");
+        String postion2 = convertToBengaliString(String.valueOf((position+1))+")");
+
+        holder.tvPosition.setText(convertToBengaliString(postion2));
+
         holder.tvSubject.setText(subjectName);
         holder.cardView1.setVisibility(View.GONE);
         holder.subjectLayout.setVisibility(View.VISIBLE);
@@ -87,6 +92,18 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
             return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public String convertToBengaliString(String numberStr) {
+        try {
+            double number = Double.parseDouble(numberStr);
+            Locale bengaliLocale = new Locale("bn", "BD");
+            NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+            return bengaliNumberFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // You can log or handle the error here
+            return numberStr; // Return the original string as-is
         }
     }
 

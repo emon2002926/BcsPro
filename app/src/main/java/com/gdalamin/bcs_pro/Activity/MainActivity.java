@@ -32,12 +32,6 @@ MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout, new HomeFragment())
-                    .commit();
-        }
-
 
         // Set the title text for each menu item
         binding.bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);

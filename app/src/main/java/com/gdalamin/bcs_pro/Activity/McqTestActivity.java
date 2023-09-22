@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -60,10 +59,8 @@ public class McqTestActivity extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
 
-    ///Current Question position by Default 0
     private int currenQuestiontPosition = 0;
 
-    //seleced option valu should be be
     private  int selectedOption = 0;
     ProgressBar progressBar;
     static int getAnswer2;
@@ -116,16 +113,8 @@ public class McqTestActivity extends AppCompatActivity {
 
         totalQuestionTV.setText("/10");
 
-
-
-
-
-
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-
 
 
         option1Layout.setOnClickListener(v -> {
@@ -164,6 +153,8 @@ public class McqTestActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(v -> {
 
             if(selectedOption !=0){
+
+
 
                 questionslists.get(currenQuestiontPosition).setUserSelecedAnswer(selectedOption);
                 int i = selectedOption;
@@ -240,20 +231,14 @@ public class McqTestActivity extends AppCompatActivity {
                     }
 
                 }, 10);
+
             }else {
                 Toast.makeText(McqTestActivity.this,"please Select A Option",Toast.LENGTH_SHORT).show();
             }
 
         });
-
-
-//
         get();
     }
-
-
-
-
 
     public  void  get(){
 
@@ -287,7 +272,6 @@ public class McqTestActivity extends AppCompatActivity {
                                 String option4 = row.getString("option4");
                                 String option4ImageString = row.getString("option4Image");
                                 String batch = row.getString("batch");
-                                Log.d("jksdg",batch);
                                 int answer = row.getInt("answer");
 
                                 startQuizeTimer(180);
@@ -321,9 +305,6 @@ public class McqTestActivity extends AppCompatActivity {
 
     }
 
-
-
-
     //////////////////////////
     private void finishQuiz(){
 
@@ -339,7 +320,6 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
 
-    // ToDo method to start QuizeTimer
     private void startQuizeTimer(int maxTimerSceounds ){
         countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
             @Override
@@ -374,10 +354,7 @@ public class McqTestActivity extends AppCompatActivity {
 
 
     private void selectQuestion(int questionListPositon){
-
-
         restOption();
-
         if (convertToUTF8(questionslists.get(questionListPositon).getQuestion().trim()).isEmpty()){
 
             Bitmap bitmap = convertBase64ToBitmap(questionslists.get(questionListPositon).getQuestionImageString());
@@ -403,9 +380,6 @@ public class McqTestActivity extends AppCompatActivity {
         currentQuestion.setText("Question "+questionPositon2);
 
         getAnswer2 =questionslists.get(questionListPositon).getAnswer();
-
-
-
 
     }
     private  void restOption () {
@@ -455,13 +429,8 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
-
-        stopTimer();
-        finish();
+        super.onBackPressed();
     }
-
-
-    }
+}

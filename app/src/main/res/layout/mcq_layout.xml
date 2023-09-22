@@ -73,8 +73,10 @@
 
             <!--        option 1 layOut-->
             <RelativeLayout
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/option1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,36 +88,58 @@
 
 
                 <LinearLayout
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/round_back_white50_100"
-                    android:id="@+id/iconBackground1"
+                    android:layout_gravity="center_vertical"
 
                     >
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/option1Icon"
-                        android:src="@drawable/black_dot"
-                        android:scaleType="fitXY"
-                        android:padding="3dp"
+                    <LinearLayout
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/iconBackground1"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/round_back_white50_100"
+                        >
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/option1Icon"
+                            android:src="@drawable/black_dot"
+                            android:scaleType="fitXY"
+                            android:padding="3dp"
 
-                        app:riv_corner_radius="10dp"
-                        />
+                            app:riv_corner_radius="10dp"
+                            />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="ক)"
+                        android:textColor="@color/LiteBlack"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/tVIndication1"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:layout_gravity="center_vertical"/>
+
+
                 </LinearLayout>
+
 
 
                 <TextView
                     android:id="@+id/option1Tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="45dp"
                     android:layout_marginTop="5sp"
-                    android:layout_marginEnd="15sp"
                     android:layout_marginBottom="5sp"
+                    android:layout_marginEnd="15sp"
                     android:textSize="15sp"
                     android:padding="5dp"
                     android:visibility="visible"
@@ -156,8 +180,10 @@
             <!--        option 2 layout-->
 
             <RelativeLayout
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/option2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,22 +193,40 @@
                 >
 
                 <LinearLayout
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/iconBackground2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/round_back_white50_100"
                     >
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/option2Icon"
-                        android:src="@drawable/black_dot"
-                        android:scaleType="fitXY"
-                        android:padding="3dp"
-                        app:riv_corner_radius="10dp"
-                        />
+                    <LinearLayout
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/iconBackground2"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/round_back_white50_100">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/option2Icon"
+                            android:src="@drawable/black_dot"
+                            android:scaleType="fitXY"
+                            android:padding="3dp"
+                            app:riv_corner_radius="10dp"
+                            />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="খ)"
+                        android:textColor="@color/LiteBlack"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/tVIndication2"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:layout_gravity="center_vertical"/>
+
 
                 </LinearLayout>
 
@@ -191,7 +235,7 @@
                     android:id="@+id/option2Tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60sp"
+                    android:layout_marginStart="45sp"
                     android:layout_marginTop="5sp"
                     android:layout_marginEnd="15sp"
                     android:textSize="15sp"
@@ -232,8 +276,10 @@
 
             <!--        option 3 layout-->
             <RelativeLayout
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/option3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,23 +288,43 @@
                 android:paddingBottom="4dp"                >
 
                 <LinearLayout
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/iconBackground3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/round_back_white50_100"
                     >
+                    <LinearLayout
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/iconBackground3"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/round_back_white50_100"
+                        >
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/option3Icon"
-                        android:src="@drawable/black_dot"
-                        android:scaleType="fitXY"
-                        android:padding="3dp"
-                        app:riv_corner_radius="10dp"
-                        />
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/option3Icon"
+                            android:src="@drawable/black_dot"
+                            android:scaleType="fitXY"
+                            android:padding="3dp"
+                            app:riv_corner_radius="10dp"
+                            />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="গ)"
+                        android:textColor="@color/LiteBlack"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5sp"
+                        android:id="@+id/tVIndication3"
+                        android:layout_marginBottom="5sp"
+                        android:layout_gravity="center_vertical"/>
+
+
                 </LinearLayout>
 
 
@@ -266,7 +332,7 @@
                     android:id="@+id/option3Tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60sp"
+                    android:layout_marginStart="45sp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5sp"
@@ -304,8 +370,10 @@
             </RelativeLayout>
             <!--        option 4 layout-->
             <RelativeLayout
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/opton4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -316,30 +384,49 @@
                 >
 
                 <LinearLayout
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/iconBackground4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/round_back_white50_100"
                     >
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/option4Icon"
-                        android:src="@drawable/black_dot"
-                        android:scaleType="fitXY"
-                        android:padding="3dp"
-                        app:riv_corner_radius="10dp"
-                        />
+                    <LinearLayout
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/iconBackground4"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/round_back_white50_100">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/option4Icon"
+                            android:src="@drawable/black_dot"
+                            android:scaleType="fitXY"
+                            android:padding="3dp"
+                            app:riv_corner_radius="10dp"
+                            />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="ঘ)"
+                        android:textColor="@color/LiteBlack"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5sp"
+                        android:id="@+id/tVIndication4"
+                        android:layout_marginBottom="5sp"
+                        android:layout_gravity="center_vertical"/>
+
                 </LinearLayout>
+
 
 
                 <TextView
                     android:id="@+id/option4Tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60sp"
+                    android:layout_marginStart="45sp"
                     android:textSize="15sp"
                     android:visibility="visible"
                     android:layout_marginBottom="5dp"

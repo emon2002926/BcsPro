@@ -59,20 +59,29 @@
             android:id="@+id/shimer"
             android:visibility="visible"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
 
-                <include
-                    layout="@layout/shimer_mcq_baground"/>
-                <include
-                    layout="@layout/shimer_mcq_baground"/>
-                <include
-                    layout="@layout/shimer_mcq_baground"/>
 
-            </LinearLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <include
+                            layout="@layout/shimer_mcq_baground"/>
+                        <include
+                            layout="@layout/shimer_mcq_baground"/>
+                        <include
+                            layout="@layout/shimer_mcq_baground"/>
+                        <include
+                            layout="@layout/shimer_mcq_baground"/>
+                    </LinearLayout>
+
+                </ScrollView>
+
+
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
