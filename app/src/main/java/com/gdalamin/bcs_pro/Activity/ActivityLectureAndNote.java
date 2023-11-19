@@ -25,14 +25,10 @@ public class ActivityLectureAndNote extends AppCompatActivity {
 
         shimmerFrameLayout.startShimmer();
 
-
-//        processdata();
-
         imageBackButton = findViewById(R.id.backButton);
 
-        imageBackButton.setOnClickListener(view -> {
-            onBackPressed();
-        });
+        imageBackButton.setOnClickListener(view -> onBackPressed());
+
 
 
     }

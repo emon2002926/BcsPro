@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -68,10 +69,6 @@ public class HomeFragment extends Fragment {
     SharedPreferencesManagerAppLogic preferencesManager;
     Context context;
 
-//    String[] permissions = new String[]{
-//            Manifest.permission.POST_NOTIFICATIONS
-//    };
-//    boolean permissions_post_notification = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,15 +82,9 @@ public class HomeFragment extends Fragment {
 
         OneSignal.promptForPushNotifications();
 
-
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
 
-                processdata();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::processdata);
 
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);
@@ -116,8 +107,7 @@ public class HomeFragment extends Fragment {
 
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
-            int subCode =0;
-            int LOGIC =0;
+            int subCode;
             SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
             switch (v.getId()) {
                 case R.id.CvQuizLayout:
@@ -245,12 +235,31 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
-    public void replaceFragment(Fragment fragment) {
+
+
+//    public void replaceFragment(Fragment fragment) {
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
+//        transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+//        transaction.commit();
+//    }
+
+    private void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
-        transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+
+        // Set custom animations for fragment transition
+        transaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim);
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    // Overload the method with a version that uses default animations
+    private void replaceFragment(Fragment fragment) {
+        // Call the method with default animations (you can change these defaults)
+        replaceFragment(fragment, R.anim.default_enter_anim, R.anim.default_exit_anim, R.anim.default_pop_enter_anim, R.anim.default_pop_exit_anim);
+    }
+
 
 
 
@@ -419,33 +428,23 @@ public void  showPermissionDailog(String permission_dsc){
         Intent intent = new Intent("INTERNET_RESTORED");
         getActivity().sendBroadcast(intent);
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
-        StringRequest request=new StringRequest(API_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+        StringRequest request=new StringRequest(API_URL, response ->  {
 
-                recyclerView.setVisibility(View.VISIBLE);
-                GsonBuilder builder=new GsonBuilder();
-                Gson gson=builder.create();
-                modelForExam[] data2 =gson.fromJson(response,modelForExam[].class);
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
-                        ,LinearLayoutManager.HORIZONTAL,false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                myadapter2 adapter=new myadapter2(data2);
-                recyclerView.setAdapter(adapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            GsonBuilder builder=new GsonBuilder();
+            Gson gson=builder.create();
+            modelForExam[] data2 =gson.fromJson(response,modelForExam[].class);
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                swipeRefreshLayout.setRefreshing(false);
-
-
-            }
-        }
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
+                    ,LinearLayoutManager.HORIZONTAL,false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            myadapter2 adapter=new myadapter2(data2);
+            recyclerView.setAdapter(adapter);
+        }, error -> swipeRefreshLayout.setRefreshing(false)
         );
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);

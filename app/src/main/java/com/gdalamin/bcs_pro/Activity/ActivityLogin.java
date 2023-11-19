@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,9 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -47,19 +44,14 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityLogin extends AppCompatActivity {
 
-
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-    TextView signInTv, signUpTv,fbLogin;
+    TextView signInTv, signUpTv;
     LinearLayout layoutSignIn, layoutSignUp;
-    CardView layoutSignInImage;
     View devider1, devider2;
-
     EditText phoneEtS, fullNameEtS, passEtS, phoneEtL, passEtL;
-
     TextView contunueBtnS, contunueBtnL;
-
-    private RequestQueue queue;
+    
 
     private static final String API_URL= ApiKeys.API_URL;
 
@@ -107,8 +99,7 @@ public class ActivityLogin extends AppCompatActivity {
             devider1.setVisibility(View.INVISIBLE);
             devider2.setVisibility(View.VISIBLE);
         });
-
-
+        
         fullNameEtS = findViewById(R.id.EtName);
         phoneEtS = findViewById(R.id.mobileEtS);
         phoneEtL = findViewById(R.id.EtPhoneL);
@@ -117,23 +108,13 @@ public class ActivityLogin extends AppCompatActivity {
 
         contunueBtnS = findViewById(R.id.contunueEtS);
         contunueBtnL = findViewById(R.id.contunueEtL);
-
-        queue = Volley.newRequestQueue(this);
-
-
+        
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
-
-
-
-
+        
         SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(view -> {
-
-            signInWithGoogle();
-        });
-
-
+        signInButton.setOnClickListener(view -> signInWithGoogle());
+        
         contunueBtnL.setOnClickListener(view -> {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
@@ -199,46 +180,43 @@ public class ActivityLogin extends AppCompatActivity {
     public void loginUser(final String phone, final String password) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 ApiKeys.API_URL+ "api/singUpAndLogin/login.php?apiKey=ghi789",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            int status = jsonObject.getInt("status");
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int status = jsonObject.getInt("status");
 //                            String message = jsonObject.getString("message");
-                            if (status == 1) {
-                                // Login successful, handle success case
-                                SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("key_phone", phone);
-                                editor.apply();
-                                progressBar.setVisibility(View.GONE);
-
-                                Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-
-
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(ActivityLogin.this,"Login failed wrong user credentials",Toast.LENGTH_SHORT).show();
-                                // Todo Login failed, handle error case
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                        if (status == 1) {
+                            // Login successful, handle success case
+                            SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("key_phone", phone);
+                            editor.apply();
                             progressBar.setVisibility(View.GONE);
+
+                            Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ActivityLogin.this,"Login failed wrong user credentials",Toast.LENGTH_SHORT).show();
+                            // Todo Login failed, handle error case
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+            
+                error ->  {
+                
 
                         Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         // Handle network error
-                    }
+                    
                 }) {
             @Override
             protected Map<String,String> getParams(){
@@ -328,6 +306,7 @@ public class ActivityLogin extends AppCompatActivity {
                 String email = account.getEmail();
                 preferencesUserInfo.saveString("key_phone",email);
                 signUp(name, email,"");
+                navigateToMainActivity();
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
@@ -337,27 +316,15 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private void signUp(final String name, final String phone, final String password) {
-        StringRequest request = new StringRequest(Request.Method.POST, API_URL + "api/singUpAndLogin/signUp.php?apiKey=ghi789", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.toString().equals("Invalid API key")) {
-//                    Toast.makeText(ActivityOtpLogin.this, "Invalid API key", Toast.LENGTH_SHORT).show();
-                } else {
-//                    Toast.makeText(ActivityLogin.this, "Sign Up Complete", Toast.LENGTH_SHORT).show();
+        StringRequest request = new StringRequest(Request.Method.POST, API_URL + "api/singUpAndLogin/signUp.php?apiKey=ghi789",
+                response ->  {
                     navigateToMainActivity();
-//                    startActivity(new Intent(ActivityLogin.this, ActivityLogin.class));
-//                    finish();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                    }, error -> {
 
-            }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("phone", phone);
                 params.put("password", password);

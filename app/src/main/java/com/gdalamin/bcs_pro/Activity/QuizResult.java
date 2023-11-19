@@ -29,10 +29,11 @@ public class QuizResult extends AppCompatActivity {
         final TextView totalScoreTv = findViewById(R.id.totalScoreTv);
         final TextView correctTv = findViewById(R.id.correctTv);
         final TextView incorrect = findViewById(R.id.incorrectTv);
-        final AppCompatButton reTakeBtn = findViewById(R.id.reTakeQuizBtn);
+        final AppCompatButton backToHomeBtn = findViewById(R.id.backToHome);
 
-        reTakeBtn.setOnClickListener(view -> {
+        backToHomeBtn.setOnClickListener(view -> {
 
+            finish();
            onBackPressed();
 
         });

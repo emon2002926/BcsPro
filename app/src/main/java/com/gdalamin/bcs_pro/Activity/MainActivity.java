@@ -1,5 +1,6 @@
 package com.gdalamin.bcs_pro.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +36,13 @@ MainActivity extends AppCompatActivity {
 
 
         // Set the title text for each menu item
-        binding.bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
-
-        // Set the title text for each menu item
-        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle(getResources().getString(R.string.home));
-        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_dashboard).setTitle(getResources().getString(R.string.profile));
-//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
-        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_setting).setTitle(getResources().getString(R.string.more));
+//        binding.bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+//
+//        // Set the title text for each menu item
+//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle(getResources().getString(R.string.home));
+//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_dashboard).setTitle(getResources().getString(R.string.profile));
+////        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
+//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_setting).setTitle(getResources().getString(R.string.more));
 
         replaceFragment(new HomeFragment());
 
@@ -63,13 +65,38 @@ MainActivity extends AppCompatActivity {
         });
     }
 
-    public void replaceFragment(Fragment fragment) {
+
+    public void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim);
+
+        // Only add non-default fragments to the back stack
+        if (!(fragment instanceof HomeFragment)) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.commit();
     }
 
+    // Overload the method with a version that uses default animations
+    public void replaceFragment(Fragment fragment) {
+        // Call the method with default animations (you can change these defaults)
+        replaceFragment(fragment, R.anim.default_enter_anim, R.anim.default_exit_anim, R.anim.default_pop_enter_anim, R.anim.default_pop_exit_anim);
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed(); // This could be finish() to close the activity
+        }
+    }
 
 
 }

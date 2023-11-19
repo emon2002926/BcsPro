@@ -17,11 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -39,7 +36,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-
 import java.io.StringReader;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -62,8 +58,7 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
     SharedPreferencesManagerAppLogic preferencesManager;
-    public static int REQ_CODE = 0;
-    private RequestQueue requestQueue;
+
     ExamResult examResult;
     private boolean mBooleanValue = false;
     private CountDownTimer countDownTimer;
@@ -104,18 +99,12 @@ public class ActivityExam extends AppCompatActivity {
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
         examTime = preferencesManager.getInt("time");
 
-        imageBackButton.setOnClickListener(view -> {
-            onBackPressed();
-                });
-         timerCallback = new TimerCallback() {
-            @Override
-            public void onTimerFinish() {
-                // Handle timer finish event here
-                Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
-                finishExam();
-            }};
+        imageBackButton.setOnClickListener(view -> onBackPressed());
+        timerCallback = () ->{
+            Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
+            finishExam();
+        };
 
-        requestQueue = Volley.newRequestQueue(this);
         examResult = new ExamResult();
 //        saveData();
         /*
@@ -135,28 +124,19 @@ public class ActivityExam extends AppCompatActivity {
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
             String questionType;
-            int time ;
             if (LOGIC_FOR_ALL_SUBJECT_EXAM == 200) {
-                time = 200;
+
                 questionType =API_URL+APIKEY + "numIA=20&numBA=30&numBLL=35&numMVG=10&numGEDM=10&numML=15&numELL=35&numMA=15&numGS=15&numICT=15";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 100) {
-                time = 100;
+
                 questionType = API_URL+APIKEY + "numIA=10&numBA=15&numBLL=18&numMVG=5&numGEDM=5&numML=7&numELL=17&numMA=8&numGS=7&numICT=8";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 50) {
-                time = 50;
                 questionType = API_URL+APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
-                time = (preferencesManager.getInt("time")*2);
                 NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
-                String SUBJECT_CODE = preferencesManager.getString("subjectCode");
-
-                String apiWithSql = ApiKeys.API_WITH_SQL;
-
-//                questionType = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT " +NUM_OF_QUESTION;
-
 
                 questionType = API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum=2&IA="+NUM_OF_QUESTION;
 
@@ -172,73 +152,64 @@ public class ActivityExam extends AppCompatActivity {
     public void processdata(String url) {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                response -> {
 
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-                        recview.setVisibility(View.VISIBLE);
-                        floatingActionButton.setVisibility(View.VISIBLE);
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                    recview.setVisibility(View.VISIBLE);
+                    floatingActionButton.setVisibility(View.VISIBLE);
 
 
-                        startTimer(NUM_OF_QUESTION * 30, textViewTimer);
+                    startTimer(NUM_OF_QUESTION * 30, textViewTimer);
 
 
-                        GsonBuilder builder = new GsonBuilder().setLenient();
-                        Gson gson = builder.create();
-                        JsonReader reader = new JsonReader(new StringReader(response));
-                        reader.setLenient(true);
-                        model data[] = gson.fromJson(reader, model[].class);
+                    GsonBuilder builder = new GsonBuilder().setLenient();
+                    Gson gson = builder.create();
+                    JsonReader reader = new JsonReader(new StringReader(response));
+                    reader.setLenient(true);
+                    model[] data = gson.fromJson(reader, model[].class);
 
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityExam.this,
-                                LinearLayoutManager.VERTICAL, false);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityExam.this,
+                            LinearLayoutManager.VERTICAL, false);
 
-                        recview.setLayoutManager(linearLayoutManager);
-                        myadapter adapter = new myadapter(data);
-                        recview.setAdapter(adapter);
+                    recview.setLayoutManager(linearLayoutManager);
+                    myadapter adapter = new myadapter(data);
+                    recview.setAdapter(adapter);
 
-                        floatingActionButton.setOnClickListener(view -> {
-                            // Initialize counters for answered questions,
-                            int answeredQuestions = 0;
-                            for (QuestionList question : questionLists) {
-                                int getUserSelectedOption = question.getUserSelecedAnswer();
-                                if (getUserSelectedOption != 0) {
-                                    answeredQuestions++;
-                                }
+                    floatingActionButton.setOnClickListener(view -> {
+                        // Initialize counters for answered questions,
+                        int answeredQuestions = 0;
+                        for (QuestionList question : questionLists) {
+                            int getUserSelectedOption = question.getUserSelecedAnswer();
+                            if (getUserSelectedOption != 0) {
+                                answeredQuestions++;
                             }
-                            String answered = String.valueOf(answeredQuestions);
-                            if (REQ_CODE2 == 0){
-                                showSubmissionOption(answered, new SubmissionCallback() {
-                                    @Override
-                                    public void onSubmitClicked() {
-                                        mBooleanValue = !mBooleanValue;
-                                        adapter.setBooleanValue(true);
-                                        LinearLayout recviewBackground = findViewById(R.id.recviewBackground);
-                                        recviewBackground.setBackgroundResource(R.color.recviewBagColor);
-                                        floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
+                        }
+                        String answered = String.valueOf(answeredQuestions);
+                        if (REQ_CODE2 == 0){
+                            showSubmissionOption(answered, () -> {
+                                mBooleanValue = !mBooleanValue;
+                                adapter.setBooleanValue(true);
+                                LinearLayout recviewBackground = findViewById(R.id.recviewBackground);
+                                recviewBackground.setBackgroundResource(R.color.recviewBagColor);
+                                floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
 
-                                    }
-                                });
+                            });
 
-                            }else if (REQ_CODE2 ==2){
+                        }else if (REQ_CODE2 ==2){
 
-                                if (bottomSheetDialog.isShowing()) {
-                                    bottomSheetDialog.dismiss();
+                            if (bottomSheetDialog.isShowing()) {
+                                bottomSheetDialog.dismiss();
 
-                                } else {
-                                    // If not showing, show it to expand
-                                    bottomSheetDialog.setContentView(bottomSheetView);
-                                    bottomSheetDialog.show();
-                                }}
-                        });
-                    }
+                            } else {
+                                // If not showing, show it to expand
+                                bottomSheetDialog.setContentView(bottomSheetView);
+                                bottomSheetDialog.show();
+                            }}
+                    });
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-                    }
+                error -> {
+//                        Toast.makeText(ActivityExam.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
                 }
         );
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
@@ -246,7 +217,7 @@ public class ActivityExam extends AppCompatActivity {
     }
 
     private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
-        countDownTimer = new CountDownTimer(maxTimerSeconds * 1000, 1000) {
+        countDownTimer = new CountDownTimer(maxTimerSeconds * 1000L, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long getHour = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
@@ -298,12 +269,12 @@ public class ActivityExam extends AppCompatActivity {
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
-        String examDateTime = String.valueOf(time+" of "+monthName+" "+day+" ");
+        String examDateTime = time+" of "+monthName+" "+day+" ";
         PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(ActivityExam.this);
         String userId = preferencesUserInfo.getString("key_phone");
 
         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
-        bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+        bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView totalTV = bottomSheetView.findViewById(R.id.totalTv);
         TextView correctTv = bottomSheetView.findViewById(R.id.correctTv);
@@ -660,7 +631,7 @@ public class ActivityExam extends AppCompatActivity {
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this)
-                .inflate(R.layout.submit_answer, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+                .inflate(R.layout.submit_answer, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
         textView.setText("আপনি " + NUM_OF_QUESTION + " প্রশ্নের মধ্যে  "+answered+" টি প্রশ্নের উত্তর দিয়েছেন");
@@ -675,9 +646,7 @@ public class ActivityExam extends AppCompatActivity {
             finishExam();
             bottomSheetDialog.dismiss();
         });
-        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-        });
+        bottomSheetView.findViewById(R.id.btnCancal).setOnClickListener(v -> bottomSheetDialog.dismiss());
 
     }
 
