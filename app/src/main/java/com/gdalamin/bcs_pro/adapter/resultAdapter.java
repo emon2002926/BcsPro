@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,17 +19,16 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 
-public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewholder>
-{
+public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewholder> {
 
     ExamResult examResults[];
+    private int lastPosition = -1;
 
-    public resultAdapter(ExamResult[] data ){
+    public resultAdapter(ExamResult[] data) {
         this.examResults = data;
     }
 
     public static final String ACTION_TOTAL_QUESTIONS_CHANGED = "com.gdalamin.bcs_pro.fragment.DashBordFragment";
-
 
 
     @NonNull
@@ -35,14 +36,14 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_layout, parent, false);
 
-         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.test_layout,parent,false);
-
-         return new myviewholder(view);
+        return new myviewholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
+
 
 
         int totalQuestions = 0;
@@ -50,6 +51,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         int wrongAnswer = 0;
         int correctAnswer = 0;
         int notAnswred = 0;
+
 
         for (int i = 0; i < examResults.length; i++) {
             totalQuestions += Integer.parseInt(examResults[i].getTotal());
@@ -64,9 +66,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
             notAnswred += Integer.parseInt(examResults[i].getNotAnswred());
         }
 
-
-
-
+        setAnimation(holder.date.getContext(),holder.itemView,position);
 
         Intent intent1 = new Intent(ACTION_TOTAL_QUESTIONS_CHANGED);
         intent1.putExtra("totalQuestions", totalQuestions);
@@ -76,8 +76,6 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
 
         holder.date.getContext().sendBroadcast(intent1);
-
-//        int totalQuestions = calculateTotalQuestions();
 
 
         String date = examResults[position].getDate();
@@ -137,80 +135,74 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         String marksICT = examResults[position].getMarksICT();
 
 
-
-        int time = Integer.parseInt(examResults[position].getTotal())/2;
-
+        int time = Integer.parseInt(examResults[position].getTotal()) / 2;
 
 
+        holder.examDetails.setText("(Overall " + total + " question and " + String.valueOf(time) + " minutes)");
 
-        holder.examDetails.setText("(Overall "+total+" question and "+String.valueOf(time)+" minutes)");
-
-        holder.marks.setText("Marks:"+marks);
-        holder.date.setText("Date:"+date);
-
+        holder.marks.setText("Marks:" + marks);
+        holder.date.setText("Date:" + date);
 
 
         holder.cvResultLayout.setOnClickListener(view -> {
 
 
+            Intent intent = new Intent(holder.date.getContext(), TestResult.class);
+            intent.putExtra("date", date);
+            intent.putExtra("total", total);
+            intent.putExtra("correct", correct);
+            intent.putExtra("wrong", wrong);
+            intent.putExtra("marks", marks);
 
-            Intent intent = new Intent(holder.date.getContext(),TestResult.class);
-            intent.putExtra("date",date);
-            intent.putExtra("total",total);
-            intent.putExtra("correct",correct);
-            intent.putExtra("wrong",wrong);
-            intent.putExtra("marks",marks);
+            intent.putExtra("totalIA", totalIA);
+            intent.putExtra("correctIA", correctIA);
+            intent.putExtra("wrongIA", wrongIA);
+            intent.putExtra("marksIA", marksIA);
 
-            intent.putExtra("totalIA",totalIA);
-            intent.putExtra("correctIA",correctIA);
-            intent.putExtra("wrongIA",wrongIA);
-            intent.putExtra("marksIA",marksIA);
+            intent.putExtra("totalBA", totalBA);
+            intent.putExtra("correctBA", correctBA);
+            intent.putExtra("wrongBA", wrongBA);
+            intent.putExtra("marksBA", marksBA);
 
-            intent.putExtra("totalBA",totalBA);
-            intent.putExtra("correctBA",correctBA);
-            intent.putExtra("wrongBA",wrongBA);
-            intent.putExtra("marksBA",marksBA);
+            intent.putExtra("totalB", totalB);
+            intent.putExtra("correctB", correctB);
+            intent.putExtra("wrongB", wrongB);
+            intent.putExtra("marksB", marksB);
 
-            intent.putExtra("totalB",totalB);
-            intent.putExtra("correctB",correctB);
-            intent.putExtra("wrongB",wrongB);
-            intent.putExtra("marksB",marksB);
+            intent.putExtra("totalMAV", totalMAV);
+            intent.putExtra("correctMAV", correctMAV);
+            intent.putExtra("wrongMAV", wrongMAV);
+            intent.putExtra("marksMAV", marksMAV);
 
-            intent.putExtra("totalMAV",totalMAV);
-            intent.putExtra("correctMAV",correctMAV);
-            intent.putExtra("wrongMAV",wrongMAV);
-            intent.putExtra("marksMAV",marksMAV);
+            intent.putExtra("totalG", totalG);
+            intent.putExtra("correctG", correctG);
+            intent.putExtra("wrongG", wrongG);
+            intent.putExtra("marksG", marksG);
 
-            intent.putExtra("totalG",totalG);
-            intent.putExtra("correctG",correctG);
-            intent.putExtra("wrongG",wrongG);
-            intent.putExtra("marksG",marksG);
+            intent.putExtra("totalML", totalML);
+            intent.putExtra("correctML", correctML);
+            intent.putExtra("wrongML", wrongML);
+            intent.putExtra("marksML", marksML);
 
-            intent.putExtra("totalML",totalML);
-            intent.putExtra("correctML",correctML);
-            intent.putExtra("wrongML",wrongML);
-            intent.putExtra("marksML",marksML);
+            intent.putExtra("totalEL", totalEL);
+            intent.putExtra("correctEL", correctEL);
+            intent.putExtra("wrongEL", wrongEL);
+            intent.putExtra("marksEL", marksEL);
 
-            intent.putExtra("totalEL",totalEL);
-            intent.putExtra("correctEL",correctEL);
-            intent.putExtra("wrongEL",wrongEL);
-            intent.putExtra("marksEL",marksEL);
+            intent.putExtra("totalMS", totalMS);
+            intent.putExtra("correctMS", correctMS);
+            intent.putExtra("wrongMS", wrongMS);
+            intent.putExtra("marksMS", marksMS);
 
-            intent.putExtra("totalMS",totalMS);
-            intent.putExtra("correctMS",correctMS);
-            intent.putExtra("wrongMS",wrongMS);
-            intent.putExtra("marksMS",marksMS);
+            intent.putExtra("totalGS", totalGS);
+            intent.putExtra("correctGS", correctGS);
+            intent.putExtra("wrongGS", wrongGS);
+            intent.putExtra("marksGS", marksGS);
 
-            intent.putExtra("totalGS",totalGS);
-            intent.putExtra("correctGS",correctGS);
-            intent.putExtra("wrongGS",wrongGS);
-            intent.putExtra("marksGS",marksGS);
-
-            intent.putExtra("totalICT",totalICT);
-            intent.putExtra("correctICT",correctICT);
-            intent.putExtra("wrongICT",wrongICT);
-            intent.putExtra("marksICT",marksICT);
-
+            intent.putExtra("totalICT", totalICT);
+            intent.putExtra("correctICT", correctICT);
+            intent.putExtra("wrongICT", wrongICT);
+            intent.putExtra("marksICT", marksICT);
 
 
             view.getContext().startActivity(intent);
@@ -227,15 +219,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     }
 
 
-
-    class myviewholder extends RecyclerView.ViewHolder
-    {
-        TextView total,correct,examDetails,marks,date;
+    class myviewholder extends RecyclerView.ViewHolder {
+        TextView total, correct, examDetails, marks, date;
         CardView cvResultLayout;
 
 
-        public myviewholder(@NonNull View itemView)
-        {
+        public myviewholder(@NonNull View itemView) {
             super(itemView);
 
             cvResultLayout = itemView.findViewById(R.id.resultLayoutCV);
@@ -252,9 +241,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
     }
 
 
-
-
-    public void shareResult(Context context,String date,String total,String correct) {
+    public void shareResult(Context context, String date, String total, String correct) {
         // Create an intent to share text
         Intent intent = new Intent(context, TestResult.class);
 
@@ -266,4 +253,11 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
 
     }
 
+    public void setAnimation(Context ctx, View viewToAnimate, int position) {
+
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
+
+    }
 }

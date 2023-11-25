@@ -2,11 +2,14 @@ package com.gdalamin.bcs_pro.adapter;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ import java.util.Locale;
 public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterForAllbcs.myviewholder> {
     ModelForLectureAndAllQuestion data[];
 
+    private int lastPosition = -1;
     public TestmyadapterForAllbcs(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
@@ -51,6 +55,7 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
         String amount = resources.getText(R.string.amountOfQuestion)+" :"+data[position].getTotalQuestion();
         holder.numOfQuestion.setText(amount);
 
+        setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
 
         String subjectName = convertToUTF8(data[position].getSubjects());
@@ -136,5 +141,12 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
         }
 
 
+    }
+
+    public void setAnimation(Context ctx, View viewToAnimate, int position){
+
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
     }
 }

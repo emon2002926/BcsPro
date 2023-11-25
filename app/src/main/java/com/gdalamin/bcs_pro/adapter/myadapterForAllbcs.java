@@ -2,10 +2,13 @@ package com.gdalamin.bcs_pro.adapter;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 
 public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.myviewholder> {
     ModelForLectureAndAllQuestion data[];
+    private int lastPosition = -1;
 
     public myadapterForAllbcs(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
@@ -48,6 +52,7 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             int LOGIC = preferencesManager.getInt("logic");
 
 
+            setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
 
 //            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
@@ -209,6 +214,14 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
             tvPosition = itemView.findViewById(R.id.tvPosition);
         }
 
+
+    }
+    public void setAnimation(Context ctx, View viewToAnimate, int position){
+        if (position>lastPosition){
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
+        }
 
     }
 }

@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -42,6 +44,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
     ProgressBar progressBar;
     private boolean mBooleanValue;
+    private int lastPosition = -1;
 
 
     public myadapter(model[] data) {
@@ -118,6 +121,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
 
 
 
+        setAnimation(ctx,holder.itemView,position);
 
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.explainTv.getContext());
         int NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
@@ -848,6 +852,14 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
             e.printStackTrace(); // You can log or handle the error here
             return numberStr; // Return the original string as-is
         }
+    }
+    public void setAnimation(Context ctx,View viewToAnimate,int position){
+        if (position>lastPosition){
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
+        }
+
     }
 
 }
