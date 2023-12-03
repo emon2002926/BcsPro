@@ -80,8 +80,6 @@ public class QuestionListActivity extends AppCompatActivity {
             textView.setText("Important Question");
         }
 
-
-
         db = Room.databaseBuilder(
                 getApplicationContext(),
                 AppDatabase.class, "questionTable"
@@ -151,7 +149,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
             if (Older_Bcs_Question.equals("Older_Bcs_Question")){
 
-                if (dataList != null && dataList.size() > 100) {
+                if (dataList != null && dataList.size() > 49) {
 
 //                    Log.d("jrusdfskj"," have data");
 

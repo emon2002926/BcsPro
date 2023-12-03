@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "838612717637-0j73k5jik4cq3hj3v46e7sqhnvcr30us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gdalamin.bcs_pro",
+            "certificate_hash": "54b3438a4ce4b4bac80cd8bc532439bec7e37cc5"
+          }
+        },
+        {
           "client_id": "838612717637-fip8lnks2fj3dki7i4jlt9r9rv5bqvku.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gdalamin.bcs_pro",
             "certificate_hash": "f75bd4e805602157308bf2a18e889d60f9d3a8d4"
-          }
-        },
-        {
-          "client_id": "838612717637-ll9e0runvi7l54im5c1a5vis68127tp2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gdalamin.bcs_pro",
-            "certificate_hash": "c11db236049deeabeb413296cfe34fdc2032f9ec"
           }
         },
         {

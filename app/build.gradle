@@ -10,8 +10,8 @@ android {
         applicationId "com.gdalamin.bcs_pro"
         minSdk 23
         targetSdk 33
-        versionCode 45
-        versionName '2.9.68'
+        versionCode 46
+        versionName '2.9.69'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,6 +60,10 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
 

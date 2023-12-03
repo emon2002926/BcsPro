@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
 
-
     <application
         android:name=".ApplicationClass"
         android:allowBackup="true"
@@ -19,17 +18,9 @@
         android:theme="@style/Theme.ReCreateQuize"
         tools:targetApi="33">
         <activity
-            android:name=".Activity.TestQuestionBank"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.ResultListActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.TestResult"
             android:exported="false" />
-        <activity
-            android:name=".Activity.ActivityAllCourse"
-            android:exported="false" />
+
         <activity
             android:name=".Activity.ActivityExam"
             android:exported="false" />
@@ -43,13 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.ActivityOtpLogin"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".Activity.ActivityLogin"
             android:exported="false" />
@@ -67,13 +52,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".Activity.AllBcsQuestionActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".Activity.QuestionListActivity"
             android:exported="false">

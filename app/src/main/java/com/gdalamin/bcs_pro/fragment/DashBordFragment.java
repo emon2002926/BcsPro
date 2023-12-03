@@ -1,48 +1,27 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 
 public class DashBordFragment extends Fragment {
@@ -52,30 +31,50 @@ public class DashBordFragment extends Fragment {
     ProgressBar progressBarCorrect,progressBarWrong,progressBarNotAnswered;
     LinearLayout showResultList,fullProfileLayout;
     ImageView profileImage,profileImageUpdate;
-    private static final int REQUEST_CODE = 1;
-    public String base64Image = "";
 
     public String userId = "";
     public String userName = "";
-    public String base64LocalImage = "";
+
     PreferencesUserInfo preferencesUserInfo;
-    TextView updateButton;
+
+  /*  TextView updateButton;
     ImageView closeButton;
 
     ProgressBar progressBar;
+    public String base64LocalImage = "";
+    public String base64Image = "";
+    private static final int REQUEST_CODE = 1;
+
+   */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState ) {
         View view = inflater.inflate(R.layout.fragment_dash_bord, container, false);
 
+
+       /*
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.update_profile_layout);
         profileImageUpdate = dialog.findViewById(R.id.profileImageID);
 
+        */
 
-        fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
         profileImage = view.findViewById(R.id.profileImageID);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
+        if (account != null) {
+            // User is signed in
+            Uri profilePhotoUrl = account.getPhotoUrl();
+            if (profilePhotoUrl != null) {
+                Picasso.get().load(profilePhotoUrl).into(profileImage);
+            } else {
+                profileImage.setImageResource(R.drawable.test_profile_image);
+            }
+        } else {
+            profileImage.setImageResource(R.drawable.test_profile_image);
+        }
+
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
@@ -103,16 +102,6 @@ public class DashBordFragment extends Fragment {
             }
         });
 
-        base64LocalImage = preferencesUserInfo.getString("userImage");
-
-
-        if (!base64LocalImage.isEmpty()){
-            Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
-            profileImage.setImageBitmap(bitmap);
-            profileImageUpdate.setImageBitmap(bitmap);
-        }else {
-            profileImage.setImageResource(R.drawable.test_profile_image);
-        }
 
 
         userId = preferencesUserInfo.getString("key_phone");
@@ -121,8 +110,6 @@ public class DashBordFragment extends Fragment {
             userIdTv.setText("ID: "+userId);
             userNameTextView.setText(userName);
         }
-
-
 
         String totalQuestions = preferencesUserInfo.getString("totalQuestions");
         if (totalQuestions != null && !totalQuestions.isEmpty()) {
@@ -157,9 +144,9 @@ public class DashBordFragment extends Fragment {
             String totalPercentageNotAnswered2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageNotAnswered)));
 
             totalQuestionTextView.setText(convertToBengaliString(totalQuestions2));
-            correctAnswerTextView.setText(convertToBengaliString(correctAnswer) + " (" + totalPercentageCorrect2 + "%)");
-            wrongAnswerTextView.setText(convertToBengaliString(wrongAnswer) + " (" + totalPercentageWrong2 + "%)");
-            notAnswredTextView.setText(convertToBengaliString(notAnswered) + " (" + totalPercentageNotAnswered2 + "%)");
+            correctAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(correctAnswer), totalPercentageCorrect2));
+            wrongAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(wrongAnswer), totalPercentageWrong2));
+            notAnswredTextView.setText(String.format("%s (%s%%)", convertToBengaliString(notAnswered), totalPercentageNotAnswered2));
 
             totalExamTextView.setText(convertToBengaliString(totalExam));
 
@@ -167,10 +154,31 @@ public class DashBordFragment extends Fragment {
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
             progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
         }
+
+
+
+                /*
+
+                        fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
+
+        base64LocalImage = preferencesUserInfo.getString("userImage");
+        if (!base64LocalImage.isEmpty()){
+            Bitmap bitmap = convertBase64ToBitmap(base64LocalImage);
+            profileImage.setImageBitmap(bitmap);
+            profileImageUpdate.setImageBitmap(bitmap);
+        }else {
+            profileImage.setImageResource(R.drawable.test_profile_image);
+        }
+
+         */
+        /*
         fullProfileLayout.setOnClickListener(view1 -> {
 
             openUpdateProfileDialog();
         } );
+
+         */
+
 
         return view;
 
@@ -196,9 +204,7 @@ public class DashBordFragment extends Fragment {
     }
 
 
-
-
-
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -210,6 +216,8 @@ public class DashBordFragment extends Fragment {
         }
     }
 
+     */
+    /*
     private void openUpdateProfileDialog() {
         // Create a dialog
         Dialog dialog = new Dialog(getContext());
@@ -303,6 +311,9 @@ public class DashBordFragment extends Fragment {
     }
 
 
+     */
+    /*
+
     private void saveBase64ProfileImage(String userId, String base64Image,SaveImageCallback callback) {
 
          String UPLOAD_UR2L = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action=1";
@@ -311,7 +322,7 @@ public class DashBordFragment extends Fragment {
             public void onResponse(String response) {
 
                 Bitmap bitmap = convertBase64ToBitmap(base64Image);
-                profileImage.setImageBitmap(bitmap);
+//                profileImage.setImageBitmap(bitmap);
                 profileImageUpdate.setImageBitmap(bitmap);
                 int DAILOG_LAYOUT_STATE = 200;
                 callback.onImageSaved(DAILOG_LAYOUT_STATE);
@@ -345,7 +356,9 @@ public class DashBordFragment extends Fragment {
         requestQueue.add(request);
     }
 
-/*
+
+     */
+    /*
     private void getUserProfileImage(String userId ) {
         String url = "https://emon.searchwizy.com/api/getData.php?apiKey=abc123&apiNum=9&action="+"3"+"&userId="+userId;
 
@@ -384,6 +397,7 @@ public class DashBordFragment extends Fragment {
 
 
  */
+    /*
     public String convertImageToBase64(Uri imageUri) {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -420,16 +434,20 @@ public class DashBordFragment extends Fragment {
     }
 
 
-
-
+     */
+    /*
     public Bitmap convertBase64ToBitmap(String base64Image) {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
+ */
+/*
     public interface SaveImageCallback {
         void onImageSaved(int layoutState);
     }
 
+
+ */
 
 }

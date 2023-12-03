@@ -13,16 +13,11 @@ import com.gdalamin.bcs_pro.databinding.ActivityMainBinding;
 import com.gdalamin.bcs_pro.fragment.DashBordFragment;
 import com.gdalamin.bcs_pro.fragment.HomeFragment;
 import com.gdalamin.bcs_pro.fragment.SettingFragment;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class
 MainActivity extends AppCompatActivity {
 
-//
     ActivityMainBinding binding;
-
-
-
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

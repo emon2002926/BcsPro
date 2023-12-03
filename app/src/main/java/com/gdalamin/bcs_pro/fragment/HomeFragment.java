@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,8 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -80,10 +77,10 @@ public class HomeFragment extends Fragment {
         preferencesManager.clear();
         preferencesUserInfo = new PreferencesUserInfo(context);
 
+
         OneSignal.promptForPushNotifications();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-
         swipeRefreshLayout.setOnRefreshListener(this::processdata);
 
 
@@ -237,13 +234,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    public void replaceFragment(Fragment fragment) {
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frameLayout, fragment); // Replace the current fragment with FragmentTwo
-//        transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
-//        transaction.commit();
-//    }
-
     private void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -263,54 +253,7 @@ public class HomeFragment extends Fragment {
 
 
 
-    //Notification code
-    /*
-public void requestPermissionsNotification(){
 
-        if (ContextCompat.checkSelfPermission(context,permissions[0]) == PackageManager.PERMISSION_GRANTED){
-            permissions_post_notification = true;
-        }else {
-//            if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)){
-//                Log.d("Permission","inside the 1st don't allow");
-//            }else {
-//                Log.d("Permission","inside the 1st don't allow");
-//
-//            }
-            requestPermissionLauncherNotification.launch(permissions[0]);
-        }
-
-}
-
-private ActivityResultLauncher<String> requestPermissionLauncherNotification = 
-        registerForActivityResult(new ActivityResultContracts.RequestPermission(),isGranted ->  {
-
-            if (isGranted){
-                permissions_post_notification = true;
-            }else {
-                permissions_post_notification = false;
-                showPermissionDailog("Notification Permission");
-            }
-
-        });
-
-public void  showPermissionDailog(String permission_dsc){
-
-    new AlertDialog.Builder(getContext() ).setTitle("Alert for permission").setPositiveButton("Stting", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-
-        }
-    }).setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            })
-            .show();
-
-}
-
- */
     public void showExamChoser(){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);

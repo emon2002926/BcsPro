@@ -1,9 +1,8 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,13 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Keep;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gdalamin.bcs_pro.R;
@@ -31,16 +27,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -51,7 +41,7 @@ public class ActivityLogin extends AppCompatActivity {
     View devider1, devider2;
     EditText phoneEtS, fullNameEtS, passEtS, phoneEtL, passEtL;
     TextView contunueBtnS, contunueBtnL;
-    
+
 
     private static final String API_URL= ApiKeys.API_URL;
 
@@ -68,6 +58,8 @@ public class ActivityLogin extends AppCompatActivity {
 
         preferencesUserInfo = new PreferencesUserInfo(ActivityLogin.this);
 
+
+        /*
         signInTv = findViewById(R.id.signInTv);
         signUpTv = findViewById(R.id.signUpTv);
 
@@ -108,13 +100,17 @@ public class ActivityLogin extends AppCompatActivity {
 
         contunueBtnS = findViewById(R.id.contunueEtS);
         contunueBtnL = findViewById(R.id.contunueEtL);
-        
+
+
+         */
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(view -> signInWithGoogle());
-        
+
+
+        /*
         contunueBtnL.setOnClickListener(view -> {
             String phone = phoneEtL.getText().toString();
             String pass = passEtL.getText().toString();
@@ -141,8 +137,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
         });
-
-
         contunueBtnS.setOnClickListener(view -> {
 
             String name = fullNameEtS.getText().toString();
@@ -174,9 +168,12 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
 
+         */
+
+
     }
 
-
+/*
     public void loginUser(final String phone, final String password) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 ApiKeys.API_URL+ "api/singUpAndLogin/login.php?apiKey=ghi789",
@@ -228,8 +225,6 @@ public class ActivityLogin extends AppCompatActivity {
         };
         Volley.newRequestQueue(this).add(stringRequest);
     }
-
-    //checking the number is registered or not in the database ,Before passing the data into Otp Activity
     private void checkNumberExistOrNot(String number, String name, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
@@ -289,6 +284,18 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
+    public void navigateToOtpActivity(String number, String name, String password ,String otp) {
+        Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
+        intent.putExtra("mobile", number);
+        intent.putExtra("name", name);
+        intent.putExtra("password", password);
+        intent.putExtra("otp",otp);
+        startActivity(intent);
+    }
+
+
+ */
+
  @Keep void signInWithGoogle() {
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
@@ -305,8 +312,9 @@ public class ActivityLogin extends AppCompatActivity {
                 String name = account.getDisplayName();
                 String email = account.getEmail();
                 preferencesUserInfo.saveString("key_phone",email);
+
                 signUp(name, email,"");
-                navigateToMainActivity();
+//                navigateToMainActivity();
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
@@ -315,11 +323,15 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
+
+
+
     private void signUp(final String name, final String phone, final String password) {
         StringRequest request = new StringRequest(Request.Method.POST, API_URL + "api/singUpAndLogin/signUp.php?apiKey=ghi789",
                 response ->  {
+                    Log.d("loginn","sing up complite");
                     navigateToMainActivity();
-                    }, error -> {
+                }, error -> {
 
         }) {
             @Override
@@ -335,6 +347,7 @@ public class ActivityLogin extends AppCompatActivity {
         queue.add(request);
     }
 
+
     void navigateToMainActivity() {
 
         Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
@@ -343,14 +356,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    public void navigateToOtpActivity(String number, String name, String password ,String otp) {
-        Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
-        intent.putExtra("mobile", number);
-        intent.putExtra("name", name);
-        intent.putExtra("password", password);
-        intent.putExtra("otp",otp);
-        startActivity(intent);
-    }
+
 
 
 }
