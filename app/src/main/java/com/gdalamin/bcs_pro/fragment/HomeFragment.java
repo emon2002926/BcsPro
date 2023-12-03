@@ -210,16 +210,16 @@ public class HomeFragment extends Fragment {
                 if (!isConnected && newIsConnected) {
                     // Internet connection is restored
                     processdata();
-//                    Toast.makeText(getActivity(), "Internet connection is restored", Toast.LENGTH_SHORT).show();
                 } else if (isConnected && !newIsConnected) {
                     // Internet connection is gone
-                    Toast.makeText(context, "Internet connection is gone", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Internet connection is gone", Toast.LENGTH_SHORT).show();
                 }
                 isConnected = newIsConnected;
             }
         };
+
+
         context.registerReceiver(networkReceiver, intentFilter);
-        // Check the initial network connectivity status
         isConnected = isConnected();
 
 
@@ -250,10 +250,6 @@ public class HomeFragment extends Fragment {
         replaceFragment(fragment, R.anim.default_enter_anim, R.anim.default_exit_anim, R.anim.default_pop_enter_anim, R.anim.default_pop_exit_anim);
     }
 
-
-
-
-
     public void showExamChoser(){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);
@@ -277,22 +273,21 @@ public class HomeFragment extends Fragment {
             switch (v.getId()){
 
                 case R.id.layout25Min:
-                    selectedOption(option1Layout, icon1);
-
+                    selectedOption(icon1);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 50;
                     LOGIC_FOR_ALL_SUBJECT_EXAM =50;
                     break;
                 case R.id.layout50Min:
-                    selectedOption(option2Layout, icon2);
+                    selectedOption(icon2);
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon3.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 100;
                     LOGIC_FOR_ALL_SUBJECT_EXAM = 100;
                     break;
                 case R.id.layout100Min:
-                    selectedOption(option3Layout, icon3);
+                    selectedOption(icon3);
                     icon1.setImageResource(R.drawable.round_back_white50_100);
                     icon2.setImageResource(R.drawable.round_back_white50_100);
                     tolatExamQuestion = 200;
@@ -329,10 +324,8 @@ public class HomeFragment extends Fragment {
     public void getUserProfileData(String userId){
         GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
         apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
-
             @Override
             public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
-
                 preferencesUserInfo.saveString("name",userName);
                 preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
                 preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
@@ -342,16 +335,17 @@ public class HomeFragment extends Fragment {
                 preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
                 preferencesUserInfo.saveInt("localUserPoint",localUserMark);
                 preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
-
             }
 
             @Override
             public void onFetchFailure(String errorMessage) {
                 // Handle the error message here
-
             }
         });
     }
+
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -393,7 +387,7 @@ public class HomeFragment extends Fragment {
         queue.add(request);
     }
 
-    private void selectedOption(View selectedOptionLayout , ImageView selectedOptionIcon) {
+    private void selectedOption( ImageView selectedOptionIcon) {
 
         selectedOptionIcon.setImageResource(R.drawable.black_dot);
 

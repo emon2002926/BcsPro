@@ -1,14 +1,16 @@
 package com.gdalamin.bcs_pro.Activity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -51,6 +53,9 @@ public class QuestionListActivity extends AppCompatActivity {
     AppDatabase db;
     String subjectName;
     String apiWithSql = ApiKeys.API_WITH_SQL;
+    LinearLayout tryAgainLayout;
+    TextView retryBtn;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,14 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
 
+        tryAgainLayout = findViewById(R.id.tryAgainLayout);
+        retryBtn = findViewById(R.id.retryBtn);
+        progressBar = findViewById(R.id.progressBar);
+        retryBtn.setOnClickListener(view -> {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.tangerine), PorterDuff.Mode.SRC_IN);
+            new bgThreat().start();
+        });
 
         textView = findViewById(R.id.topTv);
         showAnswer = findViewById(R.id.btnShowAnswer);
@@ -85,13 +98,10 @@ public class QuestionListActivity extends AppCompatActivity {
                 AppDatabase.class, "questionTable"
         ).build();
 
-
-
         preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
         subCode = preferencesManager.getInt("subCode");
         Older_Bcs_Question =preferencesManager.getString("oldBcs");
         subjectName = preferencesManager.getString("bcsYearName");
-
 
 
         /*   version 1
@@ -122,31 +132,19 @@ public class QuestionListActivity extends AppCompatActivity {
         } else if (subCode == 6) {
 
         }
-
-
          */
-
 
         new bgThreat().start();
 
 
-
     }
-
-
-
-
     class bgThreat extends Thread {
         public void run() {
             super.run();
-
-
             // Initialize the database instance
             List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
             int lenth = dataList.size();
 //            Log.d("jrusdfskj","array Lenth is"+String.valueOf(lenth));
-
-
             if (Older_Bcs_Question.equals("Older_Bcs_Question")){
 
                 if (dataList != null && dataList.size() > 49) {
@@ -164,20 +162,16 @@ public class QuestionListActivity extends AppCompatActivity {
                     });
                 }
                 else {
-
 //                    Log.d("jrusdfskj","dont have data");
                     String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
                     processdata(url2);
-
                 }
-
             }else if (Older_Bcs_Question.equals("")){
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         String apiWithSql = ApiKeys.API_WITH_SQL;
                         if (subCode == 3){
-
 //                            Log.d("jrusdfskj"," subCode 3 excuted");
                             String SUBJECT_CODE= preferencesManager.getString("subjectCode");
 
@@ -195,14 +189,10 @@ public class QuestionListActivity extends AppCompatActivity {
                     }
                 });
             }
-
-
         }
     }
-
-
     private void processdata(String API_URL) {
-        Log.d("examQuestionNum", String.valueOf(API_URL));
+//        Log.d("examQuestionNum", String.valueOf(API_URL));
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -227,7 +217,11 @@ public class QuestionListActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 //                Log.e("VolleyError", String.valueOf(error));
-                Toast.makeText(QuestionListActivity.this, "Please check your internet connection and try again", Toast.LENGTH_LONG).show();
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                tryAgainLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+//                Toast.makeText(QuestionListActivity.this, "Please check your internet connection and try again", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -235,11 +229,11 @@ public class QuestionListActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-
-
     private void updateUi(model[] model1){
         shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        retryBtn.setEnabled(true);
         recview.setVisibility(View.VISIBLE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                 ,LinearLayoutManager.VERTICAL,false);
@@ -259,13 +253,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 showAnswer.setImageResource(R.drawable.view);
             }
         });
-
-
     }
-
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
