@@ -98,4 +98,6 @@ public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotes
 
 
 
+
+
 }

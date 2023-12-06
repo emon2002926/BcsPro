@@ -1,12 +1,12 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gdalamin.bcs_pro.R;
 
@@ -15,6 +15,7 @@ public class ActivityPdfViwer extends AppCompatActivity {
     TextView textView;
 
     ImageView imageBackButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,13 @@ public class ActivityPdfViwer extends AppCompatActivity {
         });
 
 
-//        String url = "https://drive.google.com/file/d/1DieRNQNzW5w0TmF3WN6NexSz4B7A7ZQK/view";
+        String url2 = "http://www.emon.pixatone.com/PDF/Makkar-IELTS-Speaking-May-Aug-2022-Final-Version.pdf";
 //        String url2 = "https://demo.codeseasy.com/downloads/CodesEasy.pdf";
         WebView webView = findViewById(R.id.webView);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(url);
+        webView.loadUrl(url2);
 
 
     }

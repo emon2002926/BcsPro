@@ -45,8 +45,6 @@ import com.onesignal.OneSignal;
 
 public class HomeFragment extends Fragment {
 
-
-
     RecyclerView recyclerView;
     TextView tvPractice,showAllCourse,CvQuestionBank,CvImportantQuestion;
     LinearLayout subjectBasedExam,letcureLayout,CvQuizLayout;
@@ -129,7 +127,7 @@ public class HomeFragment extends Fragment {
 //                    startActivity(new Intent(context, ActivityLectureAndNote.class));
                     titleText = getResources().getString(R.string.lectureAndNots);
                     viewModel.setTitleText(titleText);
-                    replaceFragment(new CoursesFragment());
+                    replaceFragment(new FragmentLectureAndNote());
                     break;
                 case R.id.tvAllExam:
                     // this code sets up a BottomSheetDialog to display options for an exam
@@ -162,9 +160,6 @@ public class HomeFragment extends Fragment {
                     viewModel.setTitleText(titleText);
                     replaceFragment(new CoursesFragment());
                     break;
-
-
-
             }
         };
 

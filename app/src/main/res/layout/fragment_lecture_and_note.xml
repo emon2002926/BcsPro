@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FragmentLectureAndNote">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="30dp"
+            android:id="@+id/card"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    android:id="@+id/backButton"
+                    android:src="@drawable/baseline_arrow_back_24"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkTangerine"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:text="    Lecture and Notes"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shimer"
+            android:visibility="gone"
+            android:layout_below="@id/card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+                <include layout="@layout/lecture_shimmer_baground"/>
+
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recviewLecture"
+            android:layout_below="@+id/card"
+            android:visibility="visible"
+            />
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>
