@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -68,7 +69,8 @@ public class ActivityExam extends AppCompatActivity {
     private static String subjectName;
     private TimerCallback timerCallback;
     int examTime;
-
+    LinearLayout tryAgainLayout;
+    TextView retryBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,10 @@ public class ActivityExam extends AppCompatActivity {
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
+        tryAgainLayout = findViewById(R.id.tryAgainLayout);
+        retryBtn = findViewById(R.id.retryBtn);
+
+
 
 
         subjectName = getIntent().getStringExtra("titleText");
@@ -146,6 +152,7 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
             processdata( questionType);
+            retryBtn.setOnClickListener(view -> processdata(questionType));
         }
     }
 
@@ -153,15 +160,14 @@ public class ActivityExam extends AppCompatActivity {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
-
+                    REQ_CODE2 = 0;
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     recview.setVisibility(View.VISIBLE);
                     floatingActionButton.setVisibility(View.VISIBLE);
-
-
+                    tryAgainLayout.setVisibility(View.GONE);
+                    textViewTimer.setVisibility(View.VISIBLE);
                     startTimer(NUM_OF_QUESTION * 30, textViewTimer);
-
 
                     GsonBuilder builder = new GsonBuilder().setLenient();
                     Gson gson = builder.create();
@@ -208,8 +214,12 @@ public class ActivityExam extends AppCompatActivity {
                             }}
                     });
                 },
-                error -> {
-//                        Toast.makeText(ActivityExam.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+                error ->
+                {
+                    REQ_CODE2 = 2;
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                    tryAgainLayout.setVisibility(View.VISIBLE);
                 }
         );
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
@@ -261,7 +271,7 @@ public class ActivityExam extends AppCompatActivity {
     public void  finishExam(){
         //gating date
         Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1; // Note that months start from 0
+        int month = calendar.get(Calendar.MONTH); // Note that months start from 0
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthName = new DateFormatSymbols().getMonths()[month];
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
@@ -332,7 +342,7 @@ public class ActivityExam extends AppCompatActivity {
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
         ExamResult saveResult = new ExamResult();
-        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://emon.searchwizy.com/api/saveTest2.php", saveResult);
+        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://www.emon.pixatone.com/api/saveTest2.php", saveResult);
 
         /// todo fixthere
         String subCode = preferencesManager.getString("subjectPosition");
@@ -625,8 +635,8 @@ public class ActivityExam extends AppCompatActivity {
 //                preferencesManager.clear();
             }
         }
+        resultSaver.saveResult();
         preferencesManager.clear();
-
     }
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
@@ -634,7 +644,7 @@ public class ActivityExam extends AppCompatActivity {
                 .inflate(R.layout.submit_answer, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
-        textView.setText("আপনি " + NUM_OF_QUESTION + " প্রশ্নের মধ্যে  "+answered+" টি প্রশ্নের উত্তর দিয়েছেন");
+        textView.setText("আপনি (" + NUM_OF_QUESTION + ") প্রশ্নের মধ্যে  ("+answered+") টি প্রশ্নের উত্তর দিয়েছেন");
 
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
@@ -656,6 +666,8 @@ public class ActivityExam extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (REQ_CODE2 == 0) {
+            Log.d("REQ_CODE2","REQ_CODE2 =0");
+
             int answeredQuestions = 0;
             for (QuestionList question : questionLists) {
                 int getUserSelectedOption = question.getUserSelecedAnswer();
@@ -668,6 +680,7 @@ public class ActivityExam extends AppCompatActivity {
             });
         } else if (REQ_CODE2 == 2) {
             preferencesManager.clear();
+            Log.d("REQ_CODE2","REQ_CODE2 =2");
             super.onBackPressed();
             finish();
         }
@@ -713,14 +726,12 @@ public class ActivityExam extends AppCompatActivity {
         // Register the BroadcastReceiver to receive the "my_list_action" broadcast
         IntentFilter filter = new IntentFilter();
         filter.addAction("my_list_action");
-//        REQ_CODE2 = 0;
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
     }
     @Override
     protected void onPause() {
         super.onPause();
         // Unregister the BroadcastReceiver when the Activity is paused
-//        REQ_CODE2 = 0;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
     @Override

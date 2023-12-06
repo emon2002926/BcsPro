@@ -51,6 +51,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:textSize="16sp"
+                android:visibility="gone"
                 android:id="@+id/tvTimer"
                 android:textColor="@color/tangerine"
                 android:text="00:00:00"/>
@@ -62,6 +63,16 @@
 
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tryAgainLayout"
+        android:visibility="gone"
+        android:layout_below="@+id/card">
+
+        <include
+            layout="@layout/try_again_layout"/>
+    </LinearLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"

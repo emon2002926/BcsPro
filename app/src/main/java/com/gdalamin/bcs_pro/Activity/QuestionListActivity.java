@@ -103,37 +103,6 @@ public class QuestionListActivity extends AppCompatActivity {
         Older_Bcs_Question =preferencesManager.getString("oldBcs");
         subjectName = preferencesManager.getString("bcsYearName");
 
-
-        /*   version 1
-
-        String apiWithSql = ApiKeys.API_WITH_SQL;
-        if (subCode == 3){
-
-            String SUBJECT_CODE= preferencesManager.getString("subjectCode");
-           // SELECT * FROM `question` WHERE subjects LIKE 'ML' ORDER BY id DESC LIMIT 200
-//            String url = ApiKeys.API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum="+SUBJECT_CODE+"&IA=200";
-
-            String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
-            processdata(url2);
-
-        } else if (subCode == 4){
-
-            String subjectName = preferencesManager.getString("bcsYearName");
-
-            String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
-            processdata(url2);
-
-        }else if (subCode == 5){
-            String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
-
-            API_URL = ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=1";
-            processdata( url2);
-
-        } else if (subCode == 6) {
-
-        }
-         */
-
         new bgThreat().start();
 
 
@@ -216,7 +185,6 @@ public class QuestionListActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Log.e("VolleyError", String.valueOf(error));
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 tryAgainLayout.setVisibility(View.VISIBLE);
@@ -259,8 +227,6 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onDestroy();
         preferencesManager.clear();
     }
-
-
     @Override
     public void onBackPressed() {
 
