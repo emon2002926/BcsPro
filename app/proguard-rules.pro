@@ -22,4 +22,6 @@
 
 -keep class com.google.android.gms.auth.api.signin.** { *; }
 -keep class com.google.android.gms.auth.api.signin.internal.** { *; }
+-keep class com.shockwave.**
+
 

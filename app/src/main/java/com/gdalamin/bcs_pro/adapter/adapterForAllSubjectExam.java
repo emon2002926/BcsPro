@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.ActivityExam;
-import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
@@ -25,11 +24,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.UnsupportedEncodingException;
 
-public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.myviewholder> {
+public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAllSubjectExam.myviewholder> {
     ModelForLectureAndAllQuestion data[];
     private int lastPosition = -1;
 
-    public myadapterForAllbcs(ModelForLectureAndAllQuestion[] data) {
+    public adapterForAllSubjectExam(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
 
@@ -54,29 +53,12 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
             setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
-
-//            holder.numOfQuestion.setText("Total :"+data[position].getTotalQuestion());
-
                 String subjectName = convertToUTF8(data[position].getSubjects());
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
                 holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.subjectLayout.setVisibility(View.VISIBLE);
-                if (subCode ==3){
-                    holder.subjectLayout.setOnClickListener(view -> {
-                        int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
 
-                        preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-                        preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
-
-
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                        intent.putExtra("titleText",subjectName);
-                        view.getContext().startActivity(intent);
-                    });
-                }
-                ///This will open Subject based Exam
-                else if (subCode == 2){
                     holder.subjectLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -94,8 +76,6 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
 
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
-
-
                                 String time = edTime.getText().toString().trim();
                                 String NUM_OF_QUESTION= edNumOfQuestion.getText().toString().trim();
 
@@ -150,34 +130,9 @@ public class myadapterForAllbcs extends RecyclerView.Adapter<myadapterForAllbcs.
 
                         }
                     });
-                }
 
 
-            /*
-            /////////       This will open Older Bcs Question
-            else if (LOGIC ==1) {
-                holder.bcsYearName.setText(data[position].getText());
-                holder.cardView1.setVisibility(View.VISIBLE);
-                holder.subjectLayout.setVisibility(View.GONE);
-                holder.cardView1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        String subjectName = data[position].getText();
-
-                        preferencesManager.saveString("bcsYearName",subjectName);
-
-                        preferencesManager.saveInt("subCode",4);
-
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                        intent.putExtra("titleText",subjectName);
-                        view.getContext().startActivity(intent);
-
-                    }
-                });
-            }
-
-             */
 
 
     }

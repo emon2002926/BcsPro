@@ -136,6 +136,7 @@ public class HomeFragment extends Fragment {
                 case R.id.subject_based_exam:
                     subCode = 2;
                     titleText = getResources().getString(R.string.subjectBasedExam) ;
+                    viewModel.setSubCode(2);
                     preferencesManager.saveInt("subCode",subCode);
                     viewModel.setTitleText(titleText);
                     replaceFragment(new SubjectFragment());
@@ -144,6 +145,7 @@ public class HomeFragment extends Fragment {
                     subCode = 3;
                     titleText = getResources().getString(R.string.practice);
                     preferencesManager.saveInt("subCode",subCode);
+                    viewModel.setSubCode(3);
                     viewModel.setTitleText(titleText);
                     replaceFragment(new  SubjectFragment());
                     break;

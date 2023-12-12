@@ -3,6 +3,7 @@ package com.gdalamin.bcs_pro.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +18,6 @@ import androidx.room.Room;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -113,12 +113,11 @@ public class QuestionListActivity extends AppCompatActivity {
             // Initialize the database instance
             List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
             int lenth = dataList.size();
-//            Log.d("jrusdfskj","array Lenth is"+String.valueOf(lenth));
             if (Older_Bcs_Question.equals("Older_Bcs_Question")){
 
                 if (dataList != null && dataList.size() > 49) {
 
-//                    Log.d("jrusdfskj"," have data");
+                    Log.d("jrusdfskj"," have data");
 
                     // Convert the list to an array
                     model[] data = dataList.toArray(new model[0]);
@@ -131,7 +130,6 @@ public class QuestionListActivity extends AppCompatActivity {
                     });
                 }
                 else {
-//                    Log.d("jrusdfskj","dont have data");
                     String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
                     processdata(url2);
                 }
@@ -141,7 +139,6 @@ public class QuestionListActivity extends AppCompatActivity {
                     public void run() {
                         String apiWithSql = ApiKeys.API_WITH_SQL;
                         if (subCode == 3){
-//                            Log.d("jrusdfskj"," subCode 3 excuted");
                             String SUBJECT_CODE= preferencesManager.getString("subjectCode");
 
                             String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
@@ -161,7 +158,6 @@ public class QuestionListActivity extends AppCompatActivity {
         }
     }
     private void processdata(String API_URL) {
-//        Log.d("examQuestionNum", String.valueOf(API_URL));
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,15 +178,11 @@ public class QuestionListActivity extends AppCompatActivity {
                 new bgThreat1().start();
             }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                tryAgainLayout.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-//                Toast.makeText(QuestionListActivity.this, "Please check your internet connection and try again", Toast.LENGTH_LONG).show();
-            }
+        }, error -> {
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+            tryAgainLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         });
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
