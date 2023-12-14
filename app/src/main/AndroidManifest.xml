@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReCreateQuize"
-        tools:targetApi="33">
+        tools:targetApi="34">
         <activity
             android:name=".Activity.TestResult"
             android:exported="false" />
@@ -40,13 +40,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.ActivityPdfViwer"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Activity.ActivityLectureAndNote"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
