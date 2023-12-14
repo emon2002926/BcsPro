@@ -41,7 +41,6 @@
                 android:id="@+id/topTv"
                 android:textStyle="bold"
                 android:paddingStart="10dp"
-                android:text="44th BCS Question "
                 />
 
         </LinearLayout>

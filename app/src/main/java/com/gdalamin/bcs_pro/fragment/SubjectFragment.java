@@ -34,6 +34,7 @@ public class SubjectFragment extends Fragment {
 
     TextView titleTv;
     SharedViewModel viewModel;
+    SharedViewModel viewModel1;
 
 
     @Override
@@ -57,7 +58,6 @@ public class SubjectFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         viewModel.getTitleText().observe(getViewLifecycleOwner(), titleText -> titleTv.setText(titleText));
 
-
         String url2 = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
         processdata(url2);
 
@@ -76,24 +76,18 @@ public class SubjectFragment extends Fragment {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                     ,LinearLayoutManager.VERTICAL,false);
 
-            viewModel.getSubCode().observe(getViewLifecycleOwner(),subcode ->
+            viewModel.getSubCode().observe(getViewLifecycleOwner(),subCode ->
             {
-                if (subcode == 2){
+                if (subCode == 2){
                     recyclerView.setLayoutManager(linearLayoutManager);
                     adapterForAllSubjectExam adapter=new adapterForAllSubjectExam(data);
                     recyclerView.setAdapter(adapter);
-                } else if (subcode == 3) {
+                } else if (subCode == 3) {
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    adapterForAllSubject adapter=new adapterForAllSubject(data);
+                    adapterForAllSubject adapter=new adapterForAllSubject(data,viewModel);
                     recyclerView.setAdapter(adapter);
                 }
-
-            });
-
-
-
-
-        }
+            });}
         , error -> {
 
         }
@@ -103,7 +97,6 @@ public class SubjectFragment extends Fragment {
         queue.add(request);
 
     }
-
 
 
 }

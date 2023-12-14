@@ -1,6 +1,5 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -56,6 +57,7 @@ public class QuestionListActivity extends AppCompatActivity {
     LinearLayout tryAgainLayout;
     TextView retryBtn;
     ProgressBar progressBar;
+    SharedViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,15 +85,11 @@ public class QuestionListActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-        Intent intent = getIntent();
-        String titleText=intent.getStringExtra("titleText");
 
-        if (!titleText.isEmpty()){
-            textView.setText(titleText);
+        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        viewModel.getTitleText().observe(this, titleText2 -> textView.setText(titleText2));
 
-        }else {
-            textView.setText("Important Question");
-        }
+
 
         db = Room.databaseBuilder(
                 getApplicationContext(),
@@ -131,7 +129,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 }
                 else {
                     String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
-                    processdata(url2);
+                    getQuestions(url2);
                 }
             }else if (Older_Bcs_Question.equals("")){
                 runOnUiThread(new Runnable() {
@@ -142,11 +140,11 @@ public class QuestionListActivity extends AppCompatActivity {
                             String SUBJECT_CODE= preferencesManager.getString("subjectCode");
 
                             String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
-                            processdata(url2);
+                            getQuestions(url2);
                         } else if (subCode == 5){
 
                             String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
-                            processdata(url2);
+                            getQuestions(url2);
 
                         } else if (subCode == 6) {
 
@@ -157,7 +155,7 @@ public class QuestionListActivity extends AppCompatActivity {
             }
         }
     }
-    private void processdata(String API_URL) {
+    private void getQuestions(String API_URL) {
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -115,13 +115,13 @@ public class HomeFragment extends Fragment {
                     // This gos  ImportantQuestion (Activity)
                      subCode = 5;
                     int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+
                     titleText = getResources().getString(R.string.importantQuestion);
+                    viewModel.setTitleText(titleText);
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
+                    v.getContext().startActivity(new Intent(v.getContext(), QuestionListActivity.class));
 
-                    intent = new Intent(context, QuestionListActivity.class);
-                    intent.putExtra("titleText",titleText);
-                    v.getContext().startActivity(intent);
                     break;
                 case R.id.lectureAndNots:
 //                    startActivity(new Intent(context, ActivityLectureAndNote.class));

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
+import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
@@ -25,8 +26,12 @@ import java.io.UnsupportedEncodingException;
 public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubject.myviewholder> {
     ModelForLectureAndAllQuestion data[];
     private int lastPosition = -1;
+    Context context;
+    private SharedViewModel mViewModel;
 
-    public adapterForAllSubject(ModelForLectureAndAllQuestion[] data) {
+
+    public adapterForAllSubject(ModelForLectureAndAllQuestion[] data,SharedViewModel viewModel) {
+        this.sharedViewModel = viewModel;
         this.data = data;
     }
 
@@ -40,6 +45,14 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
         return new myviewholder(view);
     }
 
+    private SharedViewModel sharedViewModel;
+
+    // Constructor to receive SharedViewModel instance
+
+
+
+
+
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
@@ -49,7 +62,8 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
             int LOGIC = preferencesManager.getInt("logic");
 
 
-            setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
+
+        setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
                 String subjectName = convertToUTF8(data[position].getSubjects());
                 holder.tvPosition.setText(String.valueOf(position+1)+")");
@@ -58,18 +72,22 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
                 holder.subjectLayout.setVisibility(View.VISIBLE);
                     holder.subjectLayout.setOnClickListener(view -> {
                         int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
-
                         preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                         preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
 
+                        holder.bindData(subjectName);
+                        sharedViewModel.setTitleText(subjectName);
 
                         Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                        intent.putExtra("titleText",subjectName);
+//                        intent.putExtra("titleText",subjectName);
                         view.getContext().startActivity(intent);
                     });
 
 
     }
+
+
+
     private String convertToUTF8(String inputString) {
         try {
             return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
@@ -101,6 +119,10 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
             subjectLayout = itemView.findViewById(R.id.layout2);
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvPosition = itemView.findViewById(R.id.tvPosition);
+        }
+        public void bindData(String data) {
+            // Bind data to your ViewHolder views
+            // Example: titleTextView.setText(data);
         }
 
 
