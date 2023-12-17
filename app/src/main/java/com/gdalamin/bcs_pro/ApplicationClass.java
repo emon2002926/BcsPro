@@ -2,6 +2,8 @@ package com.gdalamin.bcs_pro;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.onesignal.OneSignal;
 
 
@@ -15,8 +17,9 @@ public class ApplicationClass extends Application {
         super.onCreate();
         // Enable verbose OneSignal logging to debug issues if needed.
 
-        // Set the OneSignal log level
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
 
 //        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);

@@ -61,6 +61,8 @@ MainActivity extends AppCompatActivity {
     }
 
 
+
+
     public void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

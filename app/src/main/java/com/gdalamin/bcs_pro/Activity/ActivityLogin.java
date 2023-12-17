@@ -17,6 +17,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
@@ -28,6 +38,10 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +63,10 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     ProgressBar progressBar;
+
+    private CallbackManager callbackManager;
+    private LoginManager loginManager;
+    private LoginButton mButtonFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,8 +188,24 @@ public class ActivityLogin extends AppCompatActivity {
 
          */
 
-
+        mButtonFacebook = findViewById(R.id.fb_login_button);
+        FacebookSdk.sdkInitialize(ActivityLogin.this);
+        callbackManager = CallbackManager.Factory.create();
+        facebookLogin();
+        mButtonFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                loginManager.logInWithReadPermissions(
+                        ActivityLogin.this,
+                        Arrays.asList(
+                                "email",
+                                "public_profile",
+                                "user_birthday"));
+            }
+        });
     }
+
 
 /*
     public void loginUser(final String phone, final String password) {
@@ -296,7 +330,74 @@ public class ActivityLogin extends AppCompatActivity {
 
  */
 
- @Keep void signInWithGoogle() {
+
+
+    public void facebookLogin()
+    {
+
+        loginManager
+                = LoginManager.getInstance();
+        callbackManager
+                = CallbackManager.Factory.create();
+
+        loginManager
+                .registerCallback(
+                        callbackManager,
+                        new FacebookCallback<LoginResult>() {
+
+                            @Override
+                            public void onSuccess(LoginResult loginResult)
+                            {
+
+                                startActivity(new Intent(ActivityLogin.this,MainActivity.class));
+
+                                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                                GraphRequest request = GraphRequest.newMeRequest(
+                                        accessToken,
+                                        new GraphRequest.GraphJSONObjectCallback() {
+                                            @Override
+                                            public void onCompleted(
+                                                    JSONObject object,
+                                                    GraphResponse response) {
+
+                                                try {
+                                                    String name = object.getString("name");
+                                                    String id = object.getString("id");
+                                                    Log.d("facebookName",name);
+                                                    Log.d("facebookId",id);
+                                                    signUp(name,id,"");
+                                                } catch (JSONException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                // Application code
+                                            }
+                                        });
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", "id,name,link");
+                                request.setParameters(parameters);
+                                request.executeAsync();
+
+
+
+                            }
+
+                            @Override
+                            public void onCancel()
+                            {
+                                Log.v("LoginScreen", "---onCancel");
+                            }
+
+                            @Override
+                            public void onError(FacebookException error)
+                            {
+                                // here write code when get error
+                                Log.v("LoginScreen", "----onError: "
+                                        + error.getMessage());
+                            }
+                        });
+    }
+
+    @Keep void signInWithGoogle() {
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
     }
@@ -314,11 +415,20 @@ public class ActivityLogin extends AppCompatActivity {
                 preferencesUserInfo.saveString("key_phone",email);
 
                 signUp(name, email,"");
-//                navigateToMainActivity();
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
+        callbackManager.onActivityResult(
+                requestCode,
+                resultCode,
+                data);
+
+        super.onActivityResult(requestCode,
+                resultCode,
+                data);
+
+
     }
 
 

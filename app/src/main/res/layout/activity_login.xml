@@ -143,6 +143,7 @@
                             android:background="@drawable/round_sceondery_button_100"
                             android:layout_marginTop="30dp"
                             android:textColor="@color/white"/>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -252,6 +253,13 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="20dp"
                         android:layout_height="wrap_content" />
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/fb_login_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp" />
 
                 </LinearLayout>
             </LinearLayout>

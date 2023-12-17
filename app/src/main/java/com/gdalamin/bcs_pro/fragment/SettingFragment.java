@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
 import com.gdalamin.bcs_pro.Activity.ActivityLogin;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -158,51 +163,86 @@ public class SettingFragment extends Fragment {
 
         SharedPreferencesManagerAppLogic sharedPreferencesManager = new SharedPreferencesManagerAppLogic(context);
 
-        // Build the GoogleSignInOptions for signing in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
 
-        // If the user is already signed in, sign them out
-        if (account != null) {
-            // Create a GoogleSignInClient using the given context and GoogleSignInOptions
-            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
-
-            // Call signOut() on the GoogleSignInClient to sign the user out
-            mGoogleSignInClient.signOut().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    // Sign out successful
-                    // Clear the login information from SharedPreferences
-                    sharedPreferencesManager.clear();
-                    editor.clear();
-                    editor.apply();
-
-
-                    // Start the LoginActivity and finish the current Activity
-                    Intent intent = new Intent(context, ActivityLogin.class);
-                    context.startActivity(intent);
-                    if (context instanceof Activity) {
-                        ((Activity) context).finish();
-                    }
-                } else {
-                    // Sign out failed
-                    Log.w("SignOut", "Google sign out failed", task.getException());
-                }
-            });
-
-        } else {
-            // User is not signed in
-
-            // Clear the login information from SharedPreferences
-            Intent intent = new Intent(context, ActivityLogin.class);
-            context.startActivity(intent);
-            if (context instanceof Activity) {
-                ((Activity) context).finish();
-            }
+        if (AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired()) {
+            //User is logged in with Facebook
             sharedPreferencesManager.clear();
             editor.clear();
             editor.apply();
+            signOutFromFacebook();
+
+        } else {
+            // User is not logged in with Facebook
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            if (account != null) {
+                // Create a GoogleSignInClient using the given context and GoogleSignInOptions
+                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+
+                // Call signOut() on the GoogleSignInClient to sign the user out
+                mGoogleSignInClient.signOut().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Sign out successful
+                        // Clear the login information from SharedPreferences
+                        sharedPreferencesManager.clear();
+                        editor.clear();
+                        editor.apply();
+
+
+                        // Start the LoginActivity and finish the current Activity
+                        Intent intent = new Intent(context, ActivityLogin.class);
+                        context.startActivity(intent);
+                        if (context instanceof Activity) {
+                            ((Activity) context).finish();
+                        }
+                    } else {
+                        // Sign out failed
+                        Log.w("SignOut", "Google sign out failed", task.getException());
+                    }
+                });
+
+            } else {
+                // User is not signed in
+                // Clear the login information from SharedPreferences
+                Intent intent = new Intent(context, ActivityLogin.class);
+                context.startActivity(intent);
+                if (context instanceof Activity) {
+                    ((Activity) context).finish();
+                }
+                sharedPreferencesManager.clear();
+                editor.clear();
+                editor.apply();
+            }
+
         }
+        // Build the GoogleSignInOptions for signing in
+
+
+        // If the user is already signed in, sign them out
     }
+    private void signOutFromFacebook() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            // User is already logged out
+            return;
+        }
+
+        GraphRequest delPermRequest = new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/permissions/",
+                null,
+                HttpMethod.DELETE,
+                new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        LoginManager.getInstance().logOut();
+
+                        // Perform any additional operations after logout if needed
+                    }
+                });
+
+        delPermRequest.executeAsync();
+    }
+
 
 }
