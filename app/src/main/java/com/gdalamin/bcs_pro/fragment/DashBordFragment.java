@@ -1,6 +1,5 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -62,18 +59,19 @@ public class DashBordFragment extends Fragment {
 
         profileImage = view.findViewById(R.id.profileImageID);
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
-        if (account != null) {
-            // User is signed in
-            Uri profilePhotoUrl = account.getPhotoUrl();
-            if (profilePhotoUrl != null) {
-                Picasso.get().load(profilePhotoUrl).into(profileImage);
-            } else {
-                profileImage.setImageResource(R.drawable.test_profile_image);
-            }
-        } else {
-            profileImage.setImageResource(R.drawable.test_profile_image);
-        }
+        Picasso.get().load("https://graph.facebook.com/3272620626383464/picture?type=large").into(profileImage);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
+//        if (account != null) {
+//            // User is signed in
+//            Uri profilePhotoUrl = account.getPhotoUrl();
+//            if (profilePhotoUrl != null) {
+//                Picasso.get().load(profilePhotoUrl).into(profileImage);
+//            } else {
+//                profileImage.setImageResource(R.drawable.test_profile_image);
+//            }
+//        } else {
+//            profileImage.setImageResource(R.drawable.test_profile_image);
+//        }
 
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);

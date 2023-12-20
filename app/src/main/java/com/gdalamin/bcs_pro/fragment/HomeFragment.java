@@ -103,10 +103,6 @@ public class HomeFragment extends Fragment {
 
         ////
 
-
-
-
-
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
             int subCode;

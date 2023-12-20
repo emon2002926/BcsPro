@@ -77,50 +77,6 @@ public class ActivityLogin extends AppCompatActivity {
         preferencesUserInfo = new PreferencesUserInfo(ActivityLogin.this);
 
 
-        /*
-        signInTv = findViewById(R.id.signInTv);
-        signUpTv = findViewById(R.id.signUpTv);
-
-        devider1 = findViewById(R.id.dividerI);
-        devider2 = findViewById(R.id.dividerU);
-        progressBar = findViewById(R.id.progressBar4);
-
-
-        layoutSignIn = findViewById(R.id.layoutSignIn);
-        layoutSignUp = findViewById(R.id.layoutSignUp);
-        layoutSignUp.setVisibility(View.GONE);
-        layoutSignIn.setVisibility(View.VISIBLE);
-
-        devider1.setVisibility(View.VISIBLE);
-        //to Show  signIn layout
-        signInTv.setOnClickListener(view -> {
-            layoutSignIn.setVisibility(View.VISIBLE);
-            layoutSignUp.setVisibility(View.GONE);
-
-            devider1.setVisibility(View.VISIBLE);
-            devider2.setVisibility(View.INVISIBLE);
-
-        });
-        //to Show  signUp layout
-        signUpTv.setOnClickListener(view -> {
-            layoutSignIn.setVisibility(View.GONE);
-            layoutSignUp.setVisibility(View.VISIBLE);
-
-            devider1.setVisibility(View.INVISIBLE);
-            devider2.setVisibility(View.VISIBLE);
-        });
-        
-        fullNameEtS = findViewById(R.id.EtName);
-        phoneEtS = findViewById(R.id.mobileEtS);
-        phoneEtL = findViewById(R.id.EtPhoneL);
-        passEtS = findViewById(R.id.EtpassS);
-        passEtL = findViewById(R.id.EtPassL);
-
-        contunueBtnS = findViewById(R.id.contunueEtS);
-        contunueBtnL = findViewById(R.id.contunueEtL);
-
-
-         */
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         
@@ -128,65 +84,6 @@ public class ActivityLogin extends AppCompatActivity {
         signInButton.setOnClickListener(view -> signInWithGoogle());
 
 
-        /*
-        contunueBtnL.setOnClickListener(view -> {
-            String phone = phoneEtL.getText().toString();
-            String pass = passEtL.getText().toString();
-
-            if (phone.isEmpty()) {
-                phoneEtL.setError("Please enter a Phone Number");
-                phoneEtL.requestFocus();
-                return;
-            } else if (phone.length() != 11) {
-                phoneEtL.setError("Please enter a Valid Phone Number");
-                phoneEtL.requestFocus();
-                return;
-
-            } else if (pass.isEmpty()) {
-
-                passEtL.setError("Please enter the Password");
-                phoneEtL.requestFocus();
-                return;
-            }else {
-                progressBar.setVisibility(View.VISIBLE);
-                loginUser(phone,pass);
-            }
-
-
-
-        });
-        contunueBtnS.setOnClickListener(view -> {
-
-            String name = fullNameEtS.getText().toString();
-            String phone = phoneEtS.getText().toString();
-            String pass = passEtS.getText().toString();
-
-            if (name.isEmpty()) {
-                fullNameEtS.setError("Full name is Required");
-                fullNameEtS.requestFocus();
-                return;
-            } else if (phone.isEmpty()) {
-                phoneEtS.setError("Please enter a Phone Number");
-                phoneEtS.requestFocus();
-                return;
-            } else if (phone.length() != 11) {
-                phoneEtS.setError("Please enter a Valid Phone Number");
-                phoneEtS.requestFocus();
-                return;
-            } else if (pass.isEmpty()) {
-                passEtS.setError("Please enter a Password");
-                passEtS.requestFocus();
-                return;
-            } else {
-
-
-                checkNumberExistOrNot(phone, name, pass);
-            }
-
-        });
-
-
-         */
 
         mButtonFacebook = findViewById(R.id.fb_login_button);
         FacebookSdk.sdkInitialize(ActivityLogin.this);
@@ -207,149 +104,22 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-/*
-    public void loginUser(final String phone, final String password) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                ApiKeys.API_URL+ "api/singUpAndLogin/login.php?apiKey=ghi789",
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        int status = jsonObject.getInt("status");
-//                            String message = jsonObject.getString("message");
-                        if (status == 1) {
-                            // Login successful, handle success case
-                            SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("key_phone", phone);
-                            editor.apply();
-                            progressBar.setVisibility(View.GONE);
-
-                            Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(ActivityLogin.this,"Login failed wrong user credentials",Toast.LENGTH_SHORT).show();
-                            // Todo Login failed, handle error case
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                },
-            
-                error ->  {
-                
-
-                        Toast.makeText(ActivityLogin.this,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                        // Handle network error
-                    
-                }) {
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<>();
-                params.put("phone", phone);
-                params.put("password", password);
-                return params;
-            }
-        };
-        Volley.newRequestQueue(this).add(stringRequest);
-    }
-    private void checkNumberExistOrNot(String number, String name, String password) {
-        progressBar.setVisibility(View.VISIBLE);
-
-        String API_URL_WITH_USER_ID = ApiKeys.API_URL+"api/singUpAndLogin/chackNumber.php?phone=" + number;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, API_URL_WITH_USER_ID,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            int status = jsonObject.getInt("status");
-                            if (status == 0) {
-                                // Phone number already exists
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(ActivityLogin.this, "Phone number already exists", Toast.LENGTH_SHORT).show();
-                            } else if (status == 1) {
-                                // Phone number is available
-                                progressBar.setVisibility(View.INVISIBLE);
-
-                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                        "+880" + number.toString(), 60, TimeUnit.SECONDS
-                                        , ActivityLogin.this,
-                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                            @Override
-                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-                                            }
-                                            @Override
-                                            public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                                            }
-                                            @Override
-                                            public void onCodeSent(@NonNull String backendOtp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                                super.onCodeSent(backendOtp, forceResendingToken);
-                                                progressBar.setVisibility(View.INVISIBLE);
-                                                navigateToOtpActivity(number, name, password,backendOtp);
-                                            }
-                                        }
-                                );
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-                });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
-
-
-    public void navigateToOtpActivity(String number, String name, String password ,String otp) {
-        Intent intent = new Intent(ActivityLogin.this, ActivityOtpLogin.class);
-        intent.putExtra("mobile", number);
-        intent.putExtra("name", name);
-        intent.putExtra("password", password);
-        intent.putExtra("otp",otp);
-        startActivity(intent);
-    }
-
-
- */
 
 
 
     public void facebookLogin()
     {
 
-        loginManager
-                = LoginManager.getInstance();
-        callbackManager
-                = CallbackManager.Factory.create();
+        loginManager = LoginManager.getInstance();
+        callbackManager = CallbackManager.Factory.create();
 
-        loginManager
-                .registerCallback(
+        loginManager.registerCallback(
                         callbackManager,
                         new FacebookCallback<LoginResult>() {
 
                             @Override
                             public void onSuccess(LoginResult loginResult)
                             {
-
-                                startActivity(new Intent(ActivityLogin.this,MainActivity.class));
 
                                 AccessToken accessToken = AccessToken.getCurrentAccessToken();
                                 GraphRequest request = GraphRequest.newMeRequest(
@@ -363,8 +133,7 @@ public class ActivityLogin extends AppCompatActivity {
                                                 try {
                                                     String name = object.getString("name");
                                                     String id = object.getString("id");
-                                                    Log.d("facebookName",name);
-                                                    Log.d("facebookId",id);
+                                                    preferencesUserInfo.saveString("key_phone",id);
                                                     signUp(name,id,"");
                                                 } catch (JSONException e) {
                                                     throw new RuntimeException(e);
