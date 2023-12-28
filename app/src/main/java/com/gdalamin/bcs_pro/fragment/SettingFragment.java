@@ -1,15 +1,9 @@
 package com.gdalamin.bcs_pro.fragment;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +12,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.login.LoginManager;
-import com.gdalamin.bcs_pro.Activity.ActivityLogin;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class SettingFragment extends Fragment {
     LinearLayout messengerChatBtn,facebookGroup,logOutButton,shareButton,privacyPolicyBtn,termsConditionsBtn,aboutUsBtn;
@@ -44,8 +27,10 @@ public class SettingFragment extends Fragment {
         shareButton = view.findViewById(R.id.shareBtn);
         privacyPolicyBtn = view.findViewById(R.id.privacy);
         termsConditionsBtn = view.findViewById(R.id.termsOfUse);
-        logOutButton = view.findViewById(R.id.logOutButton);
         aboutUsBtn = view.findViewById(R.id.about_us);
+
+//        logOutButton = view.findViewById(R.id.logOutButton);
+
 
 
 
@@ -98,9 +83,9 @@ public class SettingFragment extends Fragment {
                     intent.setData(Uri.parse(termsConditionUrl));
                     startActivity(intent);
                     break;
-                case R.id.logOutButton:
-                    singOutOption();
-                    break;
+//                case R.id.logOutButton:
+////                    singOutOption();
+//                    break;
 
             }
         };
@@ -109,7 +94,7 @@ public class SettingFragment extends Fragment {
         shareButton.setOnClickListener(clickListener);
         privacyPolicyBtn.setOnClickListener(clickListener);
         termsConditionsBtn.setOnClickListener(clickListener);
-        logOutButton.setOnClickListener(clickListener);
+//        logOutButton.setOnClickListener(clickListener);
         aboutUsBtn.setOnClickListener(clickListener);
 
 
@@ -118,8 +103,7 @@ public class SettingFragment extends Fragment {
 
     private void openMessenger(){
         String userIdOrGroupId = "100094890072982";
-
-// Launch Messenger chat with the specified user or group ID
+        // Launch Messenger chat with the specified user or group ID
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb-messenger://user/" + userIdOrGroupId));
         intent.putExtra(Intent.EXTRA_TEXT, "Hello, let's chat!"); // Optional: add a message
         intent.setPackage("com.facebook.orca"); // Set the package name of Messenger app
@@ -129,6 +113,8 @@ public class SettingFragment extends Fragment {
             // Messenger is not installed, handle the error here
         }
     }
+
+    /*
 
     private void  singOutOption(){
 
@@ -149,8 +135,6 @@ public class SettingFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
     private void signOut(Context context) {
         // Get the last signed-in Google account from the given context
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
@@ -244,5 +228,6 @@ public class SettingFragment extends Fragment {
         delPermRequest.executeAsync();
     }
 
+     */
 
 }

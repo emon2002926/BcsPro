@@ -36,7 +36,7 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:text="@string/yourProfile"
+                    android:text="@string/statics"
                     />
 
             </LinearLayout>
@@ -103,9 +103,9 @@
             android:orientation="vertical"
             android:layout_below="@id/card"
             >
-            <include
-                layout="@layout/profile_layout"
-                />
+<!--            <include-->
+<!--                layout="@layout/profile_layout"-->
+<!--                />-->
             <include
                 layout="@layout/statistics_layout"/>
 

@@ -34,7 +34,6 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.myadapter2;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.GetLocalUserData;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
@@ -223,11 +222,12 @@ public class HomeFragment extends Fragment {
         isConnected = isConnected();
 
 
-        String userId = preferencesUserInfo.getString("key_phone").trim();
 
 
         processdata();
-        getUserProfileData(userId);
+
+//        String userId = preferencesUserInfo.getString("key_phone").trim();
+//        getUserProfileData(userId);
 
         return view;
 
@@ -320,30 +320,30 @@ public class HomeFragment extends Fragment {
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }
-
-    public void getUserProfileData(String userId){
-        GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
-        apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
-            @Override
-            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
-                preferencesUserInfo.saveString("name",userName);
-                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
-                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
-                preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
-                preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
-                preferencesUserInfo.saveString("totalExam",String.valueOf(examCount));
-                preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
-                preferencesUserInfo.saveInt("localUserPoint",localUserMark);
-                preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
-            }
-
-            @Override
-            public void onFetchFailure(String errorMessage) {
-                // Handle the error message here
-            }
-        });
-    }
-
+//
+//    public void getUserProfileData(String userId){
+//        GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
+//        apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
+//            @Override
+//            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
+//                preferencesUserInfo.saveString("name",userName);
+//                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
+//                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
+//                preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
+//                preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
+//                preferencesUserInfo.saveString("totalExam",String.valueOf(examCount));
+//                preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
+//                preferencesUserInfo.saveInt("localUserPoint",localUserMark);
+//                preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
+//            }
+//
+//            @Override
+//            public void onFetchFailure(String errorMessage) {
+//                // Handle the error message here
+//            }
+//        });
+//    }
+//
 
 
     @Override

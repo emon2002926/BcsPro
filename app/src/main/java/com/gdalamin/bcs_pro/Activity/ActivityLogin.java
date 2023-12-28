@@ -1,49 +1,19 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Keep;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class ActivityLogin extends AppCompatActivity {
@@ -64,15 +34,15 @@ public class ActivityLogin extends AppCompatActivity {
 
     ProgressBar progressBar;
 
-    private CallbackManager callbackManager;
-    private LoginManager loginManager;
-    private LoginButton mButtonFacebook;
+//    private CallbackManager callbackManager;
+//    private LoginManager loginManager;
+//    private LoginButton mButtonFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+/*
 
         preferencesUserInfo = new PreferencesUserInfo(ActivityLogin.this);
 
@@ -101,11 +71,14 @@ public class ActivityLogin extends AppCompatActivity {
                                 "user_birthday"));
             }
         });
+
+ */
+
     }
 
 
 
-
+/*
 
     public void facebookLogin()
     {
@@ -236,6 +209,8 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
+
+ */
 
 
 }

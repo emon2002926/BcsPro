@@ -1,6 +1,7 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.squareup.picasso.Picasso;
+import com.gdalamin.bcs_pro.api.ResultPref;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -33,6 +34,7 @@ public class DashBordFragment extends Fragment {
     public String userName = "";
 
     PreferencesUserInfo preferencesUserInfo;
+    ResultPref resultPref;
 
   /*  TextView updateButton;
     ImageView closeButton;
@@ -57,9 +59,9 @@ public class DashBordFragment extends Fragment {
 
         */
 
-        profileImage = view.findViewById(R.id.profileImageID);
-
-        Picasso.get().load("https://graph.facebook.com/3272620626383464/picture?type=large").into(profileImage);
+//        profileImage = view.findViewById(R.id.profileImageID);
+//
+//        Picasso.get().load("https://graph.facebook.com/3272620626383464/picture?type=large").into(profileImage);
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
 //        if (account != null) {
 //            // User is signed in
@@ -89,7 +91,10 @@ public class DashBordFragment extends Fragment {
         progressBarNotAnswered = view.findViewById(R.id.percentageProgressBarNotAnswred);
 
 
-        preferencesUserInfo = new PreferencesUserInfo(progressBarWrong.getContext());
+        preferencesUserInfo = new PreferencesUserInfo(view.getContext());
+        resultPref = new ResultPref(view.getContext());
+
+
 
         showResultList = view.findViewById(R.id.resultListLayout);
         showResultList.setOnClickListener(new View.OnClickListener() {
@@ -102,20 +107,35 @@ public class DashBordFragment extends Fragment {
 
 
 
-        userId = preferencesUserInfo.getString("key_phone");
-        if (!userId.isEmpty()){
-            userName = preferencesUserInfo.getString("name");
-            userIdTv.setText("ID: "+userId);
-            userNameTextView.setText(userName);
-        }
+//        userId = preferencesUserInfo.getString("key_phone");
+//        Log.d("fkdjhkds",userId);
+//        if (!userId.isEmpty()){
+//            userName = preferencesUserInfo.getString("name");
+//            userIdTv.setText("ID: "+userId);
+//            userNameTextView.setText(userName);
+//
+//        }
+//        String totalQuestions = String.valueOf(resultPref.getString("totalQuestions1"));
 
-        String totalQuestions = preferencesUserInfo.getString("totalQuestions");
-        if (totalQuestions != null && !totalQuestions.isEmpty()) {
-            String totalQuestions2 = preferencesUserInfo.getString("totalQuestions");
-            String wrongAnswer = preferencesUserInfo.getString("wrongAnswer");
-            String correctAnswer = preferencesUserInfo.getString("correctAnswer").trim();
-            String notAnswered = preferencesUserInfo.getString("notAnswred");
-            String totalExam = preferencesUserInfo.getString("totalExam");
+
+//            String totalQuestions2 = preferencesUserInfo.getString("totalQuestions");
+//            String wrongAnswer = preferencesUserInfo.getString("wrongAnswer");
+//            String correctAnswer = preferencesUserInfo.getString("correctAnswer").trim();
+//            String notAnswered = preferencesUserInfo.getString("notAnswred");
+//            String totalExam = preferencesUserInfo.getString("totalExam");
+
+
+
+            String totalExam = String.valueOf(resultPref.getInt("totalExam"));
+            String totalQuestions2 = String.valueOf(resultPref.getInt("totalQuestions1"));
+            String correctAnswer = String.valueOf(resultPref.getInt("overAllCorrectAnswer"));
+            String wrongAnswer = String.valueOf(resultPref.getInt("overAllWrongAnswer"));
+            String notAnswered = String.valueOf(resultPref.getInt("overAllNotAnswered"));
+
+
+            Log.d("klgkyh", totalQuestions2);
+
+
 
             int correctAnswer1 = 0;
             int wrongAnswer1 = 0;
@@ -151,14 +171,12 @@ public class DashBordFragment extends Fragment {
             progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
             progressBarWrong.setProgress(Math.round(totalPercentageWrong));
             progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
-        }
 
 
 
+        /*
 
-                /*
-
-                        fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
+        fullProfileLayout = view.findViewById(R.id.fullProfileLayout);
 
         base64LocalImage = preferencesUserInfo.getString("userImage");
         if (!base64LocalImage.isEmpty()){

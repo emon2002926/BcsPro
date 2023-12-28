@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -27,8 +28,8 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
+import com.gdalamin.bcs_pro.api.ResultPref;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
-import com.gdalamin.bcs_pro.downloader.ExamResultSaver;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
@@ -37,6 +38,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+
 import java.io.StringReader;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -59,6 +61,7 @@ public class ActivityExam extends AppCompatActivity {
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
     SharedPreferencesManagerAppLogic preferencesManager;
+    ResultPref resultPref;
 
     ExamResult examResult;
     private boolean mBooleanValue = false;
@@ -101,6 +104,8 @@ public class ActivityExam extends AppCompatActivity {
 
 
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
+        resultPref = new ResultPref(this);
+
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
         examTime = preferencesManager.getInt("time");
@@ -276,6 +281,7 @@ public class ActivityExam extends AppCompatActivity {
         String monthName = new DateFormatSymbols().getMonths()[month];
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
+//        resultPref.saveInt("totalQuestions1",LOGIC_FOR_ALL_SUBJECT_EXAM);
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
@@ -341,13 +347,14 @@ public class ActivityExam extends AppCompatActivity {
         TextView wrongTvICT = bottomSheetView.findViewById(R.id.wrongTvICT);
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
-        ExamResult saveResult = new ExamResult();
-        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://www.emon.pixatone.com/api/saveTest2.php", saveResult);
+//        ExamResult saveResult = new ExamResult();
+//        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://www.emon.pixatone.com/api/saveTest2.php", saveResult);
 
         /// todo fixthere
         String subCode = preferencesManager.getString("subjectPosition");
 
         if (!subCode.isEmpty()) {
+            //This is for SubjectBased Exam
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
             int subCode2 = Integer.parseInt(subCode);
             if(subCode2 >= 1){
@@ -386,6 +393,7 @@ public class ActivityExam extends AppCompatActivity {
                     resultSubName.setText(subjectName);
 
                     totalTV.setText(String.valueOf(totalQuestion));
+
                     correctTv.setText(overallCorrectAnswer);
                     wrongTv.setText(overallWrongAnswer);
                     marksTv.setText(overallTotalMark);
@@ -393,6 +401,7 @@ public class ActivityExam extends AppCompatActivity {
                     View viewDevider = bottomSheetView.findViewById(R.id.viewDivider);
                     viewDevider.setVisibility(View.VISIBLE);
 
+                    /*
                     ///////////
                     saveResult.setTotalIA("0");
                     saveResult.setCorrectIA("0");
@@ -451,12 +460,14 @@ public class ActivityExam extends AppCompatActivity {
                     saveResult.setUserId(userId);
                     saveResult.setDate(examDateTime);
                     saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
-
                     resultSaver.saveResult();
+ */
+
+
                     stopTimer();
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
-//                    preferencesManager.clear();
+//                  preferencesManager.clear();
                     LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
                 }
@@ -527,78 +538,78 @@ public class ActivityExam extends AppCompatActivity {
                         setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                                 totalIA,correctAnswer,wrongAnswer,totalMark);
 
-                        saveResult.setTotalIA(totalIA.trim());
-                        saveResult.setCorrectIA(correctAnswer.trim());
-                        saveResult.setWrongIA(wrongAnswer.trim());
-                        saveResult.setMarksIA(totalMark.trim());
+//                        saveResult.setTotalIA(totalIA.trim());
+//                        saveResult.setCorrectIA(correctAnswer.trim());
+//                        saveResult.setWrongIA(wrongAnswer.trim());
+//                        saveResult.setMarksIA(totalMark.trim());
                     }
                     else if (i==1) {
                         setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
-
-                        saveResult.setTotalBA(totalBA.trim());
-                        saveResult.setCorrectBA(correctAnswer.trim());
-                        saveResult.setWrongBA(wrongAnswer.trim());
-                        saveResult.setMarksBA(totalMark.trim());
+//
+//                        saveResult.setTotalBA(totalBA.trim());
+//                        saveResult.setCorrectBA(correctAnswer.trim());
+//                        saveResult.setWrongBA(wrongAnswer.trim());
+//                        saveResult.setMarksBA(totalMark.trim());
                     }
                     else if (i==2) {
                         //Todo Continue from hare
                         setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalB(totalB);
-                        saveResult.setCorrectB(correctAnswer);
-                        saveResult.setWrongB(wrongAnswer);
-                        saveResult.setMarksB(totalMark);
+//                        saveResult.setTotalB(totalB);
+//                        saveResult.setCorrectB(correctAnswer);
+//                        saveResult.setWrongB(wrongAnswer);
+//                        saveResult.setMarksB(totalMark);
                     }
                     else if (i==3) {
                         setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalMAV(totalMAV);
-                        saveResult.setCorrectMAV(correctAnswer);
-                        saveResult.setWrongMAV(wrongAnswer);
-                        saveResult.setMarksMAV(totalMark);
+//                        saveResult.setTotalMAV(totalMAV);
+//                        saveResult.setCorrectMAV(correctAnswer);
+//                        saveResult.setWrongMAV(wrongAnswer);
+//                        saveResult.setMarksMAV(totalMark);
                     }
                     else if (i==4) {
                         setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalG(totalG);
-                        saveResult.setCorrectG(correctAnswer);
-                        saveResult.setWrongG(wrongAnswer);
-                        saveResult.setMarksG(totalMark);
+//                        saveResult.setTotalG(totalG);
+//                        saveResult.setCorrectG(correctAnswer);
+//                        saveResult.setWrongG(wrongAnswer);
+//                        saveResult.setMarksG(totalMark);
                     }
                     else if (i==5) {
                         ///Somthing wrong hare
                         setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,totalML,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalML(totalML);
-                        saveResult.setCorrectML(correctAnswer);
-                        saveResult.setWrongML(wrongAnswer);
-                        saveResult.setMarksML(totalMark);
+//                        saveResult.setTotalML(totalML);
+//                        saveResult.setCorrectML(correctAnswer);
+//                        saveResult.setWrongML(wrongAnswer);
+//                        saveResult.setMarksML(totalMark);
                     }
                     else if (i==6) {
                         setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctAnswer,wrongAnswer,totalMark);
 
-                        saveResult.setTotalEL(totalEL);
-                        saveResult.setCorrectEL(correctAnswer);
-                        saveResult.setWrongEL(wrongAnswer);
-                        saveResult.setMarksEL(totalMark);
+//                        saveResult.setTotalEL(totalEL);
+//                        saveResult.setCorrectEL(correctAnswer);
+//                        saveResult.setWrongEL(wrongAnswer);
+//                        saveResult.setMarksEL(totalMark);
                     }
                     else if (i==7) {
                         setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctAnswer,wrongAnswer,totalMark);
-
-                        saveResult.setTotalMS(totalMS);
-                        saveResult.setCorrectMS(correctAnswer);
-                        saveResult.setWrongMS(wrongAnswer);
-                        saveResult.setMarksMS(totalMark);
+//
+//                        saveResult.setTotalMS(totalMS);
+//                        saveResult.setCorrectMS(correctAnswer);
+//                        saveResult.setWrongMS(wrongAnswer);
+//                        saveResult.setMarksMS(totalMark);
                     }
                     else if (i==8) {
                         setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalGS(totalGS);
-                        saveResult.setCorrectGS(correctAnswer);
-                        saveResult.setWrongGS(wrongAnswer);
-                        saveResult.setMarksGS(totalMark);
+//                        saveResult.setTotalGS(totalGS);
+//                        saveResult.setCorrectGS(correctAnswer);
+//                        saveResult.setWrongGS(wrongAnswer);
+//                        saveResult.setMarksGS(totalMark);
                     }
                     else if (i==9) {
                         setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctAnswer,wrongAnswer,totalMark);
-                        saveResult.setTotalICT(totalICT);
-                        saveResult.setCorrectICT(correctAnswer);
-                        saveResult.setWrongICT(wrongAnswer);
-                        saveResult.setMarksICT(totalMark);
+//                        saveResult.setTotalICT(totalICT);
+//                        saveResult.setCorrectICT(correctAnswer);
+//                        saveResult.setWrongICT(wrongAnswer);
+//                        saveResult.setMarksICT(totalMark);
                     }
 
                     startIndex = endIndex;
@@ -621,22 +632,50 @@ public class ActivityExam extends AppCompatActivity {
                 setResultIntoTextView(totalTV,correctTv,wrongTv,marksTv,String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM)
                         ,overallCorrectAnswer,overallWrongAnswer, overallTotalMark);
 
-                saveResult.setTotal(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
-                saveResult.setCorrect(overallCorrectAnswer);
-                saveResult.setWrong(overallWrongAnswer);
-                saveResult.setMark(overallTotalMark);
-                saveResult.setUserId(userId);
-                saveResult.setDate(examDateTime);
-                saveResult.setNotAnswred(String.valueOf(notAnswred));
+                preferencesManager.saveString("totalQuestions",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
 
-                resultSaver.saveResult();
+
+                if (resultPref.getInt("totalQuestions1") > 49 ){
+                    int totalExam = ((resultPref.getInt("totalExam"))+1);
+                    int totalQuestion = ((resultPref.getInt("totalQuestions1"))+LOGIC_FOR_ALL_SUBJECT_EXAM);
+                    int overAllCorrectAnswer = ((resultPref.getInt("overAllCorrectAnswer"))+totalCorrect);
+                    int overAllWrongAnswer = ((resultPref.getInt("overAllWrongAnswer"))+totalWrong);
+                    int overAllNotAnswered = ((resultPref.getInt("overAllNotAnswered"))+totalWrong);
+
+                    resultPref.saveInt("totalExam",totalExam);
+                    resultPref.saveInt("totalQuestions1",totalQuestion);
+                    resultPref.saveInt("overAllCorrectAnswer",overAllCorrectAnswer);
+                    resultPref.saveInt("overAllWrongAnswer",overAllWrongAnswer);
+                    resultPref.saveInt("overAllNotAnswered",overAllNotAnswered);
+
+                    Log.d("overAllMark",String.valueOf(totalExam));
+
+                }else {
+                    resultPref.saveInt("totalExam",1);
+                    resultPref.saveInt("totalQuestions1",LOGIC_FOR_ALL_SUBJECT_EXAM);
+                    resultPref.saveInt("overAllCorrectAnswer",totalCorrect);
+                    resultPref.saveInt("overAllWrongAnswer",totalCorrect);
+                    resultPref.saveInt("overAllNotAnswered",notAnswred);
+                }
+
+//                saveResult.setTotal(String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
+//                saveResult.setCorrect(overallCorrectAnswer);
+//                saveResult.setWrong(overallWrongAnswer);
+//                saveResult.setMark(overallTotalMark);
+//                saveResult.setUserId(userId);
+//                saveResult.setDate(examDateTime);
+//                saveResult.setNotAnswred(String.valueOf(notAnswred));
+//
+//                resultSaver.saveResult();
                 stopTimer();
                 LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-//                preferencesManager.clear();
+                preferencesManager.clear();
             }
         }
-        resultSaver.saveResult();
-        preferencesManager.clear();
+//        resultSaver.saveResult();
+
+
+//        preferencesManager.clear();
     }
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
@@ -719,6 +758,10 @@ public class ActivityExam extends AppCompatActivity {
         }
     }
 
+    private void addNumber(String prefKey ,int savedNumber,int newNumber){
+
+
+    }
 
     @Override
     protected void onResume() {
