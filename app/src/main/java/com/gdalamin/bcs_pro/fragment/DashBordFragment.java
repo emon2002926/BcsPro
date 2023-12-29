@@ -96,14 +96,14 @@ public class DashBordFragment extends Fragment {
 
 
 
-        showResultList = view.findViewById(R.id.resultListLayout);
-        showResultList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                startActivity(new Intent(view.getContext(), ResultListActivity.class));
-                replaceFragment(new ResultListFragment());
-            }
-        });
+//        showResultList = view.findViewById(R.id.resultListLayout);
+//        showResultList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                startActivity(new Intent(view.getContext(), ResultListActivity.class));
+//                replaceFragment(new ResultListFragment());
+//            }
+//        });
 
 
 
@@ -124,53 +124,54 @@ public class DashBordFragment extends Fragment {
 //            String notAnswered = preferencesUserInfo.getString("notAnswred");
 //            String totalExam = preferencesUserInfo.getString("totalExam");
 
+            if (resultPref.getInt("totalQuestions1")> 1){
+                String totalExam = String.valueOf(resultPref.getInt("totalExam"));
+                String totalQuestions2 = String.valueOf(resultPref.getInt("totalQuestions1"));
+                String correctAnswer = String.valueOf(resultPref.getInt("overAllCorrectAnswer"));
+                String wrongAnswer = String.valueOf(resultPref.getInt("overAllWrongAnswer"));
+                String notAnswered = String.valueOf(resultPref.getInt("overAllNotAnswered"));
 
 
-            String totalExam = String.valueOf(resultPref.getInt("totalExam"));
-            String totalQuestions2 = String.valueOf(resultPref.getInt("totalQuestions1"));
-            String correctAnswer = String.valueOf(resultPref.getInt("overAllCorrectAnswer"));
-            String wrongAnswer = String.valueOf(resultPref.getInt("overAllWrongAnswer"));
-            String notAnswered = String.valueOf(resultPref.getInt("overAllNotAnswered"));
-
-
-            Log.d("klgkyh", totalQuestions2);
+                Log.d("klgkyh", totalQuestions2);
 
 
 
-            int correctAnswer1 = 0;
-            int wrongAnswer1 = 0;
-            int totalQuestions1 = 0;
-            int notAnswered1 = 0;
+                int correctAnswer1 = 0;
+                int wrongAnswer1 = 0;
+                int totalQuestions1 = 0;
+                int notAnswered1 = 0;
 
-            try {
-                correctAnswer1 = Integer.parseInt(correctAnswer);
-                wrongAnswer1 = Integer.parseInt(wrongAnswer);
-                totalQuestions1 = Integer.parseInt(totalQuestions2);
-                notAnswered1 = Integer.parseInt(notAnswered);
-            } catch (NumberFormatException e) {
-                // Handle the exception appropriately, such as logging an error or showing an error message
-                e.printStackTrace();
+                try {
+                    correctAnswer1 = Integer.parseInt(correctAnswer);
+                    wrongAnswer1 = Integer.parseInt(wrongAnswer);
+                    totalQuestions1 = Integer.parseInt(totalQuestions2);
+                    notAnswered1 = Integer.parseInt(notAnswered);
+                } catch (NumberFormatException e) {
+                    // Handle the exception appropriately, such as logging an error or showing an error message
+                    e.printStackTrace();
+                }
+                float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
+                String totalPercentageCorrect2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageCorrect)));
+
+                float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
+                String totalPercentageWrong2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageWrong)));
+
+                float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
+                String totalPercentageNotAnswered2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageNotAnswered)));
+
+                totalQuestionTextView.setText(convertToBengaliString(totalQuestions2));
+                correctAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(correctAnswer), totalPercentageCorrect2));
+                wrongAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(wrongAnswer), totalPercentageWrong2));
+                notAnswredTextView.setText(String.format("%s (%s%%)", convertToBengaliString(notAnswered), totalPercentageNotAnswered2));
+
+                totalExamTextView.setText(convertToBengaliString(totalExam));
+
+                progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
+                progressBarWrong.setProgress(Math.round(totalPercentageWrong));
+                progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
             }
 
-            float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
-            String totalPercentageCorrect2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageCorrect)));
 
-            float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
-            String totalPercentageWrong2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageWrong)));
-
-            float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
-            String totalPercentageNotAnswered2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageNotAnswered)));
-
-            totalQuestionTextView.setText(convertToBengaliString(totalQuestions2));
-            correctAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(correctAnswer), totalPercentageCorrect2));
-            wrongAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(wrongAnswer), totalPercentageWrong2));
-            notAnswredTextView.setText(String.format("%s (%s%%)", convertToBengaliString(notAnswered), totalPercentageNotAnswered2));
-
-            totalExamTextView.setText(convertToBengaliString(totalExam));
-
-            progressBarCorrect.setProgress(Math.round(totalPercentageCorrect));
-            progressBarWrong.setProgress(Math.round(totalPercentageWrong));
-            progressBarNotAnswered.setProgress(Math.round(totalPercentageNotAnswered));
 
 
 

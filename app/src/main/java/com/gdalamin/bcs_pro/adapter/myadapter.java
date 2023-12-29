@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -142,13 +141,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 // Get the question and options data from the data array at the given position
 
 
-                if (mBooleanValue == true){
-                    Toast.makeText( holder.questionTv.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-                }
-//                else if (mBooleanValue == false){
-//                    Toast.makeText( holder.questionTv.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-//                    Log.d("kghdu","Clicked");
-//                }
 
                 // Create a new QuestionList object with the obtained data
                 QuestionList questionList = new QuestionList(question, option1, option2, option3, option4,questionImageString,option1ImageString,option2ImageString

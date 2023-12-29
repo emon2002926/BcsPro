@@ -12,14 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 
 public class ActivityLogin extends AppCompatActivity {
 
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
+//    GoogleSignInOptions gso;
+//    GoogleSignInClient gsc;
     TextView signInTv, signUpTv;
     LinearLayout layoutSignIn, layoutSignUp;
     View devider1, devider2;

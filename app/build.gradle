@@ -10,8 +10,8 @@ android {
         applicationId "com.gdalamin.bcs_pro"
         minSdk 23
         targetSdk 34
-        versionCode 46
-        versionName '2.9.69'
+        versionCode 48
+        versionName '2.10.01'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,8 +44,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
-    implementation 'com.google.firebase:firebase-auth:22.3.0'
+//    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+//    implementation 'com.google.firebase:firebase-auth:22.3.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.onesignal:OneSignal:4.8.0'
     def lottieVersion = "6.0.1"

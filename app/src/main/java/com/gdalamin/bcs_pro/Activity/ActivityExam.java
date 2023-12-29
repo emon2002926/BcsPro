@@ -112,7 +112,7 @@ public class ActivityExam extends AppCompatActivity {
 
         imageBackButton.setOnClickListener(view -> onBackPressed());
         timerCallback = () ->{
-            Toast.makeText(ActivityExam.this,"Times Up boys",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityExam.this,"Times Up ",Toast.LENGTH_SHORT).show();
             finishExam();
         };
 
@@ -356,6 +356,7 @@ public class ActivityExam extends AppCompatActivity {
         if (!subCode.isEmpty()) {
             //This is for SubjectBased Exam
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
+            Log.d("dkhlgahhfhgh",String.valueOf(totalQuestion));
             int subCode2 = Integer.parseInt(subCode);
             if(subCode2 >= 1){
                 if (questionLists != null){
@@ -400,7 +401,32 @@ public class ActivityExam extends AppCompatActivity {
 
                     View viewDevider = bottomSheetView.findViewById(R.id.viewDivider);
                     viewDevider.setVisibility(View.VISIBLE);
+//                    int notAnswred = LOGIC_FOR_ALL_SUBJECT_EXAM-Integer.parseInt(overallAnswered);
 
+
+
+                    if (resultPref.getInt("totalQuestions1") > 2){
+                        int totalExam = ((resultPref.getInt("totalExam"))+1);
+                        int totalQuestion11 = ((resultPref.getInt("totalQuestions1"))+totalQuestion);
+                        int overAllCorrectAnswer = ((resultPref.getInt("overAllCorrectAnswer"))+correctAnswer);
+                        int overAllWrongAnswer = ((resultPref.getInt("overAllWrongAnswer"))+totalWrong);
+                        int overAllNotAnswered = ((resultPref.getInt("overAllNotAnswered"))+totalWrong);
+
+                        resultPref.saveInt("totalExam",totalExam);
+                        resultPref.saveInt("totalQuestions1",totalQuestion11);
+                        resultPref.saveInt("overAllCorrectAnswer",overAllCorrectAnswer);
+                        resultPref.saveInt("overAllWrongAnswer",overAllWrongAnswer);
+                        resultPref.saveInt("overAllNotAnswered",overAllNotAnswered);
+
+                        Log.d("overAllMark",String.valueOf(totalExam));
+
+                    }else {
+                        resultPref.saveInt("totalExam",1);
+                        resultPref.saveInt("totalQuestions1",totalQuestion);
+                        resultPref.saveInt("overAllCorrectAnswer",correctAnswer);
+                        resultPref.saveInt("overAllWrongAnswer",totalWrong);
+                        resultPref.saveInt("overAllNotAnswered",overallNotAnswered);
+                    }
                     /*
                     ///////////
                     saveResult.setTotalIA("0");
@@ -635,7 +661,7 @@ public class ActivityExam extends AppCompatActivity {
                 preferencesManager.saveString("totalQuestions",String.valueOf(LOGIC_FOR_ALL_SUBJECT_EXAM));
 
 
-                if (resultPref.getInt("totalQuestions1") > 49 ){
+                if (resultPref.getInt("totalQuestions1") > 2 ){
                     int totalExam = ((resultPref.getInt("totalExam"))+1);
                     int totalQuestion = ((resultPref.getInt("totalQuestions1"))+LOGIC_FOR_ALL_SUBJECT_EXAM);
                     int overAllCorrectAnswer = ((resultPref.getInt("overAllCorrectAnswer"))+totalCorrect);
@@ -654,7 +680,7 @@ public class ActivityExam extends AppCompatActivity {
                     resultPref.saveInt("totalExam",1);
                     resultPref.saveInt("totalQuestions1",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     resultPref.saveInt("overAllCorrectAnswer",totalCorrect);
-                    resultPref.saveInt("overAllWrongAnswer",totalCorrect);
+                    resultPref.saveInt("overAllWrongAnswer",totalWrong);
                     resultPref.saveInt("overAllNotAnswered",notAnswred);
                 }
 
