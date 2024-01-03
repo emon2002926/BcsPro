@@ -50,7 +50,7 @@ public class QuestionBankFragment extends Fragment {
         });
 
         String url2 = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
-        processdata(url2);
+        getQuestionList(url2);
 
 
         return view;
@@ -58,7 +58,7 @@ public class QuestionBankFragment extends Fragment {
     }
 
 
-    public void processdata(String url)
+    public void getQuestionList(String url)
     {
 
         StringRequest request=new StringRequest(url, response -> {
@@ -79,14 +79,11 @@ public class QuestionBankFragment extends Fragment {
             recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
         }, error -> {
 
-//                Toast.makeText(AllBcsQuestionActivity.this,"Please check ",Toast.LENGTH_LONG).show();
         });
 
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
 
     }
-    
-
 
 }

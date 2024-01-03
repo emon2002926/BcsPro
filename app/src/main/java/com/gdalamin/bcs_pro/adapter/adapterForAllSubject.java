@@ -65,23 +65,21 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
 
         setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
-                String subjectName = convertToUTF8(data[position].getSubjects());
-                holder.tvPosition.setText(String.valueOf(position+1)+")");
-                holder.tvSubject.setText(subjectName);
-                holder.cardView1.setVisibility(View.GONE);
-                holder.subjectLayout.setVisibility(View.VISIBLE);
-                    holder.subjectLayout.setOnClickListener(view -> {
-                        int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
-                        preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-                        preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
+        String subjectName = convertToUTF8(data[position].getSubjects());
+        holder.tvPosition.setText(String.valueOf(position+1)+")");
+        holder.tvSubject.setText(subjectName);
+        holder.cardView1.setVisibility(View.GONE);
+        holder.subjectLayout.setVisibility(View.VISIBLE);
+        holder.subjectLayout.setOnClickListener(view -> {
+            int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
+            preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+            preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
 
-                        holder.bindData(subjectName);
-                        sharedViewModel.setTitleText(subjectName);
-
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-//                        intent.putExtra("titleText",subjectName);
-                        view.getContext().startActivity(intent);
-                    });
+            sharedViewModel.setTitleText(subjectName);
+            Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+            intent.putExtra("titleText",subjectName);
+            view.getContext().startActivity(intent);
+        });
 
 
     }
@@ -119,10 +117,6 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
             subjectLayout = itemView.findViewById(R.id.layout2);
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvPosition = itemView.findViewById(R.id.tvPosition);
-        }
-        public void bindData(String data) {
-            // Bind data to your ViewHolder views
-            // Example: titleTextView.setText(data);
         }
 
 

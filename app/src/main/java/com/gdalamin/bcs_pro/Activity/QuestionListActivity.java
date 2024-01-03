@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -22,7 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -42,13 +40,9 @@ public class QuestionListActivity extends AppCompatActivity {
     TextView textView;
     ImageView imageBackButton;
     FloatingActionButton showAnswer;
-      String  API_URL ="";
-
     ShimmerFrameLayout shimmerFrameLayout;
     private boolean mBooleanValue = false;
     SharedPreferencesManagerAppLogic preferencesManager;
-
-    model data[];
     int subCode;
     String Older_Bcs_Question = "";
     AppDatabase db;
@@ -57,7 +51,7 @@ public class QuestionListActivity extends AppCompatActivity {
     LinearLayout tryAgainLayout;
     TextView retryBtn;
     ProgressBar progressBar;
-    SharedViewModel viewModel;
+//    SharedViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +80,15 @@ public class QuestionListActivity extends AppCompatActivity {
         });
 
 
-        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        viewModel.getTitleText().observe(this, titleText2 -> textView.setText(titleText2));
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String titleText = extras.getString("titleText");
+            textView.setText(titleText);
+            //The key argument here must match that used in the other activity
+        }
+
+//        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+//        viewModel.getTitleText().observe(this, titleText2 -> textView.setText(titleText2));
 
 
 

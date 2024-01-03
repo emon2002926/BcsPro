@@ -27,7 +27,6 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.myadapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
-import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.ResultPref;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ExamResult;
@@ -47,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityExam extends AppCompatActivity {
@@ -118,19 +118,6 @@ public class ActivityExam extends AppCompatActivity {
 
         examResult = new ExamResult();
 //        saveData();
-        /*
-            Subject and Question Distribution
-        Geography (Bangladesh and the World), Environment and Disaster Management = GEDM =10Qu
-        International Affairs = IA =20Qu
-        Bangladesh Affairs = BA =30Qu
-        Bengali language and literature = BLL =35Qu
-        Morals, values ​​and good governance = MVG =10Qu
-        English Language and Literature = ELL =35Qu
-        Mathematical logic = ML =15Qu
-        Mental ability = MA = 15
-        General science = GS = 15
-        Computer and Information Technology = ICT = 15
- */
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
@@ -156,12 +143,12 @@ public class ActivityExam extends AppCompatActivity {
 
                 return;
            }
-            processdata( questionType);
-            retryBtn.setOnClickListener(view -> processdata(questionType));
+            getExamQuestions( questionType);
+            retryBtn.setOnClickListener(view -> getExamQuestions(questionType));
         }
     }
 
-    public void processdata(String url) {
+    public void getExamQuestions(String url) {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -201,8 +188,8 @@ public class ActivityExam extends AppCompatActivity {
                             showSubmissionOption(answered, () -> {
                                 mBooleanValue = !mBooleanValue;
                                 adapter.setBooleanValue(true);
-                                LinearLayout recviewBackground = findViewById(R.id.recviewBackground);
-                                recviewBackground.setBackgroundResource(R.color.recviewBagColor);
+                                LinearLayout recViewBackground = findViewById(R.id.recviewBackground);
+                                recViewBackground.setBackgroundResource(R.color.recviewBagColor);
                                 floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
 
                             });
@@ -267,10 +254,24 @@ public class ActivityExam extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            if (intent.getAction().equals("xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
-                // Get the list of QuestionList objects from the intent
-                questionLists = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
+
+            if (Objects.equals(intent.getAction(), "xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
+                if (intent.hasExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!")) {
+                    ArrayList<QuestionList> receivedList = (ArrayList<QuestionList>) intent.getSerializableExtra("xy@4gfk@9*2cxlds&0k@#hLAnsx!");
+
+                    if (receivedList != null) {
+                        questionLists = receivedList;
+                        // Process the received data here
+                        // For example: update UI with the new data
+                    } else {
+                        // Handle the case where the received list is null
+                    }
+                } else {
+                    // Handle the case where the intent does not contain the expected extra
+                }
             }
+
+
         }};
 
     public void  finishExam(){
@@ -286,8 +287,10 @@ public class ActivityExam extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         String time = timeFormat.format(calendar.getTime());
         String examDateTime = time+" of "+monthName+" "+day+" ";
-        PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(ActivityExam.this);
-        String userId = preferencesUserInfo.getString("key_phone");
+
+
+//        PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(ActivityExam.this);
+//        String userId = preferencesUserInfo.getString("key_phone");
 
         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
@@ -347,16 +350,13 @@ public class ActivityExam extends AppCompatActivity {
         TextView wrongTvICT = bottomSheetView.findViewById(R.id.wrongTvICT);
         TextView marksTvICT = bottomSheetView.findViewById(R.id.marksTvICT);
 
-//        ExamResult saveResult = new ExamResult();
-//        ExamResultSaver resultSaver = new ExamResultSaver(ActivityExam.this, "https://www.emon.pixatone.com/api/saveTest2.php", saveResult);
-
         /// todo fixthere
         String subCode = preferencesManager.getString("subjectPosition");
 
         if (!subCode.isEmpty()) {
             //This is for SubjectBased Exam
             int totalQuestion = preferencesManager.getInt("examQuestionNum");
-            Log.d("dkhlgahhfhgh",String.valueOf(totalQuestion));
+
             int subCode2 = Integer.parseInt(subCode);
             if(subCode2 >= 1){
                 if (questionLists != null){
@@ -401,7 +401,6 @@ public class ActivityExam extends AppCompatActivity {
 
                     View viewDevider = bottomSheetView.findViewById(R.id.viewDivider);
                     viewDevider.setVisibility(View.VISIBLE);
-//                    int notAnswred = LOGIC_FOR_ALL_SUBJECT_EXAM-Integer.parseInt(overallAnswered);
 
 
 
@@ -427,67 +426,6 @@ public class ActivityExam extends AppCompatActivity {
                         resultPref.saveInt("overAllWrongAnswer",totalWrong);
                         resultPref.saveInt("overAllNotAnswered",overallNotAnswered);
                     }
-                    /*
-                    ///////////
-                    saveResult.setTotalIA("0");
-                    saveResult.setCorrectIA("0");
-                    saveResult.setWrongIA("0");
-                    saveResult.setMarksIA("0");
-                    ///////////
-                    saveResult.setTotalBA("0");
-                    saveResult.setCorrectBA("0");
-                    saveResult.setWrongBA("0");
-                    saveResult.setMarksBA("0");
-                    //////////////
-                    saveResult.setTotalB("0");
-                    saveResult.setCorrectB("0");
-                    saveResult.setWrongB("0");
-                    saveResult.setMarksB("0");
-                    ///////////////////////
-                    saveResult.setTotalMAV("0");
-                    saveResult.setCorrectMAV("0");
-                    saveResult.setWrongMAV("0");
-                    saveResult.setMarksMAV("0");
-                    ///////////////////////
-                    saveResult.setTotalG("0");
-                    saveResult.setCorrectG("0");
-                    saveResult.setWrongG("0");
-                    saveResult.setMarksG("0");
-                    //////////////////////
-                    saveResult.setTotalML("0");
-                    saveResult.setCorrectML("0");
-                    saveResult.setWrongML("0");
-                    saveResult.setMarksML("0");
-                    /////////////////////////////////
-                    saveResult.setTotalEL("0");
-                    saveResult.setCorrectEL("0");
-                    saveResult.setWrongEL("0");
-                    saveResult.setMarksEL("0");
-                    /////////////////////
-                    saveResult.setTotalMS("0");
-                    saveResult.setCorrectMS("0");
-                    saveResult.setWrongMS("0");
-                    saveResult.setMarksMS("0");
-                    //////////////////////////
-                    saveResult.setTotalGS("0");
-                    saveResult.setCorrectGS("0");
-                    saveResult.setWrongGS("0");
-                    saveResult.setMarksGS("0");
-                    //////////////
-                    saveResult.setTotalICT("0");
-                    saveResult.setCorrectICT("0");
-                    saveResult.setWrongICT("0");
-                    saveResult.setMarksICT("0");
-
-                    saveResult.setTotal(String.valueOf(totalQuestion));
-                    saveResult.setCorrect(overallCorrectAnswer);
-                    saveResult.setWrong(overallWrongAnswer);
-                    saveResult.setMark(overallTotalMark);
-                    saveResult.setUserId(userId);
-                    saveResult.setDate(examDateTime);
-                    saveResult.setNotAnswred(String.valueOf(overallNotAnswered));
-                    resultSaver.saveResult();
- */
 
 
                     stopTimer();
@@ -535,6 +473,8 @@ public class ActivityExam extends AppCompatActivity {
                         int getQuestionAnswer = question.getAnswer();
                         // Get the answer selected by the user for the current question
                         int getUserSelectedOption = question.getUserSelecedAnswer();
+//                        Log.d("sjhgdyugsdgyuh",String.valueOf(getUserSelectedOption));
+
                         // If the user has selected an answer, increment the answeredQuestions counter
                         if (getUserSelectedOption != 0) {
                             answeredQuestions++;
@@ -674,7 +614,6 @@ public class ActivityExam extends AppCompatActivity {
                     resultPref.saveInt("overAllWrongAnswer",overAllWrongAnswer);
                     resultPref.saveInt("overAllNotAnswered",overAllNotAnswered);
 
-                    Log.d("overAllMark",String.valueOf(totalExam));
 
                 }else {
                     resultPref.saveInt("totalExam",1);
@@ -745,7 +684,6 @@ public class ActivityExam extends AppCompatActivity {
             });
         } else if (REQ_CODE2 == 2) {
             preferencesManager.clear();
-            Log.d("REQ_CODE2","REQ_CODE2 =2");
             super.onBackPressed();
             finish();
         }
@@ -784,25 +722,7 @@ public class ActivityExam extends AppCompatActivity {
         }
     }
 
-    private void addNumber(String prefKey ,int savedNumber,int newNumber){
 
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Register the BroadcastReceiver to receive the "my_list_action" broadcast
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("my_list_action");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Unregister the BroadcastReceiver when the Activity is paused
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

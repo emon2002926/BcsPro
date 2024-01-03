@@ -30,23 +30,6 @@ public class SplashScreen extends AppCompatActivity {
 
             startActivity(new Intent(SplashScreen.this,MainActivity.class));
 
-//            SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
-//            String valueString = sharedPreferences.getString("key_phone", "");
-//
-//            Log.d("key_phone",valueString);
-//
-//            Intent i;
-//            if (!valueString.isEmpty()){
-//                i = new Intent(SplashScreen.this, MainActivity.class);
-//
-//
-//            }
-//            else {
-//                i = new Intent(SplashScreen.this, MainActivity.class);
-//            }
-//            startActivity(i);
-//            finish();
-
 
         }, SPLASH_TIME_OUT);
 

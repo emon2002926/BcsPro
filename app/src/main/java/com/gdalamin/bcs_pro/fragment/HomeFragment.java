@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         OneSignal.promptForPushNotifications();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this::processdata);
+        swipeRefreshLayout.setOnRefreshListener(this::getLiveExamDetails);
 
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);
@@ -119,21 +119,36 @@ public class HomeFragment extends Fragment {
                     int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
 
                     titleText = getResources().getString(R.string.importantQuestion);
-                    viewModel.setTitleText(titleText);
+//                    viewModel.setTitleText(titleText);
+//                    v.getContext().startActivity(new Intent(v.getContext(), QuestionListActivity.class));
+
                     preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
-                    v.getContext().startActivity(new Intent(v.getContext(), QuestionListActivity.class));
+                    Intent intent22 = new Intent(view.getContext(), QuestionListActivity.class);
+                    intent22.putExtra("titleText",titleText);
+                    view.getContext().startActivity(intent22);
 
                     break;
                 case R.id.lectureAndNots:
-//                    startActivity(new Intent(context, ActivityLectureAndNote.class));
+
                     titleText = getResources().getString(R.string.lectureAndNots);
                     viewModel.setTitleText(titleText);
-                    replaceFragment(new FragmentLectureAndNote());
+                    replaceFragment(new CoursesFragment());
+                    break;
+                case R.id.imageView2:
+                case R.id.imageView3:
+                case  R.id.imageView1:
+                case R.id.showAllCourse:
+
+//                    viewModel.setTitleText(titleText);
+//                    replaceFragment(new FragmentLectureAndNote());
+                    titleText = getResources().getString(R.string.corses);
+                    viewModel.setTitleText(titleText);
+                    replaceFragment(new CoursesFragment());
                     break;
                 case R.id.tvAllExam:
                     // this code sets up a BottomSheetDialog to display options for an exam
-                    showExamChoser();
+                    showExamChoosers();
                     break;
                 case R.id.subject_based_exam:
                     subCode = 2;
@@ -156,14 +171,6 @@ public class HomeFragment extends Fragment {
                     viewModel.setTitleText(titleText);
                     replaceFragment(new QuestionBankFragment());
                     break;
-                case R.id.imageView2:
-                case R.id.imageView3:
-                case  R.id.imageView1:
-                case R.id.showAllCourse:
-                    titleText = getResources().getString(R.string.corses);
-                    viewModel.setTitleText(titleText);
-                    replaceFragment(new CoursesFragment());
-                    break;
             }
         };
 
@@ -180,14 +187,14 @@ public class HomeFragment extends Fragment {
         imageView3.setOnClickListener(buttonClickListener);
 
 
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         if (activeNetwork != null && activeNetwork.isConnected()) {
             // The device is connected to the internet
             if (!isDataProcessed) {
                 // Call the processData() method
-                processdata();
+                getLiveExamDetails();
                 isDataProcessed = true; // Set the boolean flag to true after calling the method
             }
         } else {
@@ -208,7 +215,7 @@ public class HomeFragment extends Fragment {
                 boolean newIsConnected = isConnected();
                 if (!isConnected && newIsConnected) {
                     // Internet connection is restored
-                    processdata();
+                    getLiveExamDetails();
                 } else if (isConnected && !newIsConnected) {
                     // Internet connection is gone
 //                    Toast.makeText(context, "Internet connection is gone", Toast.LENGTH_SHORT).show();
@@ -222,12 +229,7 @@ public class HomeFragment extends Fragment {
         isConnected = isConnected();
 
 
-
-
-        processdata();
-
-//        String userId = preferencesUserInfo.getString("key_phone").trim();
-//        getUserProfileData(userId);
+        getLiveExamDetails();
 
         return view;
 
@@ -250,7 +252,7 @@ public class HomeFragment extends Fragment {
         replaceFragment(fragment, R.anim.default_enter_anim, R.anim.default_exit_anim, R.anim.default_pop_enter_anim, R.anim.default_pop_exit_anim);
     }
 
-    public void showExamChoser(){
+    public void showExamChoosers(){
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet, null);
@@ -320,50 +322,27 @@ public class HomeFragment extends Fragment {
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }
-//
-//    public void getUserProfileData(String userId){
-//        GetLocalUserData apiFetcher = new GetLocalUserData(getContext());
-//        apiFetcher.fetchDataFromAPI(userId, new GetLocalUserData.APICallback() {
-//            @Override
-//            public void onFetchSuccess(int totalCorrect, int totalQuestions, int totalWrong, int totalNotAnswered, String userName, int examCount, int rank, int localUserMark, String userImageString) {
-//                preferencesUserInfo.saveString("name",userName);
-//                preferencesUserInfo.saveString("totalQuestions",String.valueOf(totalQuestions));
-//                preferencesUserInfo.saveString("wrongAnswer",String.valueOf(totalWrong));
-//                preferencesUserInfo.saveString("correctAnswer",String.valueOf(totalCorrect));
-//                preferencesUserInfo.saveString("notAnswred",String.valueOf(totalNotAnswered));
-//                preferencesUserInfo.saveString("totalExam",String.valueOf(examCount));
-//                preferencesUserInfo.saveString("localUserRank",String.valueOf(rank));
-//                preferencesUserInfo.saveInt("localUserPoint",localUserMark);
-//                preferencesUserInfo.saveString("userImage",String.valueOf(userImageString));
-//            }
-//
-//            @Override
-//            public void onFetchFailure(String errorMessage) {
-//                // Handle the error message here
-//            }
-//        });
-//    }
-//
+
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         // Unregister the BroadcastReceiver when the fragment is destroyed
-        getActivity().unregisterReceiver(networkReceiver);
+        requireActivity().unregisterReceiver(networkReceiver);
     }
 
     private boolean isConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    public void processdata()
+    public void getLiveExamDetails()
     {
 
         Intent intent = new Intent("INTERNET_RESTORED");
-        getActivity().sendBroadcast(intent);
+        requireActivity().sendBroadcast(intent);
         String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
         StringRequest request=new StringRequest(API_URL, response ->  {
 

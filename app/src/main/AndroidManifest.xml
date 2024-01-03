@@ -36,9 +36,6 @@
         </activity>
 
         <activity
-            android:name=".Activity.ActivityLogin"
-            android:exported="false" />
-        <activity
             android:name=".Activity.ActivityPdfViwer"
             android:exported="false">
             <meta-data

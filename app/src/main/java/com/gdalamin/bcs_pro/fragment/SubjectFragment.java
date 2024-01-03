@@ -59,11 +59,11 @@ public class SubjectFragment extends Fragment {
         viewModel.getTitleText().observe(getViewLifecycleOwner(), titleText -> titleTv.setText(titleText));
 
         String url2 = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
-        processdata(url2);
+        getSubjectName(url2);
 
         return view;
     }
-    public void processdata(String url) {
+    public void getSubjectName(String url) {
 
         StringRequest request=new StringRequest(url, response -> {
             shimmerFrameLayout.stopShimmer();
