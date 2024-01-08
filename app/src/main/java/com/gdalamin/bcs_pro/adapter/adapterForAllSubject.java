@@ -4,6 +4,7 @@ package com.gdalamin.bcs_pro.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,10 @@ import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubject.myviewholder> {
-    ModelForLectureAndAllQuestion data[];
+    ModelForLectureAndAllQuestion[] data;
     private int lastPosition = -1;
     Context context;
     private SharedViewModel mViewModel;
@@ -45,7 +46,7 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
         return new myviewholder(view);
     }
 
-    private SharedViewModel sharedViewModel;
+    private final SharedViewModel sharedViewModel;
 
     // Constructor to receive SharedViewModel instance
 
@@ -56,42 +57,29 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
-            SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
-
-            int subCode = preferencesManager.getInt("subCode");
-            int LOGIC = preferencesManager.getInt("logic");
-
-
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
         setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
         String subjectName = convertToUTF8(data[position].getSubjects());
-        holder.tvPosition.setText(String.valueOf(position+1)+")");
+        holder.tvPosition.setText(position + 1 +")");
         holder.tvSubject.setText(subjectName);
         holder.cardView1.setVisibility(View.GONE);
         holder.subjectLayout.setVisibility(View.VISIBLE);
         holder.subjectLayout.setOnClickListener(view -> {
             int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
             preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
+            preferencesManager.saveInt("subCode",3);
             preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
 
-            sharedViewModel.setTitleText(subjectName);
             Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
             intent.putExtra("titleText",subjectName);
+            Log.d("subjectName",data[position].getSubjectCode());
             view.getContext().startActivity(intent);
         });
-
-
     }
-
-
-
     private String convertToUTF8(String inputString) {
-        try {
-            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
 
@@ -100,13 +88,9 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
         return data.length;
     }
 
-
-
     static class myviewholder extends RecyclerView.ViewHolder {
         TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
         LinearLayout cardView1,subjectLayout;
-
-
 
         public myviewholder(@NonNull View itemView) {
             super(itemView);

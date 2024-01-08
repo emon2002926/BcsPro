@@ -21,7 +21,7 @@ import com.gdalamin.bcs_pro.modelClass.ExamResult;
 
 public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewholder> {
 
-    ExamResult examResults[];
+    ExamResult[] examResults;
     private int lastPosition = -1;
 
     public resultAdapter(ExamResult[] data) {
@@ -138,7 +138,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.myviewhold
         int time = Integer.parseInt(examResults[position].getTotal()) / 2;
 
 
-        holder.examDetails.setText("(Overall " + total + " question and " + String.valueOf(time) + " minutes)");
+        holder.examDetails.setText("(Overall " + total + " question and " + time + " minutes)");
 
         holder.marks.setText("Marks:" + marks);
         holder.date.setText("Date:" + date);

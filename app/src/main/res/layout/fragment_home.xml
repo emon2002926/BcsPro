@@ -35,7 +35,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:textSize="23sp"
+                        android:textSize="25sp"
                         android:textStyle="bold"
                         android:text="@string/Bcs"
                         />
@@ -79,7 +79,7 @@
                                 android:text="@string/allExam"
                                 android:textColor="@color/darkTangerine"
                                 android:textStyle="bold"
-                                android:textSize="17sp"
+                                android:textSize="20sp"
                                 />
 
 
@@ -91,25 +91,25 @@
                                 android:layout_marginTop="10dp"
                                 >
                             </androidx.recyclerview.widget.RecyclerView>
+
+
                             <com.facebook.shimmer.ShimmerFrameLayout
                                 android:layout_width="match_parent"
                                 android:id="@+id/shimer"
                                 android:visibility="visible"
                                 android:layout_marginTop="10dp"
                                 android:layout_height="match_parent">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginBottom="10dp"
-                                    >
-                                    <include
-                                        layout="@layout/shimer_nots"/>
-                                    <include
-                                        layout="@layout/shimer_nots"/>
 
-
-                                </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <include
+                                            layout="@layout/shimer_live_model_test"/>
+                                        <include
+                                            layout="@layout/shimer_live_model_test"/>
+                                    </LinearLayout>
 
                             </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -140,7 +140,7 @@
                                     android:text="@string/corses"
                                     android:textColor="@color/darkTangerine"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="17sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold"
                                     android:layout_weight="1"
 
@@ -151,7 +151,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/showAll"
                                     android:textColor="@color/tangerine"                                    android:layout_marginStart="20dp"
-                                    android:textSize="15sp"
+                                    android:textSize="16sp"
                                     android:id="@+id/showAllCourse"
                                     android:layout_marginEnd="20dp"
 
@@ -242,7 +242,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/subjectBasedExam"
-                                            android:textSize="19sp"
+                                            android:textSize="20sp"
                                             android:paddingTop="10dp"
                                             android:paddingBottom="10dp"
                                             android:textStyle="bold"
@@ -259,12 +259,12 @@
 
                                     </LinearLayout>
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingStart="15dp"
-                                        android:paddingBottom="5dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:paddingStart="12dp"
+                                        android:paddingBottom="15dp"
                                         android:text="@string/subjectExamDsc"
-                                        android:textSize="12sp"/>
+                                        android:textSize="13sp"/>
 
                                 </LinearLayout>
 
@@ -273,6 +273,7 @@
                                     android:layout_height="100dp"
                                     android:layout_weight="0.9"
                                     android:layout_margin="5dp"
+                                    android:layout_gravity="center"
                                     android:src="@drawable/subject_exam"
                                     android:scaleType="fitXY"/>
 
@@ -302,7 +303,7 @@
                                     android:textStyle="bold"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginStart="5dp"
-                                    android:textSize="17sp" />
+                                    android:textSize="20sp" />
 
                                 <LinearLayout
                                     android:id="@+id/l2"
@@ -328,7 +329,7 @@
                                                 android:layout_marginEnd="10dp"
                                                 android:background="@drawable/lite_round_baground"
                                                 android:textColor="@color/LiteBlack2"
-                                                android:textSize="14sp"
+                                                android:textSize="16sp"
                                                 />
 
 
@@ -338,7 +339,7 @@
                                             android:background="@drawable/lite_round_baground"
                                             android:gravity="center"
                                             android:text="@string/questionBank"
-                                            android:textSize="14sp"
+                                            android:textSize="16sp"
                                             android:id="@+id/CvQuestionBank"
                                             android:layout_weight="1"
                                             android:textColor="@color/LiteBlack2"
@@ -371,7 +372,7 @@
                                             android:gravity="center"
                                             android:text="@string/practice"
                                             android:id="@+id/tvPractice"
-                                            android:textSize="14sp"
+                                            android:textSize="16sp"
                                             android:layout_marginEnd="10dp"
                                             android:textColor="@color/LiteBlack2"
                                             android:padding="13dp"
@@ -388,7 +389,7 @@
                                             android:text="@string/importantQuestion"
                                             android:padding="13dp"
                                             android:textColor="@color/LiteBlack2"
-                                            android:textSize="14sp" />
+                                            android:textSize="16sp" />
 
 
                                 </LinearLayout>
@@ -419,15 +420,17 @@
                                     android:text="@string/lectureAndNots"
                                     android:layout_weight="1"
                                     android:textColor="@color/darkTangerine"
-                                    android:textSize="17sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
                                     android:layout_gravity="center"
                                     />
 
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:layout_gravity="end"
+                                    android:layout_gravity="center"
                                     android:src="@drawable/ic_baseline_arrow_forward_24"
                                     />
                             </LinearLayout>
@@ -475,7 +478,7 @@
                                             android:textStyle="bold"
                                             android:text="@string/quiz"
                                             android:textColor="@color/darkTangerine"
-                                            android:textSize="17sp" />
+                                            android:textSize="20sp" />
 
                                     </LinearLayout>
 

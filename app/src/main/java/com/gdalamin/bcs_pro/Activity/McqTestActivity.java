@@ -35,7 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -321,7 +321,7 @@ public class McqTestActivity extends AppCompatActivity {
 
 
     private void startQuizeTimer(int maxTimerSceounds ){
-        countDownTimer = new CountDownTimer(maxTimerSceounds*1000,1000) {
+        countDownTimer = new CountDownTimer(maxTimerSceounds* 1000L,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -417,11 +417,7 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
     private String convertToUTF8(String inputString) {
-        try {
-            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
     public Bitmap convertBase64ToBitmap(String base64Image) {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);

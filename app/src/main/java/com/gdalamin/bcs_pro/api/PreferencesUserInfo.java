@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class PreferencesUserInfo {
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
 
     public PreferencesUserInfo(Context context) {
         preferences = context.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);

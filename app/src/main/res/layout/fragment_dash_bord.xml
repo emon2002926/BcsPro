@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#FAF7F7"
+        android:background="@color/white"
         >
 
         <androidx.cardview.widget.CardView
@@ -34,7 +34,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:textSize="23sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:text="@string/statics"
                     />

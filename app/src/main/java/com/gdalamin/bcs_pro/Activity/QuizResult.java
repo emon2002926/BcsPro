@@ -44,8 +44,8 @@ public class QuizResult extends AppCompatActivity {
         totalScoreTv.setText("/"+"10");
 
 
-        correctTv.setText(getCorrectAnswer()+"");
-        scoreTv.setText(getCorrectAnswer()+"");
+        correctTv.setText(String.valueOf(getCorrectAnswer()));
+        scoreTv.setText(String.valueOf(getCorrectAnswer()));
 
 
         incorrect.setText(String.valueOf(10 - getCorrectAnswer()));

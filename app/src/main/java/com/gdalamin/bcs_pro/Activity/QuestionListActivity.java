@@ -2,7 +2,6 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -87,8 +86,7 @@ public class QuestionListActivity extends AppCompatActivity {
             //The key argument here must match that used in the other activity
         }
 
-//        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-//        viewModel.getTitleText().observe(this, titleText2 -> textView.setText(titleText2));
+
 
 
 
@@ -111,13 +109,9 @@ public class QuestionListActivity extends AppCompatActivity {
             super.run();
             // Initialize the database instance
             List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
-            int lenth = dataList.size();
             if (Older_Bcs_Question.equals("Older_Bcs_Question")){
 
                 if (dataList != null && dataList.size() > 49) {
-
-                    Log.d("jrusdfskj"," have data");
-
                     // Convert the list to an array
                     model[] data = dataList.toArray(new model[0]);
                     // Update UI on the main thread
@@ -130,7 +124,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 }
                 else {
                     String url2 = apiWithSql+"&query=SELECT * FROM question WHERE batch LIKE '"+subjectName+"' ORDER BY id DESC LIMIT 200";
-                    getQuestions(url2);
+                    getMCQuestions(url2);
                 }
             }else if (Older_Bcs_Question.equals("")){
                 runOnUiThread(new Runnable() {
@@ -141,11 +135,11 @@ public class QuestionListActivity extends AppCompatActivity {
                             String SUBJECT_CODE= preferencesManager.getString("subjectCode");
 
                             String url2 = apiWithSql+"&query=SELECT * FROM `question` WHERE subjects LIKE '"+SUBJECT_CODE+"' ORDER BY id DESC LIMIT 200 ";
-                            getQuestions(url2);
+                            getMCQuestions(url2);
                         } else if (subCode == 5){
 
                             String url2 =ApiKeys.API_WITH_SQL+"&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
-                            getQuestions(url2);
+                            getMCQuestions(url2);
 
                         } else if (subCode == 6) {
 
@@ -156,7 +150,7 @@ public class QuestionListActivity extends AppCompatActivity {
             }
         }
     }
-    private void getQuestions(String API_URL) {
+    private void getMCQuestions(String API_URL) {
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -205,10 +199,10 @@ public class QuestionListActivity extends AppCompatActivity {
             mBooleanValue = !mBooleanValue;
             adapter.setBooleanValue(mBooleanValue);
 
-            if (mBooleanValue == false){
+            if (!mBooleanValue){
 
                 showAnswer.setImageResource(R.drawable.hidden);
-            }else if (mBooleanValue == true){
+            }else if (mBooleanValue){
                 showAnswer.setImageResource(R.drawable.view);
             }
         });

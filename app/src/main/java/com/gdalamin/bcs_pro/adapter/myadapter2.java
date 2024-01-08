@@ -1,10 +1,12 @@
 package com.gdalamin.bcs_pro.adapter;
 
+import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,22 +18,18 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 {
-    modelForExam data[];
-
+    modelForExam[] data;
+    private int lastPosition = -1;
     public myadapter2(modelForExam[] data2) {
         this.data = data2;
     }
-
-
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-
          View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_slide,parent,false);
 
          return new myviewholder(view);
@@ -41,19 +39,14 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public void onBindViewHolder(@NonNull final myviewholder holder, final int position) {
 
 
-        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.cardView.getContext());
+        Context ctx = holder.TvExamDate.getContext();
+        SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(ctx);
 
         String examDitals = data[position].getDailyExam();
         String getDetails = data[position].getDetails();
-
-        Log.d("dkhsudfg",getDetails);
-
-
-
         holder.TvExamDate.setText(convertToUTF8(examDitals));
 
-
-
+        setAnimation(ctx,holder.itemView,position);
         holder.TvExamDetails.setText(convertToUTF8(getDetails));
 
         holder.cardView.setOnClickListener(view -> {
@@ -63,7 +56,6 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
             preferencesManager.saveInt("examQuestionNum",data[position].getTotalQc());
             preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
-
 
             Intent intent = new Intent(view.getContext(), ActivityExam.class);
             intent.putExtra("titleText","ডেইলি মডেল টেস্ট");
@@ -90,14 +82,17 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
         }
     }
     private String convertToUTF8(String inputString) {
-        try {
-            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
 
+    public void setAnimation(Context ctx, View viewToAnimate, int position){
+        if (position>lastPosition){
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
+        }
+    }
 
 
 

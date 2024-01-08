@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GetLocalUserData {
-    private Context context;
+    private final Context context;
 
     public GetLocalUserData(Context context) {
         this.context = context;

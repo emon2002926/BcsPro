@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
-    android:layout_marginBottom="10dp"
     android:id="@+id/layoutLecture"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -25,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#e3eeff"
-            android:padding="10dp"
+            android:background="#BCE3EEFF"
+            android:padding="5dp"
 
             >
 
@@ -35,26 +34,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="8dp"
                 >
 
-                <TextView
+                <View
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
                     android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:id="@+id/tvLectureDitals"
-                    android:background="@color/shmirBagroung"
-                    android:textSize="20dp"
+                    android:background="@drawable/shimer_bg_gray"
                     />
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                <View
+                    android:layout_width="28dp"
+                    android:layout_height="22dp"
                     android:contentDescription="@string/app_name"
-                    android:background="@color/shmirBagroung"
+                    android:background="@drawable/shimer_bg_gray"
                     app:tint="@color/black"
                     />
 
@@ -66,17 +63,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:layout_marginBottom="3dp"
+                android:padding="8dp"
                 >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="90dp"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight=".7"
+                    android:layout_marginEnd="100dp"
                     android:textColor="@color/blue"
-                    android:textSize="18sp"
-                    android:id="@+id/tvDate"
-                    android:background="@color/shmirBagroung"
+                    android:background="@drawable/shimer_bg_gray"
                     />
 
 
@@ -85,7 +82,6 @@
         </LinearLayout>
 
 
-        <!-- Your card content goes here -->
 
     </androidx.cardview.widget.CardView>
 

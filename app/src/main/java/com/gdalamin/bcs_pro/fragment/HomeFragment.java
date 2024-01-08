@@ -74,12 +74,10 @@ public class HomeFragment extends Fragment {
         preferencesManager.clear();
         preferencesUserInfo = new PreferencesUserInfo(context);
 
-
         OneSignal.promptForPushNotifications();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this::getLiveExamDetails);
-
 
         shimmerFrameLayout = view.findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
@@ -98,9 +96,6 @@ public class HomeFragment extends Fragment {
         tvPractice = view.findViewById(R.id.tvPractice);
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
 
-        ////////////////////
-
-        ////
 
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
@@ -201,11 +196,7 @@ public class HomeFragment extends Fragment {
             // The device is not connected to the internet
             // Show an error message or perform some other action
             Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-
-
         }
-
-
         // Register a BroadcastReceiver to listen for network connectivity changes
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -223,19 +214,12 @@ public class HomeFragment extends Fragment {
                 isConnected = newIsConnected;
             }
         };
-
-
         context.registerReceiver(networkReceiver, intentFilter);
         isConnected = isConnected();
 
-
         getLiveExamDetails();
-
         return view;
-
     }
-
-
     private void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 

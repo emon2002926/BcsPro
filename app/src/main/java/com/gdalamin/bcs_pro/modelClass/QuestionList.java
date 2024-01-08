@@ -6,8 +6,16 @@ import java.io.Serializable;
 
  @Keep public class QuestionList implements Serializable {
 
-    private  String question, option1, option2, option3, option4 ;
-    private String questionImageString,option1ImageString,option2ImageString,option3ImageString,option4ImageString;
+    private final String question;
+     private final String option1;
+     private final String option2;
+     private final String option3;
+     private final String option4 ;
+    private final String questionImageString;
+     private final String option1ImageString;
+     private final String option2ImageString;
+     private final String option3ImageString;
+     private final String option4ImageString;
 
 
     private final int answer;

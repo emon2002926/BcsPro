@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/LiteBlack"
+            android:visibility="invisible"
             android:textStyle="bold"
             android:text="@string/statics"/>
 
@@ -27,7 +28,7 @@
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
-        android:background="@drawable/round_back_red50_10"
+        android:background="@drawable/round_back_white50_10"
         >
 
         <LinearLayout
@@ -38,21 +39,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="@color/LiteBlack"
                 android:textStyle="bold"
                 android:text="@string/Exam_Statistic"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginStart="7dp"
-                android:textColor="@color/darkTangerine"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:text="(লাইভ)"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:layout_marginStart="7dp"-->
+<!--                android:textColor="@color/darkTangerine"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="(লাইভ)"/>-->
 
         </LinearLayout>
 
@@ -69,13 +70,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/totalExam"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/LiteBlack"
                 android:id="@+id/totalExamTv"
@@ -117,14 +118,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="@string/totalQuestion"
                 android:layout_gravity="center_vertical"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/LiteBlack"
                 android:id="@+id/totalQuestionTv"
@@ -146,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:text="@string/correct" />
 
             </LinearLayout>
@@ -154,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="0 (0.0%)"
                 android:id="@+id/correctAnswerTv"
                 android:textColor="@color/LiteBlack"
@@ -166,7 +167,7 @@
 
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="12dp"
             android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
@@ -189,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:text="ভুল" />
 
             </LinearLayout>
@@ -197,7 +198,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="0 (0.0%)"
                 android:id="@+id/wrongAnswerTv"
                 android:textColor="@color/LiteBlack"
@@ -209,7 +210,7 @@
 
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="12dp"
             android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
@@ -233,28 +234,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="@string/notAnswred" />
+                    android:text="@string/notAnswred"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:text="0 (0.0%)"
                 android:textColor="@color/LiteBlack"
                 android:id="@+id/notAnswredTv"
                 android:layout_marginEnd="8dp"
                 android:layout_gravity="end" />
 
-
         </LinearLayout>
-
-
         <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="12dp"
             android:layout_marginTop="10dp"
             android:max="100"
             android:progress="0"
@@ -263,9 +261,4 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             />
     </LinearLayout>
-
-
-
-
-
 </LinearLayout>

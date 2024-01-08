@@ -21,7 +21,7 @@ import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 public class LectureAndNotesAdapter extends RecyclerView.Adapter<LectureAndNotesAdapter.myviewholder>
 {
 
-    ModelForLectureAndAllQuestion data[];
+    ModelForLectureAndAllQuestion[] data;
 
 
     private Context mContext;

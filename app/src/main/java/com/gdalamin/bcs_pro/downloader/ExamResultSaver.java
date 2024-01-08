@@ -20,9 +20,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 public class ExamResultSaver {
-    private Context context;
-    private String saveResultUrl;
-    private ExamResult examResult;
+    private final Context context;
+    private final String saveResultUrl;
+    private final ExamResult examResult;
 
     public ExamResultSaver(Context context, String saveResultUrl, ExamResult examResult) {
         this.context = context;
@@ -97,7 +97,7 @@ public class ExamResultSaver {
             jsonParams.put("marksICT", examResult.getMarksICT());
 
 
-            Log.d("ExamResultDebug", "ExamResult data: " + jsonParams.toString());
+            Log.d("ExamResultDebug", "ExamResult data: " + jsonParams);
         } catch (JSONException e) {
 
             e.printStackTrace();

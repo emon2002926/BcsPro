@@ -67,7 +67,7 @@ public class FragmentLectureAndNote extends Fragment {
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                ModelForLectureAndAllQuestion data[]=gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
+                ModelForLectureAndAllQuestion[] data =gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                         , LinearLayoutManager.VERTICAL,false);

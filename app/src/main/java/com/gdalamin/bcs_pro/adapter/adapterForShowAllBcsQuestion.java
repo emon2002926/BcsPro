@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +22,15 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterForAllbcs.myviewholder> {
-    ModelForLectureAndAllQuestion data[];
+public class adapterForShowAllBcsQuestion extends RecyclerView.Adapter<adapterForShowAllBcsQuestion.myviewholder> {
+    ModelForLectureAndAllQuestion[] data;
 
     private int lastPosition = -1;
-    public TestmyadapterForAllbcs(ModelForLectureAndAllQuestion[] data) {
+    public adapterForShowAllBcsQuestion(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
 
@@ -52,14 +53,16 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
         Resources resources = holder.tvSubject.getContext().getResources();
-        String amount = resources.getText(R.string.amountOfQuestion)+" :"+data[position].getTotalQuestion();
+        String amount = resources.getText(R.string.amountOfQuestion)+" : "+convertToBengaliString(data[position].getTotalQuestion());
         holder.numOfQuestion.setText(amount);
+
+        Log.d("dfkghkfug",convertToBengaliString("10"));
 
         setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
 
         String subjectName = convertToUTF8(data[position].getSubjects());
-        String postion2 = convertToBengaliString(String.valueOf((position+1))+")");
+        String postion2 = convertToBengaliString(position + 1 +")");
 
         holder.tvPosition.setText(convertToBengaliString(postion2));
 
@@ -93,11 +96,7 @@ public class TestmyadapterForAllbcs extends RecyclerView.Adapter<TestmyadapterFo
 
     }
     private String convertToUTF8(String inputString) {
-        try {
-            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
     public String convertToBengaliString(String numberStr) {

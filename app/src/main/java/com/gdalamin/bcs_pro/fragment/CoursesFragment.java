@@ -79,7 +79,7 @@ public class CoursesFragment extends Fragment {
 
                 GsonBuilder builder=new GsonBuilder();
                 Gson gson=builder.create();
-                ModelForLectureAndAllQuestion data[]=gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
+                ModelForLectureAndAllQuestion[] data =gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
 
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(recyclerView.getContext()
                         ,2);

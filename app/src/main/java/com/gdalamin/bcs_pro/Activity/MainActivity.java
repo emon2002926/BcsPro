@@ -34,7 +34,7 @@ MainActivity extends AppCompatActivity {
 //        binding.bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
 //
 //        // Set the title text for each menu item
-//        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle(getResources().getString(R.string.home));
+        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_home).setTitle(getResources().getString(R.string.home));
 //        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_dashboard).setTitle(getResources().getString(R.string.profile));
 ////        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_leaderBord).setTitle("Leaderboard");
 //        binding.bottomNavigationView.getMenu().findItem(R.id.navigation_setting).setTitle(getResources().getString(R.string.more));

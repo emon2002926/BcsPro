@@ -1,7 +1,6 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,9 +131,6 @@ public class DashBordFragment extends Fragment {
                 String notAnswered = String.valueOf(resultPref.getInt("overAllNotAnswered"));
 
 
-                Log.d("klgkyh", totalQuestions2);
-
-
 
                 int correctAnswer1 = 0;
                 int wrongAnswer1 = 0;
@@ -151,13 +147,13 @@ public class DashBordFragment extends Fragment {
                     e.printStackTrace();
                 }
                 float totalPercentageCorrect = ((float) correctAnswer1 / totalQuestions1) * 100;
-                String totalPercentageCorrect2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageCorrect)));
+                String totalPercentageCorrect2 = convertToBengaliString(String.format("%.2f", totalPercentageCorrect));
 
                 float totalPercentageWrong = ((float) wrongAnswer1 / totalQuestions1) * 100;
-                String totalPercentageWrong2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageWrong)));
+                String totalPercentageWrong2 = convertToBengaliString(String.format("%.2f", totalPercentageWrong));
 
                 float totalPercentageNotAnswered = ((float) notAnswered1 / totalQuestions1) * 100;
-                String totalPercentageNotAnswered2 = convertToBengaliString(String.valueOf(String.format("%.2f",totalPercentageNotAnswered)));
+                String totalPercentageNotAnswered2 = convertToBengaliString(String.format("%.2f", totalPercentageNotAnswered));
 
                 totalQuestionTextView.setText(convertToBengaliString(totalQuestions2));
                 correctAnswerTextView.setText(String.format("%s (%s%%)", convertToBengaliString(correctAnswer), totalPercentageCorrect2));

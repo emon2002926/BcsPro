@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class ResultPref {
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
 
     public ResultPref(Context context) {
         preferences = context.getSharedPreferences("ResultPref", Context.MODE_PRIVATE);

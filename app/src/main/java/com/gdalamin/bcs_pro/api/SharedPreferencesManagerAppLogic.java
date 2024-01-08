@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesManagerAppLogic {
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
 
     public SharedPreferencesManagerAppLogic(Context context) {
         preferences = context.getSharedPreferences("totalQuestion", Context.MODE_PRIVATE);

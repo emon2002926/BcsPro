@@ -22,10 +22,10 @@ import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAllSubjectExam.myviewholder> {
-    ModelForLectureAndAllQuestion data[];
+    ModelForLectureAndAllQuestion[] data;
     private int lastPosition = -1;
 
     public adapterForAllSubjectExam(ModelForLectureAndAllQuestion[] data) {
@@ -54,7 +54,7 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
             setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
                 String subjectName = convertToUTF8(data[position].getSubjects());
-                holder.tvPosition.setText(String.valueOf(position+1)+")");
+                holder.tvPosition.setText(position + 1 +")");
                 holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.subjectLayout.setVisibility(View.VISIBLE);
@@ -64,7 +64,7 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
                         public void onClick(View view) {
                             //  Show a bottom sheet dialog to allow the user to submit the num of question  and time
                             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
-                            View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, (LinearLayout) bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+                            View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
                             bottomSheetDialog.setContentView(bottomSheetView);
                             bottomSheetDialog.show();
@@ -86,20 +86,16 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
                                 if (time.isEmpty()){
                                     edTime.setError("please enter time");
                                     edTime.requestFocus();
-                                    return;
                                 } else if (time2 >18) {
                                     edTime.setError("Maximum time is 18 minutes");
                                     edTime.requestFocus();
-                                    return;
 
                                 } else if (NUM_OF_QUESTION.isEmpty()) {
                                     edNumOfQuestion.setError("please enter the amount of question");
                                     edNumOfQuestion.requestFocus();
-                                    return;
                                 }else if (NUM_OF_QUESTION2 >50) {
                                     edNumOfQuestion.setError("Maximum question is 50");
                                     edNumOfQuestion.requestFocus();
-                                    return;
                                 }
                                 else {
 
@@ -137,11 +133,7 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
 
     }
     private String convertToUTF8(String inputString) {
-        try {
-            return new String(inputString.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
 

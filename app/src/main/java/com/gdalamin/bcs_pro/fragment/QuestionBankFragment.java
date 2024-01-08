@@ -17,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
-import com.gdalamin.bcs_pro.adapter.TestmyadapterForAllbcs;
+import com.gdalamin.bcs_pro.adapter.adapterForShowAllBcsQuestion;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
@@ -74,7 +74,7 @@ public class QuestionBankFragment extends Fragment {
                     ,LinearLayoutManager.VERTICAL,false);
 
             recyclerView.setLayoutManager(linearLayoutManager);
-            TestmyadapterForAllbcs adapter=new TestmyadapterForAllbcs(data);
+            adapterForShowAllBcsQuestion adapter=new adapterForShowAllBcsQuestion(data);
             recyclerView.setAdapter(adapter);
             recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
         }, error -> {

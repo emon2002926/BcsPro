@@ -53,7 +53,7 @@ public class ActivityExam extends AppCompatActivity {
 
     private static final String APIKEY ="api/getExamMcq.php?apiKey=abc123&apiNum=1&";
     String API_URL= ApiKeys.API_URL;
-    RecyclerView recview;
+    RecyclerView recView;
     TextView titleView,textViewTimer;
     FloatingActionButton floatingActionButton;
     ArrayList<QuestionList> questionLists = new ArrayList<>();
@@ -79,7 +79,7 @@ public class ActivityExam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
 
-        recview=findViewById(R.id.recview);
+        recView=findViewById(R.id.recview);
         titleView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
@@ -155,7 +155,7 @@ public class ActivityExam extends AppCompatActivity {
                     REQ_CODE2 = 0;
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
-                    recview.setVisibility(View.VISIBLE);
+                    recView.setVisibility(View.VISIBLE);
                     floatingActionButton.setVisibility(View.VISIBLE);
                     tryAgainLayout.setVisibility(View.GONE);
                     textViewTimer.setVisibility(View.VISIBLE);
@@ -170,9 +170,9 @@ public class ActivityExam extends AppCompatActivity {
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityExam.this,
                             LinearLayoutManager.VERTICAL, false);
 
-                    recview.setLayoutManager(linearLayoutManager);
+                    recView.setLayoutManager(linearLayoutManager);
                     myadapter adapter = new myadapter(data);
-                    recview.setAdapter(adapter);
+                    recView.setAdapter(adapter);
 
                     floatingActionButton.setOnClickListener(view -> {
                         // Initialize counters for answered questions,
@@ -655,7 +655,7 @@ public class ActivityExam extends AppCompatActivity {
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
             submissionCallback.onSubmitClicked();
-            recview.setVisibility(View.VISIBLE);
+            recView.setVisibility(View.VISIBLE);
             REQ_CODE2 = 2;
             finishExam();
             bottomSheetDialog.dismiss();
