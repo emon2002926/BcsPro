@@ -182,21 +182,23 @@ public class HomeFragment extends Fragment {
         imageView3.setOnClickListener(buttonClickListener);
 
 
-        ConnectivityManager cm = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        ConnectivityManager cm = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//
+//        if (activeNetwork != null && activeNetwork.isConnected()) {
+//            // The device is connected to the internet
+//            if (!isDataProcessed) {
+//                // Call the processData() method
+//                getLiveExamDetails();
+//                isDataProcessed = true; // Set the boolean flag to true after calling the method
+//            }
+//        } else {
+//            // The device is not connected to the internet
+//            // Show an error message or perform some other action
+//            Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
+//        }
 
-        if (activeNetwork != null && activeNetwork.isConnected()) {
-            // The device is connected to the internet
-            if (!isDataProcessed) {
-                // Call the processData() method
-                getLiveExamDetails();
-                isDataProcessed = true; // Set the boolean flag to true after calling the method
-            }
-        } else {
-            // The device is not connected to the internet
-            // Show an error message or perform some other action
-            Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-        }
+
         // Register a BroadcastReceiver to listen for network connectivity changes
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);

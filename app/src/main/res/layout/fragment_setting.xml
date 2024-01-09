@@ -46,18 +46,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
             android:id="@+id/messengerChat"
             android:background="@color/white"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/messenger"
-                android:layout_height="40dp"/>
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -68,80 +69,88 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="20sp"
                 />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="2dp"
             android:id="@+id/facebookGroup"
             android:background="@color/white"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
+                android:layout_width="42dp"
                 android:src="@drawable/facebook"
                 android:scaleType="fitXY"
                 android:layout_marginStart="10dp"
-
-                android:layout_marginTop="5dp"
-                android:layout_height="40dp"/>
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/facebookPage"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 />
 
         </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@color/white"
             android:layout_marginTop="2dp"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/baseline_star_rate_24"
-                android:layout_height="40dp"/>
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/appRating"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="2dp"
             android:id="@+id/shareBtn"
             android:background="@color/white"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/baseline_share_24"
                 android:layout_marginStart="10dp"
-                android:layout_height="40dp"/>
+                android:layout_marginEnd="5dp"
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -150,7 +159,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="2dp"
 
@@ -160,19 +169,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@color/white"
             android:id="@+id/about_us"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
-
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/baseline_info_24"
-                android:layout_height="40dp"/>
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -181,25 +190,26 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@color/white"
             android:layout_marginTop="2dp"
             android:id="@+id/privacy"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/baseline_privacy_tip_24"
-                android:layout_height="40dp"/>
+                android:layout_height="42dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -208,7 +218,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/black"
                 />
@@ -216,18 +226,20 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@color/white"
             android:layout_marginTop="2dp"
             android:id="@+id/termsOfUse"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/terms"
                 android:layout_marginStart="10dp"
-                android:layout_height="40dp"/>
+                android:layout_marginEnd="5dp"
+               />
 
             <TextView
                 android:layout_width="match_parent"
@@ -236,7 +248,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 />
 

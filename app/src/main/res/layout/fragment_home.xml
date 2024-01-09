@@ -9,8 +9,6 @@
     android:background="@color/white"
     >
 
-        <!-- Your views go here -->
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

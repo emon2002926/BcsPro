@@ -88,7 +88,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
 
     public void setAnimation(Context ctx, View viewToAnimate, int position){
         if (position>lastPosition){
-            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_in_left);
             viewToAnimate.setAnimation(slideIn);
             lastPosition = position;
         }

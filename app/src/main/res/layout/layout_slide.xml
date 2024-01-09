@@ -39,7 +39,7 @@
                 android:paddingBottom="5dp"
                 android:text="@string/daily_model_test"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
 
@@ -73,7 +73,7 @@
             android:layout_below="@id/l2"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="21dp"
             android:orientation="horizontal">
 
             <TextView
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:gravity="fill"
                 android:text="50 Question -20 minute"
-                android:textSize="14sp"
+                android:textSize="16sp"
 
                 />
 
