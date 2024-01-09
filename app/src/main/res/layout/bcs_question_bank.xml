@@ -97,7 +97,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:visibility="visible"
-            android:layout_marginTop="5dp"
+            android:background="@drawable/lite_round_baground"
             android:orientation="horizontal"
             >
             <TextView
@@ -105,9 +105,10 @@
                 android:layout_height="wrap_content"
                 android:text="1)"
                 android:id="@+id/tvPosition"
+                android:textStyle="bold"
                 android:layout_gravity="center"
                 android:textColor="@color/LiteBlack"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -117,8 +118,9 @@
                 android:layout_marginStart="8dp"
                 android:text="International Affairs"
                 android:layout_weight="1"
-                android:textColor="@color/LiteBlack"
-                android:textSize="22sp"
+                android:textColor="@color/LiteBlack2"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_gravity="center"
                 />
 
