@@ -37,13 +37,13 @@ import java.util.List;
 import java.util.Locale;
 
 
-public  class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
+public  class McqLoaderAdapter extends RecyclerView.Adapter<McqLoaderAdapter.myviewholder>
 {
     model[] data;
     ProgressBar progressBar;
     private boolean mBooleanValue;
     private int lastPosition = -1;
-    public myadapter(model[] data) {
+    public McqLoaderAdapter(model[] data) {
         this.data = data;
 //        this.mBooleanValue = mBooleanValue;
     }

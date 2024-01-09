@@ -25,7 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.adapter.McqLoaderAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.ResultPref;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -171,7 +171,7 @@ public class ActivityExam extends AppCompatActivity {
                             LinearLayoutManager.VERTICAL, false);
 
                     recView.setLayoutManager(linearLayoutManager);
-                    myadapter adapter = new myadapter(data);
+                    McqLoaderAdapter adapter = new McqLoaderAdapter(data);
                     recView.setAdapter(adapter);
 
                     floatingActionButton.setOnClickListener(view -> {

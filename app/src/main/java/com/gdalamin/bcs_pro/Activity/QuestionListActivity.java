@@ -20,7 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.myadapter;
+import com.gdalamin.bcs_pro.adapter.McqLoaderAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.dataClass.AppDatabase;
@@ -192,7 +192,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 ,LinearLayoutManager.VERTICAL,false);
 
         recview.setLayoutManager(linearLayoutManager);
-        myadapter adapter = new myadapter(model1);
+        McqLoaderAdapter adapter = new McqLoaderAdapter(model1);
         recview.setAdapter(adapter);
 
         showAnswer.setOnClickListener(view -> {

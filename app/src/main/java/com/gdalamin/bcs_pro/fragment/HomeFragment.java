@@ -32,7 +32,7 @@ import com.gdalamin.bcs_pro.Activity.McqTestActivity;
 import com.gdalamin.bcs_pro.Activity.QuestionListActivity;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
-import com.gdalamin.bcs_pro.adapter.myadapter2;
+import com.gdalamin.bcs_pro.adapter.LiveExamAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
@@ -344,7 +344,7 @@ public class HomeFragment extends Fragment {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
                     ,LinearLayoutManager.HORIZONTAL,false);
             recyclerView.setLayoutManager(linearLayoutManager);
-            myadapter2 adapter=new myadapter2(data2);
+            LiveExamAdapter adapter=new LiveExamAdapter(data2);
             recyclerView.setAdapter(adapter);
         }, error -> swipeRefreshLayout.setRefreshing(false)
         );

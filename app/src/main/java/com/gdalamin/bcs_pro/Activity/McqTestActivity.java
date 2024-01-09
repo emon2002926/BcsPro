@@ -3,7 +3,6 @@ package com.gdalamin.bcs_pro.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -148,13 +147,9 @@ public class McqTestActivity extends AppCompatActivity {
 
         });
 
-
-
         nextBtn.setOnClickListener(v -> {
 
             if(selectedOption !=0){
-
-
 
                 questionslists.get(currenQuestiontPosition).setUserSelecedAnswer(selectedOption);
                 int i = selectedOption;
@@ -173,45 +168,45 @@ public class McqTestActivity extends AppCompatActivity {
 //              for right or worong logic for ui
                 if (i==1  ){
                     if (i==getAnswer2){
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+//                        mp.start();
 //                         selectedRightOption(option1Layout,option1Icon);
                     }
                     else {
                         selectedWrongOption(option1Layout,option1Icon);
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+//                        mp.start();
                     }
                 }
                 if (i==2){
                     if (i==getAnswer2){
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+//                        mp.start();
                     }
                     else {
                         selectedWrongOption(option2Layout,option2Icon);
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+//                        mp.start();
                     }
                 }
                 if (i==3){
                     if (i==getAnswer2){
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+//                        mp.start();
                     }else {
                         selectedWrongOption(option3Layout,option3Icon);
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+//                        mp.start();
                     }
                 }
                 if (i==4){
                     if (i==getAnswer2){
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
+//                        mp.start();
                     }else {
                         selectedWrongOption(option4Layout,option4Icon);
-                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-                        mp.start();
+//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
+//                        mp.start();
 
                     }
                 }
@@ -251,7 +246,6 @@ public class McqTestActivity extends AppCompatActivity {
         String apiWithSql = ApiKeys.API_WITH_SQL;
         String url2 = apiWithSql+"&query=SELECT * FROM question WHERE question <> '' ORDER BY id DESC LIMIT 10;";
 
-    // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url2,
                 new Response.Listener<String>() {
                     @Override

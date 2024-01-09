@@ -20,11 +20,11 @@ import com.gdalamin.bcs_pro.modelClass.modelForExam;
 
 import java.nio.charset.StandardCharsets;
 
-public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
+public class LiveExamAdapter extends RecyclerView.Adapter<LiveExamAdapter.myviewholder>
 {
     modelForExam[] data;
     private int lastPosition = -1;
-    public myadapter2(modelForExam[] data2) {
+    public LiveExamAdapter(modelForExam[] data2) {
         this.data = data2;
     }
     @NonNull
@@ -67,7 +67,7 @@ public class myadapter2 extends RecyclerView.Adapter<myadapter2.myviewholder>
     public int getItemCount() {
         return data.length;
     }
-    class myviewholder extends RecyclerView.ViewHolder { TextView TvExamDate,TvExamDetails;
+    static class myviewholder extends RecyclerView.ViewHolder { TextView TvExamDate,TvExamDetails;
         CardView cardView;
 
 
