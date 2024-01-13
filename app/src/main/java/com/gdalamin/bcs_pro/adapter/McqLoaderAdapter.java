@@ -80,7 +80,6 @@ public  class McqLoaderAdapter extends RecyclerView.Adapter<McqLoaderAdapter.myv
         holder.option3Layout.setEnabled(true);
         holder.option4Layout.setEnabled(true);
 
-
         holder.option1TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
         holder.option2TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
         holder.option3TV.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
@@ -91,7 +90,6 @@ public  class McqLoaderAdapter extends RecyclerView.Adapter<McqLoaderAdapter.myv
         RelativeLayout option2Layout = holder.option2Layout;
         RelativeLayout option3Layout = holder.option3Layout;
         RelativeLayout option4Layout = holder.option4Layout;
-
 
         String questionImageString = data[position].getImage().trim();
         String option1ImageString = data[position].getOption1Image().trim();
@@ -142,6 +140,11 @@ public  class McqLoaderAdapter extends RecyclerView.Adapter<McqLoaderAdapter.myv
                 holder.option2TV.setText(convertToUTF8(option2));
                 holder.option3TV.setText(convertToUTF8(option3));
                 holder.option4TV.setText(convertToUTF8(option4));
+
+                holder.tVIndication1.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+                holder.tVIndication2.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+                holder.tVIndication3.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
+                holder.tVIndication4.setTextColor(ContextCompat.getColor(ctx, R.color.LiteBlack));
 
                 // If the question text is empty, hide the text view and display the question image
                 if (!question.isEmpty()) {

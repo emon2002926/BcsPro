@@ -77,6 +77,7 @@ public class SubjectFragment extends Fragment {
             viewModel.getSubCode().observe(getViewLifecycleOwner(),subCode ->
             {
                 if (subCode == 2){
+                    // Subject based exam
                     recyclerView.setLayoutManager(linearLayoutManager);
                     adapterForAllSubjectExam adapter=new adapterForAllSubjectExam(data);
                     recyclerView.setAdapter(adapter);

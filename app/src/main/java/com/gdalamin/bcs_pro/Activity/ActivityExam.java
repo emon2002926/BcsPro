@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -64,7 +63,7 @@ public class ActivityExam extends AppCompatActivity {
     ResultPref resultPref;
 
     ExamResult examResult;
-    private boolean mBooleanValue = false;
+    private boolean mBooleanValue = true;
     private CountDownTimer countDownTimer;
     public static int REQ_CODE2 = 0;
     private BottomSheetDialog bottomSheetDialog;
@@ -89,19 +88,14 @@ public class ActivityExam extends AppCompatActivity {
         tryAgainLayout = findViewById(R.id.tryAgainLayout);
         retryBtn = findViewById(R.id.retryBtn);
 
-
-
-
         subjectName = getIntent().getStringExtra("titleText");
 
         titleView.setText(subjectName);
 
         floatingActionButton = findViewById(R.id.btnSubmit);
 
-
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("xy@4gfk@9*2cxlds&0k@#hLAnsx!"));
-
 
         preferencesManager = new SharedPreferencesManagerAppLogic(this);
         resultPref = new ResultPref(this);
@@ -109,14 +103,10 @@ public class ActivityExam extends AppCompatActivity {
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
         examTime = preferencesManager.getInt("time");
-
         imageBackButton.setOnClickListener(view -> onBackPressed());
-        timerCallback = () ->{
-            Toast.makeText(ActivityExam.this,"Times Up ",Toast.LENGTH_SHORT).show();
-            finishExam();
-        };
 
-        examResult = new ExamResult();
+
+//        examResult = new ExamResult();
 //        saveData();
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
@@ -134,9 +124,10 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = API_URL+APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
-                NUM_OF_QUESTION= preferencesManager.getInt("examQuestionNum");
+                NUM_OF_QUESTION= (preferencesManager.getInt("examQuestionNum"))*2;
 
-                questionType = API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum=2&IA="+NUM_OF_QUESTION;
+                 int questionNumber = preferencesManager.getInt("examQuestionNum");
+                questionType = API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum=2&IA="+questionNumber;
 
             }
             else {
@@ -148,8 +139,7 @@ public class ActivityExam extends AppCompatActivity {
         }
     }
 
-    public void getExamQuestions(String url) {
-
+    public void getExamQuestions(String url ) {
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     REQ_CODE2 = 0;
@@ -174,6 +164,19 @@ public class ActivityExam extends AppCompatActivity {
                     McqLoaderAdapter adapter = new McqLoaderAdapter(data);
                     recView.setAdapter(adapter);
 
+                    timerCallback = () ->{
+
+                        REQ_CODE2 = 2;
+                        mBooleanValue = !mBooleanValue;
+                        adapter.setBooleanValue(true);
+                        LinearLayout recViewBackground = findViewById(R.id.recviewBackground);
+                        recViewBackground.setBackgroundResource(R.color.recviewBagColor);
+                        floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
+
+                        finishExam();
+
+                    };
+
                     floatingActionButton.setOnClickListener(view -> {
                         // Initialize counters for answered questions,
                         int answeredQuestions = 0;
@@ -194,7 +197,8 @@ public class ActivityExam extends AppCompatActivity {
 
                             });
 
-                        }else if (REQ_CODE2 ==2){
+                        }
+                        else if (REQ_CODE2 ==2){
 
                             if (bottomSheetDialog.isShowing()) {
                                 bottomSheetDialog.dismiss();
@@ -263,11 +267,7 @@ public class ActivityExam extends AppCompatActivity {
                         questionLists = receivedList;
                         // Process the received data here
                         // For example: update UI with the new data
-                    } else {
-                        // Handle the case where the received list is null
                     }
-                } else {
-                    // Handle the case where the intent does not contain the expected extra
                 }
             }
 
@@ -288,9 +288,6 @@ public class ActivityExam extends AppCompatActivity {
         String time = timeFormat.format(calendar.getTime());
         String examDateTime = time+" of "+monthName+" "+day+" ";
 
-
-//        PreferencesUserInfo preferencesUserInfo = new PreferencesUserInfo(ActivityExam.this);
-//        String userId = preferencesUserInfo.getString("key_phone");
 
         bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         bottomSheetView = LayoutInflater.from(ActivityExam.this).inflate(R.layout.bottom_sheet_result_view, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
@@ -402,8 +399,6 @@ public class ActivityExam extends AppCompatActivity {
                     View viewDevider = bottomSheetView.findViewById(R.id.viewDivider);
                     viewDevider.setVisibility(View.VISIBLE);
 
-
-
                     if (resultPref.getInt("totalQuestions1") > 2){
                         int totalExam = ((resultPref.getInt("totalExam"))+1);
                         int totalQuestion11 = ((resultPref.getInt("totalQuestions1"))+totalQuestion);
@@ -417,8 +412,6 @@ public class ActivityExam extends AppCompatActivity {
                         resultPref.saveInt("overAllWrongAnswer",overAllWrongAnswer);
                         resultPref.saveInt("overAllNotAnswered",overAllNotAnswered);
 
-                        Log.d("overAllMark",String.valueOf(totalExam));
-
                     }else {
                         resultPref.saveInt("totalExam",1);
                         resultPref.saveInt("totalQuestions1",totalQuestion);
@@ -426,12 +419,10 @@ public class ActivityExam extends AppCompatActivity {
                         resultPref.saveInt("overAllWrongAnswer",totalWrong);
                         resultPref.saveInt("overAllNotAnswered",overallNotAnswered);
                     }
-
-
                     stopTimer();
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
-//                  preferencesManager.clear();
+                  preferencesManager.clear();
                     LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 
                 }
@@ -473,8 +464,6 @@ public class ActivityExam extends AppCompatActivity {
                         int getQuestionAnswer = question.getAnswer();
                         // Get the answer selected by the user for the current question
                         int getUserSelectedOption = question.getUserSelecedAnswer();
-//                        Log.d("sjhgdyugsdgyuh",String.valueOf(getUserSelectedOption));
-
                         // If the user has selected an answer, increment the answeredQuestions counter
                         if (getUserSelectedOption != 0) {
                             answeredQuestions++;
@@ -485,7 +474,6 @@ public class ActivityExam extends AppCompatActivity {
                             correct++;
                             totalCorrect++;
                         }
-
                         if (getUserSelectedOption != 0 && getQuestionAnswer != getUserSelectedOption) {
                             wrong++;
                             totalWrong++;
@@ -499,85 +487,41 @@ public class ActivityExam extends AppCompatActivity {
                     String wrongAnswer = String.valueOf(wrong);
                     String totalMark = String.valueOf(mark);
 
-
                     if (i==0){
                         setResultIntoTextView(totalTVIA,correctTvIA,wrongTvIA,marksTvIA,
                                 totalIA,correctAnswer,wrongAnswer,totalMark);
-
-//                        saveResult.setTotalIA(totalIA.trim());
-//                        saveResult.setCorrectIA(correctAnswer.trim());
-//                        saveResult.setWrongIA(wrongAnswer.trim());
-//                        saveResult.setMarksIA(totalMark.trim());
                     }
                     else if (i==1) {
                         setResultIntoTextView(totalTVBA,correctTvBA,wrongTvBA,marksTvBA,totalBA,correctAnswer,wrongAnswer,totalMark);
-//
-//                        saveResult.setTotalBA(totalBA.trim());
-//                        saveResult.setCorrectBA(correctAnswer.trim());
-//                        saveResult.setWrongBA(wrongAnswer.trim());
-//                        saveResult.setMarksBA(totalMark.trim());
                     }
                     else if (i==2) {
                         //Todo Continue from hare
                         setResultIntoTextView(totalTVB,correctTvB,wrongTvB,marksTvB,totalB,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalB(totalB);
-//                        saveResult.setCorrectB(correctAnswer);
-//                        saveResult.setWrongB(wrongAnswer);
-//                        saveResult.setMarksB(totalMark);
                     }
                     else if (i==3) {
                         setResultIntoTextView(totalTVMAV,correctTvMAV,wrongTvMAV,marksTvMAV,totalMAV,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalMAV(totalMAV);
-//                        saveResult.setCorrectMAV(correctAnswer);
-//                        saveResult.setWrongMAV(wrongAnswer);
-//                        saveResult.setMarksMAV(totalMark);
                     }
                     else if (i==4) {
                         setResultIntoTextView(totalTVG,correctTvG,wrongTvG,marksTvG,totalG,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalG(totalG);
-//                        saveResult.setCorrectG(correctAnswer);
-//                        saveResult.setWrongG(wrongAnswer);
-//                        saveResult.setMarksG(totalMark);
                     }
                     else if (i==5) {
-                        ///Somthing wrong hare
                         setResultIntoTextView(totalTVML,correctTvML,wrongTvML,marksTvML,totalML,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalML(totalML);
-//                        saveResult.setCorrectML(correctAnswer);
-//                        saveResult.setWrongML(wrongAnswer);
-//                        saveResult.setMarksML(totalMark);
                     }
                     else if (i==6) {
                         setResultIntoTextView(totalTVEL,correctTvEL,wrongTvEL,marksTvEL,totalEL,correctAnswer,wrongAnswer,totalMark);
 
-//                        saveResult.setTotalEL(totalEL);
-//                        saveResult.setCorrectEL(correctAnswer);
-//                        saveResult.setWrongEL(wrongAnswer);
-//                        saveResult.setMarksEL(totalMark);
                     }
                     else if (i==7) {
                         setResultIntoTextView(totalTVMS,correctTvMS,wrongTvMS,marksTvMS,totalMS,correctAnswer,wrongAnswer,totalMark);
-//
-//                        saveResult.setTotalMS(totalMS);
-//                        saveResult.setCorrectMS(correctAnswer);
-//                        saveResult.setWrongMS(wrongAnswer);
-//                        saveResult.setMarksMS(totalMark);
                     }
                     else if (i==8) {
                         setResultIntoTextView(totalTVGS,correctTvGS,wrongTvGS,marksTvGS,totalGS,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalGS(totalGS);
-//                        saveResult.setCorrectGS(correctAnswer);
-//                        saveResult.setWrongGS(wrongAnswer);
-//                        saveResult.setMarksGS(totalMark);
+
                     }
                     else if (i==9) {
                         setResultIntoTextView(totalTVICT,correctTvICT,wrongTvICT,marksTvICT,totalICT,correctAnswer,wrongAnswer,totalMark);
-//                        saveResult.setTotalICT(totalICT);
-//                        saveResult.setCorrectICT(correctAnswer);
-//                        saveResult.setWrongICT(wrongAnswer);
-//                        saveResult.setMarksICT(totalMark);
-                    }
 
+                    }
                     startIndex = endIndex;
 
                 }
@@ -639,9 +583,9 @@ public class ActivityExam extends AppCompatActivity {
         }
 //        resultSaver.saveResult();
 
-
-//        preferencesManager.clear();
+        preferencesManager.clear();
     }
+
     public void showSubmissionOption (String answered,SubmissionCallback submissionCallback){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ActivityExam.this, R.style.BottomSheetDailogTheme);
         View bottomSheetView = LayoutInflater.from(ActivityExam.this)
@@ -650,10 +594,12 @@ public class ActivityExam extends AppCompatActivity {
         TextView textView = bottomSheetView.findViewById(R.id.tvDis);
         textView.setText("আপনি (" + NUM_OF_QUESTION + ") প্রশ্নের মধ্যে  ("+answered+") টি প্রশ্নের উত্তর দিয়েছেন");
 
+//        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
         bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
 
+//            viewModel.setSubCode(2);
             submissionCallback.onSubmitClicked();
             recView.setVisibility(View.VISIBLE);
             REQ_CODE2 = 2;

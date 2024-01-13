@@ -47,8 +47,8 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
 
             SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
-            int subCode = preferencesManager.getInt("subCode");
-            int LOGIC = preferencesManager.getInt("logic");
+//            int subCode = preferencesManager.getInt("subCode");
+//            int LOGIC = preferencesManager.getInt("logic");
 
 
             setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
@@ -64,7 +64,8 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
                         public void onClick(View view) {
                             //  Show a bottom sheet dialog to allow the user to submit the num of question  and time
                             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDailogTheme);
-                            View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition, bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
+                            View bottomSheetView = LayoutInflater.from(view.getContext()).inflate(R.layout.subject_based_exam_submition
+                                    ,bottomSheetDialog.findViewById(R.id.bottomSheetContainer));
 
                             bottomSheetDialog.setContentView(bottomSheetView);
                             bottomSheetDialog.show();

@@ -87,9 +87,6 @@ public class QuestionListActivity extends AppCompatActivity {
         }
 
 
-
-
-
         db = Room.databaseBuilder(
                 getApplicationContext(),
                 AppDatabase.class, "questionTable"
