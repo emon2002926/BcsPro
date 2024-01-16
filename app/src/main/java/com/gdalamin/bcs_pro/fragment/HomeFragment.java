@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment {
 
                     titleText = getResources().getString(R.string.lectureAndNots);
                     viewModel.setTitleText(titleText);
+                    viewModel.setDescription("Lecture and Notes will be available soon !! ");
                     replaceFragment(new CoursesFragment());
                     break;
                 case R.id.imageView2:
@@ -139,6 +140,7 @@ public class HomeFragment extends Fragment {
 //                    replaceFragment(new FragmentLectureAndNote());
                     titleText = getResources().getString(R.string.corses);
                     viewModel.setTitleText(titleText);
+                    viewModel.setDescription("Course will be available soon !! ");
                     replaceFragment(new CoursesFragment());
                     break;
                 case R.id.tvAllExam:

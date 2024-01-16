@@ -36,9 +36,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:text="    Lecture and Notes"
+                    android:textSize="27sp"
+                    android:textStyle="normal"
+                    android:text="Lecture and Notes"
                     />
 
             </LinearLayout>

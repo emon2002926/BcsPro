@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#25EBE8E8"
     android:layout_height="match_parent"
     tools:context=".fragment.SubjectFragment">
 
@@ -37,12 +38,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/darkTangerine"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="25sp"
+                android:textSize="27sp"
+                android:textStyle="normal"
                 android:id="@+id/titleTv"
-                android:textStyle="bold"
                 android:text="@string/practice"
                 />
 

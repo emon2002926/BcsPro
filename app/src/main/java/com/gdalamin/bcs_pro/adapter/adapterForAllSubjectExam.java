@@ -27,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAllSubjectExam.myviewholder> {
     ModelForLectureAndAllQuestion[] data;
     private int lastPosition = -1;
-
     public adapterForAllSubjectExam(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 @Keep
  public class SharedViewModel extends ViewModel {
     private final MutableLiveData<String> titleText = new MutableLiveData<>();
+    private final MutableLiveData<String> description= new MutableLiveData<>();
     private final MutableLiveData<Integer> subCode = new MutableLiveData<>();
 
 
@@ -25,6 +26,16 @@ import androidx.lifecycle.ViewModel;
     public LiveData<String> getTitleText() {
         return titleText;
     }
+
+
+    public void setDescription(String text) {
+        description.setValue(text);
+    }
+
+    public LiveData<String> getDescription() {
+        return description;
+    }
+
 
 }
 

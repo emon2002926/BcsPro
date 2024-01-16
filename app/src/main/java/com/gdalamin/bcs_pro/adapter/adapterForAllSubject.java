@@ -62,7 +62,7 @@ public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubj
         setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
         String subjectName = convertToUTF8(data[position].getSubjects());
-        holder.tvPosition.setText(position + 1 +")");
+        holder.tvPosition.setText(position + 1 +".");
         holder.tvSubject.setText(subjectName);
         holder.cardView1.setVisibility(View.GONE);
         holder.subjectLayout.setVisibility(View.VISIBLE);

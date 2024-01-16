@@ -9,7 +9,7 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="3dp"
-    android:layout_marginBottom="7dp"
+    android:layout_marginBottom="5dp"
     app:cardCornerRadius="10dp"
     android:id="@+id/bcsQuestionLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,8 +40,8 @@
                     android:layout_marginEnd="25dp"
                     android:textColor="@color/LiteBlack2"
                     android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:textStyle="normal"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
                     android:id="@+id/questionBatch"
@@ -76,7 +76,6 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="25dp"
                     android:textSize="16dp"
-                    android:textColor="@color/green"
                     android:id="@+id/numOFQuestion"
                     android:text="@string/amountOfQuestion"/>
 
@@ -94,21 +93,25 @@
             android:id="@+id/layout2"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:visibility="visible"
-            android:background="@drawable/lite_round_baground"
             android:orientation="horizontal"
+            android:background="@drawable/lite_round_baground"
+
             >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1)"
+                android:text="1."
                 android:id="@+id/tvPosition"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:textColor="@color/LiteBlack"
-                android:textSize="17sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textSize="22sp"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -119,8 +122,9 @@
                 android:text="International Affairs"
                 android:layout_weight="1"
                 android:textColor="@color/LiteBlack2"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:paddingTop="2dp"
+                android:textSize="22sp"
+
                 android:layout_gravity="center"
                 />
 
@@ -128,6 +132,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:src="@drawable/ic_baseline_arrow_forward_24"
                 app:tint="@color/LiteBlack"
 

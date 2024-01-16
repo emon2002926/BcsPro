@@ -1,7 +1,7 @@
 package com.gdalamin.bcs_pro.Activity;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -64,8 +63,8 @@ public class QuestionListActivity extends AppCompatActivity {
         retryBtn = findViewById(R.id.retryBtn);
         progressBar = findViewById(R.id.progressBar);
         retryBtn.setOnClickListener(view -> {
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.tangerine), PorterDuff.Mode.SRC_IN);
+//            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.tangerine), PorterDuff.Mode.SRC_IN);
             new bgThreat().start();
         });
 
@@ -169,14 +168,25 @@ public class QuestionListActivity extends AppCompatActivity {
             }
 
         }, error -> {
-            shimmerFrameLayout.stopShimmer();
-            shimmerFrameLayout.setVisibility(View.GONE);
-            tryAgainLayout.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
+//            shimmerFrameLayout.stopShimmer();
+//            shimmerFrameLayout.setVisibility(View.GONE);
+//            tryAgainLayout.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.GONE);
+            delayTryAgainLayout();
         });
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
+    }
+    public void delayTryAgainLayout(){
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        tryAgainLayout.setVisibility(View.GONE);
+        new Handler().postDelayed(() -> {
+            tryAgainLayout.setVisibility(View.VISIBLE);
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+        }, 5000);
     }
 
     private void updateUi(model[] model1){

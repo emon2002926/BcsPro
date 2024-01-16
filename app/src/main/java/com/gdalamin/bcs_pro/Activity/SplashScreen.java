@@ -29,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(() -> {
 
             startActivity(new Intent(SplashScreen.this,MainActivity.class));
-
+            finish();
 
         }, SPLASH_TIME_OUT);
 

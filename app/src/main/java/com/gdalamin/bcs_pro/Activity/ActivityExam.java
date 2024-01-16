@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,6 @@ import com.gdalamin.bcs_pro.adapter.McqLoaderAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.ResultPref;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
-import com.gdalamin.bcs_pro.modelClass.ExamResult;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -62,7 +62,6 @@ public class ActivityExam extends AppCompatActivity {
     SharedPreferencesManagerAppLogic preferencesManager;
     ResultPref resultPref;
 
-    ExamResult examResult;
     private boolean mBooleanValue = true;
     private CountDownTimer countDownTimer;
     public static int REQ_CODE2 = 0;
@@ -101,13 +100,11 @@ public class ActivityExam extends AppCompatActivity {
         resultPref = new ResultPref(this);
 
         NUM_OF_QUESTION = preferencesManager.getInt("examQuestionNum");
+
         int LOGIC_FOR_ALL_SUBJECT_EXAM = preferencesManager.getInt("LogicForExam");
         examTime = preferencesManager.getInt("time");
+
         imageBackButton.setOnClickListener(view -> onBackPressed());
-
-
-//        examResult = new ExamResult();
-//        saveData();
 
         if (LOGIC_FOR_ALL_SUBJECT_EXAM != 0) {
 
@@ -124,7 +121,7 @@ public class ActivityExam extends AppCompatActivity {
                 questionType = API_URL+APIKEY + "numIA=5&numBA=7&numBLL=9&numMVG=3&numGEDM=3&numML=4&numELL=8&numMA=4&numGS=3&numICT=4";
             }
             else if (LOGIC_FOR_ALL_SUBJECT_EXAM == 2) {
-                NUM_OF_QUESTION= (preferencesManager.getInt("examQuestionNum"))*2;
+                NUM_OF_QUESTION= (preferencesManager.getInt("time"))*2;
 
                  int questionNumber = preferencesManager.getInt("examQuestionNum");
                 questionType = API_URL+"api/getSubjectBasedExam.php?apiKey=abc123&apiNum=2&IA="+questionNumber;
@@ -135,7 +132,11 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
             getExamQuestions( questionType);
-            retryBtn.setOnClickListener(view -> getExamQuestions(questionType));
+//            retryBtn.setOnClickListener(view -> );
+            retryBtn.setOnClickListener(v -> {
+//                shimmerFrameLayout.setVisibility(View.VISIBLE);
+                getExamQuestions(questionType);
+            });
         }
     }
 
@@ -212,16 +213,27 @@ public class ActivityExam extends AppCompatActivity {
                 },
                 error ->
                 {
-                    REQ_CODE2 = 2;
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    tryAgainLayout.setVisibility(View.VISIBLE);
+//                    tryAgainLayout.setVisibility(View.VISIBLE);
+
+//                    tryAgainLayout.setVisibility(View.VISIBLE);
+                    delayTryAgainLayout();
                 }
         );
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
         queue.add(request);
     }
-
+    public void delayTryAgainLayout(){
+        REQ_CODE2 = 2;
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        tryAgainLayout.setVisibility(View.GONE);
+        new Handler().postDelayed(() -> {
+//            tryAgainLayout.setVisibility(View.VISIBLE);
+            tryAgainLayout.setVisibility(View.VISIBLE);
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+        }, 5000);
+    }
     private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
         countDownTimer = new CountDownTimer(maxTimerSeconds * 1000L, 1000) {
             @Override

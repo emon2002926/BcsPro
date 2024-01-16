@@ -36,6 +36,7 @@ public class CoursesFragment extends Fragment {
     RecyclerView recyclerView;
     CardView backBtn;
     TextView titleTV;
+    TextView textViewDescription;
 
 
     private  static final String API_URL = ApiKeys.API_URL;
@@ -48,6 +49,7 @@ public class CoursesFragment extends Fragment {
 
 
         recyclerView = view.findViewById(R.id.recviewLecture);
+        textViewDescription = view.findViewById(R.id.description);
         titleTV = view.findViewById(R.id.title);
 
 
@@ -60,6 +62,13 @@ public class CoursesFragment extends Fragment {
                 titleTV.setText(titleText);
             }
         });
+
+        viewModel.getDescription().observe(getViewLifecycleOwner(), description -> {
+            // Now, you have the data in the titleText variable
+
+            textViewDescription.setText(description);
+        });
+
         backBtn = view.findViewById(R.id.card);
         backBtn.setOnClickListener(view1 -> {
             getActivity().onBackPressed();

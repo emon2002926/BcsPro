@@ -446,6 +446,8 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginTop="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:id="@+id/CvQuizLayout"
                                 android:layout_marginBottom="30dp"
                                 >
