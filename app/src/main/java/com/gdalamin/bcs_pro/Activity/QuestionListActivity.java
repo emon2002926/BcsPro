@@ -168,10 +168,7 @@ public class QuestionListActivity extends AppCompatActivity {
             }
 
         }, error -> {
-//            shimmerFrameLayout.stopShimmer();
-//            shimmerFrameLayout.setVisibility(View.GONE);
-//            tryAgainLayout.setVisibility(View.VISIBLE);
-//            progressBar.setVisibility(View.GONE);
+
             delayTryAgainLayout();
         });
 

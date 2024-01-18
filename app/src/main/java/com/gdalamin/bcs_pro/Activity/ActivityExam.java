@@ -132,9 +132,7 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
             getExamQuestions( questionType);
-//            retryBtn.setOnClickListener(view -> );
             retryBtn.setOnClickListener(v -> {
-//                shimmerFrameLayout.setVisibility(View.VISIBLE);
                 getExamQuestions(questionType);
             });
         }
@@ -213,9 +211,6 @@ public class ActivityExam extends AppCompatActivity {
                 },
                 error ->
                 {
-//                    tryAgainLayout.setVisibility(View.VISIBLE);
-
-//                    tryAgainLayout.setVisibility(View.VISIBLE);
                     delayTryAgainLayout();
                 }
         );
@@ -228,7 +223,6 @@ public class ActivityExam extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         tryAgainLayout.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
-//            tryAgainLayout.setVisibility(View.VISIBLE);
             tryAgainLayout.setVisibility(View.VISIBLE);
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
