@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.LiveExamAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.CacheManager;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment {
     PreferencesUserInfo preferencesUserInfo;
     SharedPreferencesManagerAppLogic preferencesManager;
     Context context;
-
+    private CacheManager cacheManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +99,15 @@ public class HomeFragment extends Fragment {
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
 
 
+        cacheManager = new CacheManager("CACHE_KEY_FOR_LIVE_EXAM");
+        String response = cacheManager.getFromCache(view.getContext());
+
+        if (response != null && !response.isEmpty()){
+            updateLiveExamUi(response);
+        }else {
+            getLiveExamDetails();
+        }
+
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
             int subCode;
@@ -111,14 +122,12 @@ public class HomeFragment extends Fragment {
                 case R.id.CvImportantQuestion:
                     // This gos  ImportantQuestion (Activity)
                      subCode = 5;
-                    int LOGIC_FOR_ALL_SUBJECT_EXAM =0;
 
                     titleText = getResources().getString(R.string.importantQuestion);
-//                    viewModel.setTitleText(titleText);
-//                    v.getContext().startActivity(new Intent(v.getContext(), QuestionListActivity.class));
-
-                    preferencesManager.saveInt("LogicForExam",LOGIC_FOR_ALL_SUBJECT_EXAM);
                     preferencesManager.saveInt("subCode",subCode);
+
+                    String ACTION = "important_Question";
+                    preferencesManager.saveString("Type_Of_Question_To_Load",ACTION);
                     Intent intent22 = new Intent(view.getContext(), QuestionListActivity.class);
                     intent22.putExtra("titleText",titleText);
                     view.getContext().startActivity(intent22);
@@ -184,23 +193,6 @@ public class HomeFragment extends Fragment {
         imageView3.setOnClickListener(buttonClickListener);
 
 
-//        ConnectivityManager cm = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//
-//        if (activeNetwork != null && activeNetwork.isConnected()) {
-//            // The device is connected to the internet
-//            if (!isDataProcessed) {
-//                // Call the processData() method
-//                getLiveExamDetails();
-//                isDataProcessed = true; // Set the boolean flag to true after calling the method
-//            }
-//        } else {
-//            // The device is not connected to the internet
-//            // Show an error message or perform some other action
-//            Toast.makeText(context,"Please check your internet connection and try again",Toast.LENGTH_LONG).show();
-//        }
-
-
         // Register a BroadcastReceiver to listen for network connectivity changes
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -221,7 +213,6 @@ public class HomeFragment extends Fragment {
         context.registerReceiver(networkReceiver, intentFilter);
         isConnected = isConnected();
 
-        getLiveExamDetails();
         return view;
     }
     private void replaceFragment(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
@@ -311,8 +302,6 @@ public class HomeFragment extends Fragment {
         bottomSheetDialog.show();
     }
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -326,7 +315,45 @@ public class HomeFragment extends Fragment {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    public void getLiveExamDetails()
+
+    private void getLiveExamDetails(){
+        Intent intent = new Intent("INTERNET_RESTORED");
+        requireActivity().sendBroadcast(intent);
+        String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
+        StringRequest request=new StringRequest(API_URL, response ->  {
+
+            cacheManager.saveToCache(recyclerView.getContext(),response);
+            updateLiveExamUi(response);
+
+        },
+                error -> swipeRefreshLayout.setRefreshing(false)
+        );
+        RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
+        queue.add(request);
+    }
+
+    private void updateLiveExamUi(String response){
+
+
+        shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
+
+        recyclerView.setVisibility(View.VISIBLE);
+        GsonBuilder builder=new GsonBuilder();
+        Gson gson=builder.create();
+        modelForExam[] data2 =gson.fromJson(response,modelForExam[].class);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
+                ,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        LiveExamAdapter adapter=new LiveExamAdapter(data2);
+        recyclerView.setAdapter(adapter);
+    }
+
+/*
+
+    private void getLiveExamDetails2()
     {
 
         Intent intent = new Intent("INTERNET_RESTORED");
@@ -353,6 +380,11 @@ public class HomeFragment extends Fragment {
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
     }
+
+
+ */
+
+
 
     private void selectedOption( ImageView selectedOptionIcon) {
 

@@ -7,8 +7,9 @@
     tools:context=".fragment.QuestionBankFragment">
 
 <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/white"
             >
 
@@ -48,47 +49,62 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/shimer"
-        android:layout_below="@id/card"
-        >
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_below="@+id/card"
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recview33"
+                android:layout_marginTop="5dp"
+                android:visibility="visible">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/shimer"
                 >
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
-                <include layout="@layout/shimer_nots"/>
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
+                        <include layout="@layout/shimer_nots"/>
 
 
-            </LinearLayout>
+                    </LinearLayout>
 
-        </ScrollView>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+                </ScrollView>
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recview33"
-        android:layout_marginTop="5dp"
-        android:visibility="gone"
-        android:layout_below="@+id/card"
+        </RelativeLayout>
 
-        >
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
 </RelativeLayout>
 
 </FrameLayout>

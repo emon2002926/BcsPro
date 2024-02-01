@@ -318,7 +318,6 @@ public  class myadapter extends RecyclerView.Adapter<myadapter.myviewholder>
                 holder.questionImg.setImageBitmap(bitmap);
                 holder.questionImg.setVisibility(View.VISIBLE);
             }
-            //Todo  work from hare
             //Showing Image or text with there respective logic
             showTextViewOrImageView(option1,holder.option1TV,holder.option1Image,option1ImageString);
             showTextViewOrImageView(option2,holder.option2TV,holder.option2Image,option2ImageString);

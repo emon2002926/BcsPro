@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:textStyle="bold"
                 android:id="@+id/tvTimer"
                 android:textColor="@color/tangerine"

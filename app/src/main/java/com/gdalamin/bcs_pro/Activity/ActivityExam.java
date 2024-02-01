@@ -229,10 +229,11 @@ public class ActivityExam extends AppCompatActivity {
         tryAgainLayout.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
 //            tryAgainLayout.setVisibility(View.VISIBLE);
+            textViewTimer.setVisibility(View.GONE);
             tryAgainLayout.setVisibility(View.VISIBLE);
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
-        }, 5000);
+        }, 4000);
     }
     private void startTimer(int maxTimerSeconds, TextView textViewTimer) {
         countDownTimer = new CountDownTimer(maxTimerSeconds * 1000L, 1000) {
