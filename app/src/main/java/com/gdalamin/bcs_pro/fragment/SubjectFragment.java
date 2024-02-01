@@ -120,6 +120,7 @@ public class SubjectFragment extends Fragment {
         });
     }
 
+    /*
 
     public void getSubjectName(String url) {
         StringRequest request=new StringRequest(url, response -> {
@@ -156,6 +157,8 @@ public class SubjectFragment extends Fragment {
         queue.add(request);
 
     }
+
+     */
 
 
 }

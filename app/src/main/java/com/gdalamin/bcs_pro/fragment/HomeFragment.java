@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.CvImportantQuestion:
                     // This gos  ImportantQuestion (Activity)
-                     subCode = 5;
+                    subCode = 5;
 
                     titleText = getResources().getString(R.string.importantQuestion);
                     preferencesManager.saveInt("subCode",subCode);
