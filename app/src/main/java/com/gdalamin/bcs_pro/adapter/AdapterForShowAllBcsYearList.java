@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +24,13 @@ import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
 import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
-public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterForShowAllBcsYearList.myviewholder> {
+public class adapterForShowAllBcsQuestion extends RecyclerView.Adapter<adapterForShowAllBcsQuestion.myviewholder> {
     ModelForLectureAndAllQuestion[] data;
 
     private int lastPosition = -1;
-
-    public AdapterForShowAllBcsYearList(ModelForLectureAndAllQuestion[] data) {
+    public adapterForShowAllBcsQuestion(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
 
@@ -50,23 +47,29 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
+
+        /////////       This will open Older Bcs Question
+
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
         Resources resources = holder.tvSubject.getContext().getResources();
-        String amount = resources.getText(R.string.amountOfQuestion) + " : " + convertToBengaliString(data[position].getTotalQuestion());
+        String amount = resources.getText(R.string.amountOfQuestion)+" : "+convertToBengaliString(data[position].getTotalQuestion());
         holder.numOfQuestion.setText(amount);
 
-        setAnimation(holder.tvSubject.getContext(), holder.itemView, position);
+        Log.d("dfkghkfug",convertToBengaliString("10"));
+
+        setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
 
         String subjectName = convertToUTF8(data[position].getSubjects());
-        String postion2 = convertToBengaliString(position + 1 + ")");
+        String postion2 = convertToBengaliString(position + 1 +")");
 
         holder.tvPosition.setText(convertToBengaliString(postion2));
 
         holder.tvSubject.setText(subjectName);
         holder.cardView1.setVisibility(View.GONE);
         holder.subjectLayout.setVisibility(View.VISIBLE);
+
 
         holder.bcsYearName.setText(data[position].getText());
 
@@ -76,44 +79,22 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
             @Override
             public void onClick(View view) {
 
-                String BCS_Question_Year_Name = data[position].getText();
-                String oldBcs = "Older_Bcs_Question";
-                preferencesManager.saveString("oldBcs", oldBcs);
+                String subjectName = data[position].getText();
 
-                preferencesManager.saveString("bcsYearName", BCS_Question_Year_Name);
-                preferencesManager.saveInt("subCode", 4);
+                String  oldBcs = "Older_Bcs_Question";
+                preferencesManager.saveString("oldBcs",oldBcs);
+
+                preferencesManager.saveString("bcsYearName",subjectName);
+                preferencesManager.saveInt("subCode",4);
 
                 Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                intent.putExtra("titleText", BCS_Question_Year_Name);
+                intent.putExtra("titleText",subjectName);
                 view.getContext().startActivity(intent);
 
             }
         });
 
     }
-
-
-    @Override
-    public int getItemCount() {
-        return data.length;
-    }
-    static class myviewholder extends RecyclerView.ViewHolder {
-        TextView bcsYearName, numOfQuestion, tvSubject, tvPosition;
-        LinearLayout cardView1, subjectLayout;
-
-        public myviewholder(@NonNull View itemView) {
-            super(itemView);
-
-            bcsYearName = itemView.findViewById(R.id.questionBatch);
-            numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
-            cardView1 = itemView.findViewById(R.id.layout1);
-            subjectLayout = itemView.findViewById(R.id.layout2);
-            tvSubject = itemView.findViewById(R.id.tvSubject);
-            tvPosition = itemView.findViewById(R.id.tvPosition);
-        }
-    }
-
-
     private String convertToUTF8(String inputString) {
         return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
@@ -130,31 +111,41 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
         }
     }
 
-    public void addItems(List<ModelForLectureAndAllQuestion> newData) {
-        synchronized (this) {
-            List<ModelForLectureAndAllQuestion> currentData = new ArrayList<>(Arrays.asList(data));
-            List<ModelForLectureAndAllQuestion> combinedData = new ArrayList<>(currentData);
-            combinedData.addAll(newData);
-            this.data = combinedData.toArray(new ModelForLectureAndAllQuestion[0]);
+
+
+
+
+    @Override
+    public int getItemCount() {
+        return data.length;
+    }
+
+
+
+    static class myviewholder extends RecyclerView.ViewHolder {
+        TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
+        LinearLayout cardView1,subjectLayout;
+
+
+
+        public myviewholder(@NonNull View itemView) {
+            super(itemView);
+
+            bcsYearName = itemView.findViewById(R.id.questionBatch);
+            numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
+            cardView1 = itemView.findViewById(R.id.layout1);
+            subjectLayout = itemView.findViewById(R.id.layout2);
+            tvSubject = itemView.findViewById(R.id.tvSubject);
+            tvPosition = itemView.findViewById(R.id.tvPosition);
         }
-        notifyItemRangeInserted(data.length - newData.size(), newData.size());
+
+
     }
 
-    public ModelForLectureAndAllQuestion[] getData() {
-        return data;
-    }
+    public void setAnimation(Context ctx, View viewToAnimate, int position){
 
-    public void setData(List<ModelForLectureAndAllQuestion> newData) {
-        synchronized (this) {
-            this.data = newData.toArray(new ModelForLectureAndAllQuestion[0]);
-        }
-        notifyDataSetChanged();
+            Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+            viewToAnimate.setAnimation(slideIn);
+            lastPosition = position;
     }
-
-    public void setAnimation(Context ctx, View viewToAnimate, int position) {
-        Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
-        viewToAnimate.setAnimation(slideIn);
-        lastPosition = position;
-    }
-
 }
