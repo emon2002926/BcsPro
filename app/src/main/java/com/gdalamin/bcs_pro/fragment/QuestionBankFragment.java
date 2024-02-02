@@ -1,22 +1,14 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
 import com.gdalamin.bcs_pro.adapter.adapterForShowAllBcsQuestion;
@@ -26,9 +18,6 @@ import com.gdalamin.bcs_pro.api.GetNetworkData;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.Arrays;
-import java.util.Objects;
 
 public class QuestionBankFragment extends Fragment {
 
