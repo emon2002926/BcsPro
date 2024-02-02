@@ -36,6 +36,7 @@ import com.gdalamin.bcs_pro.ViewModel.SharedViewModel;
 import com.gdalamin.bcs_pro.adapter.LiveExamAdapter;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.CacheManager;
+import com.gdalamin.bcs_pro.api.GetNetworkData;
 import com.gdalamin.bcs_pro.api.PreferencesUserInfo;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.modelClass.modelForExam;
@@ -100,13 +101,24 @@ public class HomeFragment extends Fragment {
 
 
         cacheManager = new CacheManager("CACHE_KEY_FOR_LIVE_EXAM");
-        String response = cacheManager.getFromCache(view.getContext());
+        String response2 = cacheManager.getFromCache(view.getContext());
 
-        if (response != null && !response.isEmpty()){
-            updateLiveExamUi(response);
+        if (response2 != null && !response2.isEmpty()){
+            updateLiveExamUi(response2);
         }else {
             getLiveExamDetails();
         }
+
+//        String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
+//        GetNetworkData networkData = new GetNetworkData(API_URL);
+//        networkData.getLiveExamDetails(context, (response, error) -> {
+//            if (error != null) {
+//                // Handle error
+//            } else {
+//                // Handle response
+//                Log.d("jgkjyfg",response);
+//            }
+//        });
 
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;
@@ -331,6 +343,8 @@ public class HomeFragment extends Fragment {
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
     }
+
+
 
     private void updateLiveExamUi(String response){
 

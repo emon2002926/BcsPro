@@ -81,6 +81,7 @@ public class SubjectFragment extends Fragment {
 
 
     private void getData(String API_URL){
+        Log.d("hdhgsfgjfh",API_URL);
         StringRequest request=new StringRequest(API_URL, response ->  {
 
             cacheManager.saveToCache(recyclerView.getContext(),response);

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +24,13 @@ import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
 import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
-public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterForShowAllBcsYearList.myviewholder> {
+public class adapterForShowAllBcsQuestion extends RecyclerView.Adapter<adapterForShowAllBcsQuestion.myviewholder> {
     ModelForLectureAndAllQuestion[] data;
 
     private int lastPosition = -1;
-    public AdapterForShowAllBcsYearList(ModelForLectureAndAllQuestion[] data) {
+    public adapterForShowAllBcsQuestion(ModelForLectureAndAllQuestion[] data) {
         this.data = data;
     }
 
@@ -49,11 +47,16 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
     @Override
     public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
+
+        /////////       This will open Older Bcs Question
+
         SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
 
         Resources resources = holder.tvSubject.getContext().getResources();
         String amount = resources.getText(R.string.amountOfQuestion)+" : "+convertToBengaliString(data[position].getTotalQuestion());
         holder.numOfQuestion.setText(amount);
+
+        Log.d("dfkghkfug",convertToBengaliString("10"));
 
         setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
@@ -67,6 +70,7 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
         holder.cardView1.setVisibility(View.GONE);
         holder.subjectLayout.setVisibility(View.VISIBLE);
 
+
         holder.bcsYearName.setText(data[position].getText());
 
         holder.cardView1.setVisibility(View.VISIBLE);
@@ -76,6 +80,7 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
             public void onClick(View view) {
 
                 String subjectName = data[position].getText();
+
                 String  oldBcs = "Older_Bcs_Question";
                 preferencesManager.saveString("oldBcs",oldBcs);
 
@@ -90,29 +95,6 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
         });
 
     }
-
-
-    @Override
-    public int getItemCount() {
-        return data.length;
-    }
-
-    static class myviewholder extends RecyclerView.ViewHolder {
-        TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
-        LinearLayout cardView1,subjectLayout;
-        public myviewholder(@NonNull View itemView) {
-            super(itemView);
-
-            bcsYearName = itemView.findViewById(R.id.questionBatch);
-            numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
-            cardView1 = itemView.findViewById(R.id.layout1);
-            subjectLayout = itemView.findViewById(R.id.layout2);
-            tvSubject = itemView.findViewById(R.id.tvSubject);
-            tvPosition = itemView.findViewById(R.id.tvPosition);
-        }
-    }
-
-
     private String convertToUTF8(String inputString) {
         return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
@@ -130,25 +112,38 @@ public class AdapterForShowAllBcsYearList extends RecyclerView.Adapter<AdapterFo
     }
 
 
-    public void setData(List<ModelForLectureAndAllQuestion> newData) {
-        this.data = newData.toArray(new ModelForLectureAndAllQuestion[0]);
-        notifyDataSetChanged();
+
+
+
+    @Override
+    public int getItemCount() {
+        return data.length;
     }
 
-    public void addItems(List<ModelForLectureAndAllQuestion> newData) {
-        List<ModelForLectureAndAllQuestion> currentData = Arrays.asList(data);
-        List<ModelForLectureAndAllQuestion> combinedData = new ArrayList<>(currentData);
-        combinedData.addAll(newData);
-        this.data = combinedData.toArray(new ModelForLectureAndAllQuestion[0]);
-        notifyItemRangeInserted(currentData.size(), newData.size());
-    }
 
-    public ModelForLectureAndAllQuestion[] getData() {
-        return data;
-    }
 
+    static class myviewholder extends RecyclerView.ViewHolder {
+        TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
+        LinearLayout cardView1,subjectLayout;
+
+
+
+        public myviewholder(@NonNull View itemView) {
+            super(itemView);
+
+            bcsYearName = itemView.findViewById(R.id.questionBatch);
+            numOfQuestion = itemView.findViewById(R.id.numOFQuestion);
+            cardView1 = itemView.findViewById(R.id.layout1);
+            subjectLayout = itemView.findViewById(R.id.layout2);
+            tvSubject = itemView.findViewById(R.id.tvSubject);
+            tvPosition = itemView.findViewById(R.id.tvPosition);
+        }
+
+
+    }
 
     public void setAnimation(Context ctx, View viewToAnimate, int position){
+
         Animation slideIn = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
         viewToAnimate.setAnimation(slideIn);
         lastPosition = position;

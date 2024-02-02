@@ -1,5 +1,7 @@
 package com.gdalamin.bcs_pro.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -17,24 +19,24 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.AdapterForShowAllBcsYearList;
+import com.gdalamin.bcs_pro.adapter.adapterForShowAllBcsQuestion;
+import com.gdalamin.bcs_pro.api.ApiKeys;
+import com.gdalamin.bcs_pro.api.CacheManager;
+import com.gdalamin.bcs_pro.api.GetNetworkData;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
+import java.util.Objects;
+
 public class QuestionBankFragment extends Fragment {
 
     // UI Components
     RecyclerView recyclerView;
     ImageView imageBackButton;
     ShimmerFrameLayout shimmerFrameLayout;
-
-    // Data Loading Parameters
-    private int currentPage = 1;
-    private boolean isLoading = false;
-    private AdapterForShowAllBcsYearList adapter;
-
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -46,104 +48,79 @@ public class QuestionBankFragment extends Fragment {
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         imageBackButton = view.findViewById(R.id.backButton);
+        context = view.getContext();
 
         // Handle back button click
         imageBackButton.setOnClickListener(view1 -> getActivity().onBackPressed());
 
-        // Initialize RecyclerView and its adapter
-        adapter = new AdapterForShowAllBcsYearList(new ModelForLectureAndAllQuestion[0]);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                recyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
 
-        // Prefetch initial data
-        prefetchInitialData();
+        String API_URL = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
 
-        // Listen for scroll events to load more data
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                // Check if the user is close to the end of the list to prefetch more data
-                handleScroll();
-            }
-        });
-
+        GetNetworkData networkData = new GetNetworkData(API_URL);
+        CacheManager cacheManager = new CacheManager("CACHE_KEY_FOR_OLDER_BCS_EXAM");
+        String response2 = cacheManager.getFromCache(context);
+        if (response2 != null && !response2.isEmpty()){
+            updateUI(response2);
+        }else {
+            networkData.getLiveExamDetails(context,((response, error) -> {
+                cacheManager.saveToCache(context,response);
+                updateUI(response);
+            }));
+        }
 
         return view;
     }
 
-    // Method to prefetch initial data on app launch
-    private void prefetchInitialData() {
-        String apiKey = "abc123";
-        String apiNum = "1";
-        String url = "https://www.emon.pixatone.com/Test%20Api%27s/getYearName.php?apiKey=" +
-                apiKey + "&apiNum=" + apiNum + "&page=" + currentPage;
 
-        getQuestionList(url);
-    }
-
-    // Method to handle scroll events and load more data if needed
-    private void handleScroll() {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        int visibleItemCount = layoutManager.getChildCount();
-        int totalItemCount = layoutManager.getItemCount();
-        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
-        int bufferItemCount = 20; // Adjust the buffer as needed
-
-        if (!isLoading && (visibleItemCount + firstVisibleItemPosition + bufferItemCount) >= totalItemCount
-                && firstVisibleItemPosition >= 0) {
-            // User is very close to the end of the list, prefetch more data
-            isLoading = true;
-            currentPage++;
-
-            String apiKey = "abc123";
-            String apiNum = "1";
-            String url = "https://www.emon.pixatone.com/Test%20Api%27s/getYearName.php?apiKey=" +
-                    apiKey + "&apiNum=" + apiNum + "&page=" + currentPage;
-
-            getQuestionList(url);
-        }
-    }
-
-    // Method to initiate API call and get question list
-    public void getQuestionList(String url) {
-        // Process the API response
-        StringRequest request = new StringRequest(url, this::processApiResponse, error -> {
-            isLoading = false;
-            Log.e("QuestionBankFragment", "Error fetching data: " + error.getMessage());
-            // Handle the error appropriately, e.g., display an error message to the user
-        });
-
-        RequestQueue queue = Volley.newRequestQueue(requireContext().getApplicationContext());
-        queue.add(request);
-    }
-
-    // Method to process the API response and update UI
-    private void processApiResponse(String response) {
-        // Process the API response as usual
+    private void updateUI(String response){
 
         shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        GsonBuilder builder=new GsonBuilder();
+        Gson gson=builder.create();
+        ModelForLectureAndAllQuestion[] data =gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        ModelForLectureAndAllQuestion[] newData = gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context
+                ,LinearLayoutManager.VERTICAL,false);
 
-        if (currentPage == 1) {
-            // Set data for the first page
-            adapter.setData(Arrays.asList(newData));
-        } else if (newData.length > 0) {
-            // Add items for subsequent pages
-            adapter.addItems(Arrays.asList(newData));
-        } else {
-            // Mark that there is no more data to load
-            isLoading = false;
-        }
-
-        isLoading = false; // Reset the loading flag
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapterForShowAllBcsQuestion adapter=new adapterForShowAllBcsQuestion(data);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
     }
+
+
+    /*
+    public void getQuestionList(String url)
+    {
+
+        StringRequest request=new StringRequest(url, response -> {
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+            GsonBuilder builder=new GsonBuilder();
+            Gson gson=builder.create();
+            ModelForLectureAndAllQuestion[] data =gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
+                    ,LinearLayoutManager.VERTICAL,false);
+
+            recyclerView.setLayoutManager(linearLayoutManager);
+            adapterForShowAllBcsQuestion adapter=new adapterForShowAllBcsQuestion(data);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
+        }, error -> {
+
+        });
+
+        RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
+        queue.add(request);
+
+    }
+
+
+     */
+
 }
