@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment {
     String titleText;
     private boolean isConnected;
     private BroadcastReceiver networkReceiver;
-    private boolean isDataProcessed = false; // Declare a boolean flag
 
     PreferencesUserInfo preferencesUserInfo;
     SharedPreferencesManagerAppLogic preferencesManager;
