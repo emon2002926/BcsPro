@@ -63,7 +63,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="   ( ম্যাক্স 18 )"
+                        android:text="   ( ম্যাক্স ৫০ )"
                         android:textSize="16sp"
                         />
 
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="  ( ম্যাক্স 50 ) "/>
+                        android:text="  ( ম্যাক্স ১০০ ) "/>
 
 
                 </LinearLayout>

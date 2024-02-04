@@ -81,6 +81,7 @@ public class ActivityExam extends AppCompatActivity {
         titleView = findViewById(R.id.topTv);
         textViewTimer = findViewById(R.id.tvTimer);
         imageBackButton = findViewById(R.id.backButton);
+        imageBackButton.setContentDescription("Navigate back");
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
@@ -92,6 +93,7 @@ public class ActivityExam extends AppCompatActivity {
         titleView.setText(subjectName);
 
         floatingActionButton = findViewById(R.id.btnSubmit);
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("xy@4gfk@9*2cxlds&0k@#hLAnsx!"));
@@ -173,11 +175,12 @@ public class ActivityExam extends AppCompatActivity {
                         LinearLayout recViewBackground = findViewById(R.id.recviewBackground);
                         recViewBackground.setBackgroundResource(R.color.recviewBagColor);
                         floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
-
+                        floatingActionButton.setContentDescription("Show Result's");
                         finishExam();
 
                     };
 
+                    floatingActionButton.setContentDescription("Show SubmissionOption");
                     floatingActionButton.setOnClickListener(view -> {
                         // Initialize counters for answered questions,
                         int answeredQuestions = 0;
@@ -195,6 +198,7 @@ public class ActivityExam extends AppCompatActivity {
                                 LinearLayout recViewBackground = findViewById(R.id.recviewBackground);
                                 recViewBackground.setBackgroundResource(R.color.recviewBagColor);
                                 floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
+                                floatingActionButton.setContentDescription("Show Result's");
 
                             });
 
@@ -217,6 +221,7 @@ public class ActivityExam extends AppCompatActivity {
 
 //                    tryAgainLayout.setVisibility(View.VISIBLE);
                     delayTryAgainLayout();
+                    floatingActionButton.setVisibility(View.GONE);
                 }
         );
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);

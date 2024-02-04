@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tryAgainLayout"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@+id/card">
 
         <include
@@ -134,7 +134,7 @@
         app:backgroundTint="@color/white"
         android:layout_marginBottom="50dp"
         app:fabSize="normal"
-        android:visibility="visible"
+        android:visibility="gone"
         android:src="@drawable/baseline_check_24"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

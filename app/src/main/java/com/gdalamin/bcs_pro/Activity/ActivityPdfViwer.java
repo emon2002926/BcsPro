@@ -32,6 +32,7 @@ public class ActivityPdfViwer extends AppCompatActivity {
             onBackPressed();
         });
 
+        imageBackButton.setContentDescription("Navigate back");
 
         String url2 = "http://www.emon.pixatone.com/PDF/Makkar-IELTS-Speaking-May-Aug-2022-Final-Version.pdf";
 //        String url2 = "https://demo.codeseasy.com/downloads/CodesEasy.pdf";

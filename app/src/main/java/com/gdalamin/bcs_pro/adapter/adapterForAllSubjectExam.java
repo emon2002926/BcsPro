@@ -86,15 +86,15 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
                                 if (time.isEmpty()){
                                     edTime.setError("please enter time");
                                     edTime.requestFocus();
-                                } else if (time2 >18) {
-                                    edTime.setError("Maximum time is 18 minutes");
+                                } else if (time2 >50) {
+                                    edTime.setError("সর্বাধিক ৫০ মিনিট");
                                     edTime.requestFocus();
 
                                 } else if (NUM_OF_QUESTION.isEmpty()) {
                                     edNumOfQuestion.setError("please enter the amount of question");
                                     edNumOfQuestion.requestFocus();
-                                }else if (NUM_OF_QUESTION2 >50) {
-                                    edNumOfQuestion.setError("Maximum question is 50");
+                                }else if (NUM_OF_QUESTION2 >100) {
+                                    edNumOfQuestion.setError("সর্বাধিক ১০০টি প্রশ্ন");
                                     edNumOfQuestion.requestFocus();
                                 }
                                 else {

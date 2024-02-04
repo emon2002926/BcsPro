@@ -40,7 +40,7 @@
                 android:id="@+id/topTv"
                 android:textStyle="normal"
                 android:paddingStart="10dp"
-                />
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
 
@@ -115,12 +115,12 @@
         android:id="@+id/btnShowAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         app:backgroundTint="#FFFFFF"
         android:layout_marginBottom="100dp"
-        app:fabSize="mini"
+        app:fabSize="auto"
         android:scaleType="fitXY"
-        android:visibility="visible"
+        android:visibility="gone"
         android:src="@drawable/hidden"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

@@ -106,16 +106,6 @@ public class HomeFragment extends Fragment {
             getLiveExamDetails();
         }
 
-//        String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
-//        GetNetworkData networkData = new GetNetworkData(API_URL);
-//        networkData.getLiveExamDetails(context, (response, error) -> {
-//            if (error != null) {
-//                // Handle error
-//            } else {
-//                // Handle response
-//                Log.d("jgkjyfg",response);
-//            }
-//        });
 
         View.OnClickListener buttonClickListener = v -> {
             Intent intent;

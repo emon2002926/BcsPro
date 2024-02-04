@@ -37,6 +37,7 @@ public class ResultListFragment extends Fragment {
 
         recview=view.findViewById(R.id.recview);
         backButton = view.findViewById(R.id.backButton);
+        backButton.setContentDescription("Navigate back");
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

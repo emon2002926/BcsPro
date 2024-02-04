@@ -37,6 +37,7 @@ public class QuestionBankFragment extends Fragment {
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         imageBackButton = view.findViewById(R.id.backButton);
+        imageBackButton.setContentDescription("Navigate back");
         context = view.getContext();
 
         // Handle back button click

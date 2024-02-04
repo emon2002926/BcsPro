@@ -160,6 +160,7 @@ public class TestResult extends AppCompatActivity {
         imageBackButton.setOnClickListener(view -> {
             onBackPressed();
         });
+        imageBackButton.setContentDescription("Navigate back");
 
 
         TextView backToHome = findViewById(R.id.btnBackToHome);

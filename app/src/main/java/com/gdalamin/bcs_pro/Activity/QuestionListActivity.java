@@ -25,7 +25,6 @@ import com.gdalamin.bcs_pro.adapter.AdapterForLoadMcqOther;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.SharedPreferencesManagerAppLogic;
 import com.gdalamin.bcs_pro.dataClass.AppDatabase;
-import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -43,7 +42,7 @@ public class QuestionListActivity extends AppCompatActivity {
     RecyclerView recview;
     TextView textView;
     ImageView imageBackButton;
-    FloatingActionButton showAnswer;
+    FloatingActionButton showAnswerAndExplanation;
     ShimmerFrameLayout shimmerFrameLayout;
     SharedPreferencesManagerAppLogic preferencesManager;
     int subCode;
@@ -78,12 +77,14 @@ public class QuestionListActivity extends AppCompatActivity {
         tryAgainLayout = findViewById(R.id.tryAgainLayout);
         retryBtn = findViewById(R.id.retryBtn);
         progressBar = findViewById(R.id.progressBar);
+
         retryBtn.setOnClickListener(view -> new bgThreat().start());
 
         textView = findViewById(R.id.topTv);
-        showAnswer = findViewById(R.id.btnShowAnswer);
+        showAnswerAndExplanation = findViewById(R.id.btnShowAnswer);
         imageBackButton = findViewById(R.id.backButton);
         imageBackButton.setOnClickListener(view -> onBackPressed());
+        imageBackButton.setContentDescription("Navigate back");
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -106,10 +107,7 @@ public class QuestionListActivity extends AppCompatActivity {
         new bgThreat().start();
 //        testNewPagination();
 
-
     }
-
-
 
     class bgThreat extends Thread {
         public void run() {
@@ -175,7 +173,7 @@ public class QuestionListActivity extends AppCompatActivity {
                             }
 
                             testNewPagination(encodedQuery);
-                            Log.d("gjyuy","subject_Specific_Question : Bolck activited");
+//                            Log.d("gjyuy","subject_Specific_Question : Bolck activited");
 
 
                         } else if (ACTION.equals("important_Question")) {
@@ -205,6 +203,7 @@ public class QuestionListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         retryBtn.setEnabled(true);
         recview.setVisibility(View.VISIBLE);
+//        showAnswerAndExplanation.setVisibility(View.VISIBLE);
 
         adapter2 = new AdapterForLoadMcqOther(new model[0]);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
@@ -212,6 +211,20 @@ public class QuestionListActivity extends AppCompatActivity {
 
         recview.setLayoutManager(linearLayoutManager);
         recview.setAdapter(adapter2); // Set the adapter on the RecyclerView
+
+        showAnswerAndExplanation.setOnClickListener(view -> {
+            mBooleanValue = !mBooleanValue;
+            adapter2.setBooleanValue(mBooleanValue);
+
+            if (!mBooleanValue) {
+
+                showAnswerAndExplanation.setImageResource(R.drawable.hidden);
+                showAnswerAndExplanation.setContentDescription("Hide Answer");
+            } else if (mBooleanValue) {
+                showAnswerAndExplanation.setImageResource(R.drawable.view);
+                showAnswerAndExplanation.setContentDescription("Show Answer");
+            }
+        });
 
 
         String API_URL = "https://www.emon.pixatone.com/Test%20Api%27s/testCustomQueryWithPagination.php" +
@@ -266,10 +279,13 @@ public class QuestionListActivity extends AppCompatActivity {
         // Process the API response
         StringRequest request = new StringRequest(url, response -> {
 
+            tryAgainLayout.setVisibility(View.GONE);
             processApiResponse(response);
 
         }, error -> {
 
+            showAnswerAndExplanation.setVisibility(View.GONE);
+            delayTryAgainLayout();
             isLoading = false;
             Log.e("QuestionBankFragment", "Error fetching data: " + error.getMessage());
             // Handle the error appropriately, e.g., display an error message to the user
@@ -287,9 +303,12 @@ public class QuestionListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         retryBtn.setEnabled(true);
         recview.setVisibility(View.VISIBLE);
+        showAnswerAndExplanation.setVisibility(View.VISIBLE);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
+
+
 
         model[] newData = gson.fromJson(response, model[].class);
         if (currentPage == 1) {
@@ -340,6 +359,8 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         tryAgainLayout.setVisibility(View.GONE);
+        showAnswerAndExplanation.setVisibility(View.GONE);
+        recview.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
             tryAgainLayout.setVisibility(View.VISIBLE);
             shimmerFrameLayout.stopShimmer();
@@ -363,15 +384,17 @@ public class QuestionListActivity extends AppCompatActivity {
         AdapterForLoadMcqOther adapter = new AdapterForLoadMcqOther(model1);
         recview.setAdapter(adapter);
 
-        showAnswer.setOnClickListener(view -> {
+        showAnswerAndExplanation.setOnClickListener(view -> {
             mBooleanValue = !mBooleanValue;
             adapter.setBooleanValue(mBooleanValue);
 
             if (!mBooleanValue) {
 
-                showAnswer.setImageResource(R.drawable.hidden);
+                showAnswerAndExplanation.setImageResource(R.drawable.hidden);
+                showAnswerAndExplanation.setContentDescription("Hide Answer");
             } else if (mBooleanValue) {
-                showAnswer.setImageResource(R.drawable.view);
+                showAnswerAndExplanation.setImageResource(R.drawable.view);
+                showAnswerAndExplanation.setContentDescription("Show Answer");
             }
         });
     }

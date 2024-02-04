@@ -45,7 +45,7 @@ public class FragmentLectureAndNote extends Fragment {
         imageBackButton = view.findViewById(R.id.backButton);
 
         imageBackButton.setOnClickListener(view1 -> {getActivity().onBackPressed();});
-
+        imageBackButton.setContentDescription("Navigate back");
         getPdfsNameAndLink();
 
         return view;
