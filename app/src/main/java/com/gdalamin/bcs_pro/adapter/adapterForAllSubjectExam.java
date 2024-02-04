@@ -74,6 +74,8 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
 
                             EditText edTime = bottomSheetView.findViewById(R.id.edTime);
                             EditText edNumOfQuestion = bottomSheetView.findViewById(R.id.edNumOfQuestion);
+                            edNumOfQuestion.setContentDescription("প্রশ্ন");
+                            edTime.setContentDescription("সময়");
 
                             bottomSheetView.findViewById(R.id.btnSubmit).setOnClickListener(submitView -> {
                                 String time = edTime.getText().toString().trim();

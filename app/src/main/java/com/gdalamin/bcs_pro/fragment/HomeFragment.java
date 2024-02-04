@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
         tvAllExam = view.findViewById(R.id.tvAllExam);
         subjectBasedExam =view.findViewById(R.id.subject_based_exam);
         tvPractice = view.findViewById(R.id.tvPractice);
+        tvPractice.setContentDescription(getResources().getString(R.string.practice));
         CvQuestionBank = view.findViewById(R.id.CvQuestionBank);
 
 
@@ -166,6 +167,7 @@ public class HomeFragment extends Fragment {
                 case R.id.tvPractice:
                     subCode = 3;
                     titleText = getResources().getString(R.string.practice);
+
                     preferencesManager.saveInt("subCode",subCode);
                     viewModel.setSubCode(3);
                     viewModel.setTitleText(titleText);

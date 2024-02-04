@@ -52,6 +52,7 @@ public class SubjectFragment extends Fragment {
 
 
         imageBackButton = view.findViewById(R.id.backButton);
+        imageBackButton.setContentDescription("Navigate back");
         imageBackButton.setOnClickListener(view1 -> {
             getActivity().onBackPressed();
         });

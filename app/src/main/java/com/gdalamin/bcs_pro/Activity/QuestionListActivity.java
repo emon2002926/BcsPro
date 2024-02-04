@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Random;
 
 public class QuestionListActivity extends AppCompatActivity {
-    RecyclerView recview;
+    RecyclerView recyclerView;
     TextView textView;
     ImageView imageBackButton;
     FloatingActionButton showAnswerAndExplanation;
@@ -70,7 +70,7 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
 
-        recview = findViewById(R.id.recview);
+        recyclerView = findViewById(R.id.recview);
         shimmerFrameLayout = findViewById(R.id.shimer);
         shimmerFrameLayout.startShimmer();
 
@@ -202,15 +202,15 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         retryBtn.setEnabled(true);
-        recview.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
 //        showAnswerAndExplanation.setVisibility(View.VISIBLE);
 
         adapter2 = new AdapterForLoadMcqOther(new model[0]);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                recview.getContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
 
-        recview.setLayoutManager(linearLayoutManager);
-        recview.setAdapter(adapter2); // Set the adapter on the RecyclerView
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter2); // Set the adapter on the RecyclerView
 
         showAnswerAndExplanation.setOnClickListener(view -> {
             mBooleanValue = !mBooleanValue;
@@ -238,7 +238,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
         // Listen for scroll events to load more data
-        recview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -250,7 +250,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
     private void handleScroll(String encodedQuery) {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recview.getLayoutManager();
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
@@ -302,7 +302,7 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         retryBtn.setEnabled(true);
-        recview.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
         showAnswerAndExplanation.setVisibility(View.VISIBLE);
 
         GsonBuilder builder = new GsonBuilder();
@@ -327,11 +327,14 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
     private void getMCQuestions(String API_URL) {
+
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 GsonBuilder builder = new GsonBuilder().setLenient();
                 Gson gson = builder.create();
+
 
                 JsonReader reader = new JsonReader(new StringReader(response));
                 reader.setLenient(true);
@@ -360,7 +363,7 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         tryAgainLayout.setVisibility(View.GONE);
         showAnswerAndExplanation.setVisibility(View.GONE);
-        recview.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
             tryAgainLayout.setVisibility(View.VISIBLE);
             shimmerFrameLayout.stopShimmer();
@@ -376,13 +379,13 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         retryBtn.setEnabled(true);
-        recview.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                 , LinearLayoutManager.VERTICAL, false);
 
-        recview.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager);
         AdapterForLoadMcqOther adapter = new AdapterForLoadMcqOther(model1);
-        recview.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         showAnswerAndExplanation.setOnClickListener(view -> {
             mBooleanValue = !mBooleanValue;

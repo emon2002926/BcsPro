@@ -2,9 +2,6 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -41,6 +38,7 @@ MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     break;
                 case R.id.navigation_dashboard:
+
                     replaceFragment(new DashBordFragment());
                     break;
                 case R.id.navigation_setting:
