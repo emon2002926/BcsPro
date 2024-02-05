@@ -17,7 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.adapter.adapterForShowAllBcsQuestion;
+import com.gdalamin.bcs_pro.adapter.AdapterForBcsQuestionList;
 import com.gdalamin.bcs_pro.api.ApiKeys;
 import com.gdalamin.bcs_pro.api.CacheManager;
 import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
@@ -52,9 +52,7 @@ public class QuestionBankFragment extends Fragment {
         // Handle back button click
         imageBackButton.setOnClickListener(view1 -> getActivity().onBackPressed());
 
-
         String API_URL = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
-
         cacheManager = new CacheManager("CACHE_KEY_FOR_OLDER_BCS_EXAM");
         String response2 = cacheManager.getFromCache(context);
         if (response2 != null && !response2.isEmpty()){
@@ -98,42 +96,9 @@ public class QuestionBankFragment extends Fragment {
                 ,LinearLayoutManager.VERTICAL,false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapterForShowAllBcsQuestion adapter=new adapterForShowAllBcsQuestion(data);
+        AdapterForBcsQuestionList adapter=new AdapterForBcsQuestionList(data);
         recyclerView.setAdapter(adapter);
         recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
     }
-
-
-    /*
-    public void getQuestionList(String url)
-    {
-
-        StringRequest request=new StringRequest(url, response -> {
-            shimmerFrameLayout.stopShimmer();
-            shimmerFrameLayout.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-
-            GsonBuilder builder=new GsonBuilder();
-            Gson gson=builder.create();
-            ModelForLectureAndAllQuestion[] data =gson.fromJson(response, ModelForLectureAndAllQuestion[].class);
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext()
-                    ,LinearLayoutManager.VERTICAL,false);
-
-            recyclerView.setLayoutManager(linearLayoutManager);
-            adapterForShowAllBcsQuestion adapter=new adapterForShowAllBcsQuestion(data);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setVerticalScrollBarEnabled(true); // Show the scrollbar
-        }, error -> {
-
-        });
-
-        RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
-        queue.add(request);
-
-    }
-
-
-     */
 
 }

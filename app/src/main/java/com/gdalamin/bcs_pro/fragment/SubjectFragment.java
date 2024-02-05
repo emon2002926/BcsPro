@@ -1,11 +1,13 @@
 package com.gdalamin.bcs_pro.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -39,6 +41,8 @@ public class SubjectFragment extends Fragment {
     TextView titleTv;
     SharedViewModel viewModel;
     CacheManager cacheManager;
+    private TextView retryButton;
+    private LinearLayout tryAgainLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,11 +51,15 @@ public class SubjectFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recview3);
         shimmerFrameLayout = view.findViewById(R.id.shimer);
+        imageBackButton = view.findViewById(R.id.backButton);
+        retryButton = view.findViewById(R.id.retryBtn);
+        tryAgainLayout = view.findViewById(R.id.tryAgainLayout);
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
 
 
-        imageBackButton = view.findViewById(R.id.backButton);
+        tryAgainLayout.setVisibility(View.GONE);
+
         imageBackButton.setContentDescription("Navigate back");
         imageBackButton.setOnClickListener(view1 -> {
             getActivity().onBackPressed();
@@ -62,31 +70,36 @@ public class SubjectFragment extends Fragment {
         viewModel.getTitleText().observe(getViewLifecycleOwner(), titleText -> titleTv.setText(titleText));
 
 
-
-        String url2 = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
-//        getSubjectName(url2);
+        String API_URL = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE subjects <> '' ORDER BY id DESC LIMIT 10  ;";
         cacheManager = new CacheManager("CACHE_KEY_FOR_SHOW_SUBJECT_LIST");
         String response = cacheManager.getFromCache(view.getContext());
 
         if (response != null && !response.isEmpty()){
             updateUI(response);
         }else {
-            getData(url2);
+            getData(API_URL);
         }
+        retryButton.setOnClickListener(v -> retryToGetData(API_URL));
 
-
-//        getData(url2);
         return view;
     }
 
-
+    private void retryToGetData(String API_URL){
+        tryAgainLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        getData(API_URL);
+    }
 
     private void getData(String API_URL){
         StringRequest request=new StringRequest(API_URL, response ->  {
             cacheManager.saveToCache(recyclerView.getContext(),response);
             updateUI(response);
         },
-                error -> Log.d("error", Objects.requireNonNull(error.getMessage()))
+                error -> {
+            delayTryAgainLayout();
+            Log.d("error", Objects.requireNonNull(error.getMessage()));
+        }
         );
         RequestQueue queue= Volley.newRequestQueue(recyclerView.getContext());
         queue.add(request);
@@ -116,6 +129,19 @@ public class SubjectFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
+    }
+
+
+    public void delayTryAgainLayout() {
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        tryAgainLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        new Handler().postDelayed(() -> {
+            tryAgainLayout.setVisibility(View.VISIBLE);
+            shimmerFrameLayout.stopShimmer();
+            shimmerFrameLayout.setVisibility(View.GONE);
+        }, 5000);
     }
 
     /*

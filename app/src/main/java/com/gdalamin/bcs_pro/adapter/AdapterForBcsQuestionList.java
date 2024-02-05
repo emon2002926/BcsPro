@@ -4,6 +4,7 @@
             import android.annotation.SuppressLint;
             import android.content.Context;
             import android.content.Intent;
+            import android.content.res.Resources;
             import android.view.LayoutInflater;
             import android.view.View;
             import android.view.ViewGroup;
@@ -21,13 +22,14 @@
             import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 
             import java.nio.charset.StandardCharsets;
+            import java.text.NumberFormat;
+            import java.util.Locale;
 
-            public class adapterForAllSubject extends RecyclerView.Adapter<adapterForAllSubject.myviewholder> {
+            public class AdapterForBcsQuestionList extends RecyclerView.Adapter<AdapterForBcsQuestionList.myviewholder> {
                 ModelForLectureAndAllQuestion[] data;
                 private int lastPosition = -1;
-                Context context;
 
-                public adapterForAllSubject(ModelForLectureAndAllQuestion[] data) {
+                public AdapterForBcsQuestionList(ModelForLectureAndAllQuestion[] data) {
                     this.data = data;
                 }
 
@@ -44,32 +46,65 @@
                 @Override
                 public void onBindViewHolder(@NonNull final myviewholder holder, @SuppressLint("RecyclerView") final int position) {
 
+
+
                     SharedPreferencesManagerAppLogic preferencesManager = new SharedPreferencesManagerAppLogic(holder.bcsYearName.getContext());
+
+                    Resources resources = holder.tvSubject.getContext().getResources();
+                    String amount = resources.getText(R.string.amountOfQuestion)+" : "+convertToBengaliString(data[position].getTotalQuestion());
+                    holder.numOfQuestion.setText(amount);
+
 
                     setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
+
                     String subjectName = convertToUTF8(data[position].getSubjects());
-
-
-//                    holder.tvPosition.setText(position + 1 +".");
-
 
                     holder.tvSubject.setText(subjectName);
                     holder.cardView1.setVisibility(View.GONE);
                     holder.subjectLayout.setVisibility(View.VISIBLE);
-                    holder.subjectLayout.setOnClickListener(view -> {
-                        preferencesManager.saveString("subjectCode",convertToUTF8(data[position].getSubjectCode()));
-                        String ACTION = "subject_Specific_Question";
-                        preferencesManager.saveString("Type_Of_Question_To_Load",ACTION);
-                        Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
-                        intent.putExtra("titleText",subjectName);
-                        view.getContext().startActivity(intent);
+
+
+                    holder.bcsYearName.setText(data[position].getText());
+
+                    holder.cardView1.setVisibility(View.VISIBLE);
+                    holder.subjectLayout.setVisibility(View.GONE);
+                    holder.cardView1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            String subjectName = data[position].getText();
+
+                            String  oldBcs = "Older_Bcs_Question";
+                            preferencesManager.saveString("oldBcs",oldBcs);
+
+                            preferencesManager.saveString("bcsYearName",subjectName);
+                            preferencesManager.saveInt("subCode",4);
+
+                            Intent intent = new Intent(view.getContext(), QuestionListActivity.class);
+                            intent.putExtra("titleText",subjectName);
+                            view.getContext().startActivity(intent);
+
+                        }
                     });
+
+
                 }
                 private String convertToUTF8(String inputString) {
                     return new String(inputString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
                 }
 
+                public String convertToBengaliString(String numberStr) {
+                    try {
+                        double number = Double.parseDouble(numberStr);
+                        Locale bengaliLocale = new Locale("bn", "BD");
+                        NumberFormat bengaliNumberFormat = NumberFormat.getNumberInstance(bengaliLocale);
+                        return bengaliNumberFormat.format(number);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace(); // You can log or handle the error here
+                        return numberStr; // Return the original string as-is
+                    }
+                }
 
                 @Override
                 public int getItemCount() {
@@ -77,7 +112,7 @@
                 }
 
                 static class myviewholder extends RecyclerView.ViewHolder {
-                    TextView bcsYearName, numOfQuestion,tvSubject,tvPosition;
+                    TextView bcsYearName, numOfQuestion,tvSubject;
                     LinearLayout cardView1,subjectLayout;
 
                     public myviewholder(@NonNull View itemView) {
@@ -88,7 +123,6 @@
                         cardView1 = itemView.findViewById(R.id.layout1);
                         subjectLayout = itemView.findViewById(R.id.layout2);
                         tvSubject = itemView.findViewById(R.id.tvSubject);
-//                        tvPosition = itemView.findViewById(R.id.tvPosition);
                     }
 
 

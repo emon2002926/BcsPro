@@ -53,7 +53,9 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
             setAnimation(holder.tvSubject.getContext(),holder.itemView,position);
 
                 String subjectName = convertToUTF8(data[position].getSubjects());
-                holder.tvPosition.setText(position + 1 +")");
+
+//                holder.tvPosition.setText(position + 1 +")");
+
                 holder.tvSubject.setText(subjectName);
                 holder.cardView1.setVisibility(View.GONE);
                 holder.subjectLayout.setVisibility(View.VISIBLE);
@@ -160,7 +162,6 @@ public class adapterForAllSubjectExam extends RecyclerView.Adapter<adapterForAll
             cardView1 = itemView.findViewById(R.id.layout1);
             subjectLayout = itemView.findViewById(R.id.layout2);
             tvSubject = itemView.findViewById(R.id.tvSubject);
-            tvPosition = itemView.findViewById(R.id.tvPosition);
         }
 
 

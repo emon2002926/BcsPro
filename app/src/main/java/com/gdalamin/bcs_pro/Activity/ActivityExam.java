@@ -134,12 +134,17 @@ public class ActivityExam extends AppCompatActivity {
                 return;
            }
             getExamQuestions( questionType);
-//            retryBtn.setOnClickListener(view -> );
             retryBtn.setOnClickListener(v -> {
-//                shimmerFrameLayout.setVisibility(View.VISIBLE);
+                retryToGetData();
                 getExamQuestions(questionType);
             });
         }
+    }
+
+    private void retryToGetData(){
+        tryAgainLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
     }
 
     public void getExamQuestions(String url ) {
@@ -177,7 +182,6 @@ public class ActivityExam extends AppCompatActivity {
                         floatingActionButton.setImageResource(R.drawable.baseline_keyboard_double_arrow_up_24);
                         floatingActionButton.setContentDescription("Show Result's");
                         finishExam();
-
                     };
 
                     floatingActionButton.setContentDescription("Show SubmissionOption");
@@ -217,9 +221,6 @@ public class ActivityExam extends AppCompatActivity {
                 },
                 error ->
                 {
-//                    tryAgainLayout.setVisibility(View.VISIBLE);
-
-//                    tryAgainLayout.setVisibility(View.VISIBLE);
                     delayTryAgainLayout();
                     floatingActionButton.setVisibility(View.GONE);
                 }
@@ -227,13 +228,13 @@ public class ActivityExam extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(ActivityExam.this);
         queue.add(request);
     }
+
     public void delayTryAgainLayout(){
         REQ_CODE2 = 2;
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         tryAgainLayout.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
-//            tryAgainLayout.setVisibility(View.VISIBLE);
             tryAgainLayout.setVisibility(View.VISIBLE);
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,50 +41,49 @@ public class QuestionListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView textView;
     ImageView imageBackButton;
-    FloatingActionButton showAnswerAndExplanation;
+    FloatingActionButton showOrHideAnswerButton;
     ShimmerFrameLayout shimmerFrameLayout;
-    SharedPreferencesManagerAppLogic preferencesManager;
+    private SharedPreferencesManagerAppLogic preferencesManager;
     int subCode;
-    String Older_Bcs_Question = "";
-    AppDatabase db;
-    String subjectName;
-    String apiWithSql = ApiKeys.API_WITH_SQL;
-    LinearLayout tryAgainLayout;
-    TextView retryBtn;
-    ProgressBar progressBar;
+    private String Older_Bcs_Question = "";
+    private AppDatabase db;
+    private String subjectName;
+    private String apiWithSql = ApiKeys.API_WITH_SQL;
+    private LinearLayout tryAgainLayout;
+    private TextView retryBtn;
     private boolean mBooleanValue = false;
-
     private int currentPage = 1;
     private boolean isLoading = false;
 
-    AdapterForLoadMcqOther adapter2;
+    private AdapterForLoadMcqOther adapter2;
 
     int seed = new Random().nextInt(2000) + 1000;
 
-    String ACTION;
-    String encodedQuery = null;
+    private String ACTION;
+    private String encodedQuery = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
-
+        showOrHideAnswerButton = findViewById(R.id.btnShowAnswer);
         recyclerView = findViewById(R.id.recview);
         shimmerFrameLayout = findViewById(R.id.shimer);
-        shimmerFrameLayout.startShimmer();
-
         tryAgainLayout = findViewById(R.id.tryAgainLayout);
         retryBtn = findViewById(R.id.retryBtn);
-        progressBar = findViewById(R.id.progressBar);
-
-        retryBtn.setOnClickListener(view -> new bgThreat().start());
-
+//        progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.topTv);
-        showAnswerAndExplanation = findViewById(R.id.btnShowAnswer);
         imageBackButton = findViewById(R.id.backButton);
+
+        db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "questionTable").build();
+        preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
+        subCode = preferencesManager.getInt("subCode");
+        Older_Bcs_Question = preferencesManager.getString("oldBcs");
+        subjectName = preferencesManager.getString("bcsYearName");
+        ACTION = preferencesManager.getString("Type_Of_Question_To_Load");
+
         imageBackButton.setOnClickListener(view -> onBackPressed());
         imageBackButton.setContentDescription("Navigate back");
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String titleText = extras.getString("titleText");
@@ -93,20 +91,19 @@ public class QuestionListActivity extends AppCompatActivity {
             //The key argument here must match that used in the other activity
         }
 
-
-        db = Room.databaseBuilder(
-                getApplicationContext(),AppDatabase.class, "questionTable").build();
-
-        preferencesManager = new SharedPreferencesManagerAppLogic(QuestionListActivity.this);
-        subCode = preferencesManager.getInt("subCode");
-        Older_Bcs_Question = preferencesManager.getString("oldBcs");
-        subjectName = preferencesManager.getString("bcsYearName");
-
-        ACTION = preferencesManager.getString("Type_Of_Question_To_Load");
+        shimmerFrameLayout.startShimmer();
+        retryBtn.setOnClickListener(view -> {
+            retryToGetData();
+            new bgThreat().start();
+        });
 
         new bgThreat().start();
-//        testNewPagination();
 
+    }
+    private void retryToGetData(){
+        tryAgainLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
     }
 
     class bgThreat extends Thread {
@@ -114,9 +111,7 @@ public class QuestionListActivity extends AppCompatActivity {
             super.run();
             // Initialize the database instance
             List<model> dataList = db.modelDao().getModelsByBatch(subjectName);
-
             if (Older_Bcs_Question.equals("Older_Bcs_Question")) {
-
                 if (dataList != null && dataList.size() > 49) {
                     // Convert the list to an array
                     model[] data = dataList.toArray(new model[0]);
@@ -137,50 +132,16 @@ public class QuestionListActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String apiWithSql = ApiKeys.API_WITH_SQL;
-                        /*
-                        if (subCode == 3) {
-                            String SUBJECT_CODE = preferencesManager.getString("subjectCode");
-
-                            String url2 = apiWithSql + "&query=SELECT * FROM `question` WHERE subjects LIKE '" + SUBJECT_CODE + "' ORDER BY id DESC LIMIT 200 ";
-                            getMCQuestions(url2);
-                        } else if (subCode == 5) {
-                            //todo hare is the logic for loading Impotant Question woark hare
-                            //call this api using this = "https://www.emon.pixatone.com/Test%20Api%27s/testCustomQueryWithPagination.php?apiKey=abc123&apiNum=1&pageNo=1&query=SELECT *FROM question WHERE batch LIKE '44th BCS'"
-
-                            String url2 = ApiKeys.API_WITH_SQL + "&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
-//                            getMCQuestions(url2);
-                            testNewPagination();
-                        }
-
-                         */
                         if (ACTION.equals("subject_Specific_Question")) {
-
-                            /*
                             String SUBJECT_NAME_CODE = preferencesManager.getString("subjectCode");
-                            String url2 = apiWithSql + "&query=SELECT * FROM `question` WHERE subjects LIKE '" + SUBJECT_NAME_CODE + "' ORDER BY id DESC LIMIT 200 ";
-                            getMCQuestions(url2);
-
-
-                             */
-                            String SUBJECT_NAME_CODE = preferencesManager.getString("subjectCode");
-
                             encodedQuery = null;
                             try {
                                 encodedQuery = URLEncoder.encode("SELECT * FROM question WHERE subjects LIKE '"+SUBJECT_NAME_CODE+"'", "UTF-8");
                             } catch (UnsupportedEncodingException e) {
                                 throw new RuntimeException(e);
                             }
-
                             testNewPagination(encodedQuery);
-//                            Log.d("gjyuy","subject_Specific_Question : Bolck activited");
-
-
                         } else if (ACTION.equals("important_Question")) {
-//                            String url2 = ApiKeys.API_WITH_SQL + "&query=SELECT * FROM question ORDER BY RAND() LIMIT 200;";
-//                            getMCQuestions(url2);
-
-
                             encodedQuery = null;
                             try {
                                 encodedQuery = URLEncoder.encode("SELECT * FROM question ", "UTF-8");
@@ -200,33 +161,26 @@ public class QuestionListActivity extends AppCompatActivity {
     private void testNewPagination(String encodedQuery) {
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
-        retryBtn.setEnabled(true);
         recyclerView.setVisibility(View.VISIBLE);
-//        showAnswerAndExplanation.setVisibility(View.VISIBLE);
-
         adapter2 = new AdapterForLoadMcqOther(new model[0]);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 recyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter2); // Set the adapter on the RecyclerView
-
-        showAnswerAndExplanation.setOnClickListener(view -> {
+        showOrHideAnswerButton.setOnClickListener(view -> {
             mBooleanValue = !mBooleanValue;
             adapter2.setBooleanValue(mBooleanValue);
 
             if (!mBooleanValue) {
 
-                showAnswerAndExplanation.setImageResource(R.drawable.hidden);
-                showAnswerAndExplanation.setContentDescription("Hide Answer");
+                showOrHideAnswerButton.setImageResource(R.drawable.hidden);
+                showOrHideAnswerButton.setContentDescription("Hide Answer");
             } else if (mBooleanValue) {
-                showAnswerAndExplanation.setImageResource(R.drawable.view);
-                showAnswerAndExplanation.setContentDescription("Show Answer");
+                showOrHideAnswerButton.setImageResource(R.drawable.view);
+                showOrHideAnswerButton.setContentDescription("Show Answer");
             }
         });
-
-
         String API_URL = "https://www.emon.pixatone.com/Test%20Api%27s/testCustomQueryWithPagination.php" +
                 "?apiKey=abc123" +
                 "&apiNum=1" +
@@ -235,8 +189,6 @@ public class QuestionListActivity extends AppCompatActivity {
                 "&seed=" + seed;
 
         getQuestionList(API_URL);
-
-
         // Listen for scroll events to load more data
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -279,12 +231,10 @@ public class QuestionListActivity extends AppCompatActivity {
         // Process the API response
         StringRequest request = new StringRequest(url, response -> {
 
-            tryAgainLayout.setVisibility(View.GONE);
             processApiResponse(response);
 
         }, error -> {
-
-            showAnswerAndExplanation.setVisibility(View.GONE);
+            showOrHideAnswerButton.setVisibility(View.GONE);
             delayTryAgainLayout();
             isLoading = false;
             Log.e("QuestionBankFragment", "Error fetching data: " + error.getMessage());
@@ -300,14 +250,11 @@ public class QuestionListActivity extends AppCompatActivity {
         // Process the API response as usual
         shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        retryBtn.setEnabled(true);
         recyclerView.setVisibility(View.VISIBLE);
-        showAnswerAndExplanation.setVisibility(View.VISIBLE);
+        showOrHideAnswerButton.setVisibility(View.VISIBLE);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-
 
 
         model[] newData = gson.fromJson(response, model[].class);
@@ -327,19 +274,15 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
     private void getMCQuestions(String API_URL) {
-
-        shimmerFrameLayout.setVisibility(View.VISIBLE);
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 GsonBuilder builder = new GsonBuilder().setLenient();
                 Gson gson = builder.create();
 
-
                 JsonReader reader = new JsonReader(new StringReader(response));
                 reader.setLenient(true);
                 model[] data = gson.fromJson(reader, model[].class);
-
                 updateUi(data);
                 class bgThreat1 extends Thread {
                     public void run() {
@@ -353,7 +296,6 @@ public class QuestionListActivity extends AppCompatActivity {
         }, error -> {
             delayTryAgainLayout();
         });
-
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
     }
@@ -362,7 +304,7 @@ public class QuestionListActivity extends AppCompatActivity {
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         tryAgainLayout.setVisibility(View.GONE);
-        showAnswerAndExplanation.setVisibility(View.GONE);
+        showOrHideAnswerButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
         new Handler().postDelayed(() -> {
             tryAgainLayout.setVisibility(View.VISIBLE);
@@ -371,33 +313,26 @@ public class QuestionListActivity extends AppCompatActivity {
         }, 5000);
     }
 
-
-
-
     private void updateUi(model[] model1) {
         shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        retryBtn.setEnabled(true);
         recyclerView.setVisibility(View.VISIBLE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()
                 , LinearLayoutManager.VERTICAL, false);
-
         recyclerView.setLayoutManager(linearLayoutManager);
         AdapterForLoadMcqOther adapter = new AdapterForLoadMcqOther(model1);
         recyclerView.setAdapter(adapter);
 
-        showAnswerAndExplanation.setOnClickListener(view -> {
+        showOrHideAnswerButton.setOnClickListener(view -> {
             mBooleanValue = !mBooleanValue;
             adapter.setBooleanValue(mBooleanValue);
 
             if (!mBooleanValue) {
-
-                showAnswerAndExplanation.setImageResource(R.drawable.hidden);
-                showAnswerAndExplanation.setContentDescription("Hide Answer");
+                showOrHideAnswerButton.setImageResource(R.drawable.hidden);
+                showOrHideAnswerButton.setContentDescription("Hide Answer");
             } else if (mBooleanValue) {
-                showAnswerAndExplanation.setImageResource(R.drawable.view);
-                showAnswerAndExplanation.setContentDescription("Show Answer");
+                showOrHideAnswerButton.setImageResource(R.drawable.view);
+                showOrHideAnswerButton.setContentDescription("Show Answer");
             }
         });
     }
