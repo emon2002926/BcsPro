@@ -4,75 +4,50 @@ import androidx.annotation.Keep;
 
 @Keep public class ModelForLectureAndAllQuestion {
 
-    String lectureDetails,pdfLink,pdfDate,course,text,subjects,subjectCode,totalQuestion,BcsYearName;
+    String bcsYearName,dailyExam,subjects,subjectCode,totalQuestion;
 
     public ModelForLectureAndAllQuestion(){
 
     }
-    public ModelForLectureAndAllQuestion(String lectureDetails, String pdfLink, String pdfDate
-            ,String course,String text,String subjects,String subjectCode,String totalQuestion,String BcsYearName){
+    public ModelForLectureAndAllQuestion(String bcsYearName,String dailyExam,String subjects,String subjectCode,String totalQuestion){
 
-        this.lectureDetails = lectureDetails;
-        this.pdfLink = pdfLink;
-        this.pdfDate = pdfDate;
-        this.course = course;
-        this.text = text;
+        this.bcsYearName = bcsYearName;
+        this.dailyExam = dailyExam;
         this.subjects= subjects;
         this.subjectCode = subjectCode;
         this.totalQuestion = totalQuestion;
-        this.BcsYearName = BcsYearName;
     }
 
     public String getBcsYearName() {
-        return BcsYearName;
+        return bcsYearName;
+    }
+
+    public void setBcsYearName(String bcsYearName) {
+        this.bcsYearName = bcsYearName;
+    }
+
+    public String getDailyExam() {
+        return dailyExam;
+    }
+
+    public void setDailyExam(String dailyExam) {
+        this.dailyExam = dailyExam;
     }
 
     public String getSubjects() {
         return subjects;
     }
 
-    public String getSubjectCode() {
-        return subjectCode;
-    }
-
     public void setSubjects(String subjects) {
         this.subjects = subjects;
     }
 
-    public String getText() {
-        return text;
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public String getLectureDetails() {
-        return lectureDetails;
-    }
-
-    public void setLectureDetails(String lectureDetails) {
-        this.lectureDetails = lectureDetails;
-    }
-
-    public String getPdfDate() {
-        return pdfDate;
-    }
-
-    public void setPdfDate(String pdfDate) {
-        this.pdfDate = pdfDate;
-    }
-
-    public String getPdfLink() {
-        return pdfLink;
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
     public String getTotalQuestion() {
@@ -81,9 +56,5 @@ import androidx.annotation.Keep;
 
     public void setTotalQuestion(String totalQuestion) {
         this.totalQuestion = totalQuestion;
-    }
-
-    public void setPdfLink(String pdfLink) {
-        this.pdfLink = pdfLink;
     }
 }

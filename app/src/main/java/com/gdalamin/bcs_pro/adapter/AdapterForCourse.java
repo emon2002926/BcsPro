@@ -48,7 +48,7 @@ public class AdapterForCourse extends RecyclerView.Adapter<AdapterForCourse.myvi
 
 
 
-        String courseImageName = data[position].getCourse();
+//        String courseImageName = data[position].getCourse();
 
 //        Glide.with(holder.imgCourse1.getContext())
 //                .load(ApiKeys.API_URL+"api/image/" + courseImageName)

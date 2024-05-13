@@ -23,7 +23,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gdalamin.bcs_pro.R;
-import com.gdalamin.bcs_pro.modelClass.ModelForLectureAndAllQuestion;
 import com.gdalamin.bcs_pro.modelClass.QuestionList;
 import com.gdalamin.bcs_pro.modelClass.model;
 
@@ -74,6 +73,7 @@ public  class AdapterForLoadMcqOther extends RecyclerView.Adapter<AdapterForLoad
         holder.img3.setImageResource(R.drawable.round_back_white50_100);
         holder.option4Layout.setBackgroundResource(0);
         holder.img4.setImageResource(R.drawable.round_back_white50_100);
+
         holder.option1Layout.setEnabled(true);
         holder.option2Layout.setEnabled(true);
         holder.option3Layout.setEnabled(true);

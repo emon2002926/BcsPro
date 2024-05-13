@@ -65,7 +65,7 @@
                     holder.subjectLayout.setVisibility(View.VISIBLE);
 
 
-                    holder.bcsYearName.setText(data[position].getText());
+                    holder.bcsYearName.setText(data[position].getBcsYearName());
 
                     holder.cardView1.setVisibility(View.VISIBLE);
                     holder.subjectLayout.setVisibility(View.GONE);
@@ -73,7 +73,7 @@
                         @Override
                         public void onClick(View view) {
 
-                            String subjectName = data[position].getText();
+                            String subjectName = data[position].getBcsYearName();
 
                             String  oldBcs = "Older_Bcs_Question";
                             preferencesManager.saveString("oldBcs",oldBcs);

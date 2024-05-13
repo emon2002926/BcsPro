@@ -2,13 +2,13 @@ package com.gdalamin.bcs_pro.Activity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -125,6 +125,7 @@ public class QuestionListActivity extends AppCompatActivity {
                 }
                 else {
                     String url2 = apiWithSql + "&query=SELECT * FROM question WHERE batch LIKE '" + subjectName + "' ORDER BY id DESC LIMIT 200";
+                    Log.d("link_url",url2);
                     getMCQuestions(url2);
                 }
             } else if (Older_Bcs_Question.equals("")) {
@@ -181,13 +182,13 @@ public class QuestionListActivity extends AppCompatActivity {
                 showOrHideAnswerButton.setContentDescription("Show Answer");
             }
         });
-        String API_URL = "https://www.emon.pixatone.com/Test%20Api%27s/testCustomQueryWithPagination.php" +
+        String API_URL = "https://www.bcs.bdstar.xyz/api/getData2.php" +
                 "?apiKey=abc123" +
                 "&apiNum=1" +
-                "&pageNo=" + currentPage +
-                "&query=" + encodedQuery +
-                "&seed=" + seed;
+                "&page=" + currentPage +
+                "&limit=20";
 
+        Log.d("link_url",API_URL);
         getQuestionList(API_URL);
         // Listen for scroll events to load more data
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -207,7 +208,7 @@ public class QuestionListActivity extends AppCompatActivity {
         int totalItemCount = layoutManager.getItemCount();
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
-        int bufferItemCount = 65; // Adjust the buffer as needed
+        int bufferItemCount = 25; // Adjust the buffer as needed
 
         if (!isLoading && (visibleItemCount + firstVisibleItemPosition + bufferItemCount) >= totalItemCount
                 && firstVisibleItemPosition >= 0) {
@@ -215,13 +216,13 @@ public class QuestionListActivity extends AppCompatActivity {
             isLoading = true;
             currentPage++;
 
-            String apiUrl = "https://www.emon.pixatone.com/Test%20Api%27s/testCustomQueryWithPagination.php" +
+            String apiUrl = "https://www.bcs.bdstar.xyz/api/getData2.php" +
                     "?apiKey=abc123" +
                     "&apiNum=1" +
-                    "&pageNo=" + currentPage +
-                    "&query=" + encodedQuery +
-                    "&seed=" + seed;
+                    "&page=" + currentPage+
+                    "&limit=20";
 
+            Log.d("link_url",apiUrl);
             getQuestionList(apiUrl);
 
         }
@@ -229,6 +230,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
     public void getQuestionList(String url) {
         // Process the API response
+        Log.d("link_url",url);
         StringRequest request = new StringRequest(url, response -> {
 
             processApiResponse(response);
@@ -274,6 +276,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
     private void getMCQuestions(String API_URL) {
+        Log.d("link_url",API_URL);
         StringRequest request = new StringRequest(API_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

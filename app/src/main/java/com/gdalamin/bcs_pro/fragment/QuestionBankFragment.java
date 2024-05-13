@@ -52,7 +52,8 @@ public class QuestionBankFragment extends Fragment {
         // Handle back button click
         imageBackButton.setOnClickListener(view1 -> getActivity().onBackPressed());
 
-        String API_URL = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE text <> '' ORDER BY id ;";
+        String API_URL = ApiKeys.API_WITH_SQL+"&query=SELECT * FROM other WHERE bcsYearName <> '' ORDER BY id ;";
+        Log.d("jkghkfgfuy",API_URL);
         cacheManager = new CacheManager("CACHE_KEY_FOR_OLDER_BCS_EXAM");
         String response2 = cacheManager.getFromCache(context);
         if (response2 != null && !response2.isEmpty()){
@@ -73,6 +74,7 @@ public class QuestionBankFragment extends Fragment {
         StringRequest request=new StringRequest(API_URL, response ->  {
             cacheManager.saveToCache(recyclerView.getContext(),response);
             updateUI(response);
+            Log.d("ghdh",response);
         },
                 error -> {
             cacheManager.saveToCache(recyclerView.getContext(),null);

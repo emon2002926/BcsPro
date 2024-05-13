@@ -67,6 +67,9 @@ public class McqTestActivity extends AppCompatActivity {
 
     ShimmerFrameLayout shimmerFrameLayout;
 
+    private boolean quizFinished = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,46 +171,33 @@ public class McqTestActivity extends AppCompatActivity {
 //              for right or worong logic for ui
                 if (i==1  ){
                     if (i==getAnswer2){
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-//                        mp.start();
-//                         selectedRightOption(option1Layout,option1Icon);
                     }
                     else {
                         selectedWrongOption(option1Layout,option1Icon);
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-//                        mp.start();
+
                     }
                 }
                 if (i==2){
                     if (i==getAnswer2){
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-//                        mp.start();
+
                     }
                     else {
                         selectedWrongOption(option2Layout,option2Icon);
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-//                        mp.start();
+
                     }
                 }
                 if (i==3){
                     if (i==getAnswer2){
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-//                        mp.start();
+
                     }else {
-                        selectedWrongOption(option3Layout,option3Icon);
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-//                        mp.start();
+                        selectedWrongOption(option3Layout,option3Icon);;
                     }
                 }
                 if (i==4){
                     if (i==getAnswer2){
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.correct);
-//                        mp.start();
+
                     }else {
                         selectedWrongOption(option4Layout,option4Icon);
-//                        MediaPlayer mp = MediaPlayer.create(McqTestActivity.this,R.raw.worong);
-//                        mp.start();
-
                     }
                 }
 
@@ -268,7 +258,7 @@ public class McqTestActivity extends AppCompatActivity {
                                 String batch = row.getString("batch");
                                 int answer = row.getInt("answer");
 
-                                startQuizeTimer(180);
+                                startQuizTimer(180);
 
                                 QuestionList questionList = new QuestionList(question,option1,option2,option3,option4,questionImageString,option1ImageString
                                         ,option2ImageString,option3ImageString,option4ImageString, answer);
@@ -301,12 +291,10 @@ public class McqTestActivity extends AppCompatActivity {
 
     //////////////////////////
     private void finishQuiz(){
-
             Intent intent = new Intent(McqTestActivity.this, QuizResult.class);
-
+            quizFinished = true;
             Bundle bundle = new Bundle();
             bundle.putSerializable("qutions",(Serializable) questionslists);
-
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
@@ -314,7 +302,7 @@ public class McqTestActivity extends AppCompatActivity {
     }
 
 
-    private void startQuizeTimer(int maxTimerSceounds ){
+    private void startQuizTimer(int maxTimerSceounds ){
         countDownTimer = new CountDownTimer(maxTimerSceounds* 1000L,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -333,11 +321,16 @@ public class McqTestActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                finishQuiz();
+                if (!quizFinished){
+                    finishQuiz();
+                }
+
             }
         };
         countDownTimer.start();
     }
+
+
     public void stopTimer() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
@@ -417,6 +410,7 @@ public class McqTestActivity extends AppCompatActivity {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
+
 
 
     @Override

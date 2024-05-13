@@ -316,11 +316,14 @@ public class HomeFragment extends Fragment {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-
+//https://bcs.bdstar.xyz/api/getData.php?apiKey=abc123&apiNum=3&page=1&limit=10
     private void getLiveExamDetails(){
         Intent intent = new Intent("INTERNET_RESTORED");
         requireActivity().sendBroadcast(intent);
-        String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2";
+        String API_URL =  ApiKeys.API_URL+"api/getData.php?apiKey=abc123&apiNum=2&page=1&limit=10";
+
+
+//        String urr = "https://bcs.bdstar.xyz/api/getData.php?apiKey=abc123&apiNum=2&page=1&limit=10";
         StringRequest request=new StringRequest(API_URL, response ->  {
 
             cacheManager.saveToCache(recyclerView.getContext(),response);

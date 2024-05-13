@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizResult extends AppCompatActivity {
-
-
     private List<QuestionList> questionLists = new ArrayList<>();
 
     static String score;
@@ -51,7 +49,7 @@ public class QuizResult extends AppCompatActivity {
         incorrect.setText(String.valueOf(10 - getCorrectAnswer()));
 
 
-          score =String.valueOf(getCorrectAnswer());
+        score =String.valueOf(getCorrectAnswer());
 
 
 
